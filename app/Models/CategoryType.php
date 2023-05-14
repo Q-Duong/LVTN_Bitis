@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class CategoryType extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'name_thanhpho', 'type'
+    	'category_id', 'product_type_id'
     ];
-    protected $primaryKey = 'matp';
- 	protected $table = 'tbl_tinhthanhpho';
+    protected $primaryKey = 'category_type_id';
+ 	protected $table = 'category_type';
+
 }

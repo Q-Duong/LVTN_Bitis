@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rating extends Model
 {
-    public $timestamps = false; //set time to false
+    public $timestamps = true; //set time to false
     protected $fillable = [
-    	'rating_id', 'product_id', 'rating'
+    	'rating_star', 'rating_comment','product_detail_id','user_id'
     ];
-    protected $primaryKey = 'rating_id';
- 	protected $table = 'tbl_rating';
+    protected $primaryKey = 'rating_id ';
+ 	protected $table = 'rating';
 }

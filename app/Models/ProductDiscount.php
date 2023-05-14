@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Contact extends Model
+class ProductDiscount extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'info_contact', 'info_map', 'info_logo'
+    	'product_id','discount_id'
     ];
-    protected $primaryKey = 'info_id';
- 	protected $table = 'tbl_infomation';
+    protected $primaryKey = 'product_discount_id ';
+ 	protected $table = 'product_discount';
+
 }

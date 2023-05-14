@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public $timestamps = false; //set time to false
+    public $timestamps = true; //set time to false
     protected $fillable = [
-    	'producer_id','category_product_id','product_name', 'product_slug','product_desc','product_content','product_parameter','product_active','product_cost','product_price','product_image','product_status','product_quantity'
+    	'product_name','product_price','product_tag', 'product_description','product_type_id'
     ];
     protected $primaryKey = 'product_id';
- 	protected $table = 'tbl_product';
+ 	protected $table = 'product';
 
-     public function category_product(){
-        return $this->belongsTo('App\Models\CategoryProduct','category_product_id');
-    }
+    //  public function category_product(){
+    //     return $this->belongsTo('App\Models\CategoryProduct','category_product_id');
+    // }
 
-    public function producer(){
-        return $this->belongsTo('App\Models\Producer','producer_id');
-    }
+    // public function producer(){
+    //     return $this->belongsTo('App\Models\Producer','producer_id');
+    // }
 
-    public function comment(){
-        return $this->hasMany('App\Models\Comment');
-    }
+    // public function comment(){
+    //     return $this->hasMany('App\Models\Comment');
+    // }
 }

@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Category extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'account_id', 'admin_name','admin_avatar'
+    	'category_name'
     ];
-    protected $primaryKey = 'admin_id';
- 	protected $table = 'admin';
+    protected $primaryKey = 'category_id';
+ 	protected $table = 'category';
 }
