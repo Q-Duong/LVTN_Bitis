@@ -43,8 +43,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="w3layouts-main">
             <h2>Đăng nhập</h2>
             @if(session('error'))
-                <div class="alert alert-danger">{!! session('error') !!}</div>
-            @endif
+                <div class="alert alert-danger">{!! session('error') !}</div>
+            @endif!
 
             <form action="{{URL::to('/admin-login')}}" method="post">
                 @csrf

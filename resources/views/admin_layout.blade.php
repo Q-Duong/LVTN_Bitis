@@ -199,190 +199,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                         </li>
 
-                        <li>
-                            <a href="{{URL::to('/information')}}">
-                                <i class="fa fa-info-circle"></i>
-                                <span>Thông tin Apple Store</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{URL::to('/manage-order')}}">
-                                <i class="fas fa-file-alt"></i>
-                                <span>Quản lý đơn hàng</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{URL::to('/comment')}}">
-                                <i class="fas fa-comments"></i>
-                                <span>Quản lý bình luận</span>
-                            </a>
-                        </li>
 
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
-                                <span>Danh sách khách hàng</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-customer-admin')}}">
-                                        <i class="fas fa-user-plus"></i> Thêm khách hàng
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-customer')}}">
-                                        <i class="fas fa-list-ol"></i> Quản lý khách hàng
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="far fa-building"></i>
-                                <span>Danh sách nhà cung cấp</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-producer')}}">
-                                        <i class="far fa-plus-square"></i> Thêm nhà cung cấp
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-producer')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý nhà cung cấp
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="far fa-list-alt"></i>
                                 <span>Danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{URL::to('/add-category-product')}}">
-                                        <i class="far fa-plus-square"></i> Thêm danh mục sản phẩm
+                                    <a href="{{URL::to('/add-category')}}">
+                                        <i class="fas fa-user-plus"></i> Thêm danh mục
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{URL::to('/all-category-product')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý danh mục sản phẩm
+                                    <a href="{{URL::to('/list-category')}}">
+                                        <i class="fas fa-list-ol"></i> Quản lý danh mục
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <!-- <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-book"></i>
-                                <span>Thuộc tính</span>
-                            </a>
-                            <ul class="sub">
-                                <li><a href="{{URL::to('/add-attribute')}}">Thêm thuộc tính</a></li>
-                                <li><a href="{{URL::to('/list-attribute')}}">Quản lý thuộc tính</a></li>
-
-                            </ul>
-                        </li> -->
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fab fa-apple"></i>
-                                <span>Sản phẩm</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-product')}}">
-                                        <i class="far fa-plus-square"></i> Thêm sản phẩm
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/all-product')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý sản phẩm
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fas fa-ticket-alt"></i>
-                                <span>Mã khuyến mãi</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/insert-coupon')}}">
-                                        <i class="far fa-plus-square"></i> Thêm mã khuyến mãi
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-coupon')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý mã khuyến mãi
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fas fa-th"></i>
-                                <span>Danh mục bài viết</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-category-post')}}">
-                                        <i class="far fa-plus-square"></i> Thêm danh mục bài viết
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-category-post')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý danh mục bài viết
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fab fa-blogger-b"></i>
-                                <span>Bài viết</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-post')}}">
-                                        <i class="far fa-plus-square"></i> Thêm bài viết
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-post')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý bài viết
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-picture-o"></i>
-                                <span>Slider</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-slider')}}">
-                                        <i class="far fa-plus-square"></i> Thêm slider
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-slider')}}">
-                                        <i class="far fa-list-alt"></i> Quản lý slider
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
 
                     </ul>
                     <!-- sidebar menu end-->

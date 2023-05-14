@@ -7,16 +7,15 @@
                 Cập nhật danh mục sản phẩm
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/all-category-product')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/list-category')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
-                @foreach($edit_category_product as $key =>$edit_value)
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category-product/'.$edit_value->category_product_id)}}"
-                        method="post" enctype="multipart/form-data">
-                        {{csrf_field()}}
+                    <form role="form" action="{{URL::to('/update-category/'.$edit_value->category_id)}}"
+                        method="post" >
+                        @csrf
                         <!-- <div class="form-group">
                             <label for="exampleInputPassword1">Thuộc danh mục</label>
                             <select name="category_product_parent" class="form-control m-bot15">
@@ -39,36 +38,17 @@
                         </div> -->
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên danh mục</label>
-                            <input type="text" value="{{$edit_value->category_product_name}}" name="category_product_name" class="form-control" id="slug" onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" value="{{$edit_value->category_name}}" name="category_name" class="form-control" id="slug" onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="text" value="{{$edit_value->category_product_slug}}" name="category_product_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Hình ảnh danh mục</label>
-                            <input type="file" name="category_product_image" class="form-control" >
-                            <img class="img-fluid"
-                                src="{{asset('uploads/categoryproduct/'.$edit_value->category_product_image)}}" alt="">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Hiển thị</label>
-                            <select name="category_product_status" class="form-control m-bot15">
-                                @if($edit_value->category_product_status==1)
-                                    <option selected value="1">Hiển thị</option>
-                                    <option value="0">Ẩn</option>
-                                @else
-                                    <option value="1">Hiển thị</option>
-                                    <option selected value="0">Ẩn</option>
-                                @endif
-                            </select>
+                            <input type="text" value="{{$edit_value->category_slug}}" name="category_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
 
                         <button type="submit" name="update_category_product" class="btn btn-info">Cập nhật danh
                             mục</button>
                     </form>
                 </div>
-                @endforeach
             </div>
         </section>
 
