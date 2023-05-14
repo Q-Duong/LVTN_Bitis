@@ -16,26 +16,6 @@
                     <form role="form" action="{{URL::to('/update-category/'.$edit_value->category_id)}}"
                         method="post" >
                         @csrf
-                        <!-- <div class="form-group">
-                            <label for="exampleInputPassword1">Thuộc danh mục</label>
-                            <select name="category_product_parent" class="form-control m-bot15">
-                                <option value="0">---Danh mục cha---</option>
-                                @foreach($category as $key => $val)
-
-                                    @if($val->category_product_parent==0)
-                                        <option {{$val->category_product_id == $edit_value->category_product_id ? 'selected' : ''}} value="{{$val->category_product_id}}">{{$val->category_product_name}}</option>
-                                    @endif
-
-                                    @foreach($category as $key => $val2)
-
-                                        @if($val2->category_product_parent == $val->category_product_id && $val2->category_product_parent != 0)
-                                            <option {{$val2->category_product_id == $edit_value->category_product_id ? 'selected' : ''}} value="{{$val2->category_product_id}}">---{{$val2->category_product_name}}---</option>
-                                        @endif
-
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        </div> -->
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên danh mục</label>
                             <input type="text" value="{{$edit_value->category_name}}" name="category_name" class="form-control" id="slug" onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
