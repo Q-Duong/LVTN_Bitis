@@ -17,15 +17,15 @@
                         <th>Id danh mục</th>
                         <th>Tên danh mục</th>
                         <th>Slug danh mục</th>
-                        <th style="width:60px;">Quản lý</th>
+                        <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
                 <tbody id="category_order">
-                    @foreach($all_category_product as $key =>$cate_pro)
+                    @foreach($getAllListCategory as $key =>$cate_pro)
                     <tr>
-                        <td>{{ $cate_pro->category_id }}</td>
+                        <td>{{ $cate_pro -> category_id }}</td>
                         <td>{{$cate_pro -> category_name}}</td>
-                        <td>{{ $cate_pro->category_product_slug }}</td>
+                        <td>{{ $cate_pro-> category_slug }}</td>
                         <td>
                             <a href="{{URL::to('edit-category/'.$cate_pro -> category_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i
