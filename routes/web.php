@@ -28,5 +28,5 @@ Route::get('/add-category','App\Http\Controllers\CategoryController@add_category
 Route::post('save-category','App\Http\Controllers\CategoryController@save_category');
 Route::get('/list-category','App\Http\Controllers\CategoryController@list_category');
 Route::get('/edit-category/{category_id}','App\Http\Controllers\CategoryController@edit_category');
-Route::post('update-category','App\Http\Controllers\CategoryController@update_category');
-Route::delete('/delete-category/{category_id}','App\Http\Controllers\CategoryController@delete_category');
+Route::post('update-category/{category_id}','App\Http\Controllers\CategoryController@update_category');
+Route::get('/delete-category/{category_id}','App\Http\Controllers\CategoryController@delete_category');
