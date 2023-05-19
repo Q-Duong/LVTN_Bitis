@@ -30,3 +30,10 @@ Route::get('/list-category','App\Http\Controllers\CategoryController@list_catego
 Route::get('/edit-category/{category_id}','App\Http\Controllers\CategoryController@edit_category');
 Route::post('update-category','App\Http\Controllers\CategoryController@update_category');
 Route::delete('/delete-category/{category_id}','App\Http\Controllers\CategoryController@delete_category');
+Route::get('/add-category-type','App\Http\Controllers\CategoryController@add_category_type');
+Route::post('save-category-type','App\Http\Controllers\CategoryController@save_category_type');
+
+Route::get('/add-product-type','App\Http\Controllers\ProductController@add_product_type');
+Route::post('/save-product-type','App\Http\Controllers\ProductController@save_product_type');
+Route::get('/list-product-type','App\Http\Controllers\ProductController@list_product_type');
+//Route::update('/update-product-type','App\Http\Controllers\ProductController@update_product_type');
