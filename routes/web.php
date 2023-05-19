@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +29,10 @@ Route::get('/list-category','App\Http\Controllers\CategoryController@list_catego
 Route::get('/edit-category/{category_id}','App\Http\Controllers\CategoryController@edit_category');
 Route::post('update-category/{category_id}','App\Http\Controllers\CategoryController@update_category');
 Route::get('/delete-category/{category_id}','App\Http\Controllers\CategoryController@delete_category');
+//Product
+Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
+Route::post('save-product','App\Http\Controllers\ProductController@save_product');
+Route::get('/list-product','App\Http\Controllers\ProductController@list_product');
+Route::get('/edit-product/{product_id}','App\Http\Controllers\ProductController@edit_product');
+Route::post('update-product/{product_id}','App\Http\Controllers\ProductController@update_product');
+Route::get('/delete-product/{product_id}','App\Http\Controllers\ProductController@delete_product');
