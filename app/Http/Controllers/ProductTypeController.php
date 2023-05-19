@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 
-class ProductController extends Controller
+class ProductTypeController extends Controller
 {
     function add_product_type(){
         return view('admin.ProductType.add_product_type');
