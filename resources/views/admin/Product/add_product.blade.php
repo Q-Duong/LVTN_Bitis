@@ -22,15 +22,15 @@
                                 <div class="alert alert-danger">{!! session('error') !!}</div>
                             @endif
                         </div>
-                        
                         <div class="form-group">
                             <label for="exampleInputPassword1">Loại sản phẩm</label>
                             <select name="product_type_id" class="form-control m-bot15">
-                                <option value="2">Mới</option>
-                                <option value="1">Khuyến mãi</option>
-                                <option value="0">Trống</option>
+                                @foreach($getAllProductType as $key =>$product_type)
+                                <option value="{{$product_type->product_type_id}}">{{$product_type->product_type_name}}</option>
+                                @endforeach
                             </select>
                         </div>
+                        
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>
                             <input type="text" name="product_name" class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_name') }}">
@@ -65,9 +65,9 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Tình trạng</label>
                             <select name="product_tag" class="form-control m-bot15">
-                                <option value="3">Hết hàng</option>
                                 <option value="1">Mới</option>
-                                <option value="2">Khuyến mãi</option>
+                                <option value="2">Hết hàng</option>
+                                <option value="3">Khuyến mãi</option>
                                 <option value="0">Trống</option>
                             </select>
                         </div>
