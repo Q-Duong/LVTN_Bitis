@@ -55,7 +55,7 @@ class CategoryController extends Controller
     }
     function save_category_type(Request $request){
         $data=$request->all();
-        dd($data);
+        // dd($data);
         $category_type=new Category_Type();
         $category_type->category_name=$data['category_name'];
         $category->category_slug=$data['category_slug'];

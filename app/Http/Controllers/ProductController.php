@@ -16,8 +16,12 @@ class ProductController extends Controller
     }
     function list_product(){
         $getAllListProduct=Product::orderBy('product_id','ASC')->get();
-        dd($getAllListProduct);
+        // dd($getAllListProduct);
         return view('admin.Product.all_product')->with(compact('getAllListProduct'));
+    }
+    function edit_product($product_id){
+        $edit_value=Product::find($product_id);
+        return view('admin.edit_product')->with(compact('edit_value'));
     }
     function save_product(Request $request){
         $data=$request->all();
@@ -36,5 +40,10 @@ class ProductController extends Controller
         }
         $product->save();
         return Redirect()->back()->with('success','Thêm sản phẩm thành công');
+    }
+    function delete_product($product_id){
+        $product=Product::find($product_id);
+        $product->delete();
+        return Redirect()->back()->with('success','Xóa sản phẩm thành công');
     }
 }
