@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Session;
 use App\Models\Category;
+<<<<<<< HEAD
 use App\Models\ProductType;
 use Carbon\Carbon;
+=======
+>>>>>>> a5d230c40c3f6174e69a615301382e1af2467e00
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 
@@ -60,6 +61,10 @@ class CategoryController extends Controller
     }
     function save_category_type(Request $request){
         $data=$request->all();
+<<<<<<< HEAD
+=======
+        // dd($data);
+>>>>>>> a5d230c40c3f6174e69a615301382e1af2467e00
         $category_type=new Category_Type();
         $category_type->category_name=$data['category_name'];
         $category->category_slug=$data['category_slug'];

@@ -14,41 +14,41 @@
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>
                     <tr>
+                        <th>Danh mục sản phẩm</th>
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
-                        <th>Giá</th>
+                        <th>Sô lượng sản phẩm trong kho</th>
+                        <th>Hình sản phẩm</th>
+                        <th>Thư viện hình sản phẩm</th>
+                        <th>Giá gốc sản phẩm</th>
+                        <th>Giá sản phẩm</th>
                         <th>Tình trạng</th>
-                        <th>Mô tả</th>
-                        <th>Loại sản phẩm</th>
-                        <th>Slug</th>
-                        <th>Hình ảnh</th>
+                        <th>Hiển thị</th>
                         <th style="width:60px;">Quản lý</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($getAllListProduct as $key =>$pro)
+                    @foreach($all_product as $key =>$pro)
                     <tr>
+                        <td>{{ $pro -> category_product -> category_product_name}}</td>
                         <td>{{ $pro -> product_id }}</td>
                         <td>{{ $pro -> product_name }}</td>
+                        <td>{{ $pro->product_quantity }}</td>
+                        <td><img class="img-fluid" src="uploads/product/{{ $pro -> product_image }}" alt=""></td>
+                        <td><a href="{{URL::to('/add-gallery/'.$pro -> product_id)}}">Thư viện ảnh</a></td>
+                        <td>{{number_format($pro -> product_cost,0,',','.')}}₫</td>
                         <td>{{number_format($pro -> product_price,0,',','.')}}₫</td>
                         <td>
                             <span class="text-ellipsis">
-                                @if($pro -> product_tag==1)
+                                @if($pro -> product_status==2)
                                 Mới
-                                @elseif($pro -> product_tag==2)
-                                Hết hàng
-                                @elseif($pro -> product_tag==3)
+                                @elseif($pro -> product_status==1)
                                 Khuyến mãi
                                 @else
                                 Trống
                                 @endif
                             </span>
                         </td>
-                        <td>{{ $pro -> product_description}}</td>
-                        <td>{{ $pro -> product_type_id}}</td>
-                        <td>{{ $pro -> product_slug}}</td>
-                        <td><img class="img-fluid" src="uploads/product/{{ $pro -> product_image }}" alt=""></td>
-                        
                         
                         <!-- <td>{!! $pro -> product_desc !!}</td>
                         <td>
@@ -56,6 +56,23 @@
                                 {{ $pro -> product_content }}
                             </textarea>
                         </td> -->
+                        <td>
+                            <span class="text-ellipsis">
+                                <?php
+                                    if($pro -> product_active==1){
+                                ?>
+                                <a href="{{URL::to('/active-product/'.$pro -> product_id)}}"><span
+                                        class="fa-styling fa fa-eye"></span></a>
+                                <?php
+                                    }else{
+                                ?>
+                                <a href="{{URL::to('/unactive-product/'.$pro -> product_id)}}"><span
+                                        class="fa-styling fa fa-eye-slash"></span></a>
+                                <?php        
+                                    }
+                                ?>
+                            </span>
+                        </td>
                         <td>
                             <!-- <a href="{{URL::to('/add-product')}}"
                                 class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>

@@ -23,29 +23,14 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Nhà cung cấp</label>
-                            <select name="producer_id" class="form-control m-bot15">
-                                @foreach($all_producer as $key =>$producer)
-                                <option value="{{$producer->producer_id}}">{{$producer->producer_name}}</option>
+                            <label for="exampleInputPassword1">Loại sản phẩm</label>
+                            <select name="product_type_id" class="form-control m-bot15">
+                                @foreach($getAllProductType as $key =>$product_type)
+                                <option value="{{$product_type->product_type_id}}">{{$product_type->product_type_name}}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                            <select name="category_product_id" class="form-control m-bot15">
-                                @foreach($cate_product as $key =>$cate)
-                                <option value="{{$cate->category_product_id}}">{{$cate->category_product_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Tình trạng</label>
-                            <select name="product_status" class="form-control m-bot15">
-                                <option value="2">Mới</option>
-                                <option value="1">Khuyến mãi</option>
-                                <option value="0">Trống</option>
-                            </select>
-                        </div>
+                        
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>
                             <input type="text" name="product_name" class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_name') }}">
@@ -56,21 +41,11 @@
                             <input type="text" name="product_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_slug') }}">
                                 {!! $errors->first('product_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="form-group {{ $errors->has('product_quantity') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Số lượng sản phẩm</label>
-                            <input type="text" name="product_quantity" class="form-control" data-validation="number"
-                                data-validation-error-msg="Vui lòng điền thông tin(Phải là số lớn hơn 0)" value="{{ old('product_quantity') }}">
-                                {!! $errors->first('product_quantity', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
+
                         <div class="form-group {{ $errors->has('product_image') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
                             <input type="file" name="product_image" class="form-control" id="file" data-validation="required" data-validation-error-msg="Vui lòng thêm hình ảnh" value="{{ old('product_image') }}">
                             {!! $errors->first('product_image', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
-                        <div class="form-group {{ $errors->has('product_price') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Giá gốc sản phẩm</label>
-                            <input type="text" name="product_cost" class="form-control " data-validation="number" data-validation-error-msg="Vui lòng điền thông tin(Phải là số và lớn hơn 0)" value="{{ old('product_cost') }}">
-                                {!! $errors->first('product_cost', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('product_price') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Giá sản phẩm</label>
@@ -80,36 +55,22 @@
 
                         <!--  -->
 
-                        <div class="form-group {{ $errors->has('product_desc') ? 'has-error' : ''}}">
-                            <label for="exampleInputPassword1">Tóm tắt sản phẩm</label>
-                            <textarea name="product_desc" class="form-control" id="ckeditor1">
-                            {{ old('product_desc') }}
-                            </textarea>
-                            {!! $errors->first('product_desc', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
                         <div class="form-group {{ $errors->has('product_content') ? 'has-error' : ''}}">
                             <label for="exampleInputPassword1">Nội dung sản phẩm</label>
-                            <textarea name="product_content" style="resize:none" class="form-control" id="ckeditor2" >
-                            {{ old('product_content') }}
+                            <textarea name="product_description" style="resize:none" class="form-control" id="ckeditor2" >
+                            {{ old('product_description') }}
                             </textarea>
-                            {!! $errors->first('product_content', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                            {!! $errors->first('product_description', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="form-group {{ $errors->has('product_parameter') ? 'has-error' : ''}}">
-                            <label for="exampleInputPassword1">Thông số kỹ thuật</label>
-                            <textarea name="product_parameter" class="form-control" id="ckeditor3">
-                            {{ old('product_parameter') }}
-                            </textarea>
-                            {!! $errors->first('product_parameter', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
-                        
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Hiển thị</label>
-                            <select name="product_active" class="form-control m-bot15">
-                                <option value="1">Hiển thị</option>
-                                <option value="0">Ẩn</option>
+                            <label for="exampleInputPassword1">Tình trạng</label>
+                            <select name="product_tag" class="form-control m-bot15">
+                                <option value="1">Mới</option>
+                                <option value="2">Hết hàng</option>
+                                <option value="3">Khuyến mãi</option>
+                                <option value="0">Trống</option>
                             </select>
                         </div>
-
                         <button type="submit" name="add_product" class="btn btn-info">Thêm sản phẩm</button>
                     </form>
                 </div>
