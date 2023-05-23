@@ -7,29 +7,31 @@
                 Cập nhật danh mục sản phẩm
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-category')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/list-category-type')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category/'.$edit_value->category_id)}}"
+                    <form role="form" action="{{URL::to('/update-category-type/'.$edit_value->category__type_id)}}"
                         method="post" >
                         @csrf
                         <div class="form-group">
-                            @if(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
+                            <label for="exampleInputPassword1">Loại danh mục</label>
+                            <select name="category_name" class="form-control m-bot15">
+                                @foreach ($getAllListCategory as $key => $cate_type)
+                                    <option value="{{$cate_type->category_id}}">{{$cate_type->category_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Tên danh mục</label>
-                            <input type="text" value="{{$edit_value->category_name}}" name="category_name" class="form-control" id="slug" onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <label for="exampleInputPassword1">Loại sản phẩm</label>
+                            <select name="product_type_name" class="form-control m-bot15">
+                                @foreach ($getAllListProduct as $key => $cate_type)
+                                    <option value="{{$cate_type->product_type_id}}">{{$cate_type->product_type_name}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="text" value="{{$edit_value->category_slug}}" name="category_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
-                        </div>
-
                         <button type="submit" name="update_category_product" class="btn btn-info">Cập nhật danh
                             mục</button>
                     </form>

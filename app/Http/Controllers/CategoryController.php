@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Models\Category;
+use App\Models\ProductType;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -54,11 +55,11 @@ class CategoryController extends Controller
     }
     function add_category_type(){
         $getAllListCategory=Category::get();
-        return view('admin.CategoryType.add_category_type')->with(compact('getAllListCategory'));
+        $getAllListProduct=ProductType::get();
+        return view('admin.CategoryType.add_category_type')->with(compact('getAllListCategory','getAllListProduct'));       
     }
     function save_category_type(Request $request){
         $data=$request->all();
-        dd($data);
         $category_type=new Category_Type();
         $category_type->category_name=$data['category_name'];
         $category->category_slug=$data['category_slug'];
