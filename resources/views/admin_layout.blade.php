@@ -250,7 +250,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{URL::to('/list-category')}}">
+                                    <a href="{{URL::to('/list-category-type')}}">
                                         <i class="fas fa-list-ol"></i> Quản lý loại danh mục
                                     </a>
                                 </li>

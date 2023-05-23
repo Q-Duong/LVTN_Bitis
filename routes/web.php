@@ -29,7 +29,6 @@ Route::get('/list-category','App\Http\Controllers\CategoryController@list_catego
 Route::get('/edit-category/{category_id}','App\Http\Controllers\CategoryController@edit_category');
 Route::post('update-category/{category_id}','App\Http\Controllers\CategoryController@update_category');
 Route::get('/delete-category/{category_id}','App\Http\Controllers\CategoryController@delete_category');
-<<<<<<< HEAD
 //CategoryType
 Route::get('/add-category-type','App\Http\Controllers\CategoryTypeController@add_category_type');
 Route::post('save-category-type','App\Http\Controllers\CategoryTypeController@save_category_type');
@@ -38,19 +37,6 @@ Route::get('/edit-category-type/{category_type_id}','App\Http\Controllers\Catego
 Route::post('update-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@update_category_type');
 Route::get('/delete-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@delete_category_type');
 //ProductType
-=======
-//Category_Type
-Route::get('/add-category-type','App\Http\Controllers\CategoryController@add_category_type');
-Route::post('save-category-type','App\Http\Controllers\CategoryController@save_category_type');
-//Product
-Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
-Route::post('save-product','App\Http\Controllers\ProductController@save_product');
-Route::get('/list-product','App\Http\Controllers\ProductController@list_product');
-Route::get('/edit-product/{product_id}','App\Http\Controllers\ProductController@edit_product');
-Route::post('update-product/{product_id}','App\Http\Controllers\ProductController@update_product');
-Route::get('/delete-product/{product_id}','App\Http\Controllers\ProductController@delete_product');
-//Product_Type
->>>>>>> a5d230c40c3f6174e69a615301382e1af2467e00
 Route::get('/add-product-type','App\Http\Controllers\ProductTypeController@add_product_type');
 Route::post('/save-product-type','App\Http\Controllers\ProductTypeController@save_product_type');
 Route::get('/list-product-type','App\Http\Controllers\ProductTypeController@list_product_type');

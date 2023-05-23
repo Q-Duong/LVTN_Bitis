@@ -21,15 +21,10 @@ class CategoryTypeController extends Controller
     }
     function save_category_type(Request $request){
         $data=$request->all();
-       // dd('$data');
         $category_type=new CategoryType();
-        $category_type->category_type_id=$data['category_id'];
+        $category_type->category_id=$data['category_id'];
         $category_type->product_type_id=$data['product_type_id'];
-        $name=CategoryType::where('category_type_id',$data['category_type_id'])->exists();
-        if($name){
-            return Redirect()->back()->with('error','Danh mục đã tồn tại, vui lòng kiểm tra lại')->withInput();
-        }
-        $category->save();
+        $category_type->save();
         return Redirect()->back()->with('success','Thêm thành công');
     }
     function edit_category_type($category_type_id){
@@ -38,27 +33,21 @@ class CategoryTypeController extends Controller
     }
     function list_category_type(){
         $getAllListCategoryType=CategoryType::get();
-        dd('$getAllListCategoryType');
-        // $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        // $getAllListProduct=ProductType::get();
         return view('admin.CategoryType.list_category_type')->with(compact('getAllListCategoryType'));
     }
-    function delete_category($category_id){
-        $category=Category::find($category_id);
-        $category->delete();
+    function delete_category_type($category_type_id){
+        $category_type=CategoryType::find($category_type_id);
+        $category_type->delete();
         return Redirect()->back()->with('success','Xóa danh mục sản phẩm thành công');
     }
-    function update_category(Request $request,$category_id){
+    function update_category(Request $request,$category_type_id){
         $data=$request->all();
-        $category=Category::find($category_id);
-        $category->category_name=$data['category_name'];
-        $category->category_slug=$data['category_name'];
-        $name=Category::where('category_name',$data['category_name'])->exists();;
-        if($name){
-            return Redirect()->back()->with('error','Tên danh mục đã tồn tại, vui lòng kiểm tra lại');
-        }
-        $category->save();
-        return Redirect::to('list-category')->with('success','Cập nhật danh mục sản phẩm thành công');
+        $category_type=CategoryType::find($category_type_id);
+        $category_type->category_id=$data['category_id'];
+        $category_type->product_type_id=$data['product_type_id'];
+        $name=CategoryType::where('category_name',$data['category_name'])->exists();;
+        $category_type->save();
+        return Redirect::to('list-category-type')->with('success','Cập nhật danh mục sản phẩm thành công');
     }
 }
  
