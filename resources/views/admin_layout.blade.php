@@ -218,7 +218,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Loại sản phẩm</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{URL::to('/add-product-type')}}">
+                                        <i class="fas fa-user-plus"></i> Thêm loại sản phẩm
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/list-product-type')}}">
+                                        <i class="fas fa-list-ol"></i> Quản lý loại sản phẩm
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Loại danh mục sản phẩm</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{URL::to('/add-category-type')}}">
+                                        <i class="fas fa-user-plus"></i> Thêm loại danh mục
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('/list-category')}}">
+                                        <i class="fas fa-list-ol"></i> Quản lý loại danh mục
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
@@ -241,36 +276,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
-                                <span>Loại danh mục sản phẩm</span>
+                                <span>Danh sách khách hàng</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{URL::to('/add-category-type')}}">
-                                        <i class="fas fa-user-plus"></i> Thêm loại danh mục
+                                    <a href="{{URL::to('/add-customer-admin')}}">
+                                        <i class="fas fa-user-plus"></i> Thêm khách hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{URL::to('/list-category')}}">
-                                        <i class="fas fa-list-ol"></i> Quản lý loại danh mục
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-users"></i>
-                                <span>Loại sản phẩm</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{URL::to('/add-product-type')}}">
-                                        <i class="fas fa-user-plus"></i> Thêm loại sản phẩm
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('/list-product-type')}}">
-                                        <i class="fas fa-list-ol"></i> Quản lý loại sản phẩm
+                                    <a href="{{URL::to('/list-customer')}}">
+                                        <i class="fas fa-list-ol"></i> Quản lý khách hàng
                                     </a>
                                 </li>
                             </ul>
