@@ -30,6 +30,14 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Danh mục sản phẩm</label>
+                            <select name="category_id" class="form-control m-bot15">
+                                @foreach($getAllCategory as $key =>$category)
+                                <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>

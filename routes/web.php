@@ -36,6 +36,13 @@ Route::get('/list-category-type','App\Http\Controllers\CategoryTypeController@li
 Route::get('/edit-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@edit_category_type');
 Route::post('update-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@update_category_type');
 Route::get('/delete-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@delete_category_type');
+//Product
+Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
+Route::post('/save-product','App\Http\Controllers\ProductController@save_product');
+Route::get('/list-product','App\Http\Controllers\ProductController@list_product');
+Route::get('/edit-product/{product_id}','App\Http\Controllers\ProductController@edit_product');
+Route::post('update-product/{product_id}','App\Http\Controllers\ProductController@update_product');
+Route::get('/delete-product/{product_id}','App\Http\Controllers\ProductController@delete_product');
 //ProductType
 Route::get('/add-product-type','App\Http\Controllers\ProductTypeController@add_product_type');
 Route::post('/save-product-type','App\Http\Controllers\ProductTypeController@save_product_type');

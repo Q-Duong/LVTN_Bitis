@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Http\Requests;
@@ -12,7 +13,8 @@ class ProductController extends Controller
 {
     function add_product(){
         $getAllProductType=ProductType::orderBy('product_type_id','asc')->get();
-        return view('admin.Product.add_product')->with(compact('getAllProductType'));
+        $getAllCategory=Category::orderBy('category_id','asc')->get();
+        return view('admin.Product.add_product')->with(compact('getAllProductType','getAllCategory'));
     }
     function list_product(){
         $getAllListProduct=Product::orderBy('product_id','ASC')->get();
@@ -32,6 +34,7 @@ class ProductController extends Controller
         $product->product_tag=$data['product_tag'];
         $product->product_description=$data['product_description'];
         $product->product_type_id=$data['product_type_id'];
+        $product->category_id=$data['category_id'];
         $product->product_slug=$data['product_slug'];
         $product->product_image=$data['product_image'];
         $name=Product::where('product_name',$data['product_name'])->exists();
