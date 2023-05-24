@@ -12,4 +12,8 @@ class Category extends Model
     ];
     protected $primaryKey = 'category_id';
  	protected $table = 'category';
+
+    public function categoryType(){
+        $this->hasMany('App\Models\CategoryType');
+    }
 }

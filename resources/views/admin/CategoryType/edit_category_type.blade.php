@@ -13,14 +13,14 @@
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category-type/'.$edit_value->category__type_id)}}"
+                    <form role="form" action="{{URL::to('/update-category-type/'.$edit_value->category_type_id)}}"
                         method="post" >
                         @csrf
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label for="exampleInputPassword1">Loại danh mục</label>
                             <select name="category_id" class="form-control m-bot15">
                                 @foreach ($getAllListCategory as $key => $cate_type)
-                                    <option value="{{$cate_type->category_id}}">{{$cate_type->category_name}}</option>
+                                    <option {{$edit_value->category_id == $cate_type->category_id ? 'selected':''}} value="{{$cate_type->category_id}}">{{$cate_type->category_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -28,10 +28,10 @@
                             <label for="exampleInputPassword1">Loại sản phẩm</label>
                             <select name="product_type_id" class="form-control m-bot15">
                                 @foreach ($getAllListProduct as $key => $cate_type)
-                                    <option value="{{$cate_type->product_type_id}}">{{$cate_type->product_type_name}}</option>
+                                    <option {{$edit_value->product_type_id == $cate_type->product_type_id ? 'selected':''}} value="{{$cate_type->product_type_id}}">{{$cate_type->product_type_name}}</option>
                                 @endforeach
                             </select>
-                        </div> -->
+                        </div>
                         <button type="submit" name="update_category_product" class="btn btn-info">Cập nhật danh
                             mục</button>
                     </form>

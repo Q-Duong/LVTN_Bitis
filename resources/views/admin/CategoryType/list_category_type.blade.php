@@ -24,8 +24,8 @@
                     @foreach($getAllListCategoryType as $key =>$cate_type)
                     <tr>
                         <td>{{ $cate_type -> category_type_id }}</td>
-                        <td>{{$cate_type -> category_id}}</td>
-                        <td>{{ $cate_type-> product_type_id }}</td>
+                        <td>{{$cate_type -> category-> category_name}}</td>
+                        <td>{{ $cate_type-> productType ->product_type_name }}</td>
                         <td>
                             <a href="{{URL::to('edit-category-type/'.$cate_type -> category_type_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i

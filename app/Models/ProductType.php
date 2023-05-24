@@ -12,4 +12,8 @@ class ProductType extends Model
     ];
     protected $primaryKey = 'product_type_id';
  	protected $table = 'product_type';
+
+    public function categoryType(){
+        $this->hasMany('App\Models\CategoryType');
+    }
 }

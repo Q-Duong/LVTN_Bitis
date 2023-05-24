@@ -29,10 +29,12 @@ class CategoryTypeController extends Controller
     }
     function edit_category_type($category_type_id){
         $edit_value=CategoryType::find($category_type_id);
-        return view('admin.CategoryType.edit_category_type')->with(compact('edit_value'));
+        $getAllListCategory=Category::get();
+        $getAllListProduct=ProductType::get();
+        return view('admin.CategoryType.edit_category_type')->with(compact('edit_value','getAllListCategory','getAllListProduct'));
     }
     function list_category_type(){
-        $getAllListCategoryType=CategoryType::get();
+        $getAllListCategoryType=CategoryType::OrderBy('category_type_id','ASC')->get();
         return view('admin.CategoryType.list_category_type')->with(compact('getAllListCategoryType'));
     }
     function delete_category_type($category_type_id){
@@ -40,12 +42,11 @@ class CategoryTypeController extends Controller
         $category_type->delete();
         return Redirect()->back()->with('success','Xóa danh mục sản phẩm thành công');
     }
-    function update_category(Request $request,$category_type_id){
+    function update_category_type(Request $request,$category_type_id){
         $data=$request->all();
         $category_type=CategoryType::find($category_type_id);
         $category_type->category_id=$data['category_id'];
         $category_type->product_type_id=$data['product_type_id'];
-        $name=CategoryType::where('category_name',$data['category_name'])->exists();;
         $category_type->save();
         return Redirect::to('list-category-type')->with('success','Cập nhật danh mục sản phẩm thành công');
     }
