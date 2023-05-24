@@ -12,6 +12,7 @@ class Category extends Model
     ];
     protected $primaryKey = 'category_id';
  	protected $table = 'category';
+<<<<<<< HEAD
     
      public function categorytype(){
          $this->hasMany("App\Model\CategoryType");
@@ -19,5 +20,10 @@ class Category extends Model
 
      public function product(){
         $this->hasMany("App\Model\Product");
+=======
+
+    public function categoryType(){
+        $this->hasMany('App\Models\CategoryType');
+>>>>>>> e4a3fd3311c7963d259b784ef7c455cc28748d3f
     }
 }
