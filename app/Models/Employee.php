@@ -12,4 +12,8 @@ class Employee extends Model
     ];
     protected $primaryKey = 'employee_id';
  	protected $table = 'employee';
+
+    public function account(){
+        return $this->belongsTo('App\Models\Account','account_id');
+    }
 }

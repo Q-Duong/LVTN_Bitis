@@ -58,3 +58,10 @@ Route::get('/list-product','App\Http\Controllers\ProductController@list_product'
 Route::get('/edit-product/{product_type_id}','App\Http\Controllers\ProductController@edit_product');
 Route::post('update-product/{product_type_id}','App\Http\Controllers\ProductController@update_product');
 Route::get('/delete-product/{product_type_id}','App\Http\Controllers\ProductController@delete_product');
+//Employee
+Route::get('/add-employee','App\Http\Controllers\EmployeeController@add_employee');
+Route::post('/save-employee','App\Http\Controllers\EmployeeController@save_employee');
+Route::get('/list-employee','App\Http\Controllers\EmployeeController@list_employee');
+Route::get('/edit-employee/{employee_id}','App\Http\Controllers\EmployeeController@edit_employee');
+Route::post('update-employee/{employee_id}','App\Http\Controllers\EmployeeController@update_employee');
+Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeController@delete_employee');
