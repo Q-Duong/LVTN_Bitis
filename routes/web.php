@@ -58,3 +58,10 @@ Route::get('/list-product','App\Http\Controllers\ProductController@list_product'
 Route::get('/edit-product/{product_type_id}','App\Http\Controllers\ProductController@edit_product');
 Route::post('update-product/{product_type_id}','App\Http\Controllers\ProductController@update_product');
 Route::get('/delete-product/{product_type_id}','App\Http\Controllers\ProductController@delete_product');
+//User
+Route::get('/add-user-admin','App\Http\Controllers\UserController@add_user');
+Route::post('/save-user','App\Http\Controllers\UserController@save_user');
+Route::get('/list-user','App\Http\Controllers\UserController@list_user');
+Route::get('/edit-user/{user_id}','App\Http\Controllers\UserController@edit_user');
+Route::post('update-user/{user_id}','App\Http\Controllers\UserController@update_user');
+Route::get('/delete-user/{user_id}','App\Http\Controllers\UserController@delete_user');

@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\ProductType;
+use App\Models\User;
+use App\Models\Account;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
-    function add_product(){
-        $getAllProductType=ProductType::orderBy('product_type_id','asc')->get();
-        $getAllCategory=Category::orderBy('category_id','asc')->get();
-        return view('admin.Product.add_product')->with(compact('getAllProductType','getAllCategory'));
+    function add_user(){
+        $getAllAccount=Account::orderBy('account_id','asc')->get();
+        return view('admin.User.add_user')->with(compact('getAllAccount'));
     }
-    function list_product(){
+    function list_user(){
         $getAllListProduct=Product::orderBy('product_id','ASC')->get();
         // dd($getAllListProduct);
         return view('admin.Product.all_product')->with(compact('getAllListProduct'));

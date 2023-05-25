@@ -280,12 +280,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{URL::to('/add-customer-admin')}}">
+                                    <a href="{{URL::to('/add-user-admin')}}">
                                         <i class="fas fa-user-plus"></i> Thêm khách hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{URL::to('/list-customer')}}">
+                                    <a href="{{URL::to('/list-user')}}">
                                         <i class="fas fa-list-ol"></i> Quản lý khách hàng
                                     </a>
                                 </li>
