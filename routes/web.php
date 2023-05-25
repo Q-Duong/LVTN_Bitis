@@ -65,3 +65,10 @@ Route::get('/list-user','App\Http\Controllers\UserController@list_user');
 Route::get('/edit-user/{user_id}','App\Http\Controllers\UserController@edit_user');
 Route::post('update-user/{user_id}','App\Http\Controllers\UserController@update_user');
 Route::get('/delete-user/{user_id}','App\Http\Controllers\UserController@delete_user');
+//Employee
+Route::get('/add-employee','App\Http\Controllers\EmployeeController@add_employee');
+Route::post('/save-employee','App\Http\Controllers\EmployeeController@save_employee');
+Route::get('/list-employee','App\Http\Controllers\EmployeeController@list_employee');
+Route::get('/edit-employee/{employee_id}','App\Http\Controllers\EmployeeController@edit_employee');
+Route::post('update-employee/{employee_id}','App\Http\Controllers\EmployeeController@update_employee');
+Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeController@delete_employee');

@@ -12,4 +12,8 @@ class Account extends Model
     ];
     protected $primaryKey = 'account_id ';
  	protected $table = 'account';
+
+    public function employee(){
+        $this->hasOne('App\Models\Employee');
+    }
 }
