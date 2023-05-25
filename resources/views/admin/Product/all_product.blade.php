@@ -15,12 +15,12 @@
                     <thead>
                         <tr>
                             <th>Mã sản phẩm</th>
+                            <th>Loại sản phẩm</th>
+                            <th>Danh mục sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Tình trạng</th>
                             <th>Mô tả</th>
-                            <th>Loại sản phẩm</th>
-                            <th>Danh mục sản phẩm</th>
                             <th>Slug</th>
                             <th>Hình ảnh</th>
                             <th style="width:100px;">Quản lý</th>
@@ -30,6 +30,8 @@
                         @foreach ($getAllListProduct as $key => $pro)
                             <tr>
                                 <td>{{ $pro->product_id }}</td>
+                                <td>{{ $pro->productType->product_type_name }}</td>
+                                <td>{{ $pro->category->category_name }}</td>
                                 <td>{{ $pro->product_name }}</td>
                                 <td>{{ number_format($pro->product_price, 0, ',', '.') }}₫</td>
                                 <td>
@@ -47,8 +49,6 @@
                                 </td>
                            
                                 <td>{{ $pro->product_description }}</td>
-                                <td>{{ $pro->product_type->product_type_name }}</td>
-                                <td>{{ $pro->category->category_name }}</td>
                                 <td>{{ $pro->product_slug }}</td>
                                 <td><img class="img-fluid" src="uploads/product/{{ $pro->product_image }}" alt="">
                                 </td>

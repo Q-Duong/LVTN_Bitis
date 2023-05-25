@@ -202,7 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="far fa-list-alt"></i>
                                 <span>Danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
@@ -256,7 +256,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-tshirt"></i>
                                 <span>Sản phẩm</span>
                             </a>
                             <ul class="sub">
@@ -295,17 +295,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
-                                <span>Danh sách khách hàng</span>
+                                <span>Danh sách nhân viên</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{URL::to('/add-customer-admin')}}">
-                                        <i class="fas fa-user-plus"></i> Thêm khách hàng
+                                    <a href="{{URL::to('/add-employee-admin')}}">
+                                        <i class="fas fa-user-plus"></i> Thêm nhân viên
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{URL::to('/list-customer')}}">
-                                        <i class="fas fa-list-ol"></i> Quản lý khách hàng
+                                    <a href="{{URL::to('/list-employee')}}">
+                                        <i class="fas fa-list-ol"></i> Quản lý nhân viên
                                     </a>
                                 </li>
                             </ul>

@@ -13,7 +13,7 @@ class Product extends Model
     protected $primaryKey = 'product_id';
  	protected $table = 'product';
 
-     public function product_type(){
+     public function productType(){
         return $this->belongsTo('App\Models\ProductType','product_type_id');
     }
     public function category(){

@@ -12,14 +12,6 @@ class CategoryType extends Model
     ];
     protected $primaryKey = 'category_type_id';
  	protected $table = 'category_type';
-<<<<<<< HEAD
-    public function Category(){
-        $this->belongsTo('App\Model\Category','category_id');
-    }
-    public function Product_Type(){
-        $this->belongsTo('App\Model\Product_Type','product_type_id');
-    }
-=======
    
     public function category(){
        return $this->belongsTo('App\Models\Category','category_id');
@@ -28,5 +20,4 @@ class CategoryType extends Model
         return $this->belongsTo('App\Models\ProductType','product_type_id');
     }
 
->>>>>>> e4a3fd3311c7963d259b784ef7c455cc28748d3f
 }
