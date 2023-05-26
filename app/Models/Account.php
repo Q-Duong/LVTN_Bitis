@@ -10,7 +10,7 @@ class Account extends Model
     protected $fillable = [
     	'account_role ', 'account_username ','account_password','account_active'
     ];
-    protected $primaryKey = 'account_id ';
+    protected $primaryKey = 'account_id';
  	protected $table = 'account';
 
     public function employee(){

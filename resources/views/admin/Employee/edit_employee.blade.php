@@ -4,16 +4,16 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Cập nhật danh mục sản phẩm
+                Cập nhật nhân viên
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-category')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/list-employee')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category/'.$edit_value->category_id)}}"
+                    <form role="form" action="{{URL::to('/update-employee/'.$edit_value->employee_id)}}"
                         method="post" >
                         @csrf
                         <div class="form-group">
@@ -22,16 +22,28 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Tên danh mục</label>
-                            <input type="text" value="{{$edit_value->category_name}}" name="category_name" class="form-control" id="slug" onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
-                        </div>
+                            <label for="exampleInputEmail1"> Tài khoản đăng nhập</label>
+                            <input type="email" name="account_username" value="{{$edit_value->account->account_username}}" class="form-control"  placeholder="Tài khoản" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                        </div> 
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="text" value="{{$edit_value->category_slug}}" name="category_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <label for="exampleInputEmail1">Mật khẩu</label>
+                            <input type="password" name="account_password" class="form-control"  placeholder="Mật khẩu" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                        </div> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên nhân viên</label>
+                            <input type="text" name="employee_name" value="{{$edit_value->employee_name}}" class="form-control"  placeholder="Mật khẩu" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                        </div> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email nhân viên</label>
+                            <input type="text" name="employee_email" value="{{$edit_value->employee_email}}" class="form-control"
+                                placeholder="Enter email" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                        </div>
+                         <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại</label>
+                            <input type="text" name="employee_phone" value="{{$edit_value->employee_phone}}" class="form-control" placeholder="Số điện thoại" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
 
-                        <button type="submit" name="update_category_product" class="btn btn-info">Cập nhật danh
-                            mục</button>
+                        <button type="submit" name="update_employee" class="btn btn-info">Cập nhật nhân viên</button>
                     </form>
                 </div>
             </div>
