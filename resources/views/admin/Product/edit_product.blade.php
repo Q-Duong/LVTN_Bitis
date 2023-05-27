@@ -24,6 +24,17 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputPassword1">Danh mục sản phẩm</label>
+                                <select name="category_id" class="form-control m-bot15">
+                                    @foreach ($getAllCategory as $key => $category)
+                                        <option {{ $edit_value->category_id == $category->category_id ? 'selected' : '' }}
+                                            value="{{ $category->category_id }}">
+                                            {{ $category->category_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputPassword1">Loại sản phẩm</label>
                                 <select name="product_type_id" class="form-control m-bot15">
                                     @foreach ($getAllProductType as $key => $product_type)
@@ -35,18 +46,6 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                                <select name="category_id" class="form-control m-bot15">
-                                    @foreach ($getAllCategory as $key => $category)
-                                        <option {{ $edit_value->category_id == $category->category_id ? 'selected' : '' }}
-                                            value="{{ $category->category_id }}">
-                                            {{ $category->category_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
                             <div class="form-group {{ $errors->has('product_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên sản phẩm</label>
                                 <input type="text" value="{{ $edit_value->product_name }}" name="product_name"

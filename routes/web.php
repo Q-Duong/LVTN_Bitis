@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//-------------------------------------------- Frontend --------------------------------------------
-Route::get('/','App\Http\Controllers\HomeController@indexpage');
-Route::get('/home','App\Http\Controllers\HomeController@index');
-
-
 //-------------------------------------------- Backend --------------------------------------------
 Route::get('/admin','App\Http\Controllers\AccountController@index');
 Route::post('/admin-login','App\Http\Controllers\AccountController@admin_login');
@@ -72,3 +67,9 @@ Route::get('/list-employee','App\Http\Controllers\EmployeeController@list_employ
 Route::get('/edit-employee/{employee_id}','App\Http\Controllers\EmployeeController@edit_employee');
 Route::post('update-employee/{employee_id}','App\Http\Controllers\EmployeeController@update_employee');
 Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeController@delete_employee');
+
+
+//-------------------------------------------- Frontend --------------------------------------------
+Route::get('','App\Http\Controllers\HomeController@index');
+Route::get('/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
+Route::get('/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
