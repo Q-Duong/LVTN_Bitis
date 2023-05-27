@@ -52,12 +52,12 @@ Route::post('update-product-type/{product_type_id}','App\Http\Controllers\Produc
 Route::get('/delete-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@delete_product_type');
 //Route::update('/update-product-type','App\Http\Controllers\ProductController@update_product_type');
 //Product
-Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
-Route::post('/save-product','App\Http\Controllers\ProductController@save_product');
-Route::get('/list-product','App\Http\Controllers\ProductController@list_product');
-Route::get('/edit-product/{product_type_id}','App\Http\Controllers\ProductController@edit_product');
-Route::post('update-product/{product_type_id}','App\Http\Controllers\ProductController@update_product');
-Route::get('/delete-product/{product_type_id}','App\Http\Controllers\ProductController@delete_product');
+// Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
+// Route::post('/save-product','App\Http\Controllers\ProductController@save_product');
+// Route::get('/list-product','App\Http\Controllers\ProductController@list_product');
+// Route::get('/edit-product/{product_type_id}','App\Http\Controllers\ProductController@edit_product');
+// Route::post('update-product/{product_type_id}','App\Http\Controllers\ProductController@update_product');
+// Route::get('/delete-product/{product_type_id}','App\Http\Controllers\ProductController@delete_product');
 //User
 Route::get('/add-user-admin','App\Http\Controllers\UserController@add_user');
 Route::post('/save-user','App\Http\Controllers\UserController@save_user');

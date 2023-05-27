@@ -7,7 +7,7 @@
                 Thêm sản phẩm
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/all-product')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/list-product')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
