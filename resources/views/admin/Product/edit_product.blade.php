@@ -25,7 +25,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                                <select name="category_id" class="form-control m-bot15">
+                                <select name="category_id" class="form-control m-bot15 choose_category">
                                     @foreach ($getAllCategory as $key => $category)
                                         <option {{ $edit_value->category_id == $category->category_id ? 'selected' : '' }}
                                             value="{{ $category->category_id }}">
@@ -36,12 +36,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Loại sản phẩm</label>
-                                <select name="product_type_id" class="form-control m-bot15">
+                                <select name="product_type_id" class="form-control m-bot15 choose_product_type">
                                     @foreach ($getAllProductType as $key => $product_type)
                                         <option
                                             {{ $edit_value->product_type_id == $product_type->product_type_id ? 'selected' : '' }}
-                                            value="{{ $product_type->product_type_id }}">
-                                            {{ $product_type->product_type_name }}
+                                            value="{{ $product_type->productType->product_type_id }}">
+                                            {{ $product_type->productType->product_type_name }}
                                         </option>
                                     @endforeach
                                 </select>

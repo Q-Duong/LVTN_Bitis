@@ -38,6 +38,7 @@ Route::get('/list-product','App\Http\Controllers\ProductController@list_product'
 Route::get('/edit-product/{product_id}','App\Http\Controllers\ProductController@edit_product');
 Route::post('update-product/{product_id}','App\Http\Controllers\ProductController@update_product');
 Route::get('/delete-product/{product_id}','App\Http\Controllers\ProductController@delete_product');
+Route::post('select-category','App\Http\Controllers\ProductController@select_category');
 //ProductType
 Route::get('/add-product-type','App\Http\Controllers\ProductTypeController@add_product_type');
 Route::post('/save-product-type','App\Http\Controllers\ProductTypeController@save_product_type');

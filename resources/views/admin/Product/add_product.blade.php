@@ -24,7 +24,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                            <select name="category_id" class="form-control m-bot15">
+                            <select name="category_id" class="form-control m-bot15 choose_category">
+                                <option value="">--Chọn Danh Mục--</option>
                                 @foreach($getAllCategory as $key =>$category)
                                 <option value="{{$category->category_id}}">{{$category->category_name}}</option>
                                 @endforeach
@@ -32,10 +33,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Loại sản phẩm</label>
-                            <select name="product_type_id" class="form-control m-bot15">
-                                @foreach($getAllProductType as $key =>$product_type)
-                                <option value="{{$product_type->product_type_id}}">{{$product_type->product_type_name}}</option>
-                                @endforeach
+                            <select name="product_type_id" class="form-control m-bot15 choose_product_type">
+                                <option value="">--Chọn Loại Sản Phẩm--</option>
                             </select>
                         </div>
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">

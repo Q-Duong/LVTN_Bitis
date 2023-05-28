@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\CategoryType;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Http\Requests;
@@ -12,20 +13,31 @@ use Illuminate\Support\Facades\Redirect;
 class ProductController extends Controller
 {
     function add_product(){
-        $getAllProductType=ProductType::orderBy('product_type_id','asc')->get();
         $getAllCategory=Category::orderBy('category_id','asc')->get();
-        return view('admin.Product.add_product')->with(compact('getAllProductType','getAllCategory'));
+        return view('admin.Product.add_product')->with(compact('getAllCategory'));
     }
     function list_product(){
         $getAllListProduct=Product::orderBy('product_id','ASC')->get();
-        // dd($getAllListProduct);
         return view('admin.Product.all_product')->with(compact('getAllListProduct'));
     }
     function edit_product($product_id){
         $edit_value=Product::find($product_id);
-        $getAllProductType=ProductType::orderBy('product_type_id','asc')->get();
+        $getAllProductType=CategoryType::where('category_id',$edit_value->category_id)->get();
         $getAllCategory=Category::orderBy('category_id','asc')->get();
         return view('admin.Product.edit_product')->with(compact('edit_value','getAllProductType','getAllCategory'));
+    }
+    public function select_category(Request $request){
+        $data = $request->all();
+    	$output = '';
+    	$select_product_type = CategoryType::where('category_id',$data['category_id'])->get();
+        if($select_product_type->count() > 0){ 
+            foreach($select_product_type as $key => $product_type){
+                $output.='<option value="'.$product_type->productType->product_type_id.'">'.$product_type->productType->product_type_name.'</option>';
+            }
+        }else{
+            $output.='<option value="">--Chọn Danh Mục--</option>';
+        }
+    	echo $output;
     }
     function save_product(Request $request){
         $data=$request->all();
