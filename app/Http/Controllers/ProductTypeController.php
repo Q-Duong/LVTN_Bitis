@@ -36,6 +36,15 @@ class ProductTypeController extends Controller
         if($name){
             return Redirect()->back()->with('error','Loại sản phẩm đã tồn tại, vui lòng kiểm tra lại')->withInput();
         }
+        $get_image = request('product_type_img');
+        dd($get_image);
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move(public_path('uploads/productType/'), $new_image);
+            $productType->product_type_img = $new_image;
+        }
         $productType->save();
         return Redirect()->back()->with('success','Thêm thành công');
     }
@@ -52,6 +61,14 @@ class ProductTypeController extends Controller
         $name=ProductType::where('product_type_name',$data['product_type_name'])->exists();;
         if($name){
             return Redirect()->back()->with('error','Tên danh mục đã tồn tại, vui lòng kiểm tra lại');
+        }
+        $get_image = request('product_type_img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move(public_path('uploads/productType/'), $new_image);
+            $productType->product_type_img = $new_image;
         }
         $productType->save();
         return Redirect::to('list-product-type')->with('success','Cập nhật danh mục sản phẩm thành công');
