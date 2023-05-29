@@ -21,6 +21,7 @@
             @if($categoryType->category_id == $category->category_id)
                 <a href="{{asset(URL::to($categoryType->category->category_slug.'/'.$categoryType->productType->product_type_slug))}}">
                     <div class="category_product_item">
+                    <img width="100%" src="{{asset('uploads/productType/'.$categoryType->productType->product_type_img)}}">
                         <p>
                             {{$categoryType->productType->product_type_name}}
                         </p>
