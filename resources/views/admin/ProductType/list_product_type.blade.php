@@ -17,6 +17,7 @@
                         <th>Id danh mục</th>
                         <th>Tên danh mục</th>
                         <th>Slug danh mục</th>
+                        <th>Hình ảnh</th>
                         <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
@@ -26,6 +27,7 @@
                         <td>{{ $pro_type -> product_type_id }}</td>
                         <td>{{$pro_type -> product_type_name}}</td>
                         <td>{{ $pro_type-> product_type_slug }}</td>
+                        <td><img class="img-fluid" src="uploads/productType/{{ $pro_type->product_type_img }}" alt="">
                         <td>
                             <a href="{{URL::to('edit-product-type/'.$pro_type -> product_type_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i
