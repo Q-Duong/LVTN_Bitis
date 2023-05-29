@@ -13,31 +13,35 @@
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-customer/'.$all_customer->customer_id)}}"
+                    <form role="form" action="{{URL::to('/update-user/'.$edit_value->user_id)}}"
                         method="post">
-                        {{csrf_field()}}
-                        
-                        <div class="form-group {{ $errors->has('customer_first_name') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Họ tên lót khách hàng</label>
-                            <input type="text" name="customer_first_name" class="form-control" placeholder="Enter email" value="{{$all_customer->customer_first_name}}">
-                            {!! $errors->first('customer_first_name', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                        @csrf
+                        <div class="form-group {{ $errors->has('account_username') ? 'has-error' : ''}}">
+                            <label for="exampleInputEmail1">Địa chỉ email</label>
+                            <input type="text" name="account_username" value="{{$edit_value->account->account_username}}" class="form-control" placeholder="Enter email">
+                            {!! $errors->first('account_username', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="form-group {{ $errors->has('customer_last_name') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Tên khách hàng</label>
-                            <input type="text" name="customer_last_name" class="form-control" placeholder="Enter email" value="{{$all_customer->customer_last_name}}">
-                            {!! $errors->first('customer_last_name', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
-                        <div class="form-group {{ $errors->has('customer_phone') ? 'has-error' : ''}}">
-                            <label for="exampleInputPassword1">Số điện thoại</label>
-                            <input type="text" name="customer_phone" class="form-control" placeholder="Số điện thoại" value="{{$all_customer->customer_phone}}">
-                            {!! $errors->first('customer_phone', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
-                        <div class="form-group {{ $errors->has('customer_password') ? 'has-error' : ''}}">
+                        <div class="form-group {{ $errors->has('account_password') ? 'has-error' : ''}}">
                             <label for="exampleInputPassword1">Mật khẩu</label>
-                            <input type="password" name="customer_password" class="form-control" placeholder="Mật khẩu" value="{{$all_customer->customer_password}}">
-                            {!! $errors->first('customer_password', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                            <input type="password" name="account_password" class="form-control" placeholder="Mật khẩu" >
+                            {!! $errors->first('account_password', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-
+                        <div class="form-group {{ $errors->has('user_firstname') ? 'has-error' : ''}}">
+                            <label for="exampleInputEmail1">Họ tên lót khách hàng</label>
+                            <input type="text" name="user_firstname" class="form-control" placeholder="Enter email" value="{{$edit_value->user_firstname}}">
+                            {!! $errors->first('user_firstname', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                        </div>
+                        <div class="form-group {{ $errors->has('user_lastname') ? 'has-error' : ''}}">
+                            <label for="exampleInputEmail1">Tên khách hàng</label>
+                            <input type="text" name="user_lastname" class="form-control" placeholder="Enter email" value="{{$edit_value->user_lastname}}">
+                            {!! $errors->first('user_lastname', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                        </div>
+                        <div class="form-group {{ $errors->has('user_phone') ? 'has-error' : ''}}">
+                            <label for="exampleInputPassword1">Số điện thoại</label>
+                            <input type="text" name="user_phone" class="form-control" placeholder="Số điện thoại" value="{{$edit_value->user_phone}}">
+                            {!! $errors->first('user_phone', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                        </div>
+                        
                         <button type="submit" name="edit_customer" class="btn btn-info">Cập nhật thông tin khách
                             hàng</button>
                     </form>

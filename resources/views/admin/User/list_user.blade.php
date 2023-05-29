@@ -17,26 +17,26 @@
                         <th>Tên khách hàng</th>
                         <th>Địa chỉ email</th>
                         <th>Số điện thoại</th>
-                        <th style="width:60px;">Quản lý</th>
+                        <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($all_customer as $key =>$ctm)
+                    @foreach($getAllListUser as $key =>$user)
                     <tr>
-                        <td>{{$ctm -> customer_id}}</td>
-                        <td>{{$ctm -> customer_first_name}}</td>
-                        <td>{{$ctm -> customer_last_name}}</td>
-                        <td>{{$ctm -> customer_email}}</td>
-                        <td>{{$ctm -> customer_phone}}</td>
+                        <td>{{$user -> user_id}}</td>
+                        <td>{{$user -> user_firstname}}</td>
+                        <td>{{$user -> user_lastname}}</td>
+                        <td>{{$user -> user_email}}</td>
+                        <td>{{$user -> user_phone}}</td>
                         <td>
                             <!-- <a href="{{URL::to('/add-customer-admin')}}"
                                 class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>
                             </a> -->
-                            <a href="{{URL::to('edit-customer/'.$ctm -> customer_id)}}" class="active style-edit"
+                            <a href="{{URL::to('edit-user/'.$user->user_id )}}" class="active style-edit"
                                 ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
-                            <a onclick="return confirm('Bạn có chắc muốn xóa danh mục?')"
-                                href="{{URL::to('delete-customer/'.$ctm -> customer_id)}}" class="active style-edit"
+                            <a onclick="return confirm('Bạn có chắc muốn xóa khách hàng?')"
+                                href="{{URL::to('delete-user/'.$user ->user_id)}}" class="active style-edit"
                                 ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>
                             </a>

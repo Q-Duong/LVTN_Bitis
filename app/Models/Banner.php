@@ -10,6 +10,6 @@ class Banner extends Model
     protected $fillable = [
     	'banner_image'
     ];
-    protected $primaryKey = 'banner_id ';
+    protected $primaryKey = 'banner_id';
  	protected $table = 'banner';
 }
