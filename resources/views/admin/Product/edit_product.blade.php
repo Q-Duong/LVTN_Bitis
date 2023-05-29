@@ -7,7 +7,7 @@
                     Cập nhật sản phẩm
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/all-product') }}" class="btn btn-info edit">Quản lý</a>
+                        <a href="{{ URL::to('/list-product') }}" class="btn btn-info edit">Quản lý</a>
                     </span>
                 </header>
 
@@ -15,25 +15,17 @@
                     <div class="position-center">
                         <form role="form" action="{{ URL::to('/update-product/' . $edit_value->product_id) }}"
                             method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="form-group" style="text-align:center;">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Loại sản phẩm</label>
-                                <select name="product_type_id" class="form-control m-bot15">
-                                    @foreach ($getAllProductType as $key => $product_type)
-                                        <option
-                                            {{ $edit_value->product_type_id == $product_type->product_type_id ? 'selected' : '' }}
-                                            value="{{ $product_type->product_type_id }}">
-                                            {{ $product_type->product_type_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @if(session('success'))
+                                    <div class="alert alert-success">{!! session('success') !!}</div>
+                                @elseif(session('error'))
+                                    <div class="alert alert-danger">{!! session('error') !!}</div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                                <select name="category_id" class="form-control m-bot15">
+                                <select name="category_id" class="form-control m-bot15 choose_category">
                                     @foreach ($getAllCategory as $key => $category)
                                         <option {{ $edit_value->category_id == $category->category_id ? 'selected' : '' }}
                                             value="{{ $category->category_id }}">
@@ -42,7 +34,18 @@
                                     @endforeach
                                 </select>
                             </div>
-
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Loại sản phẩm</label>
+                                <select name="product_type_id" class="form-control m-bot15 choose_product_type">
+                                    @foreach ($getAllProductType as $key => $product_type)
+                                        <option
+                                            {{ $edit_value->product_type_id == $product_type->product_type_id ? 'selected' : '' }}
+                                            value="{{ $product_type->productType->product_type_id }}">
+                                            {{ $product_type->productType->product_type_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group {{ $errors->has('product_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên sản phẩm</label>
                                 <input type="text" value="{{ $edit_value->product_name }}" name="product_name"

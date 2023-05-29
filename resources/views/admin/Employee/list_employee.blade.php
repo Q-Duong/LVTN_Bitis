@@ -3,7 +3,7 @@
 <div class="table-agile-info">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Liệt kê danh mục sản phẩm
+            Liệt kê nhân viên
         </div>
         @if(session('success'))
             <div class="alert alert-success">{!! session('success') !!}</div>
@@ -14,25 +14,29 @@
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>
                     <tr>
-                        <th>Id danh mục</th>
-                        <th>Tên danh mục</th>
-                        <th>Slug danh mục</th>
+                        <th>Id nhân viên</th>
+                        <th>Tên tài khoản</th>
+                        <th>Tên nhân viên</th>
+                        <th>Email liên hệ</th>
+                        <th>Số điện thoại</th>
                         <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
                 <tbody id="category_order">
-                    @foreach($getAllListCategory as $key =>$cate_pro)
+                    @foreach($getAllListEmployee as $key =>$empl)
                     <tr>
-                        <td>{{ $cate_pro -> category_id }}</td>
-                        <td>{{$cate_pro -> category_name}}</td>
-                        <td>{{ $cate_pro-> category_slug }}</td>
+                        <td>{{ $empl ->account->account_id }}</td>
+                        <td>{{ $empl ->account->account_username }}</td>
+                        <td>{{$empl -> employee_name}}</td>
+                        <td>{{ $empl-> employee_email }}</td>
+                        <td>{{ $empl-> employee_phone }}</td>
                         <td>
-                            <a href="{{URL::to('edit-category/'.$cate_pro -> category_id)}}"
+                            <a href="{{URL::to('edit-employee/'.$empl -> employee_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i
                                     class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
-                            <a onclick="return confirm('Nếu bạn xóa Danh mục sản phẩm thì Loại sản phẩm và Sản phẩm thuộc danh mục cũng sẻ bị xóa. Bạn có chắc muốn xóa danh mục?')"
-                                href="{{URL::to('delete-category/'.$cate_pro -> category_id)}}"
+                            <a onclick="return confirm('Nếu bạn xóa nhân viên thì account  cũng sẻ bị xóa. Bạn có chắc muốn xóa danh mục?')"
+                                href="{{URL::to('delete-employee/'.$empl -> employee_id)}}"
                                 class="active style-edit" ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>
                             </a>

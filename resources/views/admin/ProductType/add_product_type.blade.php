@@ -13,7 +13,7 @@
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-product-type')}}" method="post">
+                    <form role="form" action="{{URL::to('/save-product-type')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
                         @if(session('success'))
@@ -31,7 +31,10 @@
                             <label for="exampleInputEmail1">Slug sản phẩm</label>
                             <input type="text" name="product_type_slug" value="{{old('product_type_slug')}}" class="form-control" id="convert_slug" placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
-        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Hình ảnh loại sản phẩm</label>
+                            <input type="file" name="product_type_img"  class="form-control" placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                        </div>
 
                         <button type="submit" name="add_product_type" class="btn btn-info">Thêm loại sản phẩm</button>
                     </form>

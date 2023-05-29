@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Models\ProductType;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\CategoryType;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -33,6 +36,15 @@ class ProductTypeController extends Controller
         if($name){
             return Redirect()->back()->with('error','Loại sản phẩm đã tồn tại, vui lòng kiểm tra lại')->withInput();
         }
+        $get_image = request('product_type_img');
+        dd($get_image);
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move(public_path('uploads/productType/'), $new_image);
+            $productType->product_type_img = $new_image;
+        }
         $productType->save();
         return Redirect()->back()->with('success','Thêm thành công');
     }
@@ -50,9 +62,29 @@ class ProductTypeController extends Controller
         if($name){
             return Redirect()->back()->with('error','Tên danh mục đã tồn tại, vui lòng kiểm tra lại');
         }
+        $get_image = request('product_type_img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move(public_path('uploads/productType/'), $new_image);
+            $productType->product_type_img = $new_image;
+        }
         $productType->save();
         return Redirect::to('list-product-type')->with('success','Cập nhật danh mục sản phẩm thành công');
     }
 
+    // Customer Frontend
+
+    public function show_product_type_details($category_slug,$product_type_slug){
+        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
+        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
+        $category = Category::where('category_slug',$category_slug)->first();
+        $product_type = ProductType::where('product_type_slug',$product_type_slug)->first();
+        $getAllListProductCategory = Product::where('category_id',$category->category_id)->where('product_type_id',$product_type->product_type_id)->orderBy('product_id','ASC')->get();
+        //dd($getAllListProductCategory);
+
+        return view('pages.category.show_product_type')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
+    }
 }
  

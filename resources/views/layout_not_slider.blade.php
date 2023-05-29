@@ -166,35 +166,29 @@
         <div class="bodyContainer">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-1 col-md-1">
                         <div class="header__logo">
                             <a href="{{URL::to('/')}}"><i class="fab fa-apple"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-8 col-md-8">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="nav-item "><a href="{{URL::to('/')}}">Trang chủ</a></li>
-                                <li class="nav-item"><a href="{{URL::to('/store')}}">Sản phẩm</a>
-                                    <ul class="dropdown">
-                                        @foreach($category as $key => $cate)
-                                                <li><a
-                                                        href="{{asset(URL::to('/product-list/'.$cate->category_product_slug))}}">{{$cate->category_product_name}}</a>
-                                                </li>
-                                        @endforeach
-
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a href="{{URL::to('/blog-list')}}">Tin tức</a>
-                                    <ul class="dropdown">
-                                        @foreach($category_post as $key => $cate_post)
-                                        <li><a
-                                                href="{{asset(URL::to('/blogs/'.$cate_post->category_post_slug))}}">{{$cate_post->category_post_name}}</a>
-                                        </li>
-                                        @endforeach
-
-                                    </ul>
-                                </li>
+                                @foreach($getAllListCategory as $key => $category)
+                                    <li class="nav-item"><a href="{{asset(URL::to($category->category_slug))}}">{{$category->category_name}}</a>
+                                        <ul class="dropdown">
+                                            @foreach($getAllListCategoryType as $key => $categoryType)
+                                                @if($categoryType->category_id == $category->category_id)
+                                                    <li>
+                                                        <a href="{{asset(URL::to($categoryType->category->category_slug.'/'.$categoryType->productType->product_type_slug))}}">
+                                                            {{$categoryType->productType->product_type_name}}
+                                                        </a>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endforeach
                                 <li class="nav-item"><a href="{{URL::to('/lien-he')}}">Liên hệ</a></li>
                             </ul>
                         </nav>
@@ -206,6 +200,7 @@
                             <a href="{{URL::to('/cart')}}">
                                 <img src="{{asset('frontend/img/icon/cart.png')}}" alt="">
                                 <div class="count-cart-products"></div>
+                                
                             </a>
                         </div>
                     </div>
@@ -235,9 +230,9 @@
                     <div class="footer__widget">
                         <h6>Sản phẩm</h6>
                         <ul>
-                        @foreach($category as $key => $cate)                           
-                                <li><a href="{{asset(URL::to('/product-list/'.$cate->category_product_slug))}}">
-                                    {{$cate->category_product_name}}</a>
+                        @foreach($getAllListCategory as $key => $category)                           
+                                <li><a href="{{asset(URL::to('/product-list/'.$category->category_slug))}}">
+                                    {{$category->category_name}}</a>
                                 </li>
                         @endforeach
                         </ul>
@@ -247,10 +242,7 @@
                     <div class="footer__widget">
                         <h6>Tin tức</h6>
                         <ul>
-                        @foreach($category_post as $key => $cate_post)
-                            <li><a href="{{asset(URL::to('/blogs/'.$cate_post->category_post_slug))}}">{{$cate_post->category_post_name}}</a>
-                            </li>
-                        @endforeach
+                        
                         </ul>
                     </div>
                 </div>

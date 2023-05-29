@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Models\Category;
+use App\Models\CategoryType;
+use App\Models\Product;
 use App\Models\ProductType;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -45,14 +47,22 @@ class CategoryController extends Controller
         $data=$request->all();
         $category=Category::find($category_id);
         $category->category_name=$data['category_name'];
-        $category->category_slug=$data['category_name'];
-        $name=Category::where('category_name',$data['category_name'])->exists();;
-        if($name){
-            return Redirect()->back()->with('error','Tên danh mục đã tồn tại, vui lòng kiểm tra lại');
-        }
+        $category->category_slug=$data['category_slug'];
         $category->save();
         return Redirect::to('list-category')->with('success','Cập nhật danh mục sản phẩm thành công');
     }
 
+
+    //Customer Frontend
+
+    public function show_category_details($category_slug){
+        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
+        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
+        $category = Category::where('category_slug',$category_slug)->first();
+        $getAllListProductCategory = Product::where('category_id',$category->category_id)->orderBy('product_id','ASC')->get();
+
+        return view('pages.category.show_category')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
+    }
+    
 }
  

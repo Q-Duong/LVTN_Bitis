@@ -15,8 +15,8 @@
                     <thead>
                         <tr>
                             <th>Mã sản phẩm</th>
-                            <th>Loại sản phẩm</th>
                             <th>Danh mục sản phẩm</th>
+                            <th>Loại sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Tình trạng</th>
@@ -30,8 +30,8 @@
                         @foreach ($getAllListProduct as $key => $pro)
                             <tr>
                                 <td>{{ $pro->product_id }}</td>
-                                <td>{{ $pro->productType->product_type_name }}</td>
                                 <td>{{ $pro->category->category_name }}</td>
+                                <td>{{ $pro->productType->product_type_name }}</td>
                                 <td>{{ $pro->product_name }}</td>
                                 <td>{{ number_format($pro->product_price, 0, ',', '.') }}₫</td>
                                 <td>
