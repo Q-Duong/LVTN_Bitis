@@ -21,6 +21,7 @@
             @if($categoryType->category_id == $category->category_id)
                 <a href="{{asset(URL::to($categoryType->category->category_slug.'/'.$categoryType->productType->product_type_slug))}}">
                     <div class="category_product_item">
+                    <img width="100%" src="{{asset('uploads/productType/'.$categoryType->productType->product_type_img)}}">
                         <p>
                             {{$categoryType->productType->product_type_name}}
                         </p>
@@ -56,18 +57,17 @@
                             <a id="wishlist_producturl{{$product->product_id}}" href="{{URL::to('/product/'.$product->product_slug)}}">
                                 <div class="product__item__pic set-bg"
                                     data-setbg="{{URL::to('uploads/product/'.$product->product_image)}}">
-                                    @if($product->product_tag==2)
+                                    @if($product->product_tag==1)
                                     <span class="label">
                                         Mới
                                     </span>
-                                    @elseif($product->product_tag==1)
+                                    @elseif($product->product_tag==3)
                                     <span class="label">
                                         Khuyến mãi
                                     </span>
                                     @else
                                     @endif
-
-                                    @if($product->product_tag==0)
+                                    @if($product->product_tag==2)
                                     <div class="product_sold_out">
                                         <p>Sold out</p>
                                     </div>

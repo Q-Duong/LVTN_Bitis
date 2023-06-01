@@ -37,7 +37,10 @@ class ProductTypeController extends Controller
             return Redirect()->back()->with('error','Loại sản phẩm đã tồn tại, vui lòng kiểm tra lại')->withInput();
         }
         $get_image = request('product_type_img');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3fd8ccb6266afce1e78d6074727f2f40734c8c3c
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.',$get_name_image));
@@ -58,10 +61,10 @@ class ProductTypeController extends Controller
         $productType=ProductType::find($product_type_id);
         $productType->product_type_name=$data['product_type_name'];
         $productType->product_type_slug=$data['product_type_slug'];
-        $name=ProductType::where('product_type_name',$data['product_type_name'])->exists();;
-        if($name){
-            return Redirect()->back()->with('error','Tên danh mục đã tồn tại, vui lòng kiểm tra lại');
-        }
+        // $name=ProductType::where('product_type_name',$data['product_type_name'])->exists();;
+        // if($name){
+        //     return Redirect()->back()->with('error','Tên danh mục đã tồn tại, vui lòng kiểm tra lại');
+        // }
         $get_image = request('product_type_img');
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();

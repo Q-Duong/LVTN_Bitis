@@ -15,52 +15,48 @@ class UserController extends Controller
         return view('admin.User.add_user')->with(compact('getAllAccount'));
     }
     function list_user(){
-        $getAllListProduct=Product::orderBy('product_id','ASC')->get();
+        $getAllListUser=User::orderBy('user_id','ASC')->get();
         // dd($getAllListProduct);
-        return view('admin.Product.all_product')->with(compact('getAllListProduct'));
+        return view('admin.User.list_user')->with(compact('getAllListUser'));
     }
-    function edit_product($product_id){
-        $edit_value=Product::find($product_id);
-        $getAllProductType=ProductType::orderBy('product_type_id','asc')->get();
-        $getAllCategory=Category::orderBy('category_id','asc')->get();
-        return view('admin.Product.edit_product')->with(compact('edit_value','getAllProductType','getAllCategory'));
+    function edit_user($user_id){
+        $edit_value=User::find($user_id);
+        return view('admin.User.edit_user')->with(compact('edit_value'));
     }
-    function save_product(Request $request){
+    function save_user(Request $request){
         $data=$request->all();
-        //dd($data);
-        $product = new Product();
-        $product->product_name=$data['product_name'];
-        $product->product_price=$data['product_price'];
-        $product->product_tag=$data['product_tag'];
-        $product->product_description=$data['product_description'];
-        $product->product_type_id=$data['product_type_id'];
-        $product->category_id=$data['category_id'];
-        $product->product_slug=$data['product_slug'];
-        $product->product_image=$data['product_image'];
-        $name=Product::where('product_name',$data['product_name'])->exists();
-        if($name){
-            return Redirect()->back()->with('error','Tên sản phẩm đã tồn tại,vui lòng nhập lại')->withInput();
+        $account = new Account();
+        $account->account_username=$data['account_username'];
+        $account->account_password=md5($data['account_password']);
+        $email=Account::where('account_username',$data['account_username'])->exists();
+        if($email){
+            return Redirect()->back()->with('error','Email đã tồn tại,vui lòng nhập lại')->withInput();
         }
-        $product->save();
-        return Redirect()->back()->with('success','Thêm sản phẩm thành công');
+        $account->save();
+        $user = new User();
+        $user->user_firstname=$data['user_firstname'];
+        $user->user_lastname=$data['user_lastname'];
+        $user->user_phone=$data['user_phone'];
+        $user->user_email=$data['account_username'];
+        $user->account_id=$account->account_id;
+        $user->save();
+        return Redirect()->back()->with('success','Thêm khách hàng thành công');
     }
-    function update_product(Request $request,$product_id){
+    function update_user(Request $request,$user_id){
         $data=$request->all();
-        $product=Product::find($product_id);
-        $product->product_name=$data['product_name'];
-        $product->product_price=$data['product_price'];
-        $product->product_tag=$data['product_tag'];
-        $product->product_description=$data['product_description'];
-        $product->product_type_id=$data['product_type_id'];
-        $product->category_id=$data['category_id'];
-        $product->product_slug=$data['product_slug'];
-        $product->product_image=$data['product_image'];
-        $name=Product::where('product_name',$data['product_name'])->exists();
-        if($name){
-            return Redirect()->back()->with('error','Tên sản phẩm đã tồn tại,vui lòng nhập lại')->withInput();
+        $user=User::find($user_id);
+        $user->user_firstname=$data['user_firstname'];
+        $user->user_lastname=$data['user_lastname'];
+        $user->user_phone=$data['user_phone'];
+        $user->save();
+
+        $account=Account::find($user->account_id);
+        if($data['account_password'] != null){
+            $account->account_password=md5($data['account_password']);
+            $account->save();
         }
-        $product->save();
-        return Redirect()->back()->with('success','Thêm sản phẩm thành công');
+        
+        return Redirect::to('list-user')->with('success','Cập nhật khách hàng thành công');
     }
     function delete_product($product_id){
         $product=Product::find($product_id);

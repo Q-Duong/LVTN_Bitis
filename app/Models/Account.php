@@ -16,4 +16,7 @@ class Account extends Model
     public function employee(){
         $this->hasOne('App\Models\Employee');
     }
+    public function user(){
+        $this->hasOne('App\Models\User');
+    }
 }
