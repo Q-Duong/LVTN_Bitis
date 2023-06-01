@@ -13,8 +13,8 @@
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-employee')}}" method="post" >
-                        {{csrf_field()}}
+                    <form role="form" >
+                        @csrf
                         <div class="form-group">
                             @if(session('success'))
                                 <div class="alert alert-success">{!! session('success') !!}</div>
@@ -22,6 +22,7 @@
                                 <div class="alert alert-danger">{!! session('error') !!}</div>
                             @endif
                         </div>
+                        <div class="alert alert-danger"></div>
                         <div class="form-group">
                             <label for="exampleInputEmail1"> Tài khoản đăng nhập</label>
                             <input type="email" name="account_username" value="{{old('account_username')}}" class="form-control"  placeholder="Tài khoản" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
@@ -45,7 +46,7 @@
                         </div>
 
 
-                        <button type="submit" name="add_employee" class="btn btn-info">Thêm nhân viên</button>
+                        <a type="button" name="add_employee" class="btn btn-info condimemayacau">Thêm nhân viên</a>
                     </form>
 
                 </div>

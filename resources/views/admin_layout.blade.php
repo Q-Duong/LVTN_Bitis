@@ -453,6 +453,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             });
         });
+        $(document).ready(function() {
+            $('.add_employee').on('click', function() {
+                var account_username = $('input[name="account_username"]').val();
+                var account_password = $('input[name="account_password"]').val();
+                var employee_name = $('input[name="employee_name"]').val();
+                var employee_email = $('input[name="employee_email"]').val();
+                var employee_phone = $('input[name="employee_phone"]').val();
+                var _token = $('input[name="_token"]').val();
+                console.log(account_username);
+                $.ajax({
+                    url: "{{ url('/save-employee') }}",
+                    method: 'POST',
+                    data: {
+                        account_username: account_username,
+                        account_password: account_password,
+                        employee_name: employee_name,
+                        employee_email: employee_email,
+                        employee_phone: employee_phone,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('.alert').html(data.success);
+                    }
+                });
+            });
+        });
     </script>
 
     <!-- //calendar -->

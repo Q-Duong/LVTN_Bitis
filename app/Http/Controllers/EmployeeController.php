@@ -18,6 +18,7 @@ class EmployeeController extends Controller
     }
     function save_employee(Request $request){
         $data=$request->all();
+        dd($data);
         $account=new Account();
         $account->account_username=$data['account_username'];
         $account->account_password=md5($data['account_password']);
@@ -35,7 +36,8 @@ class EmployeeController extends Controller
         $employee->employee_email=$data['employee_email'];
         $employee->account_id=$account->account_id;
         $employee->save();
-        return Redirect()->back()->with('success','Thêm nhân viên thành công');
+        // return Redirect()->back()->with('success','Thêm nhân viên thành công');
+        return response()->json(array('success' => 'Thêm a cẩu thành công',));
     }
     function edit_employee($employee_id){
         $edit_value=Employee::find($employee_id);
