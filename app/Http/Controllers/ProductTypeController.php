@@ -37,7 +37,7 @@ class ProductTypeController extends Controller
             return Redirect()->back()->with('error','Loại sản phẩm đã tồn tại, vui lòng kiểm tra lại')->withInput();
         }
         $get_image = request('product_type_img');
-        dd($get_image);
+
         if($get_image){
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.',$get_name_image));
