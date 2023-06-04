@@ -453,7 +453,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             });
         });
-        $(document).ready(function() {
+       
             $('.add_employee').on('click', function() {
                 var account_username = $('input[name="account_username"]').val();
                 var account_password = $('input[name="account_password"]').val();
@@ -478,7 +478,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     }
                 });
             });
-        });
+        
     </script>
 
     <!-- //calendar -->

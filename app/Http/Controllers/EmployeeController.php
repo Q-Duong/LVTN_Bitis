@@ -18,16 +18,16 @@ class EmployeeController extends Controller
     }
     function save_employee(Request $request){
         $data=$request->all();
-        dd($data);
+        
         $account=new Account();
         $account->account_username=$data['account_username'];
         $account->account_password=md5($data['account_password']);
         $account->account_active=1;
         $account->account_role=1;
-        $email=Account::where('account_username',$data['account_username'])->exists();
-        if($email){
-            return Redirect()->back()->with('error','Tên email đã tồn tại, vui lòng kiểm tra lại')->withInput();
-        }
+        // $email=Account::where('account_username',$data['account_username'])->exists();
+        // if($email){
+        //     return Redirect()->back()->with('error','Tên email đã tồn tại, vui lòng kiểm tra lại')->withInput();
+        // }
         $account->save();
 
         $employee=new Employee();
