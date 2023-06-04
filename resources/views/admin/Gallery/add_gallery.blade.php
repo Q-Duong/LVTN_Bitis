@@ -5,8 +5,9 @@
         <section class="panel">
             <header class="panel-heading">
                 Thêm thư viện ảnh
+                <a href="{{URL::to('/list-product')}}" class="btn btn-info edit">Quản lý</a>
             </header>
-            <a href="{{URL::to('/all-product')}}" class="btn btn-info edit">Quản lý</a>
+            
             <div class="panel-body">
                 <div class="position-center">
 
@@ -15,13 +16,13 @@
                         <div class="alert alert-success">{!! session('success') !!}</div>
                     @endif
                     </div>
-                    <form action="{{url('/insert-gallery/'.$pro_id)}}" method="POST" enctype="multipart/form-data">
-                    {{csrf_field()}}
+                    <form action="{{url('/insert-gallery/'.$product_id)}}" method="POST" enctype="multipart/form-data">
+                    @csrf
                         <div class="row">
                             <div class="col-md-2">
                             </div>
                             <div class="col-md-6">
-                                <input type="file" class="form-control" id="file" name="file[]" accept="image/*" multiple>
+                                <input type="file" class="form-control" id="file" name="image_file[]" accept="image/*" multiple>
                                 <span id="error_gallery"></span>
                             </div>
                             <div class="col-md-4" >
@@ -31,9 +32,9 @@
                         </div>
                         </form>
 
-                    <input class="pro_id" type="hidden" name="pro_id" value="{{$pro_id}}">
+                    <input class="pro_id" type="hidden" name="pro_id" value="{{$product_id}}">
                     <form>
-                    {{csrf_field()}}
+                    @csrf
                         <div id="gallery_load">
                                    
                         </div>

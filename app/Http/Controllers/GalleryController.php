@@ -20,10 +20,7 @@ class GalleryController extends Controller
 {
 
     public function add_gallery($product_id){
-       
-        $pro_id=$product_id;
-
-    	return view('admin.Gallery.add_gallery')->with(compact('pro_id'));
+    	return view('admin.Gallery.add_gallery')->with(compact('product_id'));
     }
 
     public function select_gallery(Request $request){
@@ -51,7 +48,7 @@ class GalleryController extends Controller
     				 		<td>'.$i.'</td>
                             <td contenteditable class="edit_gal_name" data-gal_id="'.$gal->gallery_id.'">'.$gal->gallery_name.'</td>
                             <td>
-                                <img src="'.url('public/uploads/gallery/'.$gal->gallery_image).'" class="img-thumbnail" width="100" height="100">
+                                <img src="'.url('uploads/gallery/'.$gal->gallery_image).'" class="img-thumbnail" width="100" height="100">
                                 <input type="file" class="file_image" data-gal_id="'.$gal->gallery_id.'" id="file-'.$gal->gallery_id.'" name="file" accept="image/*" />
                             </td>
                             <td>
@@ -72,18 +69,18 @@ class GalleryController extends Controller
     	echo $output;
     }
 
-    public function insert_gallery(Request $request,$pro_id){
-    	$get_image = $request->file('file');
+    public function insert_gallery(Request $request,$product_id){
+    	$get_image = request('image_file');
     	if($get_image){
     		foreach($get_image as $image){
     			$get_name_image = $image->getClientOriginalName();
 	            $name_image = current(explode('.',$get_name_image));
 	            $new_image =  $name_image.rand(0,99).'.'.$image->getClientOriginalExtension();
-	            $image->move('public/uploads/gallery',$new_image);
+                $image->move(public_path('uploads/gallery/'), $new_image);
 	           	$gallery = new Gallery();
 	           	$gallery->gallery_name = $new_image;
 	           	$gallery->gallery_image = $new_image;
-	           	$gallery->product_id = $pro_id;
+	           	$gallery->product_id = $product_id;
 	           	$gallery->save();
     		}
     	}
@@ -102,7 +99,7 @@ class GalleryController extends Controller
     public function delete_gallery(Request $request){
     	$gal_id = $request->gal_id;
     	$gallery = Gallery::find($gal_id);
-	    unlink('public/uploads/gallery/'.$gallery->gallery_image);
+	    unlink(public_path('uploads/gallery/'.$gallery->gallery_image));
 	    $gallery->delete();
     }
 

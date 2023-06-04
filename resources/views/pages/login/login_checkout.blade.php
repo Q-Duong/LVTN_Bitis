@@ -20,8 +20,8 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <form action="{{ URL::to('/login-customer') }}" method="POST">
-                    {{ csrf_field() }}
+                <form action="{{ URL::to('/login') }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-5 col-md-5">
                             @if (session()->has('success'))
@@ -33,13 +33,11 @@
                                     {!! session()->get('error') !!}
                                 </div>
                             @endif
-                            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Bạn chưa có mã khuyến mãi?
-                                <a href="{{ URL::to('/create-customer') }}">Đăng ký ngay</a> để nhận mã khuyến mãi.
-                            </h6>
+                                <a href="{{ URL::to('/register') }}">Đăng ký ngay</a>
                             <h4 class="checkout__title">Đăng nhập</h4>
                             <div class="checkout__input">
-                                <p>Tên đăng nhập hoặc email<span>*</span></p>
-                                <input type="text" name="email_account" placeholder="Điền tên tài khoản hoặc Email" />
+                                <p>Tên đăng nhập <span>*</span></p>
+                                <input type="text" name="email_account" placeholder="Điền tên tài khoản" />
                             </div>
                             <div class="checkout__input">
                                 <p>Mật khẩu<span>*</span></p>
@@ -51,14 +49,14 @@
                                     nhập</button>
                             </div>
                             <div class="checkout__input">
-                                <a href="{{ url('login-customer-google') }}"><i class="fab fa-google"></i> Đăng nhập bằng google
+                                <a href="{{ url('login-user-google') }}"><i class="fab fa-google"></i> Đăng nhập bằng google
                                 </a>
                             </div>
                             <div class="checkout__input_login">
                                 <p><a href="{{ URL::to('/iforgot') }}"><i class="fas fa-cogs"></i> Quên tài khoản hoặc mật khẩu?</a> </p>
                             </div>
                             <div class="checkout__input">
-                                <p><a href="{{ URL::to('/create-customer') }}"><i class="fas fa-user-plus"></i> Tạo tài khoản mới.</a> </p>
+                                <p><a href="{{ URL::to('/create-user') }}"><i class="fas fa-user-plus"></i> Tạo tài khoản mới.</a> </p>
                             </div>
                         </div>
                     </div>

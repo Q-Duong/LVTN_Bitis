@@ -40,6 +40,15 @@ Route::get('/edit-product-type/{product_type_id}','App\Http\Controllers\ProductT
 Route::post('update-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@update_product_type');
 Route::get('/delete-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@delete_product_type');
 
+//Banner
+Route::get('/list-banner','App\Http\Controllers\BannerController@list_banner');
+Route::get('/add-banner','App\Http\Controllers\BannerController@add_banner');
+Route::get('/delete-banner/{banner_id}','App\Http\Controllers\BannerController@delete_banner');
+Route::get('/edit-banner/{banner_id}','App\Http\Controllers\BannerController@edit_banner');
+Route::post('/save-banner','App\Http\Controllers\BannerController@save_banner');
+Route::post('/update-banner/{banner_id}','App\Http\Controllers\BannerController@update_banner');
+//Route::update('/update-product-type','App\Http\Controllers\ProductController@update_product_type');
+
 //Product
 Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
 Route::post('/save-product','App\Http\Controllers\ProductController@save_product');
@@ -52,7 +61,7 @@ Route::post('select-category','App\Http\Controllers\ProductController@select_cat
 //Gallery
 Route::get('add-gallery/{product_id}','App\Http\Controllers\GalleryController@add_gallery');
 Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
-Route::post('insert-gallery/{pro_id}','App\Http\Controllers\GalleryController@insert_gallery');
+Route::post('insert-gallery/{product_id}','App\Http\Controllers\GalleryController@insert_gallery');
 Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
 Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
 Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
@@ -64,6 +73,7 @@ Route::get('/list-user','App\Http\Controllers\UserController@list_user');
 Route::get('/edit-user/{user_id}','App\Http\Controllers\UserController@edit_user');
 Route::post('update-user/{user_id}','App\Http\Controllers\UserController@update_user');
 Route::get('/delete-user/{user_id}','App\Http\Controllers\UserController@delete_user');
+
 //Employee
 Route::get('/add-employee','App\Http\Controllers\EmployeeController@add_employee');
 Route::post('/save-employee','App\Http\Controllers\EmployeeController@save_employee');
@@ -74,6 +84,21 @@ Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeContro
 
 
 //-------------------------------------------- Frontend --------------------------------------------
+//Home
 Route::get('','App\Http\Controllers\HomeController@index');
-Route::get('/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
-Route::get('/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
+//Category
+Route::get('collections/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
+
+//ProductType
+Route::get('collections/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
+
+//Login
+Route::get('/login','App\Http\Controllers\LoginController@login_checkout');
+Route::get('/register','App\Http\Controllers\LoginController@register');
+Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
+Route::post('/login-c','App\Http\Controllers\CustomerController@login_user');
+
+
+
+
+
