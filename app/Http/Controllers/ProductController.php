@@ -7,7 +7,9 @@ use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Product;
 use App\Models\ProductType;
+use App\Models\Gallery;
 use App\Http\Requests;
+use File;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -60,9 +62,17 @@ class ProductController extends Controller
             $name_image = current(explode('.',$get_name_image));
             $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
             $get_image->move(public_path('uploads/product/'), $new_image);
+            File::copy(public_path('uploads/product/'.$new_image),public_path('uploads/gallery/'.$new_image));
             $product->product_image = $new_image;
         }
         $product->save();
+
+        $gallery = new Gallery();
+        $gallery->gallery_image = $new_image;
+        $gallery->gallery_name = $new_image;
+        $gallery->product_id = $product->product_id;;
+        $gallery->save();
+
         return Redirect()->back()->with('success','Thêm sản phẩm thành công');
     }
     function update_product(Request $request,$product_id){

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Models\CategoryPost;
+use App\Models\Post;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -62,6 +63,10 @@ class CategoryPostController extends Controller
 
     //     return view('pages.category.show_category')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
     // }
-    
+    public function show_category_post($category_post_slug){
+            $cate_pos=CategoryPost::where('category_post_slug',$category_post_slug)->first();
+            $post = Post::where('category_post_id',$cate_pos->category_post_id)->get();
+            dd($post);
+    }
 }
  

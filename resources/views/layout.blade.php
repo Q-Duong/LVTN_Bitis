@@ -74,10 +74,10 @@
                         <i class="arrow_carrot-down"></i>
                     </span>
                     <ul>
-                        <a href="{{ URL::to('/login-checkout') }}">
+                        <a href="{{ URL::to('/login') }}">
                             <li><i class="fas fa-sign-in-alt"></i> Đăng nhập</li>
                         </a>
-                        <a href="{{ URL::to('/create-customer') }}">
+                        <a href="{{ URL::to('/register') }}">
                             <li><i class="fas fa-user-plus"></i> Đăng ký</li>
                         </a>
                     </ul>
@@ -107,7 +107,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-7">
                         <div class="header__top__left">
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-5">
@@ -150,10 +150,10 @@
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
-                                        <a href="{{ URL::to('/login-checkout') }}">
+                                        <a href="{{ URL::to('/login') }}">
                                             <li><i class="fas fa-sign-in-alt"></i> Đăng nhập</li>
                                         </a>
-                                        <a href="{{ URL::to('/create-customer') }}">
+                                        <a href="{{ URL::to('/register') }}">
                                             <li><i class="fas fa-user-plus"></i> Đăng ký</li>
                                         </a>
 
@@ -179,13 +179,13 @@
                             <ul>
                                 @foreach ($getAllListCategory as $key => $category)
                                     <li class="nav-item"><a
-                                            href="{{ asset(URL::to($category->category_slug)) }}">{{ $category->category_name }}</a>
+                                            href="{{ asset(URL::to('/collections/'.$category->category_slug)) }}">{{ $category->category_name }}</a>
                                         <ul class="dropdown">
                                             @foreach ($getAllListCategoryType as $key => $categoryType)
                                                 @if ($categoryType->category_id == $category->category_id)
                                                     <li>
                                                         <a
-                                                            href="{{ asset(URL::to($categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                                            href="{{ asset(URL::to('/collections/'.$categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
                                                             {{ $categoryType->productType->product_type_name }}
                                                         </a>
                                                     </li>
@@ -199,7 +199,7 @@
                                             @foreach ($getAllListCategoryPost as $key => $categoryPost)                                    
                                                     <li>
                                                         <a
-                                                            href="{{ asset(URL::to($categoryPost->category_post_slug)) }}">
+                                                            href="{{ asset(URL::to('/blogs/'.$categoryPost->category_post_slug)) }}">
                                                             {{ $categoryPost->category_post_name }}
                                                         </a>
                                                     </li>
@@ -232,93 +232,42 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-    {{-- <div class="bodyContainer">
-        <section id="a" class="hero">
+    <div class="bodyContainer">
+        {{-- <section id="a" class="hero">
             <div class="hero__slider owl-carousel">
-            @foreach ($slider as $key => $slide)
-                <div class="hero__items set-bg active" data-setbg="{{asset('uploads/slider/'.$slide->slider_image)}}">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-5 col-lg-7 col-md-8">
-                                <div class="hero__text">
-                                    <p>{!! $slide->slider_desc !!}</p>
-                                    <a href="{{URL::to('/store')}}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
-                                    <div class="hero__social">
-                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#"><i class="fab fa-twitter"></i></a>
-                                        <a href="#"><i class="fab fa-instagram"></i></a>
-                                        <a href="#"><i class="fas fa-phone    "></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            @foreach ($getAllBanner as $key => $banner)
+                <div class="hero__items set-bg active" data-setbg="{{asset('uploads/banner/'.$banner->banner_image)}}">
                 </div>
             @endforeach    
             </div>
-        </section> --}}
-
-
-
-
-    <section class="product spad">
-        <div class="container">
-            @yield('content')
-        </div>
-    </section>
-    <!-- Product Section End -->
-
-    <!-- Categories Section Begin -->
-    <!-- <section class="categories spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="categories__text">
-                            <h2>Clothings Hot <br /> <span>Shoe Collection</span> <br /> Accessories</h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="categories__hot__deal">
-                            <img src="img/product-sale.png" alt="">
-                            <div class="hot__deal__sticker">
-                                <span>Sale Of</span>
-                                <h5>$29.99</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 offset-lg-1">
-                        <div class="categories__deal__countdown">
-                            <span>Deal Of The Week</span>
-                            <h2>Multi-pocket Chest Bag Black</h2>
-                            <div class="categories__deal__countdown__timer" id="countdown">
-                                <div class="cd-item">
-                                    <span>3</span>
-                                    <p>Days</p>
-                                </div>
-                                <div class="cd-item">
-                                    <span>1</span>
-                                    <p>Hours</p>
-                                </div>
-                                <div class="cd-item">
-                                    <span>50</span>
-                                    <p>Minutes</p>
-                                </div>
-                                <div class="cd-item">
-                                    <span>18</span>
-                                    <p>Seconds</p>
-                                </div>
-                            </div>
-                            <a href="#" class="primary-btn">Shop now</a>
-                        </div>
-                    </div>
-                </div>
+        </section>  --}}
+        <section id="a" class="hero">
+            <div id="slider">
+                <a href="#" class="control_next">&gt;</a>
+                <a href="#" class="control_prev">&lt;</a>
+                <ul>
+                    @foreach ($getAllBanner as $key => $banner)
+                        <li><img src="{{ asset('uploads/banner/' . $banner->banner_image) }}"></li>
+                    @endforeach
+                </ul>
             </div>
-        </section> -->
-    <!-- Categories Section End -->
 
-    <!-- Instagram Section Begin -->
+            <div class="slider_option">
+                <input type="checkbox" id="checkbox">
+                <label for="checkbox">Autoplay <a href="https://www.jqueryscript.net/slider/">Slider</a></label>
+            </div>
+        </section>
 
-    <!-- Instagram Section End -->
+
+
+
+        <section class="product spad">
+            <div class="container">
+                @yield('content')
+            </div>
+        </section>
+        <!-- Product Section End -->
+
     </div>
 
     <!-- Footer Section Begin -->
@@ -437,7 +386,7 @@
     <script src="{{ asset('frontend/js/delete_wistlists.min.js') }}"></script>
     <script src="{{ asset('frontend/js/add_wistlists.min.js') }}"></script>
     <script src="{{ asset('frontend/js/apple.min.js') }}"></script>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript">
         $('.nav-item').on('click', function() {
 
@@ -447,6 +396,53 @@
             //Add active class to the clicked item
             $(this).addClass('active');
         });
+
+        var slideCount = $('#slider ul li').length;
+        var slideWidth = $('#slider ul li').width();
+        var slideHeight = $('#slider ul li').height();
+        var sliderUlWidth = slideCount * slideWidth;
+
+        $('#slider').css({
+            width: slideWidth,
+            height: slideHeight
+        });
+
+        $('#slider ul').css({
+            width: sliderUlWidth,
+            marginLeft: -slideWidth
+        });
+
+        $('#slider ul li:last-child').prependTo('#slider ul');
+
+        function moveLeft() {
+            $('#slider ul').animate({
+                left: +slideWidth
+            }, 600, function() {
+                $('#slider ul li:last-child').prependTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        function moveRight() {
+            $('#slider ul').animate({
+                left: -slideWidth
+            }, 600, function() {
+                $('#slider ul li:first-child').appendTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        $('a.control_prev').click(function() {
+            moveLeft();
+        });
+
+        $('a.control_next').click(function() {
+            moveRight();
+        });
+
+        setInterval(function () {
+        moveRight();
+        }, 5000);
     </script>
 
 

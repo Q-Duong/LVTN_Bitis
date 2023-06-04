@@ -73,8 +73,8 @@
                                 ) !!}
                             </div>
                             
-                            <button type="submit" value="submit" name="add_user" class="btn btn-info">Thêm khách
-                                hàng</button>
+                            <a type="button" value="submit" name="add_user" class="btn btn-info condimemayacau">Thêm khách
+                                hàng</a>
                         </form>
 
                     </div>
