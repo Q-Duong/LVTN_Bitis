@@ -312,7 +312,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Danh mục bài viết</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-category-post') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm danh mục bài viết
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-category-post') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý danh mục bài viết
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Quản lý bài viết</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-post') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm bài viết
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-post') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý bài viết
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
                     </ul>
                     <!-- sidebar menu end-->
@@ -377,6 +412,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             }
         });
+        
+        CKEDITOR.replace('ckeditor1');
+        CKEDITOR.replace('ckeditor2');
+        CKEDITOR.replace('ckeditor3');
+        CKEDITOR.replace('ckeditor4');
 
         $('.price_format').simpleMoneyFormat();
 
@@ -453,6 +493,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             });
         });
+
+       
+            // $('.submit_user').on('click', function() {
+            //     var account_username =$('input[name="account_username"]').val();
+            //     var account_password =$('input[name="account_password"]').val();
+            //     var user_firstname =$('input[name="user_firstname"]').val();
+            //     var user_lastname =$('input[name="user_lastname"]').val();
+            //     var user_phone =$('input[name="user_phone"]').val();
+            //     var _token = $('input[name="_token"]').val();
+            //     console.log(account_username,account_password,user_firstname);  
+            //     $.ajax({
+            //         url: "{{ url('/save-user') }}",
+            //         method: 'POST',
+            //         data: {
+            //             account_username:account_username,
+            //             account_password:account_password,
+            //             user_firstname:user_firstname,
+            //             user_lastname:user_lastname,
+            //             user_phone:user_phone,
+            //             _token: _token
+            //         },
+            //         success: function(data) {
+            //             $('.choose_product_type').html(data);
+            //         }
+            //     });
+            // });
+    
+
     </script>
 
     <!-- //calendar -->

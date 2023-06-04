@@ -70,7 +70,21 @@ Route::get('/edit-employee/{employee_id}','App\Http\Controllers\EmployeeControll
 Route::post('update-employee/{employee_id}','App\Http\Controllers\EmployeeController@update_employee');
 Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeController@delete_employee');
 
+//Category Post
+Route::get('/add-category-post','App\Http\Controllers\CategoryPostController@add_category_post');
+Route::post('/save-category-post','App\Http\Controllers\CategoryPostController@save_category_post');
+Route::get('/list-category-post','App\Http\Controllers\CategoryPostController@list_category_post');
+Route::get('/edit-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@edit_category_post');
+Route::post('update-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@update_category_post');
+Route::get('/delete-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@delete_category_post');
 
+// Post
+Route::get('/add-post','App\Http\Controllers\PostController@add_post');
+Route::post('/save-post','App\Http\Controllers\PostController@save_post');
+Route::get('/list-post','App\Http\Controllers\PostController@list_post');
+Route::get('/edit-post/{post_id}','App\Http\Controllers\PostController@edit_post');
+Route::post('update-post/{post_id}','App\Http\Controllers\PostController@update_post');
+Route::get('/delete-post/{post_id}','App\Http\Controllers\PostController@delete_post');
 //-------------------------------------------- Frontend --------------------------------------------
 Route::get('','App\Http\Controllers\HomeController@index');
 Route::get('/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');

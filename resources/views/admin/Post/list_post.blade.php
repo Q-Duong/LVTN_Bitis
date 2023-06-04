@@ -16,10 +16,10 @@
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>
                     <tr>
+                        <th>Danh mục bài viết</th>
                         <th>Tên bài viết</th>
                         <th>Slug bài viết</th>
-                        <th>Hình sản phẩm</th>
-                        <th>Danh mục bài viết</th>
+                        <th>Hình bài viết</th>
                         <!-- <th style="table-layout: fixed;">Tóm tắt bài viết</th>
                         <th style="table-layout: fixed;">Nội dung bài viết</th> -->
                         <th>Hiển thị</th>
@@ -27,13 +27,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($all_post as $key =>$post)
+                    @foreach($getAllListPost as $key =>$post)
                     <tr>
+                        <td>{{ $post -> categoryPost -> category_post_name}}</td>
                         <td>{{ $post -> post_title }}</td>
                         <td>{{ $post -> post_slug }}</td>
                         <td><img class="img-fluid" src="{{asset('uploads/post/'.$post -> post_image)}}" alt="">
                         </td>
-                        <td>{{ $post -> category_post -> category_post_name}}</td>
                         <td>
                             <span class="text-ellipsis">
                                 @if($post -> post_status==1)

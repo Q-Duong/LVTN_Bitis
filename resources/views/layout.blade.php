@@ -194,6 +194,19 @@
                                         </ul>
                                     </li>
                                 @endforeach
+                                <li class="nav-item"><a href="{{ URL::to('/tin-tuc') }}">Tin tức</a>
+                                <ul class="dropdown">
+                                            @foreach ($getAllListCategoryPost as $key => $categoryPost)                                    
+                                                    <li>
+                                                        <a
+                                                            href="{{ asset(URL::to($categoryPost->category_post_slug)) }}">
+                                                            {{ $categoryPost->category_post_name }}
+                                                        </a>
+                                                    </li>
+                                            
+                                            @endforeach
+                                        </ul>
+                                </li>
                                 <li class="nav-item"><a href="{{ URL::to('/lien-he') }}">Liên hệ</a></li>
                             </ul>
                         </nav>

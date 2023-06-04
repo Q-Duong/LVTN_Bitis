@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($category_post as $key =>$cate_post)
+                    @foreach($getAllListCategoryPost as $key =>$cate_post)
                     <tr>
                         <td>{{$cate_post -> category_post_name}}</td>
                         <td>{{$cate_post->category_post_slug}}</td>

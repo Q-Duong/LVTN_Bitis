@@ -13,7 +13,7 @@
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category-post/'.$category_post->category_post_id)}}"
+                    <form role="form" action="{{URL::to('/update-category-post/'.$edit_value->category_post_id)}}"
                         method="post">
                         {{csrf_field()}}
                        
@@ -21,18 +21,18 @@
                             <label for="exampleInputEmail1">Tên danh mục bài viết</label>
                             <input type="text" name="category_post_name" class="form-control" id="slug"
                                 placeholder="Enter email" onkeyup="ChangeToSlug();"
-                                value="{{$category_post->category_post_name}}" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                                value="{{$edit_value->category_post_name}}" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug danh mục bài viết</label>
                             <input type="text" name="category_post_slug" class="form-control" id="convert_slug"
-                                placeholder="Tên danh mục" value="{{$category_post->category_post_slug}}"
+                                placeholder="Tên danh mục" value="{{$edit_value->category_post_slug}}"
                                 data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Hiển thị</label>
                             <select name="category_post_status" class="form-control m-bot15">
-                                @if($category_post->category_post_status==1)
+                                @if($edit_value->category_post_status==1)
                                 <option selected value="1">Hiển thị</option>
                                 <option value="0">Ẩn</option>
                                 @else

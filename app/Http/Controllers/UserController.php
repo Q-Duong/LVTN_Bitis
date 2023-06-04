@@ -25,9 +25,12 @@ class UserController extends Controller
     }
     function save_user(Request $request){
         $data=$request->all();
+        
         $account = new Account();
         $account->account_username=$data['account_username'];
         $account->account_password=md5($data['account_password']);
+        $account->account_active=1;
+        $account->account_role=1;
         $email=Account::where('account_username',$data['account_username'])->exists();
         if($email){
             return Redirect()->back()->with('error','Email đã tồn tại,vui lòng nhập lại')->withInput();
