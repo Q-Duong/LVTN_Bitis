@@ -46,7 +46,13 @@ Route::get('/list-product-type','App\Http\Controllers\ProductTypeController@list
 Route::get('/edit-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@edit_product_type');
 Route::post('update-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@update_product_type');
 Route::get('/delete-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@delete_product_type');
-
+//Banner
+Route::get('/list-banner','App\Http\Controllers\BannerController@list_banner');
+Route::get('/add-banner','App\Http\Controllers\BannerController@add_banner');
+Route::get('/delete-banner/{banner_id}','App\Http\Controllers\BannerController@delete_banner');
+Route::get('/edit-banner/{banner_id}','App\Http\Controllers\BannerController@edit_banner');
+Route::post('/save-banner','App\Http\Controllers\BannerController@save_banner');
+Route::post('/update-banner/{banner_id}','App\Http\Controllers\BannerController@update_banner');
 //Route::update('/update-product-type','App\Http\Controllers\ProductController@update_product_type');
 //Product
 // Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
@@ -75,3 +81,8 @@ Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeContro
 Route::get('','App\Http\Controllers\HomeController@index');
 Route::get('/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
 Route::get('/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
+//Login
+Route::get('/login-checkout','App\Http\Controllers\LoginController@login_checkout');
+Route::get('/register','App\Http\Controllers\LoginController@register');
+Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
+Route::post('/login','App\Http\Controllers\CustomerController@login_user');
