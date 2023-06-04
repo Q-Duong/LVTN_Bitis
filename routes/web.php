@@ -107,12 +107,12 @@ Route::get('collections/{category_slug}','App\Http\Controllers\CategoryControlle
 Route::get('collections/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
 
 //Login
-Route::get('/login','App\Http\Controllers\LoginController@login_checkout');
+Route::get('/login','App\Http\Controllers\LoginController@login');
 Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
-Route::post('/login-c','App\Http\Controllers\CustomerController@login_user');
+Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
+Route::post('/save-user','App\Http\Controllers\LoginController@save_user');
 
-//Post
-Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostController@show_category_post');
+
 
 
