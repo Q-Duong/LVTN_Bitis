@@ -88,8 +88,6 @@
                                 ) !!}
                             </div>
 
-                            <!--  -->
-
                             <div class="form-group {{ $errors->has('product_content') ? 'has-error' : '' }}">
                                 <label for="exampleInputPassword1">Nội dung sản phẩm</label>
                                 <textarea name="product_description" style="resize:none" class="form-control" id="ckeditor2">

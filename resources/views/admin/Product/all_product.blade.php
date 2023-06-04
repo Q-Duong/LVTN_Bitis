@@ -23,6 +23,7 @@
                             <th>Mô tả</th>
                             <th>Slug</th>
                             <th>Hình ảnh</th>
+                            <th>Thư viện ảnh sản phẩm</th>
                             <th style="width:100px;">Quản lý</th>
                         </tr>
                     </thead>
@@ -50,20 +51,11 @@
                            
                                 <td>{{ $pro->product_description }}</td>
                                 <td>{{ $pro->product_slug }}</td>
-                                <td><img class="img-fluid" src="uploads/product/{{ $pro->product_image }}" alt="">
-                                </td>
-
-
-                                <!-- <td>{!! $pro->product_desc !!}</td>
-                            <td>
-                                <textarea rows="4" cols="10">
-                                {{ $pro->product_content }}
-                            </textarea>
-                            </td> -->
                                 <td>
-                                    <!-- <a href="{{ URL::to('/add-product') }}"
-                                    class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>
-                                </a> -->
+                                    <img class="img-fluid" src="uploads/product/{{ $pro->product_image }}" alt="">
+                                </td>
+                                <td><a href="{{URL::to('/add-gallery/'.$pro -> product_id)}}">Thư viện ảnh</a></td>
+                                <td>
                                     <a href="{{ URL::to('edit-product/' . $pro->product_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>

@@ -19,7 +19,7 @@
     <div class="category_product">
         @foreach($getAllListCategoryType as $key => $categoryType)
             @if($categoryType->category_id == $category->category_id)
-                <a href="{{asset(URL::to($categoryType->category->category_slug.'/'.$categoryType->productType->product_type_slug))}}">
+                <a href="{{asset(URL::to('/collections/'.$categoryType->category->category_slug.'/'.$categoryType->productType->product_type_slug))}}">
                     <div class="category_product_item">
                         <p>
                             {{$categoryType->productType->product_type_name}}

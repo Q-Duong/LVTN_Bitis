@@ -45,7 +45,7 @@
                         </div>
 
 
-                        <button type="submit" name="add_employee" class="btn btn-info">Thêm nhân viên</button>
+                        <a type="button" name="add_employee" class="btn btn-info add_employee">Thêm nhân viên</a>
                     </form>
 
                 </div>

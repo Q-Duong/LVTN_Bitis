@@ -179,13 +179,13 @@
                             <ul>
                                 @foreach ($getAllListCategory as $key => $category)
                                     <li class="nav-item"><a
-                                            href="{{ asset(URL::to($category->category_slug)) }}">{{ $category->category_name }}</a>
+                                            href="{{ asset(URL::to('/collections/'.$category->category_slug)) }}">{{ $category->category_name }}</a>
                                         <ul class="dropdown">
                                             @foreach ($getAllListCategoryType as $key => $categoryType)
                                                 @if ($categoryType->category_id == $category->category_id)
                                                     <li>
                                                         <a
-                                                            href="{{ asset(URL::to($categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                                            href="{{ asset(URL::to('/collections/'.$categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
                                                             {{ $categoryType->productType->product_type_name }}
                                                         </a>
                                                     </li>

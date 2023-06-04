@@ -185,7 +185,7 @@
                                                 @if ($categoryType->category_id == $category->category_id)
                                                     <li>
                                                         <a
-                                                            href="{{ asset(URL::to($categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                                            href="{{ asset(URL::to('/collections/'.$categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
                                                             {{ $categoryType->productType->product_type_name }}
                                                         </a>
                                                     </li>
