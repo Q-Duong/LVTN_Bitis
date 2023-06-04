@@ -60,7 +60,6 @@ class CategoryController extends Controller
         $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
         $category = Category::where('category_slug',$category_slug)->first();
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->orderBy('product_id','ASC')->get();
-
         return view('pages.category.show_category')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
     }
     

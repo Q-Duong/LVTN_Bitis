@@ -75,10 +75,10 @@
                         <i class="arrow_carrot-down"></i>
                     </span>
                     <ul>
-                        <a href="{{ URL::to('/login-checkout') }}">
+                        <a href="{{ URL::to('/login') }}">
                             <li><i class="fas fa-sign-in-alt"></i> Đăng nhập</li>
                         </a>
-                        <a href="{{ URL::to('/create-customer') }}">
+                        <a href="{{ URL::to('/register') }}">
                             <li><i class="fas fa-user-plus"></i> Đăng ký</li>
                         </a>
                     </ul>
@@ -132,7 +132,8 @@
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
-                                        <a href="{{ URL::to('/account-information/' . Session::get('customer_id')) }}">
+                                        <a
+                                            href="{{ URL::to('/account-information/' . Session::get('customer_id')) }}">
                                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                                         </a>
                                         <a href="{{ URL::to('/account-settings/' . Session::get('customer_id')) }}">
@@ -149,10 +150,10 @@
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
-                                        <a href="{{ URL::to('/login-checkout') }}">
+                                        <a href="{{ URL::to('/login') }}">
                                             <li><i class="fas fa-sign-in-alt"></i> Đăng nhập</li>
                                         </a>
-                                        <a href="{{ URL::to('/create-customer') }}">
+                                        <a href="{{ URL::to('/register') }}">
                                             <li><i class="fas fa-user-plus"></i> Đăng ký</li>
                                         </a>
 
@@ -170,7 +171,7 @@
                     <div class="col-lg-1 col-md-1">
                         <div class="header__logo">
                             <a href="{{ URL::to('/') }}"><img src="{{ asset('frontend/img/logo.png') }}"
-                                alt=""></a>
+                                    alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-8">
@@ -178,7 +179,7 @@
                             <ul>
                                 @foreach ($getAllListCategory as $key => $category)
                                     <li class="nav-item"><a
-                                            href="{{ asset(URL::to($category->category_slug)) }}">{{ $category->category_name }}</a>
+                                            href="{{ asset(URL::to('/collections/'.$category->category_slug)) }}">{{ $category->category_name }}</a>
                                         <ul class="dropdown">
                                             @foreach ($getAllListCategoryType as $key => $categoryType)
                                                 @if ($categoryType->category_id == $category->category_id)
@@ -523,7 +524,7 @@
 
                         $('#notify_comment').html(
                             '<span class="text text-success">Thêm bình luận thành công, bình luận đang chờ duyệt</span>'
-                            );
+                        );
                         load_comment();
                         $('#notify_comment').fadeOut(9000);
                         $('.comment_name').val('');

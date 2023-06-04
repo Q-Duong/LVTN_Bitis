@@ -79,10 +79,11 @@ Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeContro
 
 //-------------------------------------------- Frontend --------------------------------------------
 Route::get('','App\Http\Controllers\HomeController@index');
-Route::get('/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
-Route::get('/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
+Route::get('collections/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
+Route::get('collections/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
 //Login
-Route::get('/login-checkout','App\Http\Controllers\LoginController@login_checkout');
+Route::get('/login','App\Http\Controllers\LoginController@login');
 Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
-Route::post('/login','App\Http\Controllers\CustomerController@login_user');
+Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
+Route::post('/save-user','App\Http\Controllers\LoginController@save_user');

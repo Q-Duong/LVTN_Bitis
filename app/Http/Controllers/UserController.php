@@ -28,6 +28,7 @@ class UserController extends Controller
         $account = new Account();
         $account->account_username=$data['account_username'];
         $account->account_password=md5($data['account_password']);
+        $account->account_role=0;
         $email=Account::where('account_username',$data['account_username'])->exists();
         if($email){
             return Redirect()->back()->with('error','Email đã tồn tại,vui lòng nhập lại')->withInput();

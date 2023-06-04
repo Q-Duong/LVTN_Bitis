@@ -20,7 +20,7 @@
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
-                <form action="{{ URL::to('/login') }}" method="POST">
+                <form action="{{ URL::to('/login-submit') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-lg-5 col-md-5">
@@ -37,12 +37,11 @@
                             <h4 class="checkout__title">Đăng nhập</h4>
                             <div class="checkout__input">
                                 <p>Tên đăng nhập <span>*</span></p>
-                                <input type="text" name="email_account" placeholder="Điền tên tài khoản" />
+                                <input type="text" name="account_username" placeholder="Điền tên tài khoản" />
                             </div>
                             <div class="checkout__input">
                                 <p>Mật khẩu<span>*</span></p>
-                                <input type="password" name="password_account" placeholder="Điền mật khẩu" />
-
+                                <input type="password" name="account_password" placeholder="Điền mật khẩu" />
                             </div>
                             <div class="checkout__input">
                                 <button type="submit" class="site-btn"><i class="fas fa-sign-in-alt"></i> Đăng
@@ -56,7 +55,7 @@
                                 <p><a href="{{ URL::to('/iforgot') }}"><i class="fas fa-cogs"></i> Quên tài khoản hoặc mật khẩu?</a> </p>
                             </div>
                             <div class="checkout__input">
-                                <p><a href="{{ URL::to('/create-user') }}"><i class="fas fa-user-plus"></i> Tạo tài khoản mới.</a> </p>
+                                <p><a href="{{ URL::to('/register') }}"><i class="fas fa-user-plus"></i> Tạo tài khoản mới.</a> </p>
                             </div>
                         </div>
                     </div>
