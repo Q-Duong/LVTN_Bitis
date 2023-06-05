@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use App\Models\Category;
+use App\Models\CategoryType;
 use App\Models\CategoryPost;
 use App\Models\Post;
 use Carbon\Carbon;
@@ -64,9 +66,13 @@ class CategoryPostController extends Controller
     //     return view('pages.category.show_category')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
     // }
     public function show_category_post($category_post_slug){
-            $cate_pos=CategoryPost::where('category_post_slug',$category_post_slug)->first();
-            $post = Post::where('category_post_id',$cate_pos->category_post_id)->get();
-            dd($post);
+        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
+        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
+        $getAllListCategoryPost=CategoryPost::orderBy('category_post_id','ASC')->get();
+        $category_post_id=CategoryPost::where('category_post_slug',$category_post_slug)->first();
+        $post = Post::where('category_post_id',$category_post_id->category_post_id)->get();
+
+        return view('pages.blog.category_blog')->with(compact('getAllListCategory','getAllListCategoryType','getAllListCategoryPost','post'));
     }
 }
  

@@ -100,11 +100,15 @@ Route::get('/delete-post/{post_id}','App\Http\Controllers\PostController@delete_
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
+
 //Category
 Route::get('collections/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
 
 //ProductType
 Route::get('collections/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
+
+//Category
+Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostController@show_category_post');
 
 //Login
 Route::get('/login','App\Http\Controllers\LoginController@login');
