@@ -7,7 +7,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-lg-9 text-center">
                 <div class="blog__hero__text">
-                    <h2>{{$title}}</h2>
+                    <h2>{{$post->post_title}}</h2>
                     <ul>
                         <li>By Deercreative</li>
                         <li>February 21, 2019</li>
@@ -23,10 +23,9 @@
 <section class="blog-details spad">
     <div class="container">
         <div class="row d-flex justify-content-center">
-        @foreach($post as $key => $pst)
             <div class="col-lg-12">
                 <div class="blog__details__pic">
-                    <img src="{{asset('uploads/post/'.$pst->post_image)}}" alt="">
+                    <img src="{{asset('uploads/post/'.$post->post_image)}}" alt="">
                 </div>
             </div>
             <div class="col-lg-8">
@@ -41,7 +40,7 @@
                         </ul>
                     </div>
                     <div class="blog__details__text">
-                        <p>{!! $pst->post_content !!}</p>
+                        <p>{!! $post->post_content !!}</p>
                     </div>
                     
                     <div class="blog__details__comment">
@@ -66,7 +65,6 @@
                     </div>
                 </div>
             </div>
-        @endforeach
         </div>
     </div>
 </section>
@@ -81,27 +79,5 @@
         </div>
     </div>
 </section>
-<section class="blog spad">
-    <div class="container">
-        <div class="row">
-            @foreach($related as $key => $post_ralated)
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="blog__item">
-                    <a href="{{URL::to('/blog/'.$post_ralated->post_slug)}}">
-                        <div class="blog__item__pic set-bg"
-                            data-setbg="{{asset('uploads/post/'.$post_ralated->post_image)}}"></div>
-                        <div class="blog__item__text">
-                            <span><img src="img/icon/calendar.png" alt=""> 16 February 2020</span>
-                            <h5>{{$post_ralated->post_title}}</h5>
-                            <a href="#">Read More</a>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
 
 @endsection

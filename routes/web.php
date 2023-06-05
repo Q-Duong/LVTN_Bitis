@@ -107,8 +107,11 @@ Route::get('collections/{category_slug}','App\Http\Controllers\CategoryControlle
 //ProductType
 Route::get('collections/{category_slug}/{product_type_slug}','App\Http\Controllers\ProductTypeController@show_product_type_details');
 
-//Category
+//CategoryPost
 Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostController@show_category_post');
+
+//Post 
+Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
 
 //Login
 Route::get('/login','App\Http\Controllers\LoginController@login');

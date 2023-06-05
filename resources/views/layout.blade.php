@@ -194,7 +194,7 @@
                                         </ul>
                                     </li>
                                 @endforeach
-                                <li class="nav-item"><a href="{{ URL::to('/tin-tuc') }}">Tin tức</a>
+                                <li class="nav-item"><a>Tin tức</a>
                                 <ul class="dropdown">
                                             @foreach ($getAllListCategoryPost as $key => $categoryPost)                                    
                                                     <li>
