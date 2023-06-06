@@ -20,7 +20,7 @@ class ProductController extends Controller
     }
     function list_product(){
         $getAllListProduct=Product::orderBy('product_id','ASC')->get();
-        return view('admin.Product.all_product')->with(compact('getAllListProduct'));
+        return view('admin.Product.list_product')->with(compact('getAllListProduct'));
     }
     function edit_product($product_id){
         $edit_value=Product::find($product_id);

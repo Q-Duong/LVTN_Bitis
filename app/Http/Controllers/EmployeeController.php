@@ -28,7 +28,6 @@ class EmployeeController extends Controller
         //     return Redirect()->back()->with('error','Tên email đã tồn tại, vui lòng kiểm tra lại')->withInput();
         // }
         $account->save();
-
         $employee=new Employee();
         $employee->employee_name=$data['employee_name'];
         $employee->employee_phone=$data['employee_phone'];

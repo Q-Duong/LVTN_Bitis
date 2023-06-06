@@ -11,7 +11,7 @@ class Size extends Model
           'size_attribute'
     ];
  
-    protected $primaryKey = 'size_id ';
+    protected $primaryKey = 'size_id';
  	protected $table = 'size';
  	
 }
