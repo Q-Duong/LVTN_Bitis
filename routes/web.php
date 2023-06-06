@@ -107,6 +107,13 @@ Route::post('update-color/{color_id}','App\Http\Controllers\ColorController@upda
 Route::get('/delete-color/{color_id}','App\Http\Controllers\ColorController@delete_color');
 
 
+//Size
+Route::get('/add-size','App\Http\Controllers\SizeController@add_size');
+Route::post('/save-size','App\Http\Controllers\SizeController@save_size');
+Route::get('/list-size','App\Http\Controllers\SizeController@list_size');
+Route::get('/edit-size/{size}','App\Http\Controllers\SizeController@edit_size');
+Route::post('update-size/{size_id}','App\Http\Controllers\SizeController@update_size');
+Route::get('/delete-size/{size_id}','App\Http\Controllers\SizeController@delete_size');
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
