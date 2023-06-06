@@ -333,6 +333,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
+                                <span>Quản lý màu</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-color') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm màu
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-color') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý màu
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
                                 <span>Quản lý bài viết</span>
                             </a>
                             <ul class="sub">

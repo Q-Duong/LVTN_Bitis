@@ -97,6 +97,16 @@ Route::get('/list-post','App\Http\Controllers\PostController@list_post');
 Route::get('/edit-post/{post_id}','App\Http\Controllers\PostController@edit_post');
 Route::post('update-post/{post_id}','App\Http\Controllers\PostController@update_post');
 Route::get('/delete-post/{post_id}','App\Http\Controllers\PostController@delete_post');
+
+//Color
+Route::get('/add-color','App\Http\Controllers\ColorController@add_color');
+Route::post('/save-color','App\Http\Controllers\ColorController@save_color');
+Route::get('/list-color','App\Http\Controllers\ColorController@list_color');
+Route::get('/edit-color/{post_id}','App\Http\Controllers\ColorController@edit_color');
+Route::post('update-color/{color_id}','App\Http\Controllers\ColorController@update_color');
+Route::get('/delete-color/{color_id}','App\Http\Controllers\ColorController@delete_color');
+
+
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
