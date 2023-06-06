@@ -54,7 +54,7 @@
                             <i class="far fa-heart"></i>
                         </a>
                         <div class="product__item">
-                            <a id="wishlist_producturl{{$product->product_id}}" href="{{URL::to('/product/'.$product->product_slug)}}">
+                            <a id="wishlist_producturl{{$product->product_id}}" href="{{URL::to('/products/'.$product->product_slug)}}">
                                 <div class="product__item__pic set-bg"
                                     data-setbg="{{URL::to('uploads/product/'.$product->product_image)}}">
                                     @if($product->product_tag==1)

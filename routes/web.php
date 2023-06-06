@@ -110,6 +110,9 @@ Route::get('collections/{category_slug}/{product_type_slug}','App\Http\Controlle
 //Category
 Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostController@show_category_post');
 
+//Product
+Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
+
 //Login
 Route::get('/login','App\Http\Controllers\LoginController@login');
 Route::get('/register','App\Http\Controllers\LoginController@register');
