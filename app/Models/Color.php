@@ -11,6 +11,6 @@ class Color extends Model
     	'color_name', 'color_value'
     ];
     protected $primaryKey = 'color_id';
- 	protected $table = 'corlor';
+ 	protected $table = 'color';
 	
 }

@@ -89,12 +89,9 @@ class PostController extends Controller
     // }
 
     public function show_post($post_slug){
-        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-        $getAllListCategoryPost=CategoryPost::orderBy('category_post_id','ASC')->get();
         $post=Post::where('post_slug',$post_slug)->first();
 
-        return view('pages.blog.blog_details')->with(compact('getAllListCategory','getAllListCategoryType','getAllListCategoryPost','post'));
+        return view('pages.blog.blog_details')->with(compact('post'));
     }
     
 }

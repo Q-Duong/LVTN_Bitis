@@ -9,6 +9,7 @@ use App\Models\ProductType;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\CategoryType;
+use App\Models\CategoryPost;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -76,14 +77,11 @@ class ProductTypeController extends Controller
     // Customer Frontend
 
     public function show_product_type_details($category_slug,$product_type_slug){
-        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
         $category = Category::where('category_slug',$category_slug)->first();
         $product_type = ProductType::where('product_type_slug',$product_type_slug)->first();
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->where('product_type_id',$product_type->product_type_id)->orderBy('product_id','ASC')->get();
-        //dd($getAllListProductCategory);
 
-        return view('pages.category.show_product_type')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
+        return view('pages.category.show_product_type')->with(compact('getAllListProductCategory','category'));
     }
 }
  

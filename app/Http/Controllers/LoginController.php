@@ -11,14 +11,10 @@ use Illuminate\Support\Facades\Redirect;
 class LoginController extends Controller
 {
     public function login(){
-        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-    	return view('pages.login.login_checkout')->with(compact('getAllListCategory','getAllListCategoryType'));
+    	return view('pages.login.login_checkout');
     }
     public function register(){
-        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-    	return view('pages.login.register')->with(compact('getAllListCategory','getAllListCategoryType'));
+    	return view('pages.login.register');
     }
     public function login_submit(Request $request){
         $data=$request->all();

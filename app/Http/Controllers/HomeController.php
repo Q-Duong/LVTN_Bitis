@@ -15,11 +15,8 @@ use Illuminate\Support\Facades\Redirect;
 class HomeController extends Controller
 {
     public function index(){
-    	$getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-        $getAllListCategoryPost=CategoryPost::orderBy('category_post_id','ASC')->get();
-        $getAllBanner=Banner::get();
-    	return view('pages.home')->with(compact('getAllListCategory','getAllListCategoryType','getAllBanner','getAllListCategoryPost'));
+    	
+    	return view('pages.home');
     }
 
     
