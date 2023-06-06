@@ -97,6 +97,13 @@ Route::get('/list-post','App\Http\Controllers\PostController@list_post');
 Route::get('/edit-post/{post_id}','App\Http\Controllers\PostController@edit_post');
 Route::post('update-post/{post_id}','App\Http\Controllers\PostController@update_post');
 Route::get('/delete-post/{post_id}','App\Http\Controllers\PostController@delete_post');
+//Size
+Route::get('/add-size','App\Http\Controllers\SizeController@add_size');
+Route::post('/save-size','App\Http\Controllers\SizeController@save_size');
+Route::get('/list-size','App\Http\Controllers\SizeController@list_size');
+Route::get('/edit-size/{size}','App\Http\Controllers\SizeController@edit_size');
+Route::post('update-size/{size_id}','App\Http\Controllers\SizeController@update_size');
+Route::get('/delete-size/{size_id}','App\Http\Controllers\SizeController@delete_size');
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');

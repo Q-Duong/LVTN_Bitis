@@ -274,7 +274,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>
-
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Danh sách Size</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-size') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm Size
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-size') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý Size
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Chi tiết sản phẩm_Size</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-product-detail-size') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm chi tiết size
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-product-detail-size') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý chi tiết size
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
@@ -344,6 +379,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li>
                                     <a href="{{ URL::to('/list-post') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý bài viết
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
                                 <span>Danh sách Banner</span>
                             </a>
                             <ul class="sub">
@@ -359,9 +401,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>
-
-                    </ul>
-                    <!-- sidebar menu end-->
+                        
+                            <!-- sidebar menu end-->
                 </div>
             </div>
         </aside>
@@ -423,121 +464,121 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             }
         });
-        
+
         CKEDITOR.replace('ckeditor1');
         CKEDITOR.replace('ckeditor2');
         CKEDITOR.replace('ckeditor3');
         CKEDITOR.replace('ckeditor4');
 
         $(document).ready(function() {
-        load_gallery();
+            load_gallery();
 
-        function load_gallery() {
-            var pro_id = $('.pro_id').val();
-            var _token = $('input[name="_token"]').val();
-            // alert(pro_id);
-            $.ajax({
-                url: "{{url('/select-gallery')}}",
-                method: "POST",
-                data: {
-                    pro_id: pro_id,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('#gallery_load').html(data);
-                }
-            });
-        }
-
-        $('#file').change(function() {
-            var error = '';
-            var files = $('#file')[0].files;
-
-            if (files.length > 4) {
-                error += '<p>Bạn chọn tối đa chỉ được 5 ảnh</p>';
-            } else if (files.length == '') {
-                error += '<p>Bạn không được bỏ trống ảnh</p>';
-            } else if (files.size > 2000000) {
-                error += '<p>File ảnh không được lớn hơn 2MB</p>';
-            }
-
-            if (error == '') {
-
-            } else {
-                $('#file').val('');
-                $('#error_gallery').html('<span class="text-danger">' + error + '</span>');
-                return false;
-            }
-
-        });
-
-        $(document).on('blur', '.edit_gal_name', function() {
-            var gal_id = $(this).data('gal_id');
-            var gal_text = $(this).text();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{url('/update-gallery-name')}}",
-                method: "POST",
-                data: {
-                    gal_id: gal_id,
-                    gal_text: gal_text,
-                    _token: _token
-                },
-                success: function(data) {
-                    load_gallery();
-                    $('#error_gallery').html(
-                        '<div class="alert alert-success centered">Cập nhật tên hình ảnh thành công</div>'
-                    );
-                }
-            });
-        });
-
-        $(document).on('click', '.delete-gallery', function() {
-            var gal_id = $(this).data('gal_id');
-            var _token = $('input[name="_token"]').val();
-            if (confirm('Bạn muốn xóa hình ảnh này không?')) {
+            function load_gallery() {
+                var pro_id = $('.pro_id').val();
+                var _token = $('input[name="_token"]').val();
+                // alert(pro_id);
                 $.ajax({
-                    url: "{{url('/delete-gallery')}}",
+                    url: "{{ url('/select-gallery') }}",
+                    method: "POST",
+                    data: {
+                        pro_id: pro_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#gallery_load').html(data);
+                    }
+                });
+            }
+
+            $('#file').change(function() {
+                var error = '';
+                var files = $('#file')[0].files;
+
+                if (files.length > 4) {
+                    error += '<p>Bạn chọn tối đa chỉ được 5 ảnh</p>';
+                } else if (files.length == '') {
+                    error += '<p>Bạn không được bỏ trống ảnh</p>';
+                } else if (files.size > 2000000) {
+                    error += '<p>File ảnh không được lớn hơn 2MB</p>';
+                }
+
+                if (error == '') {
+
+                } else {
+                    $('#file').val('');
+                    $('#error_gallery').html('<span class="text-danger">' + error + '</span>');
+                    return false;
+                }
+
+            });
+
+            $(document).on('blur', '.edit_gal_name', function() {
+                var gal_id = $(this).data('gal_id');
+                var gal_text = $(this).text();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ url('/update-gallery-name') }}",
                     method: "POST",
                     data: {
                         gal_id: gal_id,
+                        gal_text: gal_text,
                         _token: _token
                     },
                     success: function(data) {
                         load_gallery();
                         $('#error_gallery').html(
-                            '<div class="alert alert-success centered">Xóa hình ảnh thành công</div>'
+                            '<div class="alert alert-success centered">Cập nhật tên hình ảnh thành công</div>'
                         );
                     }
                 });
-            }
-        });
+            });
 
-        $(document).on('change', '.file_image', function() {
-            var gal_id = $(this).data('gal_id');
-            var image = document.getElementById("file-" + gal_id).files[0];
-            var form_data = new FormData();
-            form_data.append("file", document.getElementById("file-" + gal_id).files[0]);
-            form_data.append("gal_id", gal_id);
-            $.ajax({
-                url: "{{url('/update-gallery')}}",
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: form_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    load_gallery();
-                    $('#error_gallery').html(
-                        '<div class="alert alert-success centered">Cập nhật hình ảnh thành công</div>'
-                    );
+            $(document).on('click', '.delete-gallery', function() {
+                var gal_id = $(this).data('gal_id');
+                var _token = $('input[name="_token"]').val();
+                if (confirm('Bạn muốn xóa hình ảnh này không?')) {
+                    $.ajax({
+                        url: "{{ url('/delete-gallery') }}",
+                        method: "POST",
+                        data: {
+                            gal_id: gal_id,
+                            _token: _token
+                        },
+                        success: function(data) {
+                            load_gallery();
+                            $('#error_gallery').html(
+                                '<div class="alert alert-success centered">Xóa hình ảnh thành công</div>'
+                            );
+                        }
+                    });
                 }
             });
+
+            $(document).on('change', '.file_image', function() {
+                var gal_id = $(this).data('gal_id');
+                var image = document.getElementById("file-" + gal_id).files[0];
+                var form_data = new FormData();
+                form_data.append("file", document.getElementById("file-" + gal_id).files[0]);
+                form_data.append("gal_id", gal_id);
+                $.ajax({
+                    url: "{{ url('/update-gallery') }}",
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        load_gallery();
+                        $('#error_gallery').html(
+                            '<div class="alert alert-success centered">Cập nhật hình ảnh thành công</div>'
+                        );
+                    }
+                });
+            });
         });
-    });
 
         $('.price_format').simpleMoneyFormat();
 
@@ -615,33 +656,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         });
 
-       
-            // $('.submit_user').on('click', function() {
-            //     var account_username =$('input[name="account_username"]').val();
-            //     var account_password =$('input[name="account_password"]').val();
-            //     var user_firstname =$('input[name="user_firstname"]').val();
-            //     var user_lastname =$('input[name="user_lastname"]').val();
-            //     var user_phone =$('input[name="user_phone"]').val();
-            //     var _token = $('input[name="_token"]').val();
-            //     console.log(account_username,account_password,user_firstname);  
-            //     $.ajax({
-            //         url: "{{ url('/save-user') }}",
-            //         method: 'POST',
-            //         data: {
-            //             account_username:account_username,
-            //             account_password:account_password,
-            //             user_firstname:user_firstname,
-            //             user_lastname:user_lastname,
-            //             user_phone:user_phone,
-            //             _token: _token
-            //         },
-            //         success: function(data) {
-            //             $('.choose_product_type').html(data);
-            //         }
-            //     });
-            // });
-    
 
+        // $('.submit_user').on('click', function() {
+        //     var account_username =$('input[name="account_username"]').val();
+        //     var account_password =$('input[name="account_password"]').val();
+        //     var user_firstname =$('input[name="user_firstname"]').val();
+        //     var user_lastname =$('input[name="user_lastname"]').val();
+        //     var user_phone =$('input[name="user_phone"]').val();
+        //     var _token = $('input[name="_token"]').val();
+        //     console.log(account_username,account_password,user_firstname);  
+        //     $.ajax({
+        //         url: "{{ url('/save-user') }}",
+        //         method: 'POST',
+        //         data: {
+        //             account_username:account_username,
+        //             account_password:account_password,
+        //             user_firstname:user_firstname,
+        //             user_lastname:user_lastname,
+        //             user_phone:user_phone,
+        //             _token: _token
+        //         },
+        //         success: function(data) {
+        //             $('.choose_product_type').html(data);
+        //         }
+        //     });
+        // });
     </script>
 
     <!-- //calendar -->
