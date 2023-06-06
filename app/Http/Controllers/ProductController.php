@@ -112,4 +112,15 @@ class ProductController extends Controller
         $product->delete();
         return Redirect()->back()->with('success','Xóa sản phẩm thành công');
     }
+
+
+
+    //Frontend
+    function show_product_details($product_slug){
+        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
+        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
+        $product=Product::where('product_slug',$product_slug)->first();
+        $gallery=Gallery::where('product_id',$product->product_id)->orderBy('gallery_id','ASC')->get(); 
+        return view('pages.product.show_product_details')->with(compact('getAllListCategory','getAllListCategoryType','product','gallery'));
+    }
 }

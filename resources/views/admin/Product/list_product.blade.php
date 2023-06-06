@@ -20,10 +20,10 @@
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Tình trạng</th>
-                            <th>Mô tả</th>
                             <th>Slug</th>
                             <th>Hình ảnh</th>
                             <th>Thư viện ảnh sản phẩm</th>
+                            
                             <th style="width:100px;">Quản lý</th>
                         </tr>
                     </thead>
@@ -48,8 +48,6 @@
                                         @endif
                                     </span>
                                 </td>
-                           
-                                <td>{{ $pro->product_description }}</td>
                                 <td>{{ $pro->product_slug }}</td>
                                 <td>
                                     <img class="img-fluid" src="uploads/product/{{ $pro->product_image }}" alt="">
