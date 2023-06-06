@@ -33,6 +33,7 @@ class CategoryController extends Controller
         $category->category_slug=$data['category_slug'];
         $name=Category::where('category_name',$data['category_name'])->exists();
         if($name){
+            
             return Redirect()->back()->with('error','Danh mục đã tồn tại, vui lòng kiểm tra lại')->withInput();
         }
         $category->save();
