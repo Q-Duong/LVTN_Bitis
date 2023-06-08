@@ -28,8 +28,8 @@
                             </div>
                             <div class="form-group {{ $errors->has('account_username') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Địa chỉ email</label>
-                                <input type="text" name="account_username" class="form-control" placeholder="Địa chỉ email"
-                                    value="{{ old('account_username') }}">
+                                <input type="text" name="account_username" class="form-control"
+                                    placeholder="Địa chỉ email" value="{{ old('account_username') }}">
                                 {!! $errors->first(
                                     'account_username',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -62,7 +62,7 @@
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                             </div>
-                            
+
                             <div class="form-group {{ $errors->has('user_phone') ? 'has-error' : '' }}">
                                 <label for="exampleInputPassword1">Số điện thoại</label>
                                 <input type="text" name="user_phone" class="form-control" placeholder="Số điện thoại"
@@ -72,9 +72,7 @@
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                             </div>
-                            
-                            <a type="button" value="submit" name="add_user" class="btn btn-info condimemayacau">Thêm khách
-                                hàng</a>
+                            <button type="submit" name="add_employee" class="btn btn-info">Thêm khách hàng</button>
                         </form>
 
                     </div>

@@ -8,7 +8,7 @@ class WareHourse extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'ware_hourse_quantity', 'ware_hourse_status','product_detail_id'
+    	'ware_hourse_quantity', 'ware_hourse_status','size_id', 'color_id'
     ];
     protected $primaryKey = 'ware_hourse_id ';
  	protected $table = 'ware_hourse';
