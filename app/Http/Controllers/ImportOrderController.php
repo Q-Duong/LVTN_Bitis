@@ -12,7 +12,7 @@ use App\Http\Requests;
 use File;
 use Illuminate\Support\Facades\Redirect;
 
-class ProductController extends Controller
+class ImportOrderController extends Controller
 {
     function add_product(){
         $getAllCategory=Category::orderBy('category_id','asc')->get();
