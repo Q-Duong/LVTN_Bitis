@@ -7,20 +7,24 @@ use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Product;
 use App\Models\ProductType;
-use App\Models\Gallery;
+use App\Models\ImportOrder;
+use App\Models\ImportOrderDetail;
+use App\Models\WareHouse;
+use App\Models\Employee;
 use App\Http\Requests;
 use File;
 use Illuminate\Support\Facades\Redirect;
 
 class ImportOrderController extends Controller
 {
-    function add_product(){
+    function add_import(){
         $getAllCategory=Category::orderBy('category_id','asc')->get();
-        return view('admin.Product.add_product')->with(compact('getAllCategory'));
+        $getAllEmployee=Employee::orderBy('employee_id','asc')->get();
+        return view('admin.ImportOrder.add_import')->with(compact('getAllCategory','getAllEmployee'));
     }
-    function list_product(){
-        $getAllListProduct=Product::orderBy('product_id','ASC')->get();
-        return view('admin.Product.list_product')->with(compact('getAllListProduct'));
+    function list_import(){
+        $getAllListImport=ImportOrder::orderBy('import_order_id','ASC')->get();
+        return view('admin.ImportOrder.list_import')->with(compact('getAllListImport'));
     }
     function edit_product($product_id){
         $edit_value=Product::find($product_id);

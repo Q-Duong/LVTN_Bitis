@@ -10,6 +10,6 @@ class Rating extends Model
     protected $fillable = [
     	'rating_star', 'rating_comment','product_detail_id','user_id'
     ];
-    protected $primaryKey = 'rating_id ';
+    protected $primaryKey = 'rating_id';
  	protected $table = 'rating';
 }

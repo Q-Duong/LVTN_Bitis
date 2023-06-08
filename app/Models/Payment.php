@@ -10,7 +10,7 @@ class Payment extends Model
     protected $fillable = [
     	'momo_id','payment_status','order_id'
     ];
-    protected $primaryKey = 'payment_id ';
+    protected $primaryKey = 'payment_id';
  	protected $table = 'payment';
 
     //  public function product(){

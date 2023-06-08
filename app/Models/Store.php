@@ -11,7 +11,7 @@ class Store extends Model
           'store_address','store_email','store_phone','store_name'
     ];
  
-    protected $primaryKey = 'store_id ';
+    protected $primaryKey = 'store_id';
  	protected $table = 'store';
      
 }

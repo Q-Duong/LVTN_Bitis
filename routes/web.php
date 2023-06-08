@@ -138,7 +138,7 @@ Route::get('/login','App\Http\Controllers\LoginController@login');
 Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
-Route::post('/save-user','App\Http\Controllers\LoginController@save_user');
+Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
 
 
 

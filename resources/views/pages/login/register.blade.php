@@ -21,7 +21,7 @@
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
-            <form action="{{URL::to('/save-user')}}" method="POST" enctype="multipart/form-data" id="form">
+            <form action="{{URL::to('/save-user-fe')}}" method="POST" enctype="multipart/form-data" id="form">
                 {{csrf_field()}}
                 <div class="row">
                     <div class="col-lg-6 col-md-6 centered">

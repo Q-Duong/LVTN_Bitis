@@ -8,8 +8,8 @@ class ImportOderDetail extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-          'import_oder_detail_price',  'import_oder_detail_quantity',  'import_oder_id ','ware_hourse_id '
+          'import_order_detail_price',  'import_order_detail_quantity',  'import_order_id','ware_hourse_id'
     ];
-    protected $primaryKey = 'import_oder_detail_id ';
-      protected $table = 'import_oder_detail';
+    protected $primaryKey = 'import_order_detail_id';
+      protected $table = 'import_order_detail';
 }

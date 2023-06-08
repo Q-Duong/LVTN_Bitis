@@ -10,7 +10,7 @@ class ProductDiscount extends Model
     protected $fillable = [
     	'product_id','discount_id'
     ];
-    protected $primaryKey = 'product_discount_id ';
+    protected $primaryKey = 'product_discount_id';
  	protected $table = 'product_discount';
 
 }
