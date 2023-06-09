@@ -3,7 +3,7 @@
 @section('title', 'Contact - ')
 <!-- Blog Details Hero Begin -->
 <!-- Map Begin -->
-@foreach($contact as $key => $cont)
+@foreach($info as $key => $cont)
 <div class="map">
     {!!$cont->info_map!!}
 </div>

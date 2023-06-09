@@ -207,7 +207,7 @@
                                             @endforeach
                                         </ul>
                                 </li> 
-                                <li class="nav-item"><a href="{{ URL::to('/lien-he') }}">Liên hệ</a></li>
+                                <li class="nav-item"><a href="{{ URL::to('/contact') }}">Liên hệ</a></li>
                             </ul>
                         </nav>
                     </div>

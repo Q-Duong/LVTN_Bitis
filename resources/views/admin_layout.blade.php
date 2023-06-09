@@ -419,7 +419,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>
-                        
+                        <li class="sub-menu">
+                            <a href="{{ URL::to('/edit-info/1') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Liên hệ</span>
+                            </a>
+                        </li>
                             <!-- sidebar menu end-->
                 </div>
             </div>
