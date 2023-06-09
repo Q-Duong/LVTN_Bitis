@@ -26,7 +26,7 @@ class LoginController extends Controller
             return Redirect::to('login')->with('error','Tài khoản hoặc mật khẩu không đúng');
         }
     }
-    public function save_user(Request $request){
+    public function save_user_FE(Request $request){
         $data=$request->all();
         // dd($data);
         $account=new Account();

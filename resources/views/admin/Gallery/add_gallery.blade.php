@@ -28,9 +28,8 @@
                             <div class="col-md-4" >
                                 <input type="submit" name="upload" value="Tải ảnh" class="btn btn-success ">
                             </div>
-                            
                         </div>
-                        </form>
+                    </form>
 
                     <input class="pro_id" type="hidden" name="pro_id" value="{{$product_id}}">
                     <form>

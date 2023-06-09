@@ -111,9 +111,17 @@ Route::get('/delete-color/{color_id}','App\Http\Controllers\ColorController@dele
 Route::get('/add-size','App\Http\Controllers\SizeController@add_size');
 Route::post('/save-size','App\Http\Controllers\SizeController@save_size');
 Route::get('/list-size','App\Http\Controllers\SizeController@list_size');
-Route::get('/edit-size/{size}','App\Http\Controllers\SizeController@edit_size');
+Route::get('/edit-size/{size_id}','App\Http\Controllers\SizeController@edit_size');
 Route::post('update-size/{size_id}','App\Http\Controllers\SizeController@update_size');
 Route::get('/delete-size/{size_id}','App\Http\Controllers\SizeController@delete_size');
+
+//WareHouse
+Route::get('/add-ware-house','App\Http\Controllers\WareHouseController@add_ware_house');
+Route::get('/list-ware-house','App\Http\Controllers\WareHouseController@list_ware_house');
+Route::get('/edit-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@edit_ware_house');
+Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
+Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
+Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
@@ -138,7 +146,8 @@ Route::get('/login','App\Http\Controllers\LoginController@login');
 Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
-Route::post('/save-user','App\Http\Controllers\LoginController@save_user');
+Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
+
 
 
 

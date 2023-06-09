@@ -10,7 +10,7 @@ class OrderDetail extends Model
     protected $fillable = [
     	'order_detail_quanity','product_detail_id','order_id'
      ];
-    protected $primaryKey = 'order_detail_id ';
+    protected $primaryKey = 'order_detail_id';
  	protected $table = 'order_detail';
 
     //  public function category_post(){
