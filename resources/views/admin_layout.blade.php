@@ -420,6 +420,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </ul>
                         </li>
                         <li class="sub-menu">
+<<<<<<< HEAD
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
                                 <span>Quản lý cửa hàng </span>
@@ -436,6 +437,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </a>
                                 </li>
                             </ul>
+=======
+                            <a href="{{ URL::to('/edit-info/1') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Liên hệ</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{ URL::to('/list-message') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Quản lí tin</span>
+                            </a>
+>>>>>>> 563b2163eada2bcfc94f35d4baa672207e661e70
                         </li>
                             <!-- sidebar menu end-->
                 </div>

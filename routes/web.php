@@ -122,6 +122,7 @@ Route::get('/edit-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseCon
 Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
 Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
 Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
+<<<<<<< HEAD
 //Store
 Route::get('/add-store','App\Http\Controllers\StoreController@add_store');
 Route::get('/list-store','App\Http\Controllers\StoreController@list_store');
@@ -129,6 +130,17 @@ Route::get('/edit-store/{store_id}','App\Http\Controllers\StoreController@edit_s
 Route::get('/delete-store/{store_id}','App\Http\Controllers\StoreController@delete_store');
 Route::post('/save-store','App\Http\Controllers\StoreController@save_store');
 Route::post('/update-store/{store_id}','App\Http\Controllers\StoreController@update_store');
+=======
+
+//Contact
+Route::get('/edit-info/{info_id}','App\Http\Controllers\InfomationController@edit_info');
+Route::post('/update-info/{info_id}','App\Http\Controllers\InfomationController@update_info');
+
+//Message
+Route::get('/list-message','App\Http\Controllers\MessageController@list_message');
+Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
+
+>>>>>>> 563b2163eada2bcfc94f35d4baa672207e661e70
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
@@ -155,6 +167,8 @@ Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_check
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
 Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
 
+//Contact
+Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
 
 
 
