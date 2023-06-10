@@ -654,11 +654,129 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }, 3000);
         });
 
+        function myFunction1() {
+            var checkBox = document.getElementById("size1");
+            var block = document.getElementById("block1");
+            var input = document.getElementById("quantity1");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+
+        function myFunction2() {
+            var checkBox = document.getElementById("size2");
+            var block = document.getElementById("block2");
+            var input = document.getElementById("quantity2");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction3() {
+            var checkBox = document.getElementById("size3");
+            var block = document.getElementById("block3");
+            var input = document.getElementById("quantity3");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction4() {
+            var checkBox = document.getElementById("size4");
+            var block = document.getElementById("block4");
+            var input = document.getElementById("quantity4");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction5() {
+            var checkBox = document.getElementById("size5");
+            var block = document.getElementById("block5");
+            var input = document.getElementById("quantity5");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction6() {
+            var checkBox = document.getElementById("size6");
+            var block = document.getElementById("block6");
+            var input = document.getElementById("quantity6");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction7() {
+            var checkBox = document.getElementById("size7");
+            var block = document.getElementById("block7");
+            var input = document.getElementById("quantity7");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction8() {
+            var checkBox = document.getElementById("size8");
+            var block = document.getElementById("block8");
+            var input = document.getElementById("quantity8");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+        function myFunction9() {
+            var checkBox = document.getElementById("size9");
+            var block = document.getElementById("block9");
+            var input = document.getElementById("quantity9");
+
+            if (checkBox.checked == true){
+                block.style.display = "block";
+                input.disabled=false;
+            } else {
+                block.style.display = "none";
+                input.disabled=true;
+            }
+        }
+
         $(document).ready(function() {
             $('.choose_category').on('change', function() {
                 var category_id = $(this).val();
                 var _token = $('input[name="_token"]').val();
-                var result = '';
 
                 $.ajax({
                     url: "{{ url('/select-category') }}",
@@ -668,7 +786,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         _token: _token
                     },
                     success: function(data) {
-                        $('.choose_product_type').html(data);
+                        $('.choose_product_type').html(data.getAllListProductType);
+                        $('.choose_product').html(data.getAllListProduct);
+                    }
+                });
+            });
+            $('.choose_product_type').on('change', function() {
+                var product_type_id = $(this).val();
+                var category_id = $('.choose_category option:selected' ).val();
+                var _token = $('input[name="_token"]').val();
+                console.log(product_type_id,category_id);
+
+                $.ajax({
+                    url: "{{ url('/select-product-type') }}",
+                    method: 'POST',
+                    data: {
+                        product_type_id: product_type_id,
+                        category_id: category_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('.choose_product').html(data.getAllListProduct);
                     }
                 });
             });

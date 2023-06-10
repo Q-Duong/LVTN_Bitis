@@ -13,4 +13,7 @@ class Color extends Model
     protected $primaryKey = 'color_id';
  	protected $table = 'color';
 	
+     public function wareHouse(){
+        $this->hasMany("App\Model\WareHouse");
+    }
 }

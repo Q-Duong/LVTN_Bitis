@@ -38,8 +38,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Loại sản phẩm</label>
-                            <select name="product_type_id" class="form-control m-bot15 choose_product">
+                            <label for="exampleInputPassword1">Sản phẩm</label>
+                            <select name="product_id" class="form-control m-bot15 choose_product">
                                 <option value="">--Chọn Sản Phẩm--</option>
                             </select>
                         </div>
@@ -62,8 +62,14 @@
                                 @foreach($getAllSize as $key =>$size)
                                     <div class="col-lg-3 col-md-12 centered">
                                         <section>
-                                            <input type="checkbox" id="id{{$size -> size_attribute}}" onclick="myFunction1()" name="size_id[]">
-                                            <label for="id{{$size -> size_attribute}}" class="accent-l">{{$size -> size_attribute}}</label>
+                                            <input type="checkbox" id="size{{$key+1}}" value="{{$size -> size_id}}" name="size_id[]" onclick="myFunction{{$key+1}}()">
+                                            <label for="size{{$key+1}}" class="accent-l">{{$size -> size_attribute}}</label>
+                                           
+                                            <div class="form-group" id="block{{$key+1}}" style="display:none">
+                                                <label for="exampleInputEmail1">SL sản phẩm</label>
+                                                <input type="text" name="ware_house_quantity[]" id=
+                                                "quantity{{$key+1}}" placeholder="Số điện thoại" disabled>
+                                            </div>
                                         </section>
                                     </div>
                                 @endforeach
@@ -71,14 +77,14 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Tình trạng</label>
-                            <select name="product_tag" class="form-control m-bot15">
+                            <select name="ware_house_status" class="form-control m-bot15">
                                 <option value="1">Mới</option>
                                 <option value="2">Hết hàng</option>
                                 <option value="3">Khuyến mãi</option>
                                 <option value="0">Trống</option>
                             </select>
                         </div>
-                        <button type="submit" name="add_product" class="btn btn-info">Thêm sản phẩm</button>
+                        <button type="submit" name="add_product" class="btn btn-info">Thêm sản phẩm vào kho</button>
                     </form>
                 </div>
             </div>

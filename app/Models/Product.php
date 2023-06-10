@@ -19,9 +19,9 @@ class Product extends Model
     public function category(){
         return $this->belongsTo('App\Models\Category','category_id');
     }
-    // public function producer(){
-    //     return $this->belongsTo('App\Models\Producer','producer_id');
-    // }
+    public function wareHouse(){
+        $this->hasMany("App\Model\WareHouse");
+    }
 
     // public function comment(){
     //     return $this->hasMany('App\Models\Comment');

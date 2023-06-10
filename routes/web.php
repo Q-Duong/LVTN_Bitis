@@ -57,6 +57,7 @@ Route::get('/edit-product/{product_id}','App\Http\Controllers\ProductController@
 Route::post('update-product/{product_id}','App\Http\Controllers\ProductController@update_product');
 Route::get('/delete-product/{product_id}','App\Http\Controllers\ProductController@delete_product');
 Route::post('select-category','App\Http\Controllers\ProductController@select_category');
+Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
 
 //Gallery
 Route::get('add-gallery/{product_id}','App\Http\Controllers\GalleryController@add_gallery');
