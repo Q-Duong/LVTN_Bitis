@@ -126,6 +126,11 @@ Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouse
 //Contact
 Route::get('/edit-info/{info_id}','App\Http\Controllers\InfomationController@edit_info');
 Route::post('/update-info/{info_id}','App\Http\Controllers\InfomationController@update_info');
+
+//Message
+Route::get('/list-message','App\Http\Controllers\MessageController@list_message');
+Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
+
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');

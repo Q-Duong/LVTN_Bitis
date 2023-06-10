@@ -29,17 +29,18 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="contact__form">
-                    <form action="#">
+                    <form action="{{URL::to('/save-message')}}" method="post">
+                    @csrf
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Name">
+                                <input type="text" placeholder="Name" name="message_name" >
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Email">
+                                <input type="text" placeholder="Email" name="message_email">
                             </div>
                             <div class="col-lg-12">
-                                <textarea placeholder="Message"></textarea>
-                                <button type="submit" class="site-btn">Send Message</button>
+                                <textarea placeholder="Message" name="message_content" id="ckeditor1"></textarea>
+                                <button type="submit" name="save_message" class="site-btn">Send Message</button>
                             </div>
                         </div>
                     </form>
