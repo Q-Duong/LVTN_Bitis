@@ -122,6 +122,13 @@ Route::get('/edit-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseCon
 Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
 Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
 Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
+//Store
+Route::get('/add-store','App\Http\Controllers\StoreController@add_store');
+Route::get('/list-store','App\Http\Controllers\StoreController@list_store');
+Route::get('/edit-store/{store_id}','App\Http\Controllers\StoreController@edit_store');
+Route::get('/delete-store/{store_id}','App\Http\Controllers\StoreController@delete_store');
+Route::post('/save-store','App\Http\Controllers\StoreController@save_store');
+Route::post('/update-store/{store_id}','App\Http\Controllers\StoreController@update_store');
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
