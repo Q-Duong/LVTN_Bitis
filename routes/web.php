@@ -119,10 +119,35 @@ Route::get('/delete-size/{size_id}','App\Http\Controllers\SizeController@delete_
 //WareHouse
 Route::get('/add-ware-house','App\Http\Controllers\WareHouseController@add_ware_house');
 Route::get('/list-ware-house','App\Http\Controllers\WareHouseController@list_ware_house');
-Route::get('/edit-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@edit_ware_house');
+Route::get('/edit-ware-house/{product_id}','App\Http\Controllers\WareHouseController@edit_ware_house');
 Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
 Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
 Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
+
+//Store
+Route::get('/add-store','App\Http\Controllers\StoreController@add_store');
+Route::get('/list-store','App\Http\Controllers\StoreController@list_store');
+Route::get('/edit-store/{store_id}','App\Http\Controllers\StoreController@edit_store');
+Route::get('/delete-store/{store_id}','App\Http\Controllers\StoreController@delete_store');
+Route::post('/save-store','App\Http\Controllers\StoreController@save_store');
+Route::post('/update-store/{store_id}','App\Http\Controllers\StoreController@update_store');
+
+//Contact
+Route::get('/edit-info/{info_id}','App\Http\Controllers\InfomationController@edit_info');
+Route::post('/update-info/{info_id}','App\Http\Controllers\InfomationController@update_info');
+
+//Message
+Route::get('/list-message','App\Http\Controllers\MessageController@list_message');
+Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
+
+//ImportOrder
+Route::get('/add-import-order','App\Http\Controllers\ImportOrderController@add_import_order');
+Route::get('/list-import-order','App\Http\Controllers\ImportOrderController@list_import_order');
+Route::get('/edit-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@edit_import_order');
+Route::get('/delete-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@delete_import_order');
+Route::post('/save-import-order','App\Http\Controllers\ImportOrderController@save_import_order');
+Route::post('/update-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@update_import_order');
+
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
@@ -149,6 +174,8 @@ Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_check
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
 Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
 
+//Contact
+Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
 
 
 

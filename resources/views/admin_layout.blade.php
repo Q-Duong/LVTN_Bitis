@@ -313,6 +313,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
+                                <span>Quản lý nhập hàng </span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-import-order') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm đơn nhập
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-import-order') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý đơn nhập
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
                                 <span>Danh sách khách hàng</span>
                             </a>
                             <ul class="sub">
@@ -419,7 +437,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>
-                        
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Quản lý cửa hàng </span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-store') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm cửa hàng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-store') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý cửa hàng
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{ URL::to('/edit-info/1') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Liên hệ</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{ URL::to('/list-message') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Quản lí tin</span>
+                            </a>
+                        </li>
                             <!-- sidebar menu end-->
                 </div>
             </div>

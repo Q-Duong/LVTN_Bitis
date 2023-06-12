@@ -17,7 +17,7 @@ class WareHouseController extends Controller
     }
     function save_ware_house(Request $request){
         $data=$request->all();
-        //dd($data);
+       
         foreach($request->size_id as $key=>$ware_house){
             $wareHouse = new WareHouse();
             $wareHouse->product_id = $data['product_id'];
@@ -28,5 +28,24 @@ class WareHouseController extends Controller
             $wareHouse->save();
         }
         return Redirect::back()->with('success','Thêm kho hàng thành công');
+    }
+    function list_ware_house(){
+        $getAllWareHouse = WareHouse::orderBy('product_id','ASC')->get();
+        return view('admin.WareHouse.list_warehouse')->with(compact('getAllWareHouse'));
+    }
+    function edit_ware_house($product_id){
+        $getAllCategory=Category::orderBy('category_id','asc')->get();
+        $wareHouse = WareHouse::where('product_id',$product_id)->get();
+        $wareHouseCategory = WareHouse::where('product_id',$product_id)->first();
+        $getAllSize=Size::orderBy('size_id','asc')->get();
+        $getAllColor=Color::orderBy('color_id','asc')->get();
+
+        return view('admin.WareHouse.edit_warehouse')->with(compact('getAllCategory','wareHouse','wareHouseCategory','getAllSize','getAllColor'));
+    }
+    function update_ware_house(){ 
+        
+    }
+    function delete_ware_house(){ 
+        
     }
 }
