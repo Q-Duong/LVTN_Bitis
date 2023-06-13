@@ -369,10 +369,10 @@
             var size_id = $('.size input').first().val();
             $('.color').first().addClass("active");
             $('.color_id').first().prop( "checked", true );
-            $('.product_color').val(color_id);
+            $('.product_color_id').val(color_id);
             $('.size').first().addClass("active");
             $('.size_id').first().prop( "checked", true );
-            $('.product_size').val(size_id);
+            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -384,10 +384,20 @@
                 },
                 success: function(data) {
                     if(data.status != 400){
+                        $('.product_color').val(data.color);
+                        $('.product_size').val(data.size);
                         $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
-                        $('.quantity').html(data.wareHouse.ware_house_quantity);
+                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop( "disabled", false );
+                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass( 'primary-btn-add' );
+                        $('.add-cart').removeClass( 'primary-btn' );
                     }else{
-                        $('.quantity').html(data.message);
+                        $('.delivery-message').html(data.message);
+                        $('.add-cart').prop( "disabled", true );
+                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
+                        $('.add-cart').removeClass( 'primary-btn-add' );
+                        $('.add-cart').addClass( 'primary-btn' );
                     }
                 }
             });
@@ -399,8 +409,8 @@
             var color_id = $(this).val();
             $('.color_id').prop( "checked", false );
             $(this).prop( "checked", true );
-            $('.product_color').val(color_id);
-            $('.product_size').val(size_id);
+            $('.product_color_id').val(color_id);
+            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -412,10 +422,20 @@
                 },
                 success: function(data) {
                     if(data.status != 400){
+                        $('.product_color').val(data.color);
+                        $('.product_size').val(data.size);
                         $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
-                        $('.quantity').html(data.wareHouse.ware_house_quantity);
+                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop( "disabled", false );
+                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass( 'primary-btn-add' );
+                        $('.add-cart').removeClass( 'primary-btn' );
                     }else{
-                        $('.quantity').html(data.message);
+                        $('.delivery-message').html(data.message);
+                        $('.add-cart').prop( "disabled", true );
+                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
+                        $('.add-cart').removeClass( 'primary-btn-add' );
+                        $('.add-cart').addClass( 'primary-btn' );
                     }
                 }
             });
@@ -427,8 +447,8 @@
             var size_id = $(this).val();
             $('.size_id').prop( "checked", false );
             $(this).prop( "checked", true );
-            $('.product_color').val(color_id);
-            $('.product_size').val(size_id);
+            $('.product_color_id').val(color_id);
+            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -440,10 +460,21 @@
                 },
                 success: function(data) {
                     if(data.status != 400){
+                        $('.product_color').val(data.color);
+                        $('.product_size').val(data.size);
                         $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
-                        $('.quantity').html(data.wareHouse.ware_house_quantity);
+                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop( "disabled", false );
+                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass( 'primary-btn-add' );
+                        $('.add-cart').removeClass( 'primary-btn' );
                     }else{
-                        $('.quantity').html(data.message);
+                        $('.delivery-message').html(data.message);
+                        $('.add-cart').prop( "disabled", true );
+                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
+                        $('.add-cart').removeClass( 'primary-btn-add' );
+                        $('.add-cart').addClass( 'primary-btn' );
+                        
                     }
                 }
             });
@@ -451,33 +482,42 @@
         view_cart();
         function view_cart(){
             if(localStorage.getItem('cart')!=null){
+                $('.shopping-cart').removeClass('hidden');
+                $('.cart-empty').addClass('hidden');
                 var data = JSON.parse(localStorage.getItem('cart'));
+                var subtotal = 0;
+                var total = 0;
                 data.reverse();
-
+     
                 for(i=0;i<data.length;i++){
-                    var id = data[i].id;
-                    var name = data[i].name;
-                    var price = data[i].price;
-                    var image = data[i].image;
-                    var url = data[i].url;
-
-                    // $('#cart').append('<div class="row col-md-4 item"><div class="col-md-12"><a type="button" data-id="'+id+'" name="delete_withlist" class="delete_withlist"><i class="fas fa-heart"></i></a></div><div class="col-md-6"><img width="100%" src="'+image+'"></div><div class="col-md-6 info_wishlist"><p>'+name+'</p><p style="color:#FE980F">'+price+'</p><p><a href="'+url+'">Xem sản phẩm</a></p></div></div>');
-
-                    $('#cart').append('<tr><td class="product__cart__item"><a href=""><div class="product__cart__item__pic"><img src="" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+name+'</h6><h5>'+price+'</h5> </div></a></td><td class="cart__price">'+price+'</td><td class="cart__close"> <a class="cart_quantity_delete" href=""><i class="far fa-window-close"></i></a></td></tr>');
+                    subtotal = data[i].price*data[i].quantity;
+                    total += subtotal;
+                    
+                    $('#cart').append('<tr><td class="product__cart__item"><a href="'+data[i].url+'"><div class="product__cart__item__pic"><img src="'+data[i].image+'" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+data[i].name+'</h6><h6>Màu : '+data[i].color+' || Size: '+data[i].size+' </h6><h5>'+new Intl.NumberFormat('vi-VN').format(data[i].price)+'₫</h5><td class="quantity__item"><div class="quantity"><div class="pro-qty-2"><select name="cart_qty update_qty " class="form-control cart_quantity_input"><option  value="1">'+data[i].quantity+'</option></select></div></div></td> </div></a></td><td class="cart__price">'+new Intl.NumberFormat('vi-VN').format(subtotal)+'₫</td><td class="cart__close"> <a class="cart_quantity_delete" href=""><i class="far fa-window-close"></i></a></td></tr>');
+                    
                 }
+                $('#subtotal').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
+                $('#total').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
+            }else{
+                $('.shopping-cart').addClass('hidden');
+                $('.cart-empty').removeClass('hidden');
             }
         }
 
         function add_cart(){
             var cart_ware_house_id = $('.cart_ware_house_id').val();
+            var image = $('.product_image').attr('src');
+            var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
+           
             dataObj = {};
             $(data_cart).each(function(i, field){
             dataObj[field.name] = field.value;
             });
             var newItem = {
-                'url': dataObj.product_slug,
-                'id' : dataObj.ware_house_id,
+                'id': dataObj.ware_house_id,
+                'url': slug,
+                'image': image,
                 'name': dataObj.product_name,
                 'price': dataObj.product_price,
                 'size': dataObj.product_size,

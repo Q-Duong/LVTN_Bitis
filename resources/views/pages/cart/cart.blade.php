@@ -55,11 +55,11 @@
                 <div class="cart__discount">
                 </div>
                 <div class="cart__total">
-                    <h6>Tổng tiền</h6>
+                    <h6>THÔNG TIN ĐƠN HÀNG</h6>
                     <ul>
-                        <li>Tạm tính <span>₫</span></li>
+                        <li>Tạm tính <span id="subtotal"></span></li>
                         <li>Vận chuyển <span>MIỄN PHÍ</span></li>
-                        <li>Tổng Số Tiền Bạn Cần Thanh Toán <span>₫</span></li>
+                        <li>Tổng Tiền <span id="total"></span></li>
                     </ul>
                 </div>
             </div>
@@ -68,15 +68,15 @@
 </section>
 
     
-{{-- <div class="container text-center">
-    <div class="cart-empty">
+<div class="container text-center">
+    <div class="cart-empty hidden">
         <i class="fas fa-cart-plus"></i>
         <p>Giỏ hàng của bạn trống.</p>
         <h5>Trả lại hàng miễn phí.</h5>
         <h4><a href="{{URL::to('/')}}"><i class="fas fa-arrow-circle-left"></i> VỀ TRANG CHỦ</a></h4>
         <h5></h5>
     </div>
-</div> --}}
+</div>
 
 <div class="chat-wrapper">
     <div class="container ">
