@@ -1910,6 +1910,7 @@ i.far.fa-heart:hover {
 	margin-bottom: 0;
 	margin-right: 5px;
 	cursor: pointer;
+	border-radius: 10px;
 }
 
 .product__details__option__size label.active {
@@ -1948,7 +1949,13 @@ i.far.fa-heart:hover {
 	cursor: pointer;
 }
 
-.product__details__option__color label.c-1 {
+.product__details__option__color .active {
+	/* border: 1px solid #0071e3; */
+
+
+}
+
+/* .product__details__option__color label.c-1 {
 	background: #0b090c;
 }
 
@@ -1966,15 +1973,15 @@ i.far.fa-heart:hover {
 
 .product__details__option__color label.c-9 {
 	background: #ffffff;
-}
+} */
 
 .product__details__option__color label:after {
 	position: absolute;
-	left: -3px;
-	top: -3px;
-	height: 36px;
-	width: 36px;
-	border: 1px solid #e5e5e5;
+	left: -5px;
+	top: -5px;
+	height: 40px;
+	width: 40px;
+	border: 1px solid #e5e5e5;;
 	content: "";
 	border-radius: 50%;
 }

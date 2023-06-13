@@ -19,5 +19,7 @@ class HomeController extends Controller
     	return view('pages.home');
     }
 
-    
+    public function wistlist(){
+       return view('pages.wistlist.wistlist');
+   }
 }

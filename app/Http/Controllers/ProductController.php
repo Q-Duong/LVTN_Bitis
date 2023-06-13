@@ -8,6 +8,9 @@ use App\Models\CategoryType;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Gallery;
+use App\Models\WareHouse;
+use App\Models\Color;
+use App\Models\Size;
 use App\Http\Requests;
 use File;
 use Illuminate\Support\Facades\Redirect;
@@ -137,14 +140,24 @@ class ProductController extends Controller
         return Redirect()->back()->with('success','Xóa sản phẩm thành công');
     }
 
-
-
     //Frontend
+
     function show_product_details($product_slug){
-        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
         $product=Product::where('product_slug',$product_slug)->first();
         $gallery=Gallery::where('product_id',$product->product_id)->orderBy('gallery_id','ASC')->get(); 
-        return view('pages.product.show_product_details')->with(compact('getAllListCategory','getAllListCategoryType','product','gallery'));
+        $attribute=WareHouse::where('product_id',$product->product_id)->get();
+        $color = $attribute->unique('color_id');
+        $size = $attribute->unique('size_id');
+        return view('pages.product.show_product_details')->with(compact('product','gallery','attribute','color','size'));
+    }
+
+    function get_ware_house_id(Request $request){
+        $data = $request -> all();
+        $wareHouse=WareHouse::where('product_id',$data['product_id'])->where('color_id',$data['color_id'])->where('size_id',$data['size_id'])->first();
+        if($wareHouse){
+            return response()->json(array('wareHouse'=>$wareHouse));
+        }else{
+            return response()->json(array('message'=>'Hết hàng','status'=>'400'));
+        }
     }
 }

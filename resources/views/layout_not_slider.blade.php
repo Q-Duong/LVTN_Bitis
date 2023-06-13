@@ -359,7 +359,151 @@
         $.validate({});
     </script>
 
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+      
+        check_first();
+        function check_first(){
+            var _token = $('input[name="_token"]').val();
+            var product_id = $('.product_id').val();
+            var color_id = $('.color input').first().val();
+            var size_id = $('.size input').first().val();
+            $('.color').first().addClass("active");
+            $('.color_id').first().prop( "checked", true );
+            $('.product_color').val(color_id);
+            $('.size').first().addClass("active");
+            $('.size_id').first().prop( "checked", true );
+            $('.product_size').val(size_id);
+            $.ajax({
+                url: "{{ url('/get-ware-house-id') }}",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    size_id: size_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status != 400){
+                        $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
+                        $('.quantity').html(data.wareHouse.ware_house_quantity);
+                    }else{
+                        $('.quantity').html(data.message);
+                    }
+                }
+            });
+        }
+        $('.color_id').click(function(){
+            var _token = $('input[name="_token"]').val();
+            var product_id = $('.product_id').val();
+            var size_id = $('.size_id:checked').val();
+            var color_id = $(this).val();
+            $('.color_id').prop( "checked", false );
+            $(this).prop( "checked", true );
+            $('.product_color').val(color_id);
+            $('.product_size').val(size_id);
+            $.ajax({
+                url: "{{ url('/get-ware-house-id') }}",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    size_id: size_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status != 400){
+                        $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
+                        $('.quantity').html(data.wareHouse.ware_house_quantity);
+                    }else{
+                        $('.quantity').html(data.message);
+                    }
+                }
+            });
+        });
+        $('.size_id').click(function(){
+            var _token = $('input[name="_token"]').val();
+            var product_id = $('.product_id').val();
+            var color_id = $('.color_id:checked').val();
+            var size_id = $(this).val();
+            $('.size_id').prop( "checked", false );
+            $(this).prop( "checked", true );
+            $('.product_color').val(color_id);
+            $('.product_size').val(size_id);
+            $.ajax({
+                url: "{{ url('/get-ware-house-id') }}",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    size_id: size_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status != 400){
+                        $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
+                        $('.quantity').html(data.wareHouse.ware_house_quantity);
+                    }else{
+                        $('.quantity').html(data.message);
+                    }
+                }
+            });
+        });
+        view_cart();
+        function view_cart(){
+            if(localStorage.getItem('cart')!=null){
+                var data = JSON.parse(localStorage.getItem('cart'));
+                data.reverse();
+
+                for(i=0;i<data.length;i++){
+                    var id = data[i].id;
+                    var name = data[i].name;
+                    var price = data[i].price;
+                    var image = data[i].image;
+                    var url = data[i].url;
+
+                    // $('#cart').append('<div class="row col-md-4 item"><div class="col-md-12"><a type="button" data-id="'+id+'" name="delete_withlist" class="delete_withlist"><i class="fas fa-heart"></i></a></div><div class="col-md-6"><img width="100%" src="'+image+'"></div><div class="col-md-6 info_wishlist"><p>'+name+'</p><p style="color:#FE980F">'+price+'</p><p><a href="'+url+'">Xem sản phẩm</a></p></div></div>');
+
+                    $('#cart').append('<tr><td class="product__cart__item"><a href=""><div class="product__cart__item__pic"><img src="" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+name+'</h6><h5>'+price+'</h5> </div></a></td><td class="cart__price">'+price+'</td><td class="cart__close"> <a class="cart_quantity_delete" href=""><i class="far fa-window-close"></i></a></td></tr>');
+                }
+            }
+        }
+
+        function add_cart(){
+            var cart_ware_house_id = $('.cart_ware_house_id').val();
+            var data_cart = $('#data_cart').serializeArray();
+            dataObj = {};
+            $(data_cart).each(function(i, field){
+            dataObj[field.name] = field.value;
+            });
+            var newItem = {
+                'url': dataObj.product_slug,
+                'id' : dataObj.ware_house_id,
+                'name': dataObj.product_name,
+                'price': dataObj.product_price,
+                'size': dataObj.product_size,
+                'color': dataObj.product_color,
+                'quantity': 1
+            }
+            if(localStorage.getItem('cart')==null){
+                localStorage.setItem('cart', '[]');
+            }
+            var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            var matches = Items.find(item => item.id === cart_ware_house_id);
+
+            if(matches){
+                alert('Sản phẩm đã tồn tại trong yêu thích.');
+                matches.quantity = matches.quantity + 1;
+            }else{
+                Items.push(newItem);
+
+            // $('#row_wishlist').append('<div class="row col-md-4 item"><div class="col-md-12"><a type="button" data-id="'+newItem.id+'" name="delete_withlist" class="delete_withlist"><i class="fas fa-heart"></i></a></div><div class="col-md-6"><img width="100%" src="'+newItem.image+'"></div><div class="col-md-6 info_wishlist"><p>'+newItem.name+'</p><p style="color:#FE980F">'+newItem.price+'</p><p><a href="'+url+'">Xem sản phẩm</a></p></div></div>');
+
+            alert('Đã thêm vào danh sách yêu thích.');
+            }
+            localStorage.setItem('cart', JSON.stringify(Items));       
+        }
+   
+    </script>
 
 
     <script type="text/javascript">
@@ -430,10 +574,7 @@
                 }
             });
         });
-    </script>
 
-
-    <script type="text/javascript">
         $(document).ready(function() {
             count_cart_products();
 
@@ -496,9 +637,7 @@
 
             });
         });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function() {
 
             load_comment();
@@ -546,9 +685,7 @@
                 });
             });
         });
-    </script>
 
-    <script type="text/javascript">
         function remove_background(product_id) {
             for (var count = 1; count <= 5; count++) {
                 $('#' + product_id + '-' + count).css('color', '#ccc');
@@ -596,9 +733,7 @@
             });
 
         });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function() {
             $('.choose').on('change', function() {
                 var action = $(this).attr('id');
@@ -625,9 +760,7 @@
                 });
             });
         });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function() {
             $('.send_order').on("click", function() {
                 swal({

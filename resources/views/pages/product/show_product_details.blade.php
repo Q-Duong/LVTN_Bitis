@@ -32,6 +32,7 @@
                 <div class="col-lg-4 col-md-5">
                     <div class="product__details__text">
                         <h3>{{$product->product_name}}</h3>
+                        <span>Danh mục:</span> {{$product->category->category_name}}
                         <div class="rating ">
                             <div class="row d-flex ">
                                 {{-- <ul class="list-inline">
@@ -45,30 +46,16 @@
                             </div>
                         </div>
                         <h5>{{number_format($product->product_price,0,',','.').'₫'}}</h5>
-                        {{-- <span>Danh mục:</span> {{$product->category_product_name}} --}}
                         
+                        <span>Tình trạng:</span> <p class="quantity">123</p>
                         <div class="product__details__option">
-                                <!-- <div class="product__details__option__size">
-                                    <span>Size:</span>
-                                    <label for="xxl">xxl
-                                        <input type="radio" id="xxl">
+                            <div class="product__details__option__color">
+                                <span>Màu:</span>
+                                @foreach($color as $key => $col)
+                                    <label class="color" style="background-color:{{$col -> color -> color_value}};" for="sp-{{$key+1}}">
+                                        <input type="radio" class="color_id" value="{{$col -> color -> color_id}}" id="sp-{{$key+1}}">
                                     </label>
-                                    <label class="active" for="xl">xl
-                                        <input type="radio" id="xl">
-                                    </label>
-                                    <label for="l">l
-                                        <input type="radio" id="l">
-                                    </label>
-                                    <label for="sm">s
-                                        <input type="radio" id="sm">
-                                    </label>
-                                </div> -->
-                                <div class="product__details__option__color">
-                                    <span>Màu:</span>
-                                    <label class="c-1" for="sp-1">
-                                        <input type="radio" id="sp-1">
-                                    </label>
-                                    <label class="c-2" for="sp-2">
+                                    {{-- <label class="c-2" for="sp-2">
                                         <input type="radio" id="sp-2">
                                     </label>
                                     <label class="c-3" for="sp-3">
@@ -79,10 +66,55 @@
                                     </label>
                                     <label class="c-9" for="sp-9">
                                         <input type="radio" id="sp-9">
-                                    </label>
+                                    </label> --}}
+                                @endforeach
+                            </div>
+                                <div class="product__details__option__size">
+                                    <span>Size:</span>
+                                    @foreach($size as $key => $siz)
+                                        <label class="size" for="{{$siz -> size -> size_attribute}}">
+                                            {{$siz -> size -> size_attribute}}
+                                            <input type="radio" class="size_id" value="{{$siz -> size -> size_id}}" id="{{$siz -> size -> size_attribute}}">
+                                        </label>
+                                    @endforeach
                                 </div>
                             </div>
+                        </div>
+                        <form id="data_cart">
+                            @csrf
+                            <a id="wishlist_producturl" href="{{URL::to('/product/'.$product->product_slug)}}"></a>
+                            <input type="hidden" name="ware_house_id" value="" class="cart_ware_house_id">
+                            <input type="hidden" name="product_id" value="{{$product->product_id}}" class="product_id">
+                            <input type="hidden" name="product_slug" value="{{$product->product_slug}}" class="cart_product_slug">
+                            <input type="hidden" name="product_name" value="{{$product->product_name}}" class="cart_product_name">
+                            <input type="hidden" name="product_price" value="{{number_format($product->product_price,0,',','.')}}₫">
+                            <input type="hidden" name="product_color" class="product_color" value="" >
+                            <input type="hidden" name="product_size" class="product_size" value="">
+                            <img name="product_image" src="{{URL::to('uploads/product/'.$product->product_image)}}" style="display:none;" />
 
+                            <div class="product__details__cart__option">
+                                {{-- @if($product->product_quantity > 0) --}}
+                                <button type="button" class="primary-btn-add add-cart"
+                                id="" name="add-to-cart" onclick="add_cart();">
+                                    <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                                </button>
+                                {{-- @else
+                                <a class="primary-btn add-to-cart">
+                                <i class="fas fa-store-alt-slash"></i>SOLD OUT
+                                </a>
+                                @endif --}}
+                            </div>
+                            <div class="product__details__btns__option">
+                                <a type="button" class="primary-btn-wistlist" id="{{$product->product_id}}" onclick="add_wistlist(this.id);">
+                                    <i class="fa fa-heart"></i> 
+                                    Yêu thích
+                                </a>
+                            </div>
+                            <div class="product__details__last__option">
+                                <h5><span>Phương thức thanh toán</span></h5>
+                                <img src="{{asset('frontend/img/shop-details/details-payment.png')}}" alt="">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -139,6 +171,48 @@
 <!-- Shop Details Section End -->
 
 <!-- Related Section Begin -->
+<section class="related spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="related-title">Sản phẩm liên quan</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach($relate as $key => $lienquan)
+            <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+                <a class="heart" type="button" id="" onclick="add_wistlist(this.id);">
+                    <i class="far fa-heart"></i>
+                </a>
+                <div class="product__item">
+                    <a id=""
+                        href="{{URL::to('/product/'.$lienquan->product_slug)}}">
+                        <div class="product__item__pic set-bg"
+                            data-setbg="{{URL::to('uploads/product/'.$lienquan->product_image)}}">
+                            
+                        </div>
+                    </a>
 
+                    <div class="product__item__text">
+                        <h6>{{$lienquan->product_name}}</h6>
+                        <h5>{{number_format($lienquan->product_price,0,',','.').'₫'}}</h5>
+                        <div class="product__color__select">
+                            <label for="pc-1">
+                                <input type="radio" id="pc-1">
+                            </label>
+                            <label class="active black" for="pc-2">
+                                <input type="radio" id="pc-2">
+                            </label>
+                            <label class="grey" for="pc-3">
+                                <input type="radio" id="pc-3">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 <!-- Related Section End -->
 @endsection
