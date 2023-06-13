@@ -17,16 +17,16 @@ use Illuminate\Support\Facades\Redirect;
 
 class ImportOrderController extends Controller
 {
-    function add_import(){
+    function add_import_order(){
         $getAllCategory=Category::orderBy('category_id','asc')->get();
         $getAllEmployee=Employee::orderBy('employee_id','asc')->get();
         return view('admin.ImportOrder.add_import')->with(compact('getAllCategory','getAllEmployee'));
     }
-    function list_import(){
+    function list_import_order(){
         $getAllListImport=ImportOrder::orderBy('import_order_id','ASC')->get();
         return view('admin.ImportOrder.list_import')->with(compact('getAllListImport'));
     }
-    function edit_product($product_id){
+    function edit_import_order($product_id){
         $edit_value=Product::find($product_id);
         $getAllProductType=CategoryType::where('category_id',$edit_value->category_id)->get();
         $getAllCategory=Category::orderBy('category_id','asc')->get();
@@ -45,7 +45,7 @@ class ImportOrderController extends Controller
         }
     	echo $output;
     }
-    function save_product(Request $request){
+    function save_import_order(Request $request){
         $data=$request->all();
         $product = new Product();
         $product->product_name = $data['product_name'];
@@ -79,7 +79,7 @@ class ImportOrderController extends Controller
 
         return Redirect()->back()->with('success','Thêm sản phẩm thành công');
     }
-    function update_product(Request $request,$product_id){
+    function update_import_order(Request $request,$product_id){
         $data=$request->all();
         
         $product=Product::find($product_id);
@@ -107,7 +107,7 @@ class ImportOrderController extends Controller
         $product->save();
         return Redirect::to('list-product')->with('success','Cập nhật sản phẩm thành công');
     }
-    function delete_product($product_id){
+    function delete_import_order($product_id){
         $product=Product::find($product_id);
         $product_image = $product->product_image;
         if($product_image){
@@ -115,16 +115,5 @@ class ImportOrderController extends Controller
         }
         $product->delete();
         return Redirect()->back()->with('success','Xóa sản phẩm thành công');
-    }
-
-
-
-    //Frontend
-    function show_product_details($product_slug){
-        $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-        $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-        $product=Product::where('product_slug',$product_slug)->first();
-        $gallery=Gallery::where('product_id',$product->product_id)->orderBy('gallery_id','ASC')->get(); 
-        return view('pages.product.show_product_details')->with(compact('getAllListCategory','getAllListCategoryType','product','gallery'));
     }
 }

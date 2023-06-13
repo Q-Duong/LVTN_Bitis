@@ -117,18 +117,19 @@
                                 <a href="#">FAQs</a> -->
                             </div>
 
-                            @if (Session::has('customer_id'))
+                            @if (Session::has('user_id'))
                                 <div class="header__top__hover">
                                     <span>
-                                        @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
+                                        {{-- @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
                                             <img src="{{ asset('uploads/avata/' . Session::get('customer_image')) }}"
                                                 alt="">
                                         @elseif(Session::get('customer_password') == '')
                                             <img src="{{ Session::get('customer_image') }}" alt="">
                                         @elseif(Session::get('customer_image') == '' && Session::get('customer_password') != '')
                                             <i class="far fa-user-circle"></i>
-                                        @endif
-                                        {{ Session::get('customer_last_name') }}
+                                        @endif --}}
+                                        
+                                        Xin chào, {{Session::get('user_lastname') }}
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>

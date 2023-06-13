@@ -30,16 +30,40 @@ class ProductController extends Controller
     }
     public function select_category(Request $request){
         $data = $request->all();
-    	$output = '';
+    	$getAllListProductType = '';
+        $getAllListProduct = '';
     	$select_product_type = CategoryType::where('category_id',$data['category_id'])->get();
         if($select_product_type->count() > 0){ 
             foreach($select_product_type as $key => $product_type){
-                $output.='<option value="'.$product_type->productType->product_type_id.'">'.$product_type->productType->product_type_name.'</option>';
+                $getAllListProductType.='<option value="'.$product_type->productType->product_type_id.'">'.$product_type->productType->product_type_name.'</option>';
             }
         }else{
-            $output.='<option value="">--Chọn Danh Mục--</option>';
+            $getAllListProductType.='<option value="">--Chọn Danh Mục--</option>';
         }
-    	echo $output;
+
+        $select_product = Product::where('category_id',$data['category_id'])->where('product_type_id',$select_product_type[0] -> product_type_id)->orderBy('product_id','ASC')->get();
+        if($select_product->count() > 0){ 
+            foreach($select_product as $key => $product){
+                $getAllListProduct.='<option value="'.$product->product_id.'">'.$product->product_name.'</option>';
+            }
+        }else{
+            $getAllListProduct.='<option value="">--Chọn Sản Phẩm--</option>';
+        }
+
+    	return response()->json(array('getAllListProductType'=>$getAllListProductType, 'getAllListProduct'=>$getAllListProduct));
+    }
+    public function select_product_type(Request $request){
+        $data = $request->all();
+    	$getAllListProduct = '';
+        $select_product = Product::where('category_id',$data['category_id'])->where('product_type_id',$data['product_type_id'])->orderBy('product_id','ASC')->get();
+        if($select_product->count() > 0){ 
+            foreach($select_product as $key => $product){
+                $getAllListProduct.='<option value="'.$product->product_id.'">'.$product->product_name.'</option>';
+            }
+        }else{
+            $getAllListProduct.='<option value="">--Chọn Sản Phẩm--</option>';
+        }
+    	return response()->json(array('getAllListProduct'=>$getAllListProduct));
     }
     function save_product(Request $request){
         $data=$request->all();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Account;
@@ -19,7 +20,15 @@ class LoginController extends Controller
     public function login_submit(Request $request){
         $data=$request->all();
         $result=Account::where('account_username',$data['account_username'])->where('account_password',md5($data['account_password']))->first();
-        if($result){
+        $user=User::where('account_id',$result->account_id)->first();
+        if($result){  
+            Session::put('user_id',$user->user_id);
+			Session::put('user_firstname',$user->user_firstname);
+            Session::put('user_lastname',$user->user_lastname);
+            Session::put('user_phone',$user->user_phone);
+            Session::put('user_email',$user->user_email);
+            Session::put('account_username',$user->account_username);
+            Session::put('account_password',$user->account_password);
             return Redirect::to('/');
         }
         else{
@@ -46,5 +55,9 @@ class LoginController extends Controller
         $user->account_id=$account->account_id;
         $user->save();
         return redirect::to('login')->with('success','Đăng ký tài khoản thành công');
+    }
+    public function logout_checkout(){
+        Session::flush('user_id');
+        return Redirect::to('/');
     }
 }

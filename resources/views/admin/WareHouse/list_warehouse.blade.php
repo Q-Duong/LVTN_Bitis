@@ -3,7 +3,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Liệt kê sản phẩm
+                Liệt kê kho
             </div>
 
             @if (session('success'))
@@ -14,51 +14,52 @@
                 <table class="table table-striped b-t b-light" id="myTable">
                     <thead>
                         <tr>
+                            <th>Mã kho</th>
                             <th>Mã sản phẩm</th>
                             <th>Danh mục sản phẩm</th>
                             <th>Loại sản phẩm</th>
                             <th>Tên sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Tình trạng</th>
-                            <th>Slug</th>
                             <th>Hình ảnh</th>
-                            <th>Thư viện ảnh sản phẩm</th>
-                            
+                            <th>Màu</th>
+                            <th>Size</th>
+                            <th>Số lượng</th>
+                            <th>Tình trạng</th>
                             <th style="width:100px;">Quản lý</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($getAllListProduct as $key => $pro)
+                        @foreach ($getAllWareHouse as $key => $wareHouse)
                             <tr>
-                                <td>{{ $pro->product_id }}</td>
-                                <td>{{ $pro->category->category_name }}</td>
-                                <td>{{ $pro->productType->product_type_name }}</td>
-                                <td>{{ $pro->product_name }}</td>
-                                <td>{{ number_format($pro->product_price, 0, ',', '.') }}₫</td>
+                                <td>{{ $wareHouse -> ware_house_id }}</td>
+                                <td>{{ $wareHouse -> product_id }}</td>
+                                <td>{{ $wareHouse -> product -> category -> category_name }}</td>
+                                <td>{{ $wareHouse -> product -> productType -> product_type_name }}</td>
+                                <td>{{ $wareHouse -> product -> product_name }}</td>
+                                <td>
+                                    <img class="img-fluid" src="uploads/product/{{ $wareHouse -> product -> product_image }}" alt="">
+                                </td>
+                                <td>{{ $wareHouse -> color -> color_name }}</td>
+                                <td>{{ $wareHouse -> size -> size_attribute }}</td>
+                                <td>{{ $wareHouse -> ware_house_quantity }}</td>
                                 <td>
                                     <span class="text-ellipsis">
-                                        @if ($pro->product_tag == 1)
+                                        @if ($wareHouse->ware_house_status == 1)
                                             Mới
-                                        @elseif($pro->product_tag == 2)
+                                        @elseif($wareHouse->ware_house_status == 2)
                                             Hết hàng
-                                        @elseif($pro->product_tag == 3)
+                                        @elseif($wareHouse->ware_house_status == 3)
                                             Khuyến mãi
                                         @else
                                             Trống
                                         @endif
                                     </span>
                                 </td>
-                                <td>{{ $pro->product_slug }}</td>
                                 <td>
-                                    <img class="img-fluid" src="uploads/product/{{ $pro->product_image }}" alt="">
-                                </td>
-                                <td><a href="{{URL::to('/add-gallery/'.$pro -> product_id)}}">Thư viện ảnh</a></td>
-                                <td>
-                                    <a href="{{ URL::to('edit-product/' . $pro->product_id) }}" class="active style-edit"
+                                    <a href="{{ URL::to('edit-ware-house/' . $wareHouse -> product_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>
-                                    <a onclick="return confirm('Bạn có chắc muốn xóa sản phẩm?')"
-                                        href="{{ URL::to('delete-product/' . $pro->product_id) }}"
+                                    <a onclick="return confirm('Bạn có chắc muốn xóa cửa hàng?')"
+                                        href="{{ URL::to('delete-ware-house/' . $wareHouse -> ware_house_id) }}"
                                         class="active style-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>
