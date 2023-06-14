@@ -155,10 +155,13 @@ class ProductController extends Controller
     function get_ware_house_id(Request $request){
         $data = $request -> all();
         $wareHouse=WareHouse::where('product_id',$data['product_id'])->where('color_id',$data['color_id'])->where('size_id',$data['size_id'])->first();
+       
         if($wareHouse){
-            return response()->json(array('wareHouse'=>$wareHouse));
+            $color=$wareHouse->color->color_name;
+            $size=$wareHouse->size->size_attribute;
+            return response()->json(array('wareHouse'=>$wareHouse,'color'=>$color,'size'=>$size));
         }else{
-            return response()->json(array('message'=>'Hết hàng','status'=>'400'));
+            return response()->json(array('message'=>'Đã bán hết','status'=>'400'));
         }
     }
 }

@@ -47,9 +47,10 @@
                         </div>
                         <h5>{{number_format($product->product_price,0,',','.').'₫'}}</h5>
                         
-                        <span>Tình trạng:</span> <p class="quantity">123</p>
+                        <span><i class="fas fa-truck"></i> Giao hàng:</span> <p class="delivery-message"></p>
                         <div class="product__details__option">
                             <div class="product__details__option__color">
+                                <input type="hidden" name="product_color_id" class="product_color_id" value="">
                                 <span>Màu:</span>
                                 @foreach($color as $key => $col)
                                     <label class="color" style="background-color:{{$col -> color -> color_value}};" for="sp-{{$key+1}}">
@@ -70,6 +71,7 @@
                                 @endforeach
                             </div>
                                 <div class="product__details__option__size">
+                                    <input type="hidden" name="product_size_id" class="product_size_id" value="">
                                     <span>Size:</span>
                                     @foreach($size as $key => $siz)
                                         <label class="size" for="{{$siz -> size -> size_attribute}}">
@@ -82,27 +84,19 @@
                         </div>
                         <form id="data_cart">
                             @csrf
-                            <a id="wishlist_producturl" href="{{URL::to('/product/'.$product->product_slug)}}"></a>
+                            <a class="product_slug" href="{{URL::to('/products/'.$product->product_slug)}}"></a>
                             <input type="hidden" name="ware_house_id" value="" class="cart_ware_house_id">
                             <input type="hidden" name="product_id" value="{{$product->product_id}}" class="product_id">
-                            <input type="hidden" name="product_slug" value="{{$product->product_slug}}" class="cart_product_slug">
                             <input type="hidden" name="product_name" value="{{$product->product_name}}" class="cart_product_name">
-                            <input type="hidden" name="product_price" value="{{number_format($product->product_price,0,',','.')}}₫">
-                            <input type="hidden" name="product_color" class="product_color" value="" >
+                            <input type="hidden" name="product_price" value="{{$product->product_price}}">
+                            <input type="hidden" name="product_color" class="product_color" value="">
                             <input type="hidden" name="product_size" class="product_size" value="">
-                            <img name="product_image" src="{{URL::to('uploads/product/'.$product->product_image)}}" style="display:none;" />
+                            <img name="product_image" src="{{URL::to('uploads/product/'.$product->product_image)}}" style="display:none;" class="product_image"/>
 
                             <div class="product__details__cart__option">
-                                {{-- @if($product->product_quantity > 0) --}}
-                                <button type="button" class="primary-btn-add add-cart"
-                                id="" name="add-to-cart" onclick="add_cart();">
+                                <button type="button" class="primary-btn-add add-cart" name="add-to-cart" onclick="add_cart();">
                                     <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
                                 </button>
-                                {{-- @else
-                                <a class="primary-btn add-to-cart">
-                                <i class="fas fa-store-alt-slash"></i>SOLD OUT
-                                </a>
-                                @endif --}}
                             </div>
                             <div class="product__details__btns__option">
                                 <a type="button" class="primary-btn-wistlist" id="{{$product->product_id}}" onclick="add_wistlist(this.id);">
@@ -171,7 +165,7 @@
 <!-- Shop Details Section End -->
 
 <!-- Related Section Begin -->
-<section class="related spad">
+{{-- <section class="related spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -212,6 +206,6 @@
             @endforeach
         </div>
     </div>
-</section>
+</section> --}}
 <!-- Related Section End -->
 @endsection
