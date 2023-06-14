@@ -148,7 +148,8 @@ class ProductController extends Controller
         $attribute=WareHouse::where('product_id',$product->product_id)->get();
         $color = $attribute->unique('color_id');
         $size = $attribute->unique('size_id');
-        return view('pages.product.show_product_details')->with(compact('product','gallery','attribute','color','size'));
+        $relate=Product::where('product_type_id',$product->product_type_id)->whereNotIn('product_slug',[$product_slug])->inRandomOrder('product_id')->limit(8)->get();
+        return view('pages.product.show_product_details')->with(compact('product','gallery','attribute','color','size','relate'));
     }
 
     function get_ware_house_id(Request $request){

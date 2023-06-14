@@ -189,7 +189,6 @@
                         href="{{URL::to('/product/'.$lienquan->product_slug)}}">
                         <div class="product__item__pic set-bg"
                             data-setbg="{{URL::to('uploads/product/'.$lienquan->product_image)}}">
-                            
                         </div>
                     </a>
 
