@@ -1,4 +1,4 @@
-@extends('layout_not_slider')
+@extends('layout')
 @section('content')
 @section('title', ' - ')
 
@@ -50,28 +50,14 @@
                         <span><i class="fas fa-truck"></i> Giao hàng:</span> <p class="delivery-message"></p>
                         <div class="product__details__option">
                             <div class="product__details__option__color">
-                                <input type="hidden" name="product_color_id" class="product_color_id" value="">
                                 <span>Màu:</span>
                                 @foreach($color as $key => $col)
                                     <label class="color" style="background-color:{{$col -> color -> color_value}};" for="sp-{{$key+1}}">
                                         <input type="radio" class="color_id" value="{{$col -> color -> color_id}}" id="sp-{{$key+1}}">
                                     </label>
-                                    {{-- <label class="c-2" for="sp-2">
-                                        <input type="radio" id="sp-2">
-                                    </label>
-                                    <label class="c-3" for="sp-3">
-                                        <input type="radio" id="sp-3">
-                                    </label>
-                                    <label class="c-4" for="sp-4">
-                                        <input type="radio" id="sp-4">
-                                    </label>
-                                    <label class="c-9" for="sp-9">
-                                        <input type="radio" id="sp-9">
-                                    </label> --}}
                                 @endforeach
                             </div>
                                 <div class="product__details__option__size">
-                                    <input type="hidden" name="product_size_id" class="product_size_id" value="">
                                     <span>Size:</span>
                                     @foreach($size as $key => $siz)
                                         <label class="size" for="{{$siz -> size -> size_attribute}}">

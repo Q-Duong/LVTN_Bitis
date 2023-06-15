@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/elegant-icons.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}" type="text/css">
-    <!-- <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css"> -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css">
@@ -356,10 +356,6 @@
 
 
     <script type="text/javascript">
-        $.validate({});
-    </script>
-
-    <script type="text/javascript">
       
         check_first();
         function check_first(){
@@ -409,8 +405,6 @@
             var color_id = $(this).val();
             $('.color_id').prop( "checked", false );
             $(this).prop( "checked", true );
-            $('.product_color_id').val(color_id);
-            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -447,8 +441,6 @@
             var size_id = $(this).val();
             $('.size_id').prop( "checked", false );
             $(this).prop( "checked", true );
-            $('.product_color_id').val(color_id);
-            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -487,15 +479,25 @@
                 var data = JSON.parse(localStorage.getItem('cart'));
                 var subtotal = 0;
                 var total = 0;
+                var cart_length = 0;
+                var length = data.length;
                 data.reverse();
-     
-                for(i=0;i<data.length;i++){
+                
+                for(i = 0; i < data.length; i++){
                     subtotal = data[i].price*data[i].quantity;
                     total += subtotal;
+                    cart_length += parseInt(data[i].quantity);
+                    var position = length - i - 1;
+                    var val = i + 1;
+                    var select='';
+                    for(j = 1; j <= 10; j++){
+                        select += '<option value="'+j+'" '+(data[i].quantity == j ? "selected" : "")+'>'+j+'</option>';
+                    }
                     
-                    $('#cart').append('<tr><td class="product__cart__item"><a href="'+data[i].url+'"><div class="product__cart__item__pic"><img src="'+data[i].image+'" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+data[i].name+'</h6><h6>Màu : '+data[i].color+' || Size: '+data[i].size+' </h6><h5>'+new Intl.NumberFormat('vi-VN').format(data[i].price)+'₫</h5><td class="quantity__item"><div class="quantity"><div class="pro-qty-2"><select name="cart_qty update_qty " class="form-control cart_quantity_input"><option  value="1">'+data[i].quantity+'</option></select></div></div></td> </div></a></td><td class="cart__price">'+new Intl.NumberFormat('vi-VN').format(subtotal)+'₫</td><td class="cart__close"> <a class="cart_quantity_delete" href=""><i class="far fa-window-close"></i></a></td></tr>');
+                    $('#cart').append('<tr><td class="product__cart__item"><a href="'+data[i].url+'"><div class="product__cart__item__pic"><img src="'+data[i].image+'" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+data[i].name+'</h6><h6>Màu : '+data[i].color+' || Size: '+data[i].size+' </h6><h5>'+new Intl.NumberFormat('vi-VN').format(data[i].price)+'₫</h5><td class="quantity__item"><div class="quantity"><div class="pro-qty-2"><select name="cart_qty" class="form-control cart_quantity" data-id="'+data[i].id+'">'+select+'</select></div></div></td> </div></a></td><td class="cart__price">'+new Intl.NumberFormat('vi-VN').format(subtotal)+'₫</td><td class="cart__close"> <a class="cart_quantity_delete" onclick="remove_cart_item('+position+');"><i class="far fa-window-close"></i></a></td></tr>');
                     
                 }
+                $('.count-cart-products').html('<span>'+cart_length+'</span>');
                 $('#subtotal').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
                 $('#total').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
             }else{
@@ -514,6 +516,7 @@
             $(data_cart).each(function(i, field){
             dataObj[field.name] = field.value;
             });
+
             var newItem = {
                 'id': dataObj.ware_house_id,
                 'url': slug,
@@ -524,24 +527,45 @@
                 'color': dataObj.product_color,
                 'quantity': 1
             }
-            if(localStorage.getItem('cart')==null){
-                localStorage.setItem('cart', '[]');
-            }
             var Items = JSON.parse(localStorage.getItem('cart')) || [];
             var matches = Items.find(item => item.id === cart_ware_house_id);
-
             if(matches){
-                alert('Sản phẩm đã tồn tại trong yêu thích.');
                 matches.quantity = matches.quantity + 1;
+                alert('Đã thêm vào giỏ hàng.');
             }else{
                 Items.push(newItem);
-
-            // $('#row_wishlist').append('<div class="row col-md-4 item"><div class="col-md-12"><a type="button" data-id="'+newItem.id+'" name="delete_withlist" class="delete_withlist"><i class="fas fa-heart"></i></a></div><div class="col-md-6"><img width="100%" src="'+newItem.image+'"></div><div class="col-md-6 info_wishlist"><p>'+newItem.name+'</p><p style="color:#FE980F">'+newItem.price+'</p><p><a href="'+url+'">Xem sản phẩm</a></p></div></div>');
-
-            alert('Đã thêm vào danh sách yêu thích.');
+                alert('Đã thêm vào giỏ hàng.');
             }
-            localStorage.setItem('cart', JSON.stringify(Items));       
+            localStorage.setItem('cart', JSON.stringify(Items));  
+            $('#cart').html('');
+            view_cart();     
         }
+
+        function remove_cart_item(position){
+            var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            if(Items.length == 1){
+                localStorage.removeItem('cart');
+            }else{
+                Items.splice(position,1);
+                localStorage.setItem('cart',JSON.stringify(Items));
+            }
+            alert('Đã xoá khỏi giỏ hàng.'); 
+            $('#cart').html('');
+            view_cart(); 
+        }
+        $(document).on('change', '.cart_quantity', function() {
+            var quantity = $(this).val();
+            var id = $(this).data('id');
+            var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            var matches = Items.find(item => item.id == id);
+            if(matches){
+                matches.quantity = parseInt(quantity);
+                //alert('Đã cập nhật số lượng.');
+            }
+            localStorage.setItem('cart', JSON.stringify(Items));   
+            $('#cart').html('');
+            view_cart();   
+        });
    
     </script>
 

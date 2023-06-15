@@ -1,4 +1,4 @@
-@extends('layout_not_slider')
+@extends('layout')
 @section('content')
 @section('title', 'Create Your Account - ')
 <section class="breadcrumb-option">

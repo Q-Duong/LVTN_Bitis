@@ -1,4 +1,4 @@
-@extends('layout_not_slider')
+@extends('layout')
 @section('content')
 @section('title', 'Cart - ')
 <!-- Breadcrumb Section Begin -->
@@ -59,8 +59,18 @@
                     <ul>
                         <li>Tạm tính <span id="subtotal"></span></li>
                         <li>Vận chuyển <span>MIỄN PHÍ</span></li>
-                        <li>Tổng Tiền <span id="total"></span></li>
+                        <li class="cart__total__border__top">Tổng Tiền <span id="total"></span></li>
+                        <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span></li>
                     </ul>
+                    @if(Session::get('customer_id'))
+                    <a class="primary-btn check_out" href="{{URL::to('/checkout')}}"><i class="fab fa-amazon-pay"></i>
+                        Thanh
+                        toán</a>
+                    @else
+                    <a class="primary-btn check_out" href="{{URL::to('/login')}}"><i
+                            class="fab fa-amazon-pay"></i>
+                        Thanh toán</a>
+                    @endif
                 </div>
             </div>
         </div>
