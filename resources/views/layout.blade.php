@@ -289,7 +289,11 @@
                     <div class="footer__widget">
                         <h6>Sản phẩm</h6>
                         <ul>
-
+                            @foreach ($getAllListCategory as $key => $cate)
+                                <li><a href="{{ asset(URL::to('/collections/' . $cate->category_slug)) }}">
+                                        {{ $cate->category_name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -297,7 +301,11 @@
                     <div class="footer__widget">
                         <h6>Tin tức</h6>
                         <ul>
-
+                            @foreach ($getAllListCategoryPost as $key => $catepost)
+                                <li><a href="{{ asset(URL::to('/blogs/' . $catepost->category_post_slug))}}">
+                                        {{ $catepost->category_post_name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

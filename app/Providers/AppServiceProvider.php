@@ -25,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
             $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
             $getAllListCategoryPost=CategoryPost::orderBy('category_post_id','ASC')->get();
             $getAllBanner=Banner::get();
-
-            $view->with(compact('getAllListCategory','getAllListCategoryType','getAllListCategoryPost','getAllBanner'));
+            $getAllListProduct=Product::inRandomOrder('product_id')->get();
+            $view->with(compact('getAllListCategory','getAllListCategoryType','getAllListCategoryPost','getAllBanner','getAllListProduct'));
         });
     }
 
