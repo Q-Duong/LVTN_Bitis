@@ -1,4 +1,4 @@
-@extends('layout_not_slider')
+@extends('layout')
 @section('content')
 @section('title', ' - ')
 
@@ -52,7 +52,6 @@
                         <p class="delivery-message"></p>
                         <div class="product__details__option">
                             <div class="product__details__option__color">
-                                <input type="hidden" name="product_color_id" class="product_color_id" value="">
                                 <span>Màu:</span>
                                 @foreach ($color as $key => $col)
                                     <label class="color" style="background-color:{{ $col->color->color_value }};"
@@ -60,30 +59,17 @@
                                         <input type="radio" class="color_id" value="{{ $col->color->color_id }}"
                                             id="sp-{{ $key + 1 }}">
                                     </label>
-                                    {{-- <label class="c-2" for="sp-2">
-                                        <input type="radio" id="sp-2">
-                                    </label>
-                                    <label class="c-3" for="sp-3">
-                                        <input type="radio" id="sp-3">
-                                    </label>
-                                    <label class="c-4" for="sp-4">
-                                        <input type="radio" id="sp-4">
-                                    </label>
-                                    <label class="c-9" for="sp-9">
-                                        <input type="radio" id="sp-9">
-                                    </label> --}}
                                 @endforeach
                             </div>
-                            <div class="product__details__option__size">
-                                <input type="hidden" name="product_size_id" class="product_size_id" value="">
-                                <span>Size:</span>
-                                @foreach ($size as $key => $siz)
-                                    <label class="size" for="size-{{ $key + 1 }}">
-                                        {{ $siz->size->size_attribute }}
-                                        <input type="radio" class="size_id" value="{{ $siz->size->size_id }}"
-                                            id="size-{{ $key + 1 }}">
-                                    </label>
-                                @endforeach
+                                <div class="product__details__option__size">
+                                    <span>Size:</span>
+                                    @foreach($size as $key => $siz)
+                                        <label class="size" for="{{$siz -> size -> size_attribute}}">
+                                            {{$siz -> size -> size_attribute}}
+                                            <input type="radio" class="size_id" value="{{$siz -> size -> size_id}}" id="{{$siz -> size -> size_attribute}}">
+                                        </label>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,28 +118,16 @@
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-6" role="tab">Đặc điểm
-                                    nổi bật</a>
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Mô tả</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Đánh giá(0)</a>
-                            </li>
-
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-6" role="tabpanel">
+                            <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                 <div class="product__details__tab__content">
                                     <p class="note"></p>
                                     <div class="product__details__tab__content__item">
-                                        <p>{!! $product->product_description !!}</p>
+                                        <p>{!!$product->product_description!!}</p>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-7" role="tabpanel">
-                                <div class="product__details__tab__content">
-
-
-
                                 </div>
                             </div>
                         </div>

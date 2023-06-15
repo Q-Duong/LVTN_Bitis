@@ -1,4 +1,4 @@
-@extends('layout_not_slider')
+@extends('layout')
 @section('content')
 <section>
     <div class="container">
@@ -57,11 +57,11 @@
                             <a id="wishlist_producturl{{$product->product_id}}" href="{{URL::to('/products/'.$product->product_slug)}}">
                                 <div class="product__item__pic set-bg"
                                     data-setbg="{{URL::to('uploads/product/'.$product->product_image)}}">
-                                    @if($product->product_tag==2)
+                                    @if($product->product_tag==1)
                                     <span class="label">
                                         Mới
                                     </span>
-                                    @elseif($product->product_tag==1)
+                                    @elseif($product->product_tag==3)
                                     <span class="label">
                                         Khuyến mãi
                                     </span>

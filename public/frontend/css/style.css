@@ -2667,7 +2667,7 @@ i.far.fa-heart:hover {
 	text-align: center;
 	-webkit-transition: all, 0.6s;
 	-o-transition: all, 0.6s;
-
+	cursor: pointer;
 }
 
 .shopping__cart__table table tbody tr td.cart__close i:hover {
@@ -2682,6 +2682,7 @@ i.far.fa-heart:hover {
 	-webkit-transition: all, 0.6s;
 	-o-transition: all, 0.6s;
 	transition: all, 0.6s;
+	cursor: pointer;
 }
 
 .continue__btn.update__btn {
@@ -2859,13 +2860,35 @@ textarea::placeholder{
 	font-size: 16px;
 	color: #444444;
 	line-height: 40px;
-	overflow: hidden;
+	font-weight: 700;
 }
 
-.cart__total ul li span {
+.cart__total__border__top{
+	border-top: 1px solid #b9b9b9;
+	padding: 10px 0;
+}
+#total{
 	font-weight: 700;
-	color: #e53637;
+}
+.cart__total ul li span {
+	font-weight: 600;
+	color: #0071e3;
 	float: right;
+}
+.cart__total__border__bottom{
+	border-bottom: 1px solid #b9b9b9;
+	padding-bottom: 15px;
+}
+.tax-section{
+	font-size: 14px;
+    line-height: 1.42859;
+    font-weight: 400 !important;
+    letter-spacing: -.016em;
+    color: #6e6e73 !important;
+    text-align: right;
+    margin-bottom: 5px;
+    margin-top: -21px;
+	
 }
 
 .cart__total .primary-btn {
