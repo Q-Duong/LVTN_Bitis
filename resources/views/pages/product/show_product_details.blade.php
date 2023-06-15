@@ -96,36 +96,16 @@
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Thông số kỹ
-                                    thuật</a>
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Mô tả</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Đặc điểm nổi bật</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Đánh giá(5)</a>
-                            </li>
-
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                 <div class="product__details__tab__content">
-                                    <p class="note">{!!$product->description!!}</p>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-6" role="tabpanel">
-                                <div class="product__details__tab__content">
                                     <p class="note"></p>
                                     <div class="product__details__tab__content__item">
-                                        <p>{!!$product->description!!}</p>
+                                        <p>{!!$product->product_description!!}</p>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-7" role="tabpanel">
-                                <div class="product__details__tab__content">
-                                    
-
-                                    
                                 </div>
                             </div>
                         </div>

@@ -116,7 +116,7 @@ class ProductController extends Controller
         if($get_image){
             $product_image_old = $product->product_image;
             $path = public_path('uploads/product/');
-            unlink($path.$product_image_old);
+            //unlink($path.$product_image_old);
 
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.',$get_name_image));
