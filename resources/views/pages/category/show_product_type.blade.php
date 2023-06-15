@@ -54,7 +54,7 @@
                             <i class="far fa-heart"></i>
                         </a>
                         <div class="product__item">
-                            <a id="wishlist_producturl{{$product->product_id}}" href="{{URL::to('/product/'.$product->product_slug)}}">
+                            <a id="wishlist_producturl{{$product->product_id}}" href="{{URL::to('/products/'.$product->product_slug)}}">
                                 <div class="product__item__pic set-bg"
                                     data-setbg="{{URL::to('uploads/product/'.$product->product_image)}}">
                                     @if($product->product_tag==1)
@@ -80,8 +80,6 @@
                                 @csrf
                                 <div class="product__item__text">
                                     <h6>{{$product->product_name}}</h6>
-                                    <a type="button" data-id_product="{{$product->product_id}}" name="add-to-cart"
-                                        class="add-cart add-to-cart">+ Thêm vào giỏ hàng</a>
                                     <div class="rating">
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>

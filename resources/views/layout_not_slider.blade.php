@@ -359,7 +359,191 @@
         $.validate({});
     </script>
 
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+      
+        check_first();
+        function check_first(){
+            var _token = $('input[name="_token"]').val();
+            var product_id = $('.product_id').val();
+            var color_id = $('.color input').first().val();
+            var size_id = $('.size input').first().val();
+            $('.color').first().addClass("active");
+            $('.color_id').first().prop( "checked", true );
+            $('.product_color_id').val(color_id);
+            $('.size').first().addClass("active");
+            $('.size_id').first().prop( "checked", true );
+            $('.product_size_id').val(size_id);
+            $.ajax({
+                url: "{{ url('/get-ware-house-id') }}",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    size_id: size_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status != 400){
+                        $('.product_color').val(data.color);
+                        $('.product_size').val(data.size);
+                        $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
+                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop( "disabled", false );
+                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass( 'primary-btn-add' );
+                        $('.add-cart').removeClass( 'primary-btn' );
+                    }else{
+                        $('.delivery-message').html(data.message);
+                        $('.add-cart').prop( "disabled", true );
+                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
+                        $('.add-cart').removeClass( 'primary-btn-add' );
+                        $('.add-cart').addClass( 'primary-btn' );
+                    }
+                }
+            });
+        }
+        $('.color_id').click(function(){
+            var _token = $('input[name="_token"]').val();
+            var product_id = $('.product_id').val();
+            var size_id = $('.size_id:checked').val();
+            var color_id = $(this).val();
+            $('.color_id').prop( "checked", false );
+            $(this).prop( "checked", true );
+            $('.product_color_id').val(color_id);
+            $('.product_size_id').val(size_id);
+            $.ajax({
+                url: "{{ url('/get-ware-house-id') }}",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    size_id: size_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status != 400){
+                        $('.product_color').val(data.color);
+                        $('.product_size').val(data.size);
+                        $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
+                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop( "disabled", false );
+                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass( 'primary-btn-add' );
+                        $('.add-cart').removeClass( 'primary-btn' );
+                    }else{
+                        $('.delivery-message').html(data.message);
+                        $('.add-cart').prop( "disabled", true );
+                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
+                        $('.add-cart').removeClass( 'primary-btn-add' );
+                        $('.add-cart').addClass( 'primary-btn' );
+                    }
+                }
+            });
+        });
+        $('.size_id').click(function(){
+            var _token = $('input[name="_token"]').val();
+            var product_id = $('.product_id').val();
+            var color_id = $('.color_id:checked').val();
+            var size_id = $(this).val();
+            $('.size_id').prop( "checked", false );
+            $(this).prop( "checked", true );
+            $('.product_color_id').val(color_id);
+            $('.product_size_id').val(size_id);
+            $.ajax({
+                url: "{{ url('/get-ware-house-id') }}",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    color_id: color_id,
+                    size_id: size_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status != 400){
+                        $('.product_color').val(data.color);
+                        $('.product_size').val(data.size);
+                        $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
+                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop( "disabled", false );
+                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass( 'primary-btn-add' );
+                        $('.add-cart').removeClass( 'primary-btn' );
+                    }else{
+                        $('.delivery-message').html(data.message);
+                        $('.add-cart').prop( "disabled", true );
+                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
+                        $('.add-cart').removeClass( 'primary-btn-add' );
+                        $('.add-cart').addClass( 'primary-btn' );
+                        
+                    }
+                }
+            });
+        });
+        view_cart();
+        function view_cart(){
+            if(localStorage.getItem('cart')!=null){
+                $('.shopping-cart').removeClass('hidden');
+                $('.cart-empty').addClass('hidden');
+                var data = JSON.parse(localStorage.getItem('cart'));
+                var subtotal = 0;
+                var total = 0;
+                data.reverse();
+     
+                for(i=0;i<data.length;i++){
+                    subtotal = data[i].price*data[i].quantity;
+                    total += subtotal;
+                    
+                    $('#cart').append('<tr><td class="product__cart__item"><a href="'+data[i].url+'"><div class="product__cart__item__pic"><img src="'+data[i].image+'" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+data[i].name+'</h6><h6>Màu : '+data[i].color+' || Size: '+data[i].size+' </h6><h5>'+new Intl.NumberFormat('vi-VN').format(data[i].price)+'₫</h5><td class="quantity__item"><div class="quantity"><div class="pro-qty-2"><select name="cart_qty update_qty " class="form-control cart_quantity_input"><option  value="1">'+data[i].quantity+'</option></select></div></div></td> </div></a></td><td class="cart__price">'+new Intl.NumberFormat('vi-VN').format(subtotal)+'₫</td><td class="cart__close"> <a class="cart_quantity_delete" href=""><i class="far fa-window-close"></i></a></td></tr>');
+                    
+                }
+                $('#subtotal').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
+                $('#total').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
+            }else{
+                $('.shopping-cart').addClass('hidden');
+                $('.cart-empty').removeClass('hidden');
+            }
+        }
+
+        function add_cart(){
+            var cart_ware_house_id = $('.cart_ware_house_id').val();
+            var image = $('.product_image').attr('src');
+            var slug = $('.product_slug').attr('href');
+            var data_cart = $('#data_cart').serializeArray();
+           
+            dataObj = {};
+            $(data_cart).each(function(i, field){
+            dataObj[field.name] = field.value;
+            });
+            var newItem = {
+                'id': dataObj.ware_house_id,
+                'url': slug,
+                'image': image,
+                'name': dataObj.product_name,
+                'price': dataObj.product_price,
+                'size': dataObj.product_size,
+                'color': dataObj.product_color,
+                'quantity': 1
+            }
+            if(localStorage.getItem('cart')==null){
+                localStorage.setItem('cart', '[]');
+            }
+            var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            var matches = Items.find(item => item.id === cart_ware_house_id);
+
+            if(matches){
+                alert('Sản phẩm đã tồn tại trong yêu thích.');
+                matches.quantity = matches.quantity + 1;
+            }else{
+                Items.push(newItem);
+
+            // $('#row_wishlist').append('<div class="row col-md-4 item"><div class="col-md-12"><a type="button" data-id="'+newItem.id+'" name="delete_withlist" class="delete_withlist"><i class="fas fa-heart"></i></a></div><div class="col-md-6"><img width="100%" src="'+newItem.image+'"></div><div class="col-md-6 info_wishlist"><p>'+newItem.name+'</p><p style="color:#FE980F">'+newItem.price+'</p><p><a href="'+url+'">Xem sản phẩm</a></p></div></div>');
+
+            alert('Đã thêm vào danh sách yêu thích.');
+            }
+            localStorage.setItem('cart', JSON.stringify(Items));       
+        }
+   
+    </script>
 
 
     <script type="text/javascript">
@@ -430,10 +614,7 @@
                 }
             });
         });
-    </script>
 
-
-    <script type="text/javascript">
         $(document).ready(function() {
             count_cart_products();
 
@@ -496,9 +677,7 @@
 
             });
         });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function() {
 
             load_comment();
@@ -546,9 +725,7 @@
                 });
             });
         });
-    </script>
 
-    <script type="text/javascript">
         function remove_background(product_id) {
             for (var count = 1; count <= 5; count++) {
                 $('#' + product_id + '-' + count).css('color', '#ccc');
@@ -596,9 +773,7 @@
             });
 
         });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function() {
             $('.choose').on('change', function() {
                 var action = $(this).attr('id');
@@ -625,9 +800,7 @@
                 });
             });
         });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function() {
             $('.send_order').on("click", function() {
                 swal({

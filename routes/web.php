@@ -151,6 +151,7 @@ Route::post('/update-import-order/{import_order_id}','App\Http\Controllers\Impor
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
 Route::get('','App\Http\Controllers\HomeController@index');
+Route::get('/wistlist','App\Http\Controllers\HomeController@wistlist');
 
 //Category
 Route::get('collections/{category_slug}','App\Http\Controllers\CategoryController@show_category_details');
@@ -163,6 +164,7 @@ Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostContro
 
 //Product
 Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
+Route::post('get-ware-house-id','App\Http\Controllers\ProductController@get_ware_house_id');
 
 //Post 
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
@@ -177,6 +179,12 @@ Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE')
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
 
-
+//Cart
+Route::post('/update-cart','App\Http\Controllers\CartController@update_cart');
+Route::post('/save-cart','App\Http\Controllers\CartController@save_cart');
+Route::get('/cart','App\Http\Controllers\CartController@cart');
+Route::post('/add-cart-ajax','App\Http\Controllers\CartController@add_cart_ajax');
+Route::get('/del-product/{session_id}','App\Http\Controllers\CartController@delete_product');
+Route::get('/count-cart-products','App\Http\Controllers\CartController@count_cart_products');
 
 
