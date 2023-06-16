@@ -90,7 +90,6 @@ class PostController extends Controller
 
     public function show_post($post_slug){
         $post=Post::where('post_slug',$post_slug)->first();
-
         return view('pages.blog.blog_details')->with(compact('post'));
     }
     

@@ -1,4 +1,4 @@
-@extends('layout)
+@extends('layout')
 @section('content')
 @section('title', 'Check Out - ')
 <section class="breadcrumb-option">
