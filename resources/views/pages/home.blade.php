@@ -90,7 +90,7 @@
                             data-setbg="{{ URL::to('uploads/product/' . $product->product_image) }}">
                             @if ($product->product_tag == 3)
                                 <span class="label">
-                                    Khuyến ãi
+                                    Khuyến mãi
                                 </span>
                             @else
                             @endif
@@ -152,9 +152,8 @@
                         <span><img src="{{ asset('frontend/img/icon/calendar.png') }}" alt=""> 16 February
                             2020</span>
                         <h5>{{ $pst->post_title }}</h5>
-                        <a href="{{ URL::to('/blog/'.$pst->post_slug) }}">Xem tin</a>
+                        <a href="{{ URL::to('/blog/' . $pst->post_slug) }}">Xem tin</a>
                     </div>
-
                 </div>
             </div>
         @endforeach

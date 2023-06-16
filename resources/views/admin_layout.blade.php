@@ -210,7 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-category') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm danh mục
+                                        <i class="fa fa-plus"></i> Thêm danh mục
                                     </a>
                                 </li>
                                 <li>
@@ -222,13 +222,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-tshirt"></i>
                                 <span>Loại sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-product-type') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm loại sản phẩm
+                                        <i class="fa fa-plus"></i> Thêm loại sản phẩm
                                     </a>
                                 </li>
                                 <li>
@@ -240,13 +240,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="far fa-list-alt"></i>
                                 <span>Loại danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-category-type') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm loại danh mục
+                                        <i class="fa fa-plus"></i> Thêm loại danh mục
                                     </a>
                                 </li>
                                 <li>
@@ -264,7 +264,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-product') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm sản phẩm
+                                        <i class="fa fa-plus"></i> Thêm sản phẩm
                                     </a>
                                 </li>
                                 <li>
@@ -276,31 +276,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
-                                <span>Danh sách Size</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{ URL::to('/add-size') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm Size
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL::to('/list-size') }}">
-                                        <i class="fas fa-list-ol"></i> Quản lý Size
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-warehouse"></i>
                                 <span>Quản lý kho </span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-ware-house') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm kho hàng
+                                        <i class="fa fa-plus"></i> Thêm kho hàng
                                     </a>
                                 </li>
                                 <li>
@@ -318,12 +300,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-import-order') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm đơn nhập
+                                        <i class="fa fa-plus"></i> Thêm đơn nhập
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ URL::to('/list-import-order') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn nhập
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fab fa-stripe-s"></i>
+                                <span>Danh sách Size</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-size') }}">
+                                        <i class="fa fa-plus"></i> Thêm Size
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-size') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý Size
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fas fa-palette"></i>
+                                <span>Quản lý màu</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-color') }}">
+                                        <i class="fa fa-plus"></i> Thêm màu
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-color') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý màu
                                     </a>
                                 </li>
                             </ul>
@@ -367,13 +385,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="far fa-list-alt"></i>
                                 <span>Danh mục bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-category-post') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm danh mục bài viết
+                                        <i class="fa fa-plus"></i> Thêm danh mục bài viết
                                     </a>
                                 </li>
                                 <li>
@@ -385,31 +403,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
-                                <span>Quản lý màu</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{ URL::to('/add-color') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm màu
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL::to('/list-color') }}">
-                                        <i class="fas fa-list-ol"></i> Quản lý màu
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="far fa-newspaper"></i>
                                 <span>Quản lý bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-post') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm bài viết
+                                        <i class="fa fa-plus"></i> Thêm bài viết
                                     </a>
                                 </li>
                                 <li>
@@ -421,13 +421,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-sliders-h"></i>
                                 <span>Danh sách Banner</span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-banner') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm banner
+                                        <i class="fa fa-plus"></i> Thêm banner
                                     </a>
                                 </li>
                                 <li>
@@ -439,13 +439,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-store-alt"></i>
                                 <span>Quản lý cửa hàng </span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/add-store') }}">
-                                        <i class="fas fa-user-plus"></i> Thêm cửa hàng
+                                        <i class="fa fa-plus"></i> Thêm cửa hàng
                                     </a>
                                 </li>
                                 <li>
@@ -463,7 +463,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="{{ URL::to('/list-message') }}">
-                                <i class="fa fa-users"></i>
+                                <i class="far fa-newspaper"></i>
                                 <span>Quản lí tin</span>
                             </a>
                         </li>

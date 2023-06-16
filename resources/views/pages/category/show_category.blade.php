@@ -87,17 +87,6 @@
                                         <i class="fas fa-star"></i>
                                     </div>
                                     <h5> {{number_format($product->product_price).'₫'}}</h5>
-                                    <div class="product__color__select">
-                                        <label for="pc-1">
-                                            <input type="radio" id="pc-1">
-                                        </label>
-                                        <label class="active black" for="pc-2">
-                                            <input type="radio" id="pc-2">
-                                        </label>
-                                        <label class="grey" for="pc-3">
-                                            <input type="radio" id="pc-3">
-                                        </label>
-                                    </div>
                                 </div>
                             </form>
                         </div>

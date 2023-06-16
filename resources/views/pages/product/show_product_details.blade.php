@@ -61,53 +61,54 @@
                                     </label>
                                 @endforeach
                             </div>
-                                <div class="product__details__option__size">
-                                    <span>Size:</span>
-                                    @foreach($size as $key => $siz)
-                                        <label class="size" for="{{$siz -> size -> size_attribute}}">
-                                            {{$siz -> size -> size_attribute}}
-                                            <input type="radio" class="size_id" value="{{$siz -> size -> size_id}}" id="{{$siz -> size -> size_attribute}}">
-                                        </label>
-                                    @endforeach
-                                </div>
+                            <div class="product__details__option__size">
+                                <span>Size:</span>
+                                @foreach ($size as $key => $siz)
+                                    <label class="size" for="{{ $siz->size->size_attribute }}">
+                                        {{ $siz->size->size_attribute }}
+                                        <input type="radio" class="size_id" value="{{ $siz->size->size_id }}"
+                                            id="{{ $siz->size->size_attribute }}">
+                                    </label>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                    <form id="data_cart">
-                        @csrf
-                        <a class="product_slug" href="{{ URL::to('/products/' . $product->product_slug) }}"></a>
-                        <input type="hidden" name="ware_house_id" value="" class="cart_ware_house_id">
-                        <input type="hidden" name="product_color" class="product_color" value="">
-                        <input type="hidden" name="product_size" class="product_size" value="">
-
-                        <input type="hidden" name="product_id" value="{{ $product->product_id }}" class="product_id">
-                        <input type="hidden" name="product_name" value="{{ $product->product_name }}"
-                            class="cart_product_name">
-                        <input type="hidden" name="product_price" value="{{ $product->product_price }}">
-                        <img name="product_image" src="{{ URL::to('uploads/product/' . $product->product_image) }}"
-                            style="display:none;" class="product_image" />
-
-                        <div class="product__details__cart__option">
-                            <button type="button" class="primary-btn-add add-cart" name="add-to-cart"
-                                onclick="add_cart();">
-                                <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
-                            </button>
-                        </div>
-                        <div class="product__details__btns__option">
-                            <a type="button" class="primary-btn-wistlist" id="{{ $product->product_id }}"
-                                onclick="add_wistlist(this.id);">
-                                <i class="fa fa-heart"></i>
-                                Yêu thích
-                            </a>
-                        </div>
-                        <div class="product__details__last__option">
-                            <h5><span>Phương thức thanh toán</span></h5>
-                            <img src="{{ asset('frontend/img/shop-details/details-payment.png') }}" alt="">
-                        </div>
-                    </form>
                 </div>
+                <form id="data_cart">
+                    @csrf
+                    <a class="product_slug" href="{{ URL::to('/products/' . $product->product_slug) }}"></a>
+                    <input type="hidden" name="ware_house_id" value="" class="cart_ware_house_id">
+                    <input type="hidden" name="product_color" class="product_color" value="">
+                    <input type="hidden" name="product_size" class="product_size" value="">
+
+                    <input type="hidden" name="product_id" value="{{ $product->product_id }}" class="product_id">
+                    <input type="hidden" name="product_name" value="{{ $product->product_name }}"
+                        class="cart_product_name">
+                    <input type="hidden" name="product_price" value="{{ $product->product_price }}">
+                    <img name="product_image" src="{{ URL::to('uploads/product/' . $product->product_image) }}"
+                        style="display:none;" class="product_image" />
+
+                    <div class="product__details__cart__option">
+                        <button type="button" class="primary-btn-add add-cart" name="add-to-cart"
+                            onclick="add_cart();">
+                            <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
+                        </button>
+                    </div>
+                    <div class="product__details__btns__option">
+                        <a type="button" class="primary-btn-wistlist" id="{{ $product->product_id }}"
+                            onclick="add_wistlist(this.id);">
+                            <i class="fa fa-heart"></i>
+                            Yêu thích
+                        </a>
+                    </div>
+                    <div class="product__details__last__option">
+                        <h5><span>Phương thức thanh toán</span></h5>
+                        <img src="{{ asset('frontend/img/shop-details/details-payment.png') }}" alt="">
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     </div>
 
@@ -126,7 +127,7 @@
                                 <div class="product__details__tab__content">
                                     <p class="note"></p>
                                     <div class="product__details__tab__content__item">
-                                        <p>{!!$product->product_description!!}</p>
+                                        <p>{!! $product->product_description !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -155,27 +156,41 @@
                         <i class="far fa-heart"></i>
                     </a>
                     <div class="product__item">
-                        <a id="" href="{{ URL::to('/product/' . $lienquan->product_slug) }}">
+                        <a id="wishlist_producturl{{$lienquan->product_id}}" href="{{URL::to('/products/'.$lienquan->product_slug)}}">
                             <div class="product__item__pic set-bg"
-                                data-setbg="{{ URL::to('uploads/product/' . $lienquan->product_image) }}">
+                                data-setbg="{{URL::to('uploads/product/'.$lienquan->product_image)}}">
+                                @if($lienquan->product_tag==1)
+                                <span class="label">
+                                    Mới
+                                </span>
+                                @elseif($lienquan->product_tag==3)
+                                <span class="label">
+                                    Khuyến mãi
+                                </span>
+                                @else
+                                @endif
+                                @if($lienquan->product_tag==2)
+                                <div class="product_sold_out">
+                                    <p>Sold out</p>
+                                </div>
+                                @else
+                                @endif
                             </div>
                         </a>
-
-                        <div class="product__item__text">
-                            <h6>{{ $lienquan->product_name }}</h6>
-                            <h5>{{ number_format($lienquan->product_price, 0, ',', '.') . '₫' }}</h5>
-                            <div class="product__color__select">
-                                <label for="pc-1">
-                                    <input type="radio" id="pc-1">
-                                </label>
-                                <label class="active black" for="pc-2">
-                                    <input type="radio" id="pc-2">
-                                </label>
-                                <label class="grey" for="pc-3">
-                                    <input type="radio" id="pc-3">
-                                </label>
+                        <form>
+                            @csrf
+                            <div class="product__item__text">
+                                <h6>{{$lienquan->product_name}}</h6>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h5> {{number_format($lienquan->product_price).'₫'}}</h5>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             @endforeach
