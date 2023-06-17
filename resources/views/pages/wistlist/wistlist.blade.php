@@ -24,8 +24,8 @@
                 <div class="col-lg-12 col-md-6">
 
                     <h6 class="coupon__code"><span class="icon_tag_alt"></span>Tạo một tài khoản ngay hôm nay hoặc đăng
-                        nhập để lưu Danh sách yêu thích của bạn <a href="{{URL::to('/create-customer')}}">ĐĂNG KÝ</a>.
-                        Hoặc bạn đã có tài khoản <a href="{{URL::to('/login-checkout')}}">ĐĂNG NHẬP</a></h6>
+                        nhập để lưu Danh sách yêu thích của bạn <a href="{{ URL::to('/register') }}">ĐĂNG KÝ</a>.
+                        Hoặc bạn đã có tài khoản <a href="{{ URL::to('/login') }}">ĐĂNG NHẬP</a></h6>
                 </div>
             </div>
         </div>

@@ -117,18 +117,19 @@
                                 <a href="#">FAQs</a> -->
                             </div>
 
-                            @if (Session::has('customer_id'))
+                            @if (Session::has('user_id'))
                                 <div class="header__top__hover">
                                     <span>
-                                        @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
-                                            <img src="{{ asset('uploads/avata/' . Session::get('customer_image')) }}"
-                                                alt="">
-                                        @elseif(Session::get('customer_password') == '')
-                                            <img src="{{ Session::get('customer_image') }}" alt="">
-                                        @elseif(Session::get('customer_image') == '' && Session::get('customer_password') != '')
-                                            <i class="far fa-user-circle"></i>
-                                        @endif
-                                        {{ Session::get('customer_last_name') }}
+                                        {{-- @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
+                                        <img src="{{ asset('uploads/avata/' . Session::get('customer_image')) }}"
+                                            alt="">
+                                    @elseif(Session::get('customer_password') == '')
+                                        <img src="{{ Session::get('customer_image') }}" alt="">
+                                    @elseif(Session::get('customer_image') == '' && Session::get('customer_password') != '')
+                                        <i class="far fa-user-circle"></i>
+                                    @endif --}}
+
+                                        Xin chào, {{ Session::get('user_lastname') }}
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
@@ -179,13 +180,13 @@
                             <ul>
                                 @foreach ($getAllListCategory as $key => $category)
                                     <li class="nav-item"><a
-                                            href="{{ asset(URL::to('/collections/'.$category->category_slug)) }}">{{ $category->category_name }}</a>
+                                            href="{{ asset(URL::to('/collections/' . $category->category_slug)) }}">{{ $category->category_name }}</a>
                                         <ul class="dropdown">
                                             @foreach ($getAllListCategoryType as $key => $categoryType)
                                                 @if ($categoryType->category_id == $category->category_id)
                                                     <li>
                                                         <a
-                                                            href="{{ asset(URL::to('/collections/'.$categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                                            href="{{ asset(URL::to('/collections/' . $categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
                                                             {{ $categoryType->productType->product_type_name }}
                                                         </a>
                                                     </li>
@@ -195,17 +196,16 @@
                                     </li>
                                 @endforeach
                                 <li class="nav-item"><a>Tin tức</a>
-                                <ul class="dropdown">
-                                            @foreach ($getAllListCategoryPost as $key => $categoryPost)                                    
-                                                    <li>
-                                                        <a
-                                                            href="{{ asset(URL::to('/blogs/'.$categoryPost->category_post_slug)) }}">
-                                                            {{ $categoryPost->category_post_name }}
-                                                        </a>
-                                                    </li>
-                                            
-                                            @endforeach
-                                        </ul>
+                                    <ul class="dropdown">
+                                        @foreach ($getAllListCategoryPost as $key => $categoryPost)
+                                            <li>
+                                                <a
+                                                    href="{{ asset(URL::to('/blogs/' . $categoryPost->category_post_slug)) }}">
+                                                    {{ $categoryPost->category_post_name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </li>
                                 <li class="nav-item"><a href="{{ URL::to('/contact') }}">Liên hệ</a></li>
                             </ul>
@@ -233,22 +233,7 @@
 
     <!-- Hero Section Begin -->
     <div class="bodyContainer">
-        {{-- <section id="a" class="hero">
-            <div class="hero__slider owl-carousel">
-            @foreach ($getAllBanner as $key => $banner)
-                <div class="hero__items set-bg active" data-setbg="{{asset('uploads/banner/'.$banner->banner_image)}}">
-                </div>
-            @endforeach    
-            </div>
-        </section>  --}}
         @yield('content')
-        {{-- <section class="product spad">
-            <div class="container">
-                @yield('content')
-            </div>
-        </section> --}}
-        <!-- Product Section End -->
-
     </div>
 
     <!-- Footer Section Begin -->
@@ -270,7 +255,11 @@
                     <div class="footer__widget">
                         <h6>Sản phẩm</h6>
                         <ul>
-
+                            @foreach ($getAllListCategory as $key => $cate)
+                                <li><a href="{{ asset(URL::to('/collections/' . $cate->category_slug)) }}">
+                                        {{ $cate->category_name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -278,7 +267,11 @@
                     <div class="footer__widget">
                         <h6>Tin tức</h6>
                         <ul>
-
+                            @foreach ($getAllListCategoryPost as $key => $catepost)
+                                <li><a href="{{ asset(URL::to('/blogs/' . $catepost->category_post_slug))}}">
+                                        {{ $catepost->category_post_name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -424,8 +417,8 @@
             moveRight();
         });
 
-        setInterval(function () {
-        moveRight();
+        setInterval(function() {
+            moveRight();
         }, 5000);
     </script>
 

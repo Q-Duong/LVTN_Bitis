@@ -123,7 +123,6 @@ Route::get('/edit-ware-house/{product_id}','App\Http\Controllers\WareHouseContro
 Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
 Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
 Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
-
 //Store
 Route::get('/add-store','App\Http\Controllers\StoreController@add_store');
 Route::get('/list-store','App\Http\Controllers\StoreController@list_store');

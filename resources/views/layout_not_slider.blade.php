@@ -117,18 +117,19 @@
                                 <a href="#">FAQs</a> -->
                             </div>
 
-                            @if (Session::has('customer_id'))
+                            @if (Session::has('user_id'))
                                 <div class="header__top__hover">
                                     <span>
-                                        @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
+                                        {{-- @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
                                             <img src="{{ asset('uploads/avata/' . Session::get('customer_image')) }}"
                                                 alt="">
                                         @elseif(Session::get('customer_password') == '')
                                             <img src="{{ Session::get('customer_image') }}" alt="">
                                         @elseif(Session::get('customer_image') == '' && Session::get('customer_password') != '')
                                             <i class="far fa-user-circle"></i>
-                                        @endif
-                                        {{ Session::get('customer_last_name') }}
+                                        @endif --}}
+
+                                        Xin chào, {{ Session::get('user_lastname') }}
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
@@ -179,13 +180,13 @@
                             <ul>
                                 @foreach ($getAllListCategory as $key => $category)
                                     <li class="nav-item"><a
-                                            href="{{ asset(URL::to('/collections/'.$category->category_slug)) }}">{{ $category->category_name }}</a>
+                                            href="{{ asset(URL::to('/collections/' . $category->category_slug)) }}">{{ $category->category_name }}</a>
                                         <ul class="dropdown">
                                             @foreach ($getAllListCategoryType as $key => $categoryType)
                                                 @if ($categoryType->category_id == $category->category_id)
                                                     <li>
                                                         <a
-                                                            href="{{ asset(URL::to('/collections/'.$categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                                            href="{{ asset(URL::to('/collections/' . $categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
                                                             {{ $categoryType->productType->product_type_name }}
                                                         </a>
                                                     </li>
@@ -195,18 +196,17 @@
                                     </li>
                                 @endforeach
                                 <li class="nav-item"><a>Tin tức</a>
-                                <ul class="dropdown">
-                                            @foreach ($getAllListCategoryPost as $key => $categoryPost)                                    
-                                                    <li>
-                                                        <a
-                                                            href="{{ asset(URL::to('/blogs/'.$categoryPost->category_post_slug)) }}">
-                                                            {{ $categoryPost->category_post_name }}
-                                                        </a>
-                                                    </li>
-                                            
-                                            @endforeach
-                                        </ul>
-                                </li> 
+                                    <ul class="dropdown">
+                                        @foreach ($getAllListCategoryPost as $key => $categoryPost)
+                                            <li>
+                                                <a
+                                                    href="{{ asset(URL::to('/blogs/' . $categoryPost->category_post_slug)) }}">
+                                                    {{ $categoryPost->category_post_name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                                 <li class="nav-item"><a href="{{ URL::to('/contact') }}">Liên hệ</a></li>
                             </ul>
                         </nav>
@@ -263,7 +263,11 @@
                     <div class="footer__widget">
                         <h6>Tin tức</h6>
                         <ul>
-
+                            @foreach ($getAllListCategoryPost as $key => $catepost)
+                                <li><a href="{{ asset(URL::to('/blogs/' . $catepost->category_post_slug)) }}">
+                                        {{ $catepost->category_post_name }}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -356,18 +360,23 @@
 
 
     <script type="text/javascript">
+        $.validate({});
+    </script>
+
+    <script type="text/javascript">
       
         check_first();
-        function check_first(){
+
+        function check_first() {
             var _token = $('input[name="_token"]').val();
             var product_id = $('.product_id').val();
             var color_id = $('.color input').first().val();
             var size_id = $('.size input').first().val();
             $('.color').first().addClass("active");
-            $('.color_id').first().prop( "checked", true );
+            $('.color_id').first().prop("checked", true);
             $('.product_color_id').val(color_id);
             $('.size').first().addClass("active");
-            $('.size_id').first().prop( "checked", true );
+            $('.size_id').first().prop("checked", true);
             $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
@@ -379,26 +388,26 @@
                     _token: _token
                 },
                 success: function(data) {
-                    if(data.status != 400){
+                    if (data.status != 400) {
                         $('.product_color').val(data.color);
                         $('.product_size').val(data.size);
                         $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
-                        $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
-                        $('.add-cart').prop( "disabled", false );
-                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
-                        $('.add-cart').addClass( 'primary-btn-add' );
-                        $('.add-cart').removeClass( 'primary-btn' );
-                    }else{
+                        $('.delivery-message').text('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
+                        $('.add-cart').prop("disabled", false);
+                        $('.add-cart').html('<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass('primary-btn-add');
+                        $('.add-cart').removeClass('primary-btn');
+                    } else {
                         $('.delivery-message').html(data.message);
-                        $('.add-cart').prop( "disabled", true );
-                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
-                        $('.add-cart').removeClass( 'primary-btn-add' );
-                        $('.add-cart').addClass( 'primary-btn' );
+                        $('.add-cart').prop("disabled", true);
+                        $('.add-cart').html('<i class="fas fa-store-alt-slash"></i> Đã hết hàng');
+                        $('.add-cart').removeClass('primary-btn-add');
+                        $('.add-cart').addClass('primary-btn');
                     }
                 }
             });
         }
-        $('.color_id').click(function(){
+        $('.color_id').click(function() {
             var _token = $('input[name="_token"]').val();
             var product_id = $('.product_id').val();
             var size_id = $('.size_id:checked').val();
@@ -415,26 +424,26 @@
                     _token: _token
                 },
                 success: function(data) {
-                    if(data.status != 400){
+                    if (data.status != 400) {
                         $('.product_color').val(data.color);
                         $('.product_size').val(data.size);
                         $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
                         $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
-                        $('.add-cart').prop( "disabled", false );
-                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
-                        $('.add-cart').addClass( 'primary-btn-add' );
-                        $('.add-cart').removeClass( 'primary-btn' );
-                    }else{
+                        $('.add-cart').prop("disabled", false);
+                        $('.add-cart').html('<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass('primary-btn-add');
+                        $('.add-cart').removeClass('primary-btn');
+                    } else {
                         $('.delivery-message').html(data.message);
-                        $('.add-cart').prop( "disabled", true );
-                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
-                        $('.add-cart').removeClass( 'primary-btn-add' );
-                        $('.add-cart').addClass( 'primary-btn' );
+                        $('.add-cart').prop("disabled", true);
+                        $('.add-cart').html('<i class="fas fa-store-alt-slash"></i> Đã hết hàng');
+                        $('.add-cart').removeClass('primary-btn-add');
+                        $('.add-cart').addClass('primary-btn');
                     }
                 }
             });
         });
-        $('.size_id').click(function(){
+        $('.size_id').click(function() {
             var _token = $('input[name="_token"]').val();
             var product_id = $('.product_id').val();
             var color_id = $('.color_id:checked').val();
@@ -451,29 +460,30 @@
                     _token: _token
                 },
                 success: function(data) {
-                    if(data.status != 400){
+                    if (data.status != 400) {
                         $('.product_color').val(data.color);
                         $('.product_size').val(data.size);
                         $('.cart_ware_house_id').val(data.wareHouse.ware_house_id);
                         $('.delivery-message').html('Đặt hàng trước 3:00 chiều. Ngày mai — Miễn Phí');
-                        $('.add-cart').prop( "disabled", false );
-                        $('.add-cart').html( '<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
-                        $('.add-cart').addClass( 'primary-btn-add' );
-                        $('.add-cart').removeClass( 'primary-btn' );
-                    }else{
+                        $('.add-cart').prop("disabled", false);
+                        $('.add-cart').html('<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('.add-cart').addClass('primary-btn-add');
+                        $('.add-cart').removeClass('primary-btn');
+                    } else {
                         $('.delivery-message').html(data.message);
-                        $('.add-cart').prop( "disabled", true );
-                        $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
-                        $('.add-cart').removeClass( 'primary-btn-add' );
-                        $('.add-cart').addClass( 'primary-btn' );
-                        
+                        $('.add-cart').prop("disabled", true);
+                        $('.add-cart').html('<i class="fas fa-store-alt-slash"></i> Đã hết hàng');
+                        $('.add-cart').removeClass('primary-btn-add');
+                        $('.add-cart').addClass('primary-btn');
+
                     }
                 }
             });
         });
         view_cart();
-        function view_cart(){
-            if(localStorage.getItem('cart')!=null){
+
+        function view_cart() {
+            if (localStorage.getItem('cart') != null) {
                 $('.shopping-cart').removeClass('hidden');
                 $('.cart-empty').addClass('hidden');
                 var data = JSON.parse(localStorage.getItem('cart'));
@@ -500,21 +510,21 @@
                 $('.count-cart-products').html('<span>'+cart_length+'</span>');
                 $('#subtotal').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
                 $('#total').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
-            }else{
+            } else {
                 $('.shopping-cart').addClass('hidden');
                 $('.cart-empty').removeClass('hidden');
             }
         }
 
-        function add_cart(){
+        function add_cart() {
             var cart_ware_house_id = $('.cart_ware_house_id').val();
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-           
+            console.log(data_cart)
             dataObj = {};
-            $(data_cart).each(function(i, field){
-            dataObj[field.name] = field.value;
+            $(data_cart).each(function(i, field) {
+                dataObj[field.name] = field.value;
             });
 
             var newItem = {
