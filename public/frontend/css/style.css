@@ -5299,3 +5299,11 @@ li.option{
   .hidden{
 	display: none;
   }
+
+  .imgslide{
+	height: 300px;
+  }
+  .fade:not(show){
+	opacity: 1 !important;
+	transition: opacity 2s linear;
+  }

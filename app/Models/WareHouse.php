@@ -22,4 +22,7 @@ class WareHouse extends Model
     public function product(){
         return $this->belongsTo('App\Models\Product','product_id');
     }
+    public function orderDetail(){
+        $this->hasMany('App\Models\OrderDetail');
+    }
 }

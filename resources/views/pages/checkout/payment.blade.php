@@ -1,89 +1,74 @@
 @extends('layout')
 @section('content')
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Thanh toán</h4>
+                    <div class="breadcrumb__links">
+                        <a href="{{URL::to('/cart')}}">Giỏ hàng</a>
+                        <a href="{{URL::to('/checkout')}}">Thông tin giao hàng</a>
+                        <span>Phường thức thanh toán</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="shopping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Tạm tính</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart">
+                            
+                        </tbody>
+                    </table>
+
+                </div>
+                
+            </div>
+
+            <div class="col-lg-4">
+                <div class="cart__discount">
+                </div>
+                <div class="cart__total">
+                    <h6>THÔNG TIN ĐƠN HÀNG</h6>
+                    <ul>
+                        <li>Tạm tính <span id="subtotal"></span></li>
+                        <li>Vận chuyển <span>MIỄN PHÍ</span></li>
+                        <li class="cart__total__border__top">Tổng Tiền <span id="total"></span></li>
+                        <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="cart_items">
 		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-				  <li><a href="{{URL::to('/')}}">Trang chủ</a></li>
-				  <li class="active">Thanh toán giỏ hàng</li>
-				</ol>
-			</div>
 
-			
-			<div class="review-payment">
-				<h2>Xem lại giỏ hàng</h2>
-			</div>
-			<div class="table-responsive cart_info">
-				<?php
-				$content = Cart::content();
-				
-				?>
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="image">Hình ảnh</td>
-							<td class="description">Tên sp</td>
-							<td class="price">Giá</td>
-							<td class="quantity">Số lượng</td>
-							<td class="total">Tổng</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach($content as $v_content)
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="{{URL::to('uploads/product/'.$v_content->options->image)}}" width="90" alt="" /></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">{{$v_content->name}}</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>{{number_format($v_content->price).' '.'vnđ'}}</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<form action="{{URL::to('/update-cart-quantity')}}" method="POST">
-									{{ csrf_field() }}
-									<input class="cart_quantity_input" type="text" name="cart_quantity" value="{{$v_content->qty}}"  >
-									<input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart" class="form-control">
-									<input type="submit" value="Cập nhật" name="update_qty" class="btn btn-default btn-sm">
-									</form>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">
-									
-									<?php
-									$subtotal = $v_content->price * $v_content->qty;
-									echo number_format($subtotal).' '.'vnđ';
-									?>
-								</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}"><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						@endforeach
-					</tbody>
-				</table>
-			</div>
 			<h4 style="margin:40px 0;font-size: 20px;">Chọn hình thức thanh toán</h4>
-			<form method="POST" action="{{URL::to('/order-place')}}">
-				{{ csrf_field() }}
-			<div class="payment-options">
+			<form method="POST" action="{{URL::to('/momo-payment')}}">
+				@csrf
 					<span>
-						<label><input name="payment_option" value="1" type="checkbox"> Trả bằng thẻ ATM</label>
+						<label><input name="payment_option" value="3" type="radio">Thanh toán momo</label>
 					</span>
-					<span>
-						<label><input name="payment_option" value="2" type="checkbox"> Nhận tiền mặt</label>
-					</span>
-					<span>
-						<label><input name="payment_option" value="3" type="checkbox"> Thanh toán thẻ ghi nợ</label>
-					</span>
-					<input type="submit" value="Đặt hàng" name="send_order_place" class="btn btn-primary btn-sm">
+					<input name="payment_option" value="1000000" type="hidden">
+					<input type="submit" value="Đặt hàng" name="payUrl" class="btn btn-primary btn-sm">
 			</div>
 			</form>
 		</div>

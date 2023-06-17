@@ -8,12 +8,15 @@ class OrderDetail extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'order_detail_quanity','product_detail_id','order_id'
+    	'order_detail_quantity','ware_house_id','order_id'
      ];
     protected $primaryKey = 'order_detail_id';
  	protected $table = 'order_detail';
 
-    //  public function category_post(){
-    //     return $this->belongsTo('App\Models\CategoryPost','category_post_id');
-    // }
+    public function order(){
+        return $this->belongsTo('App\Models\Order','order_id');
+    }
+    public function wareHouse(){
+        return $this->belongsTo('App\Models\WareHouse','ware_house_id');
+    }
 }

@@ -429,6 +429,54 @@
         }, 5000);
     </script>
 
+    {{-- <script type="text/javascript">
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Start autoplaying automatically
+        var autoplayInterval = setInterval(function() {
+            // Get element via id and click next
+            document.getElementById("next").click();
+        }, 3000); // Do this every 1 second, increase this!
+
+        // Stop function added to button
+        function stopAutoplay() {
+        // Stop the autoplay
+        clearInterval(autoplayInterval);
+        }
+
+        // Next/previous controls
+        function plusSlides(n) {
+        showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+        showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        }
+    </script> --}}
+
     <script type="text/javascript">
         $('#keywords').keyup(function() {
             var query = $(this).val();
@@ -701,31 +749,68 @@
         });
 
         $(document).ready(function() {
-            $('.choose').on('change', function() {
+            $('.choose_address').on('change', function() {
                 var action = $(this).attr('id');
-                var ma_id = $(this).val();
+                var select_id = $(this).val();
                 var _token = $('input[name="_token"]').val();
                 var result = '';
 
                 if (action == 'city') {
-                    result = 'province';
+                    result = 'district';
                 } else {
-                    result = 'wards';
+                    result = 'ward';
                 }
                 $.ajax({
-                    url: "{{ url('/select-delivery-home') }}",
+                    url: "{{ url('/select-address') }}",
                     method: 'POST',
                     data: {
                         action: action,
-                        ma_id: ma_id,
+                        select_id: select_id,
                         _token: _token
                     },
                     success: function(data) {
-                        $('#' + result).html(data);
+                        $('#' + result).html(data.result);
                     }
                 });
             });
         });
+
+        $('.send_checkout_information').on('click',function(e) {
+            
+            var _token = $('input[name="_token"]').val();
+            var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            var receiver_first_name = $('input[name=receiver_first_name]').val();
+            var receiver_last_name = $('input[name=receiver_last_name]').val();
+            var receiver_email = $('input[name=receiver_email]').val();
+            var receiver_phone = $('input[name=receiver_phone]').val();
+            var city_id = $('.city').val();
+            var district_id = $('.district').val();
+            var ward_id = $('.ward').val();
+            var receiver_address = $('input[name=receiver_address]').val();
+            var receiver_note = $('.shipping_notes').val();
+
+            $.ajax({
+                url: "{{ url('/save-checkout-information') }}",
+                method: 'POST',
+                data: {
+                    receiver_first_name: receiver_first_name,
+                    receiver_last_name: receiver_last_name,
+                    receiver_email: receiver_email,
+                    receiver_phone: receiver_phone,
+                    receiver_note: receiver_note,
+                    city_id: city_id,
+                    district_id: district_id,
+                    ward_id: ward_id,
+                    receiver_address: receiver_address,
+                    cart:Items,
+                    _token: _token
+                },
+                success: function(data) {
+                    window.location.href = "checkout/" + data.code;
+                }
+            });
+        });
+
     </script>
 </body>
 

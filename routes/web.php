@@ -187,4 +187,16 @@ Route::post('/add-cart-ajax','App\Http\Controllers\CartController@add_cart_ajax'
 Route::get('/del-product/{session_id}','App\Http\Controllers\CartController@delete_product');
 Route::get('/count-cart-products','App\Http\Controllers\CartController@count_cart_products');
 
+//Checkout
 
+
+Route::get('/checkout','App\Http\Controllers\CheckoutController@checkout');
+Route::post('/select-address','App\Http\Controllers\CheckoutController@select_address');
+Route::post('/save-checkout-information','App\Http\Controllers\CheckoutController@save_checkout_information');
+Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@payment');
+Route::get('/payment','App\Http\Controllers\CheckoutController@payment');
+Route::post('/confirm-order','App\Http\Controllers\CheckoutController@confirm_order');
+Route::post('/order-place','App\Http\Controllers\CheckoutController@order_place');
+Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
+
+Route::post('/momo-payment','App\Http\Controllers\CheckoutController@momo');

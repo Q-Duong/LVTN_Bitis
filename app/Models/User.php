@@ -13,7 +13,10 @@ class User extends Model
     protected $primaryKey = 'user_id';
  	protected $table = 'user';
 
-     public function account(){
+    public function account(){
         return $this->belongsTo('App\Models\Account','account_id');
+    }
+    public function order(){
+        $this->hasMany('App\Models\Order');
     }
 }

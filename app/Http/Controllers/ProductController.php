@@ -133,9 +133,9 @@ class ProductController extends Controller
     function delete_product($product_id){
         $product=Product::find($product_id);
         $product_image = $product->product_image;
-        if($product_image){
-            unlink(public_path('uploads/product/').$product_image);
-        }
+        // if($product_image){
+        //     unlink(public_path('uploads/product/').$product_image);
+        // }
         $product->delete();
         return Redirect()->back()->with('success','Xóa sản phẩm thành công');
     }
