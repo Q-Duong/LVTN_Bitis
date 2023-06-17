@@ -643,7 +643,7 @@
                     total += subtotal;
                     cart_length += parseInt(data[i].quantity);
                     var position = length - i - 1;
-                    var val = i + 1;
+                    
                     var select='';
                     for(j = 1; j <= 10; j++){
                         select += '<option value="'+j+'" '+(data[i].quantity == j ? "selected" : "")+'>'+j+'</option>';
@@ -666,12 +666,12 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-        
+            
             dataObj = {};
             $(data_cart).each(function(i, field){
             dataObj[field.name] = field.value;
             });
-
+            
             var newItem = {
                 'id': dataObj.ware_house_id,
                 'url': slug,
