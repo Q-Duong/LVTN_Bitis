@@ -138,6 +138,7 @@ Route::post('/update-info/{info_id}','App\Http\Controllers\InfomationController@
 //Message
 Route::get('/list-message','App\Http\Controllers\MessageController@list_message');
 Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
+Route::get('/delete-message/{message_id}','App\Http\Controllers\MessageController@delete_message');
 
 //ImportOrder
 Route::get('/add-import-order','App\Http\Controllers\ImportOrderController@add_import_order');
@@ -146,6 +147,15 @@ Route::get('/edit-import-order/{import_order_id}','App\Http\Controllers\ImportOr
 Route::get('/delete-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@delete_import_order');
 Route::post('/save-import-order','App\Http\Controllers\ImportOrderController@save_import_order');
 Route::post('/update-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@update_import_order');
+
+//Order
+Route::get('/add-order','App\Http\Controllers\OrderController@add_order');
+Route::post('/save-order','App\Http\Controllers\OrderController@save_order');
+Route::get('/list-order','App\Http\Controllers\OrderController@list_order');
+Route::get('/edit-order/{product_id}','App\Http\Controllers\OrderController@edit_order');
+Route::post('update-order/{product_id}','App\Http\Controllers\OrderController@update_order');
+Route::get('/delete-order/{product_id}','App\Http\Controllers\OrderController@delete_order');
+
 
 //-------------------------------------------- Frontend --------------------------------------------
 //Home

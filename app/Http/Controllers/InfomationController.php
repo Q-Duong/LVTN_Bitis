@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Infomation;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class InfomationController extends Controller

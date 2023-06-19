@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Session;
 use App\Models\Category;
 use App\Models\ProductType;
 use App\Models\CategoryType;
-use Carbon\Carbon;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryTypeController extends Controller

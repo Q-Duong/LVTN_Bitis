@@ -3,17 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Session;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
-use App\Models\Post;
-use App\Models\CategoryPost;
-use App\Models\Slider;
-use App\Models\Product;
-use App\Models\Producer;
 use App\Models\Gallery;
-use App\Models\CategoryProduct;
 session_start();
 
 class GalleryController extends Controller

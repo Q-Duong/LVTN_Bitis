@@ -6,12 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Product;
-use App\Models\ProductType;
 use App\Models\Gallery;
 use App\Models\WareHouse;
-use App\Models\Color;
-use App\Models\Size;
-use App\Http\Requests;
 use File;
 use Illuminate\Support\Facades\Redirect;
 

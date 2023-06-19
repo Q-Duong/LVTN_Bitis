@@ -220,7 +220,6 @@
                             <a href="{{ URL::to('/cart') }}">
                                 <img src="{{ asset('frontend/img/icon/cart.png') }}" alt="">
                                 <div class="count-cart-products"></div>
-
                             </a>
                         </div>
                     </div>
@@ -621,7 +620,6 @@
                         $('.add-cart').html( '<i class="fas fa-store-alt-slash"></i> Đã hết hàng' );
                         $('.add-cart').removeClass( 'primary-btn-add' );
                         $('.add-cart').addClass( 'primary-btn' );
-                        
                     }
                 }
             });
@@ -637,7 +635,6 @@
                 var cart_length = 0;
                 var length = data.length;
                 data.reverse();
-                
                 for(i = 0; i < data.length; i++){
                     subtotal = data[i].price*data[i].quantity;
                     total += subtotal;
@@ -648,9 +645,13 @@
                     for(j = 1; j <= 10; j++){
                         select += '<option value="'+j+'" '+(data[i].quantity == j ? "selected" : "")+'>'+j+'</option>';
                     }
-                    
-                    $('#cart').append('<tr><td class="product__cart__item"><a href="'+data[i].url+'"><div class="product__cart__item__pic"><img src="'+data[i].image+'" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+data[i].name+'</h6><h6>Màu : '+data[i].color+' || Size: '+data[i].size+' </h6><h5>'+new Intl.NumberFormat('vi-VN').format(data[i].price)+'₫</h5><td class="quantity__item"><div class="quantity"><div class="pro-qty-2"><select name="cart_qty" class="form-control cart_quantity" data-id="'+data[i].id+'">'+select+'</select></div></div></td> </div></a></td><td class="cart__price">'+new Intl.NumberFormat('vi-VN').format(subtotal)+'₫</td><td class="cart__close"> <a class="cart_quantity_delete" onclick="remove_cart_item('+position+');"><i class="far fa-window-close"></i></a></td></tr>');
-                    
+                    $('#cart').append('<tr><td class="product__cart__item"><a href="'+data[i].url+
+                        '"><div class="product__cart__item__pic"><img src="'+data[i].image+
+                            '" width="90" alt=""></div><div class="product__cart__item__text"><h6>'+data[i].name+
+                                '</h6><h6>Màu : '+data[i].color+' || Size: '+data[i].size+
+                                    ' </h6><h5>'+new Intl.NumberFormat('vi-VN').format(data[i].price)+
+                                        '₫</h5><td class="quantity__item"><div class="quantity"><div class="pro-qty-2"><select name="cart_qty" class="form-control cart_quantity" data-id="'+data[i].id+'">'
+                                            +select+'</select></div></div></td> </div></a></td><td class="cart__price">'+new Intl.NumberFormat('vi-VN').format(subtotal)+'₫</td><td class="cart__close"> <a class="cart_quantity_delete" onclick="remove_cart_item('+position+');"><i class="far fa-window-close"></i></a></td></tr>');
                 }
                 $('.count-cart-products').html('<span>'+cart_length+'</span>');
                 $('#subtotal').html(new Intl.NumberFormat('vi-VN').format(total) + '₫');
@@ -666,7 +667,6 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-        
             dataObj = {};
             $(data_cart).each(function(i, field){
             dataObj[field.name] = field.value;

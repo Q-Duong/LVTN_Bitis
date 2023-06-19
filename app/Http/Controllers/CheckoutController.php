@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Mail;
-use App\Models\User;
 use App\Models\City;
 use App\Models\District;
 use App\Models\Ward;
