@@ -157,23 +157,24 @@
                         <i class="far fa-heart"></i>
                     </a>
                     <div class="product__item">
-                        <a id="wishlist_producturl{{$lienquan->product_id}}" href="{{URL::to('/products/'.$lienquan->product_slug)}}">
+                        <a id="wishlist_producturl{{ $lienquan->product_id }}"
+                            href="{{ URL::to('/products/' . $lienquan->product_slug) }}">
                             <div class="product__item__pic set-bg"
-                                data-setbg="{{URL::to('uploads/product/'.$lienquan->product_image)}}">
-                                @if($lienquan->product_tag==1)
-                                <span class="label">
-                                    Mới
-                                </span>
-                                @elseif($lienquan->product_tag==3)
-                                <span class="label">
-                                    Khuyến mãi
-                                </span>
+                                data-setbg="{{ URL::to('uploads/product/' . $lienquan->product_image) }}">
+                                @if ($lienquan->product_tag == 1)
+                                    <span class="label">
+                                        Mới
+                                    </span>
+                                @elseif($lienquan->product_tag == 3)
+                                    <span class="label">
+                                        Khuyến mãi
+                                    </span>
                                 @else
                                 @endif
-                                @if($lienquan->product_tag==2)
-                                <div class="product_sold_out">
-                                    <p>Sold out</p>
-                                </div>
+                                @if ($lienquan->product_tag == 2)
+                                    <div class="product_sold_out">
+                                        <p>Sold out</p>
+                                    </div>
                                 @else
                                 @endif
                             </div>
@@ -181,7 +182,7 @@
                         <form>
                             @csrf
                             <div class="product__item__text">
-                                <h6>{{$lienquan->product_name}}</h6>
+                                <h6>{{ $lienquan->product_name }}</h6>
                                 <div class="rating">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -189,7 +190,7 @@
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                 </div>
-                                <h5> {{number_format($lienquan->product_price).'₫'}}</h5>
+                                <h5> {{ number_format($lienquan->product_price) . '₫' }}</h5>
                             </div>
                         </form>
                     </div>
