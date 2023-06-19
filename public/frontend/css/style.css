@@ -2949,8 +2949,6 @@ textarea::placeholder{
 	margin-bottom: 30px;
 }
 
-
-
 .checkout__input {
 	margin-bottom: 6px;
 }
@@ -5307,3 +5305,109 @@ li.option{
 	opacity: 1 !important;
 	transition: opacity 2s linear;
   }
+
+  .payment__title{
+	color: #111111;
+    font-weight: 500;
+    padding: 25px 0;
+	flex: 1 1 auto;
+  }
+.section__payment{
+	margin-bottom: 35px;
+}
+  .payment__input {
+	margin-bottom: 6px;
+	/* padding: 10px 0; */
+	border: 1px solid #d1d1d1;
+	border-radius: 5px;
+	align-items: center !important;
+}
+
+.payment__input label {
+	display: flex !important;
+    cursor: pointer !important;
+    align-items: center;
+    padding: 16px;
+    width: auto;
+	margin: 0 !important;
+}
+
+.payment__input p span {
+	color: #e53637;
+}
+.radio_input{
+	padding-right: 8px;
+}
+.payment__input input {
+	color: #666;
+	width: 18px;
+    height: 18px;
+    box-shadow: 0 0 0 0 #338dbc inset;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    vertical-align: -4px;
+    outline: 0;
+    border: solid 1px #d9d9d9;
+}
+.radio-label{
+	width: 100%;
+}
+.radio_content_input{
+	display: flex;
+    align-items: center;
+}
+.main-img {
+    margin-right: 10px;
+    display: flex;
+    align-self: center;
+    width: 40px;
+    height: 40px;
+}
+.payment__title select option {
+	height: 50px;
+	width: 100%;
+	border: 1px solid #e1e1e1;
+	font-size: 14px;
+	color: #b7b7b7;
+	padding-left: 20px;
+	margin-bottom: 20px;
+}
+.terms_and_conditions{
+	font-size: 14px;
+	color: #8d8d8d;
+    line-height: .875rem;
+	margin: 25px 0;
+}
+.terms_and_conditions a{
+	color: #8d8d8d;
+	text-decoration: underline;
+	
+} 
+.payment__input input::-webkit-input-placeholder {
+	color: #b7b7b7;
+}
+
+.payment__input input::-moz-placeholder {
+	color: #b7b7b7;
+}
+
+.payment__input input:-ms-input-placeholder {
+	color: #b7b7b7;
+}
+
+.payment__input input::-ms-input-placeholder {
+	color: #b7b7b7;
+}
+
+.payment__input input::placeholder {
+	color: #b7b7b7;
+}
+.payment__header__first{
+}
+.payment__header{
+	align-items: center;
+    display: flex;
+}
+.payment_trusted_badge{
+}

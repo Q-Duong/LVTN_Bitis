@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-
+                
                     <form id="data_cart">
                         @csrf
                         <a class="product_slug" href="{{ URL::to('/products/' . $product->product_slug) }}"></a>

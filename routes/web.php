@@ -199,13 +199,12 @@ Route::get('/count-cart-products','App\Http\Controllers\CartController@count_car
 //Checkout
 
 
-Route::get('/checkout','App\Http\Controllers\CheckoutController@checkout');
+Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
 Route::post('/select-address','App\Http\Controllers\CheckoutController@select_address');
 Route::post('/save-checkout-information','App\Http\Controllers\CheckoutController@save_checkout_information');
-Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@payment');
-Route::get('/payment','App\Http\Controllers\CheckoutController@payment');
-Route::post('/confirm-order','App\Http\Controllers\CheckoutController@confirm_order');
-Route::post('/order-place','App\Http\Controllers\CheckoutController@order_place');
+Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@checkout_step_1');
+Route::get('/payment/{order_code}','App\Http\Controllers\CheckoutController@payment');
+Route::post('/payment-method','App\Http\Controllers\CheckoutController@payment_method');
 Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
 
-Route::post('/momo-payment','App\Http\Controllers\CheckoutController@momo');
+
