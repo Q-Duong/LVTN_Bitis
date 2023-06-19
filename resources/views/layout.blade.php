@@ -767,11 +767,38 @@
                 });
             });
         });
-
-        $('.send_checkout_information').on('click',function(e) {
-            
+        function pushSessionId(order_code){
+            var newItem = {
+                'sessionId': order_code,
+            }
+            localStorage.setItem('sessionId', JSON.stringify(newItem));     
+        }
+        $('.checkout-btn').on('click',function() {
             var _token = $('input[name="_token"]').val();
             var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            var sessionId = JSON.parse(localStorage.getItem('sessionId')) || [];
+            
+            $.ajax({
+                url: "{{ url('/checkout') }}",
+                method: 'POST',
+                data: {
+                    sessionId: sessionId,
+                    cart: Items,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.route == 'checkout'){
+                        pushSessionId(data.order_code);
+                        window.location.href = "checkout/" + data.order_code;
+                    }else{
+                        window.location.href = "payment/" + data.order_code;
+                    }
+                }
+            });
+        });
+        $('.send_checkout_information').on('click',function() {
+            var _token = $('input[name="_token"]').val();
+            var order_id = $('input[name="order_id"]').val();
             var receiver_first_name = $('input[name=receiver_first_name]').val();
             var receiver_last_name = $('input[name=receiver_last_name]').val();
             var receiver_email = $('input[name=receiver_email]').val();
@@ -781,7 +808,7 @@
             var ward_id = $('.ward').val();
             var receiver_address = $('input[name=receiver_address]').val();
             var receiver_note = $('.shipping_notes').val();
-
+            var order_code = JSON.parse(localStorage.getItem('sessionId')) || [];
             $.ajax({
                 url: "{{ url('/save-checkout-information') }}",
                 method: 'POST',
@@ -795,11 +822,12 @@
                     district_id: district_id,
                     ward_id: ward_id,
                     receiver_address: receiver_address,
-                    cart:Items,
-                    _token: _token
+                    order_id: order_id,
+                    _token: _token,
+                    order_code: order_code,
                 },
                 success: function(data) {
-                    window.location.href = "checkout/" + data.code;
+                    window.location.assign("../payment/"+ data.order_code);
                 }
             });
         });

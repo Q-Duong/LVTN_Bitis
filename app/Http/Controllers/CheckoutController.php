@@ -18,10 +18,49 @@ use Illuminate\Support\Facades\Redirect;
 
 class CheckoutController extends Controller
 {
-    public function checkout(){
+    public function checkout(Request $request){
+        $data= $request->all();
+        
+        if(empty($request->sessionId['sessionId'])){
+            $order_code = substr(md5(microtime()),rand(0,26),20);
+            $order = new Order();
+            $order -> order_code = $order_code;
+            $order -> order_total = 0;
+            $order -> order_status = 0;
+            $order -> order_is_paid = 0;
+            $order -> order_payment_type = 0;
+            $order -> save();
 
+            $receiver= new Receiver();
+            $receiver -> order_id = $order -> order_id;
+            $receiver -> save();
+
+            foreach($request->cart as $key=>$cart){
+                $order_detail = new OrderDetail();
+                $order_detail -> order_id = $order -> order_id;
+                $order_detail -> order_detail_quantity = $cart['quantity'];
+                $order_detail -> ware_house_id = $cart['id'];
+                $order_detail->save();
+            }
+            $order_code=$order->order_code;
+            return response()->json(array('order_code'=>$order_code,'route'=>'checkout'));
+        }else{
+            $order_code = $request->sessionId['sessionId'];
+            return response()->json(array('order_code'=>$order_code,'route'=>'payment'));
+        }
+    }
+    public function checkout_step_1($order_code){
+        $code = $order_code;
+        $order = Order::where('order_code',$order_code)->first();
+        $order_detail = OrderDetail::where('order_id',$order->order_id)->first();
+        $receiver = Receiver::where('order_id',$order->order_id)->first();
         $city = City::orderby('city_name','ASC')->get();
-    	return view('pages.checkout.checkout')->with(compact('city'));
+        if($receiver->city_id != null){
+            $district = District::where('city_id',$receiver->city_id)->orderby('district_name','ASC')->get();
+            $ward = Ward::where('district_id',$receiver->district_id)->orderby('ward_name','ASC')->get();
+            return view('pages.checkout.checkout')->with(compact('code','order','order_detail','receiver','city','district','ward'));
+        }
+        return view('pages.checkout.checkout')->with(compact('code','city','order','order_detail','receiver'));
     }
     public function select_address(Request $request){
         $data = $request->all();
@@ -45,17 +84,7 @@ class CheckoutController extends Controller
     }
     public function save_checkout_information(Request $request){
         $data = $request->all();
-       
-        $order_code = substr(md5(microtime()),rand(0,26),20);
-        $order = new Order();
-        $order -> order_code = $order_code;
-        $order -> order_total = 0;
-        $order -> order_status = 1;
-        $order -> order_is_paid = 0;
-        $order -> order_payment_type = 0;
-        $order -> save();
-
-        $receiver= new Receiver();
+        $receiver = Receiver::where('order_id',$data['order_id'])->first();
         $receiver -> receiver_first_name = $data['receiver_first_name'];
         $receiver -> receiver_last_name = $data['receiver_last_name'];
         $receiver -> receiver_phone = $data['receiver_phone'];
@@ -65,24 +94,29 @@ class CheckoutController extends Controller
         $receiver -> city_id = $data['city_id'];
         $receiver -> district_id = $data['district_id'];
         $receiver -> ward_id = $data['ward_id'];
-        $receiver -> order_id = $order -> order_id;
         $receiver -> save();
 
-        foreach($request->cart as $key=>$cart){
-            $order_detail = new OrderDetail();
-            $order_detail -> order_id = $order -> order_id;
-            $order_detail -> order_detail_quantity = $cart['quantity'];
-            $order_detail -> ware_house_id = $cart['id'];
-            $order_detail->save();
-        }
-        $code=$order->order_code;
-        return response()->json(array('code'=>$code));
+        $order = Order::find($data['order_id']);
+        $order_code = $order -> order_code;
+        return response()->json(array('order_code'=>$order_code));
         
     }
     public function payment($order_code){
         $code=$order_code;
         return view('pages.checkout.payment')->with(compact('code'));
     }
+    public function payment_method(Request $request){
+        $data = $request->all();
+        if($data['payment_method'] == 'cash'){
+            $order = Order::where('order_code',$data['order_code'])->first();
+            $order -> order_status = 1;
+            $order -> save();
+            return Redirect::to('/handcash');
+        }
+    }
+    public function handcash(){
+        return view('pages.checkout.handcash');
+       }
     function execPostRequest($url, $data){
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -292,12 +326,7 @@ class CheckoutController extends Controller
         
    }
 
-   public function handcash(){
-    $category_post = CategoryPost::where('category_post_status','1')->orderBy('category_post_id','ASC')->get();
-
-    $cate_product = CategoryProduct::where('category_product_status','1')->orderby('category_product_id','ASC')->get();
-    return view('pages.checkout.handcash')->with('category',$cate_product)->with('category_post',$category_post);
-   }
+   
    //Validation
    public function checkOrder(Request $request){
     $this-> validate($request,
