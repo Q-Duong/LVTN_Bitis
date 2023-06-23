@@ -245,6 +245,31 @@
                 }
             });
         });
+
+        $('.complete-payment').on('click',function() {
+            var _token = $('input[name="_token"]').val();
+            var order_code = $('input[name=order_code]').val();
+            var payment_method = $('input[name=payment_method]:checked').val();
+            $.ajax({
+                url: "{{ url('/payment-method') }}",
+                method: 'POST',
+                data: {
+                    _token: _token,
+                    order_code: order_code,
+                    payment_method: payment_method
+                },
+                success: function(data) {
+                   
+                    if(data.type == 'cash'){
+                        localStorage.removeItem('cart');
+                        localStorage.removeItem('sessionId');
+                        window.location.assign("../"+ data.url);
+                    }else{
+                        location.replace(data.url);
+                    }
+                }
+            });
+        });
     </script>
     
 </body>

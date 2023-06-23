@@ -60,4 +60,13 @@ class LoginController extends Controller
         Session::flush('user_id');
         return Redirect::to('/');
     }
+
+    public function profile($user_id){
+
+        $user = User::find($user_id);
+
+    	
+    	// return view('pages.checkout.account_information')->with('category',$cate_product)->with('category_post',$category_post)->with('customer',$customer);
+    }
+
 }

@@ -7,13 +7,13 @@
                     Cập nhật sản phẩm
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/list-product') }}" class="btn btn-info edit">Quản lý</a>
+                        <a href="{{ URL::to('/list-ware-house') }}" class="btn btn-info edit">Quản lý</a>
                     </span>
                 </header>
 
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ URL::to('/update-ware-house/' . $wareHouseCategory->product_id) }}"
+                        <form role="form" action="{{ URL::to('/update-ware-house/' . $wareHouse->ware_house_id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group" style="text-align:center;">
@@ -24,94 +24,33 @@
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                                <select name="category_id" class="form-control m-bot15 choose_category">
-                                    @foreach ($getAllCategory as $key => $category)
-                                        <option {{ $wareHouseCategory -> product -> category -> category_id == $category->category_id ? 'selected' : '' }}
-                                            value="{{ $category->category_id }}">
-                                            {{ $category->category_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            {{-- <div class="form-group">
-                                <label for="exampleInputPassword1">Loại sản phẩm</label>
-                                <select name="product_type_id" class="form-control m-bot15 choose_product_type">
-                                    @foreach ($getAllProductType as $key => $product_type)
-                                        <option
-                                            {{ $edit_value->product_type_id == $product_type->product_type_id ? 'selected' : '' }}
-                                            value="{{ $product_type->productType->product_type_id }}">
-                                            {{ $product_type->productType->product_type_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Màu sản phẩm</label>
-                                <div class="row">
-                                    @foreach($getAllColor as $key =>$color)
-                                        <div class="col-lg-3 col-md-12 centered">
-                                            <section>
-                                                @if($wareHouseCategory -> color_id == $color -> color_id)
-                                                    <input type="radio" name="color_id" value="{{$color -> color_id}}" id="id{{$key}}" checked class="accent">
-                                                    <label for="id{{$key}}" class="accent-l">{{$color -> color_name}}</label>
-                                                @endif
-                                            </section>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                <label for="exampleInputPassword1">Danh mục sản phẩm: <span class="content">{{$wareHouse -> product -> category -> category_name}}</span></label>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Size sản phẩm</label>
-                                <div class="row">
-                                    @foreach($getAllSize as $key =>$size)
-                                        @foreach($wareHouse as $key =>$wh)
-                                            @if($wh -> size_id == $size -> size_id)
-                                            <div class="col-lg-3 col-md-12 centered">
-                                                <section>
-                                                    <input type="checkbox" id="size{{$key+1}}" value="{{$size -> size_id}}" name="size_id[]" onclick="myFunction{{$key+1}}()" {{$wh -> size_id == $size -> size_id ? 'checked' :''}}>
-                                                    <label for="size{{$key+1}}" class="accent-l">{{$size -> size_attribute}}</label>
-                                                
-                                                    <div class="form-group" id="block{{$key+1}}" >
-                                                        <label for="exampleInputEmail1">SL sản phẩm</label>
-                                                        <input type="text" name="ware_house_quantity[]" id=
-                                                        "quantity{{$key+1}}" placeholder="Số điện thoại" >
-                                                    </div>
-                                                </section>
-                                            </div>
-                                           @break
-                                           @endif
-                                        @endforeach
-                                    @endforeach
-                                </div>
+                                <label for="exampleInputPassword1">Loại sản phẩm: <span class="content">{{$wareHouse -> product -> productType -> product_type_name	}}</span></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Tên sản phẩm: <span class="content">{{$wareHouse -> product -> product_name	}}</span></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Màu sản phẩm: <span class="content">{{$wareHouse -> color -> color_name}}</span></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Size sản phẩm: <span class="content">{{$wareHouse -> size -> size_attribute == 0 ? 'Không có size' : $wareHouse -> size -> size_attribute}}</span></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">SL sản phẩm: <input type="text" class="form-control" name="ware_house_quantity" placeholder="Số điện thoại" value="{{$wareHouse -> ware_house_quantity}}"></label>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Tình trạng</label>
-                                <select name="product_tag" class="form-control m-bot15">
-                                    @if ($wareHouseCategory->ware_house_status == 1)
-                                        <option selected value="1">Mới</option>
-                                        <option value="2">Hết hàng</option>
-                                        <option value="3">Khuyến mãi</option>
-                                        <option value="0">Trống</option>
-                                    @elseif($wareHouseCategory->ware_house_status == 2)
-                                        <option value="1">Mới</option>
-                                        <option selected value="2">Hết hàng</option>
-                                        <option value="3">Khuyến mãi</option>
-                                        <option value="0">Trống</option>
-                                    @elseif($wareHouseCategory->ware_house_status == 3)
-                                        <option value="1">Mới</option>
-                                        <option value="2">Hết hàng</option>
-                                        <option selected value="3">Khuyến mãi</option>
-                                        <option value="0">Trống</option>
-                                    @else
-                                        <option value="1">Mới</option>
-                                        <option value="2">Hết hàng</option>
-                                        <option value="3">Khuyến mãi</option>
-                                        <option selected value="0">Trống</option>
-                                    @endif
+                                <select name="ware_house_status" class="form-control m-bot15">
+                                    <option value="1" {{$wareHouse->ware_house_status == 1 ? 'selected' : ''}}>Mới</option>
+                                    <option value="2" {{$wareHouse->ware_house_status == 2 ? 'selected' : ''}}>Hết hàng</option>
+                                    <option value="3" {{$wareHouse->ware_house_status == 3 ? 'selected' : ''}}>Khuyến mãi</option>
+                                    <option value="0" {{$wareHouse->ware_house_status == 0 ? 'selected' : ''}}>Trống</option>
                                 </select>
                             </div>
-                            <button type="submit" name="edit_product" class="btn btn-info">Cập nhật sản phẩm</button>
+                            <button type="submit" name="edit_product" class="btn btn-info">Cập nhật kho</button>
                         </form>
                     </div>
                 </div>

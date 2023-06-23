@@ -37,7 +37,7 @@
                         </label>
                     </div>
                 </div>
-                <form action="{{ URL::to('/payment-method') }}" method="POST">
+                <form action="{{ URL::to('/payment-method') }}" method="POST" id="form-payment">
                     @csrf
                     <input type="hidden" name="order_code" value="{{$code}}">
                     <div class="section__payment">
@@ -79,7 +79,7 @@
                         <div class="terms_and_conditions">
                             Bằng cách nhấp vào Đặt hàng, bạn đồng ý với <a href="#"> Điều khoản và Điều kiện </a> của eShopWorld.
                         </div>
-                        <button type="submit" class="primary-btn-add">
+                        <button type="button" class="primary-btn-add complete-payment">
                             <i class="fas fa-clipboard-check"></i> Hoàn tất đơn hàng
                         </button>
                     </div>

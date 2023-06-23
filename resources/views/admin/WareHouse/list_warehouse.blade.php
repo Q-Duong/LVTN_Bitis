@@ -55,10 +55,10 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ URL::to('edit-ware-house/' . $wareHouse -> product_id) }}" class="active style-edit"
+                                    <a href="{{ URL::to('edit-ware-house/' . $wareHouse -> ware_house_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>
-                                    <a onclick="return confirm('Bạn có chắc muốn xóa cửa hàng?')"
+                                    <a onclick="return confirm('Bạn có chắc muốn sản phẩm trong kho?')"
                                         href="{{ URL::to('delete-ware-house/' . $wareHouse -> ware_house_id) }}"
                                         class="active style-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>

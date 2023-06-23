@@ -119,7 +119,7 @@ Route::get('/delete-size/{size_id}','App\Http\Controllers\SizeController@delete_
 //WareHouse
 Route::get('/add-ware-house','App\Http\Controllers\WareHouseController@add_ware_house');
 Route::get('/list-ware-house','App\Http\Controllers\WareHouseController@list_ware_house');
-Route::get('/edit-ware-house/{product_id}','App\Http\Controllers\WareHouseController@edit_ware_house');
+Route::get('/edit-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@edit_ware_house');
 Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
 Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
 Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
@@ -174,6 +174,10 @@ Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
 Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
+Route::get('/member/profile/{user_id}','App\Http\Controllers\LoginController@profile');
+Route::get('/member/settings','App\Http\Controllers\LoginController@settings');
+Route::get('/member/orders','App\Http\Controllers\LoginController@orders');
+Route::post('/update-information/{customer_id}','App\Http\Controllers\LoginController@update_information');
 
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
@@ -197,4 +201,4 @@ Route::get('/payment/{order_code}','App\Http\Controllers\CheckoutController@paym
 Route::post('/payment-method','App\Http\Controllers\CheckoutController@payment_method');
 Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
 
-
+Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_transaction');

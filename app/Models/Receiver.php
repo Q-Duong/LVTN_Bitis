@@ -8,7 +8,7 @@ class Receiver extends Model
 {
     public $timestamps = true; //set time to false
     protected $fillable = [
-    	'receiver_first_name', 'receiver_last_name', 'receiver_phone', 'receiver_email','receiver_address','receiver_note','city_id','district_id','ward_id','order_id'
+    	'receiver_first_name', 'receiver_last_name', 'receiver_phone', 'receiver_email','receiver_address','receiver_note','city_id','district_id','ward_id','order_id','user_id'
     ];
     protected $primaryKey = 'receiver_id';
  	protected $table = 'receiver';
@@ -24,5 +24,8 @@ class Receiver extends Model
     }
 	public function order(){
         return $this->belongsTo('App\Models\Order','order_id');
+    }
+    public function user(){
+        return $this->belongsTo('App\Models\User','user_id');
     }
 }

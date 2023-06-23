@@ -33,19 +33,22 @@ class WareHouseController extends Controller
         $getAllWareHouse = WareHouse::orderBy('ware_house_id','ASC')->get();
         return view('admin.WareHouse.list_warehouse')->with(compact('getAllWareHouse'));
     }
-    function edit_ware_house($product_id){
-        $getAllCategory=Category::orderBy('category_id','asc')->get();
-        $wareHouse = WareHouse::where('product_id',$product_id)->get();
-        $wareHouseCategory = WareHouse::where('product_id',$product_id)->first();
-        $getAllSize=Size::orderBy('size_id','asc')->get();
-        $getAllColor=Color::orderBy('color_id','asc')->get();
+    function edit_ware_house($ware_house_id){
+        $wareHouse = WareHouse::find($ware_house_id);
+        return view('admin.WareHouse.edit_warehouse')->with(compact('wareHouse'));
+    }
+    function update_ware_house(Request $request,$ware_house_id){ 
+        $data = $request->all();
 
-        return view('admin.WareHouse.edit_warehouse')->with(compact('getAllCategory','wareHouse','wareHouseCategory','getAllSize','getAllColor'));
+        $wareHouse = WareHouse::find($ware_house_id);
+        $wareHouse->ware_house_quantity = $data['ware_house_quantity'];
+        $wareHouse->ware_house_status = $data['ware_house_status'];
+        $wareHouse->save();
+        return Redirect::to('list-ware-house')->with('success','Cập nhật kho thành công');
     }
-    function update_ware_house(){ 
-        
-    }
-    function delete_ware_house(){ 
-        
+    function delete_ware_house($ware_house_id){ 
+        $wareHouse = WareHouse::find($ware_house_id);
+        $wareHouse->delete();
+        return Redirect()->back()->with('success','Xóa kho thành công');
     }
 }

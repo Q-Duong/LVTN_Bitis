@@ -3272,3 +3272,7 @@ table.table.table-bordered.table-dark {
 table.table.table-bordered.table-dark tr th {
     color: #111111;
 }
+.content{
+    font-size: 15px;
+    font-weight: 400;
+}
