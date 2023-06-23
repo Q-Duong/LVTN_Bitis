@@ -174,6 +174,7 @@ Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostContro
 //Product
 Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
 Route::post('get-ware-house-id','App\Http\Controllers\ProductController@get_ware_house_id');
+Route::post('size-filter','App\Http\Controllers\ProductController@size_filter');
 
 //Post 
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');

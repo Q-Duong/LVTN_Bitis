@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                     <form id="data_cart">
                         @csrf
                         <a class="product_slug" href="{{ URL::to('/products/' . $product->product_slug) }}"></a>
@@ -153,7 +153,8 @@
         <div class="row">
             @foreach ($relate as $key => $lienquan)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
-                    <a class="heart" type="button" id="" onclick="add_wistlist(this.id);">
+                    <a class="heart" type="button" id="{{ $lienquan->product_id }}"
+                        onclick="add_wistlist(this.id);">
                         <i class="far fa-heart"></i>
                     </a>
                     <div class="product__item">
@@ -179,20 +180,33 @@
                                 @endif
                             </div>
                         </a>
-                        <form>
-                            @csrf
-                            <div class="product__item__text">
-                                <h6>{{ $lienquan->product_name }}</h6>
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <h5> {{ number_format($lienquan->product_price) . '₫' }}</h5>
+                        <input type="hidden" value="{{ $lienquan->product_id }}"
+                            class="cart_product_id_{{ $lienquan->product_id }}">
+
+                        <input type="hidden" id="wishlist_productname{{ $lienquan->product_id }}"
+                            value="{{ $lienquan->product_name }}"
+                            class="cart_product_name_{{ $lienquan->product_id }}">
+
+                        <input type="hidden" id="wishlist_productprice{{ $lienquan->product_id }}"
+                            value="{{ number_format($lienquan->product_price, 0, ',', '.') }}₫">
+
+                        <img id="wishlist_productimage{{ $lienquan->product_id }}"
+                            src="{{ URL::to('uploads/product/' . $lienquan->product_image) }}"
+                            style="display:none;" />
+
+                        <div class="product__item__text">
+                            <h6>{{ $lienquan->product_name }}</h6>
+                            <h5>{{ number_format($lienquan->product_price, 0, ',', '.') }}₫</h5>
+                        </div>
+                        <div class="product__item__text">
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             @endforeach

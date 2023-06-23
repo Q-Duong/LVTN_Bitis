@@ -160,4 +160,11 @@ class ProductController extends Controller
             return response()->json(array('message'=>'Đã bán hết','status'=>'400'));
         }
     }
+    function size_filter(Request $request){
+        $data=$request->all();
+        $filter=WareHouse::join("product", "product.product_id", "=", "wareHouse.product_id")
+        ->join("category", "category.category_id", "=", "product.category_id")
+        ->where('category.category_id',$data['category_id'])->get();
+        dd($filter);
+    }
 }
