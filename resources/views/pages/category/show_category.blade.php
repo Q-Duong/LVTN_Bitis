@@ -102,21 +102,14 @@
                                                     <div class="row">
                                                         @foreach ($getAllColor as $key => $color)
                                                             <div class="col-lg-4">
-                                                                <label for="color{{ $key }}">
-                                                                    {{ $color->color_name }}
-                                                                    <input type="checkbox"  name="color_id" id="color{{ $key }}"
-                                                                        value="{{ $color->color_id }}"
-                                                                        class="color_filter ">
-                                                                </label>
-                                                                
+                                                                <div class="section-color">
+                                                                    <input type="checkbox" name="color_id" id="{{ $key }}_checkbox" class="_checkbox color_filter" value="{{ $color->color_id }}" >
+                                                                    <label for="{{ $key }}_checkbox" class="label_color" style="background-color:{{ $color->color_value }};">
+                                                                        <div id="tick_mark"></div>
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         @endforeach
-                                                        
-                                                            {{-- <input type="checkbox" id="_checkbox">
-                                                            <label for="_checkbox" class="label_color">
-                                                                <div id="tick_mark"></div>
-                                                            </label> --}}
-                                                        
                                                     </div>
                                                 </ul>
                                             </div>
