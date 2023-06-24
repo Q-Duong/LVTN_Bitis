@@ -167,7 +167,6 @@ class ProductController extends Controller
         if(!empty($data['color_id'])){
             $color_array=[];
             foreach($data['color_id'] as $key => $color){
-                
                 $color_array[] = $color.',';
             }
             $filter=DB::table('ware_house')
