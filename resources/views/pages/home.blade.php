@@ -31,7 +31,7 @@
     <div class="hero__slider owl-carousel">
     @foreach ($getAllBanner as $key => $banner)
         <div class="hero__items set-bg active" data-setbg="{{ asset('uploads/banner/' . $banner->banner_image) }}">
-            <div class="container">
+            {{-- <div class="container">
                 <div class="row">
                     <div class="col-xl-5 col-lg-7 col-md-8">
                         <div class="hero__text">
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     @endforeach    
     </div>

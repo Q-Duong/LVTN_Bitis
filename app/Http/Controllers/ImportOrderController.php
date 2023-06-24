@@ -6,12 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Product;
-use App\Models\ProductType;
 use App\Models\ImportOrder;
-use App\Models\ImportOrderDetail;
-use App\Models\WareHouse;
 use App\Models\Employee;
-use App\Http\Requests;
 use File;
 use Illuminate\Support\Facades\Redirect;
 

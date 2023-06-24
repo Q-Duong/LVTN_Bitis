@@ -385,6 +385,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span>Danh sách đơn hàng</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/add-order') }}">
+                                        <i class="fas fa-user-plus"></i> Thêm đơn hàng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/list-order') }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý đơn hàng
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
                                 <i class="far fa-list-alt"></i>
                                 <span>Danh mục bài viết</span>
                             </a>
@@ -464,7 +482,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="sub-menu">
                             <a href="{{ URL::to('/list-message') }}">
                                 <i class="far fa-newspaper"></i>
-                                <span>Quản lí tin</span>
+                                <span>Quản lí tin nhắn</span>
                             </a>
                         </li>
                             <!-- sidebar menu end-->

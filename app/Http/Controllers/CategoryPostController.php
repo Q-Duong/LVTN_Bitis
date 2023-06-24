@@ -3,14 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Session;
-use App\Models\Category;
-use App\Models\CategoryType;
 use App\Models\CategoryPost;
 use App\Models\Post;
-use Carbon\Carbon;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryPostController extends Controller

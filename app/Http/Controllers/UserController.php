@@ -60,9 +60,10 @@ class UserController extends Controller
         
         return Redirect::to('list-user')->with('success','Cập nhật khách hàng thành công');
     }
-    function delete_product($product_id){
-        $product=Product::find($product_id);
-        $product->delete();
-        return Redirect()->back()->with('success','Xóa sản phẩm thành công');
+    function delete_user($user_id){
+        $user=User::find($user_id);
+        $account=Account::find($user->account_id);
+        $account->delete();
+        return Redirect()->back()->with('success','Xóa khách hàng thành công');
     }
 }

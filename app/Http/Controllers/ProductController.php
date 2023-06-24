@@ -6,14 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Product;
-use App\Models\ProductType;
 use App\Models\Gallery;
 use App\Models\WareHouse;
-use App\Models\Color;
-use App\Models\Size;
-use App\Http\Requests;
 use File;
 use Illuminate\Support\Facades\Redirect;
+use DB;
+
 
 class ProductController extends Controller
 {
@@ -163,5 +161,29 @@ class ProductController extends Controller
         }else{
             return response()->json(array('message'=>'Đã bán hết','status'=>'400'));
         }
+    }
+    function color_filter(Request $request){
+        $data=$request->all();
+        if(!empty($data['color_id'])){
+            $color_array=[];
+            foreach($data['color_id'] as $key => $color){
+                
+                $color_array[] = $color.',';
+            }
+            $filter=DB::table('ware_house')
+            ->join('product','product.product_id', '=', 'ware_house.product_id')
+            ->join('category','product.category_id', '=', 'category.category_id')
+            ->where('category.category_id', '=', $data['category_id'])
+            ->whereIn('ware_house.color_id',$color_array)
+            ->orderBy('ware_house.product_id','ASC')
+            ->get();
+            $filter_unique = $filter->unique('product_id');
+            $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+        }else{
+            $filter_unique = Product::where('category_id',$data['category_id'])->orderBy('product_id','ASC')->get();
+            $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+        }
+        
+		return response()->json(array('success' => true, 'html'=>$html));
     }
 }

@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
-use Session;
 use App\Models\Category;
-use App\Models\CategoryType;
 use App\Models\Product;
-use App\Models\ProductType;
-use App\Models\CategoryPost;
-use Carbon\Carbon;
-use App\Http\Requests;
+use App\Models\Size;
+use App\Models\Color;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
@@ -59,8 +54,10 @@ class CategoryController extends Controller
 
     public function show_category_details($category_slug){
         $category = Category::where('category_slug',$category_slug)->first();
+        $getAllSize=Size::get();
+        $getAllColor=Color::get();
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->orderBy('product_id','ASC')->get();
-        return view('pages.category.show_category')->with(compact('getAllListProductCategory','category'));
+        return view('pages.category.show_category')->with(compact('getAllListProductCategory','category','getAllSize','getAllColor'));
     }
     
 }

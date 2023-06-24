@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Redirect;
 
 class MessageController extends Controller
 {
@@ -22,6 +20,11 @@ class MessageController extends Controller
     function list_message(){
         $getAllMessage=Message::orderBy('message_id','ASC')->get();
         return view('admin.Message.list_message')->with(compact('getAllMessage'));
+    }
+    function delete_message($mess_id){
+        $message=Message::find($mess_id);
+        $message->delete();
+        return redirect()->back()->with('success','Xóa tin nhắn thành công');
     }
 }
  

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Session;
-use App\Models\Category;
-use App\Models\CategoryType;
 use App\Models\Account;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
