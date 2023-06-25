@@ -62,21 +62,21 @@
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
-                                                {{-- <ul class="nice-scroll">
-                                                    <li>
-                                                        Size
-                                                    </li>
-                                                    
-                                                </ul> --}}
                                                 <div class="row">
                                                     @foreach ($getAllSize as $key => $size)
-                                                        <div class="col-lg-4">
-                                                            <label for="size{{ $key }}">
-                                                                {{ $size->size_attribute }}
-                                                                <input type="checkbox" id="size{{ $key }}"
-                                                                    value="{{ $size->size_id }}" class="size_filter">
-                                                            </label>
-                                                        </div>
+                                                        @if($size -> size_attribute != 0)
+                                                            <div class="col-4">
+                                                                <div class="section-size">
+                                                                    <label class="size-wrapper size" for="{{ $size -> size_attribute }}">
+                                                                        <input type="checkbox" class="size-input size_filter" value="{{ $size -> size_id }}"
+                                                                        id="{{ $size -> size_attribute }}"/>
+                                                                        <span class="size-tile">
+                                                                            <span class="size-label"> {{ $size -> size_attribute }}</span>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        @endif
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -98,10 +98,10 @@
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
-                                                <ul class="nice-scroll">
+                                                <ul class="">
                                                     <div class="row">
                                                         @foreach ($getAllColor as $key => $color)
-                                                            <div class="col-lg-4">
+                                                            <div class="col-4">
                                                                 <div class="section-color">
                                                                     <input type="checkbox" name="color_id" id="{{ $key }}_checkbox" class="_checkbox color_filter" value="{{ $color->color_id }}" >
                                                                     <label for="{{ $key }}_checkbox" class="label_color" style="background-color:{{ $color->color_value }};">
@@ -133,9 +133,41 @@
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll">
                                                     <li>
-                                                        Size
+                                                        <label class="section-price path">
+                                                            <input type="checkbox">
+                                                            <span>100.000₫ - 500.000₫</span>
+                                                            <svg viewBox="0 0 21 21">
+                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                                                            </svg>
+                                                        </label>
                                                     </li>
-
+                                                    <li>
+                                                        <label class="section-price path">
+                                                            <input type="checkbox">
+                                                            <span>500.000₫ - 1.000.000₫</span>
+                                                            <svg viewBox="0 0 21 21">
+                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                                                            </svg>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="section-price path">
+                                                            <input type="checkbox">
+                                                            <span>1.000.000₫ - 1.500.000₫</span>
+                                                            <svg viewBox="0 0 21 21">
+                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                                                            </svg>
+                                                        </label>
+                                                    </li>
+                                                    <li>
+                                                        <label class="section-price path">
+                                                            <input type="checkbox">
+                                                            <span>1.500.000₫ - 2.000.000₫</span>
+                                                            <svg viewBox="0 0 21 21">
+                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                                                            </svg>
+                                                        </label>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
