@@ -863,14 +863,47 @@
             var _token = $('input[name=_token]').val();
             var category_id = $('.category_id').val();
             var color_id = [];
+            var size_id = [];
             $('.color_filter:checked').each(function(i){
                 color_id[i] = $(this).val();
             });
+            $('.size_filter:checked').each(function(i){
+                size_id[i] = $(this).val();
+            });
+
             $.ajax({
                 url: "{{ url('/color-filter') }}",
                 method: 'POST',
                 data: {
                     _token: _token,
+                    color_id: color_id,
+                    size_id: size_id,
+                    category_id: category_id,
+                },
+                success: function(data) {
+                    $('.product').html(data.html);
+                }  
+            })
+        });
+        $('.size_filter').on('click', function() {
+            var _token = $('input[name=_token]').val();
+            var category_id = $('.category_id').val();
+            var size_id = [];
+            var color_id = [];
+            $('.size_filter:checked').each(function(i){
+                size_id[i] = $(this).val();
+            });
+            
+            $('.color_filter:checked').each(function(i){
+                color_id[i] = $(this).val();
+            });
+
+            $.ajax({
+                url: "{{ url('/color-filter') }}",
+                method: 'POST',
+                data: {
+                    _token: _token,
+                    size_id: size_id,
                     color_id: color_id,
                     category_id: category_id,
                 },
