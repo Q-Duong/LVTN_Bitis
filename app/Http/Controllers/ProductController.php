@@ -162,9 +162,8 @@ class ProductController extends Controller
             return response()->json(array('message'=>'Đã bán hết','status'=>'400'));
         }
     }
-    function color_filter(Request $request){
+    function filter(Request $request){
         $data=$request->all();
-
         if(!empty($data['color_id']) && empty($data['size_id'])){
             $color_array=[];
             foreach($data['color_id'] as $key => $color){
@@ -177,37 +176,37 @@ class ProductController extends Controller
             ->whereIn('ware_house.color_id',$color_array)
             ->orderBy('ware_house.product_id','ASC')
             ->get();
-          
-            if($filter->count() != 0){
+            if(count($filter)>0){
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
-            }else{
-
+            }
+            else{
                 $html = view('pages.category.show_empty_render')->render();
             }
-        }elseif(!empty($data['size_id']) && empty($data['color_id'])){
+        }
+        else if(!empty($data['size_id']) && empty($data['color_id'])){
             $size_array=[];
             foreach($data['size_id'] as $key => $size){
-                $size_array[] = $size.',';
+                $size_array[]= $size.',';
             }
             $filter=DB::table('ware_house')
-            ->join('product','product.product_id', '=', 'ware_house.product_id')
-            ->join('category','product.category_id', '=', 'category.category_id')
-            ->where('category.category_id', '=', $data['category_id'])
-            ->whereIn('ware_house.size_id',$size_array)
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('product.category_id',$data['category_id'])
+            ->whereIn('size_id',$size_array)
             ->orderBy('ware_house.product_id','ASC')
             ->get();
-            
-            if($filter->count() != 0){
+            if(count($filter)>0){
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
-            }else{
-                $html = view('pages.category.show_empty_render')->render();   
             }
-        }elseif(!empty($data['size_id']) && !empty($data['color_id'])){
+            else{
+                $html = view('pages.category.show_empty_render')->render();
+            }
+        }
+        else if(!empty($data['size_id']) && !empty($data['color_id'])){
             $size_array=[];
-            $color_array=[];
-
+            $color_array = [];
             foreach($data['size_id'] as $key => $size){
                 $size_array[] = $size.',';
             }
@@ -215,25 +214,25 @@ class ProductController extends Controller
                 $color_array[] = $color.',';
             }
             $filter=DB::table('ware_house')
-            ->join('product','product.product_id', '=', 'ware_house.product_id')
-            ->join('category','product.category_id', '=', 'category.category_id')
-            ->where('category.category_id', '=', $data['category_id'])
-            ->whereIn('ware_house.size_id',$size_array)
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('category.category_id',$data['category_id'])
             ->whereIn('ware_house.color_id',$color_array)
+            ->whereIn('ware_house.size_id',$size_array)
             ->orderBy('ware_house.product_id','ASC')
             ->get();
-            
-            if($filter->count() != 0){
+            if(count($filter)>0){
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
-            }else{
+            }
+            else{
                 $html = view('pages.category.show_empty_render')->render();
             }
-        }else{
+        }
+        else{
             $filter_unique = Product::where('category_id',$data['category_id'])->orderBy('product_id','ASC')->get();
             $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
         }
-        
 		return response()->json(array('success' => true, 'html'=>$html));
     }
 }
