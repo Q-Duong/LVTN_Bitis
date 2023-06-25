@@ -65,7 +65,7 @@
                                 <span>Size:</span>
                                 @foreach ($size as $key => $siz)
                                     <label class="size" for="{{ $siz->size->size_attribute }}">
-                                        {{ $siz->size->size_attribute }}
+                                        {{ $siz->size->size_attribute == 0 ? 'Không có size' : $siz->size -> size_attribute}}
                                         <input type="radio" class="size_id" value="{{ $siz->size->size_id }}"
                                             id="{{ $siz->size->size_attribute }}">
                                     </label>
