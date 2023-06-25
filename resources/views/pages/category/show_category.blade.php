@@ -133,8 +133,8 @@
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll">
                                                     <li>
-                                                        <label class="section-price path">
-                                                            <input type="checkbox" value="0" class="price_filter">
+                                                        <label class="section-price path" for="1">
+                                                            <input name="2" type="radio" value="0" class="price_filter" id="1">
                                                             <svg viewBox="0 0 21 21">
                                                                 <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                                                             </svg>
@@ -142,8 +142,8 @@
                                                         </label>
                                                     </li>
                                                     <li>
-                                                        <label class="section-price path">
-                                                            <input type="checkbox" value="1" class="price_filter">
+                                                        <label class="section-price path" for="2">
+                                                            <input name="2" type="radio" value="1" class="price_filter" id="2">
                                                             <svg viewBox="0 0 21 21">
                                                                 <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                                                             </svg>
@@ -151,8 +151,8 @@
                                                         </label>
                                                     </li>
                                                     <li>
-                                                        <label class="section-price path">
-                                                            <input type="checkbox"  value="2" class="price_filter">
+                                                        <label class="section-price path" for="3">
+                                                            <input name="2" type="radio"  value="2" class="price_filter" id="3">
                                                             <svg viewBox="0 0 21 21">
                                                                 <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                                                             </svg>
@@ -160,8 +160,8 @@
                                                         </label>
                                                     </li>
                                                     <li>
-                                                        <label class="section-price path">
-                                                            <input type="checkbox"  value="3" class="price_filter">
+                                                        <label class="section-price path" for="4">
+                                                            <input name="2" type="radio"  value="3" class="price_filter" id="4">
                                                             <svg viewBox="0 0 21 21">
                                                                 <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
                                                             </svg>

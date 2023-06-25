@@ -57,7 +57,7 @@
                         <i class="arrow_carrot-down"></i>
                     </span>
                     <ul>
-                        <a href="{{ URL::to('/member/profile/')}}">
+                        <a href="{{ URL::to('/member/profile/') }}">
                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                         </a>
                         <a href="{{ URL::to('/member/orders/') }}">
@@ -102,7 +102,7 @@
         </div>
     </div>
     <!-- Offcanvas Menu End -->
-    <input type="hidden" name="user_id" value={{Session::get('user_id')}}>
+    <input type="hidden" name="user_id" value={{ Session::get('user_id') }}>
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
@@ -136,7 +136,7 @@
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
-                                        <a href="{{ URL::to('/member/profile')}}" class="member-profile">
+                                        <a href="{{ URL::to('/member/profile') }}" class="member-profile">
                                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                                         </a>
                                         <a href="{{ URL::to('/member/orders') }}" class="member-orders">
@@ -374,17 +374,17 @@
             var _token = $('input[name="_token"]').val();
             var user_id = $('input[name="user_id"]').val();
 
-                $.ajax({
-                    url: '/member/profile/'+user_id,
-                    method: "GET",
-                    data: {
-                        _token: _token,
-                        user_id: user_id
-                    },
-                    success: function(data) {
-                        window.location.href = "member/profile/";
-                    }
-                });
+            $.ajax({
+                url: '/member/profile/' + user_id,
+                method: "GET",
+                data: {
+                    _token: _token,
+                    user_id: user_id
+                },
+                success: function(data) {
+                    window.location.href = "member/profile/";
+                }
+            });
             console.log($(this).attr('href'));
         });
         $('.nav-item').on('click', function() {
@@ -859,27 +859,36 @@
                 }
             });
         });
-        $('.color_filter').on('click', function() {
+        $(".color_filter, .size_filter, .price_filter").on('click', function() {
             var _token = $('input[name=_token]').val();
             var category_id = $('.category_id').val();
             var color_id = [];
-            $('.color_filter:checked').each(function(i){
+            var size_id = [];
+            var price_value = [];
+            $('.price_filter:checked').each(function(i) {
+                price_value[i] = $(this).val();
+            })
+            console.log(price_value);
+            $('.size_filter:checked').each(function(i) {
+                size_id[i] = $(this).val();
+            })
+            $('.color_filter:checked').each(function(i) {
                 color_id[i] = $(this).val();
             });
             $.ajax({
-                url: "{{ url('/color-filter') }}",
+                url: "{{ url('/filter') }}",
                 method: 'POST',
                 data: {
                     _token: _token,
                     color_id: color_id,
+                    size_id: size_id,
                     category_id: category_id,
                 },
                 success: function(data) {
                     $('.product').html(data.html);
-                }  
+                }
             })
         });
-        
     </script>
 </body>
 
