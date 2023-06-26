@@ -864,11 +864,14 @@
             var category_id = $('.category_id').val();
             var color_id = [];
             var size_id = [];
-            var price_value = [];
-            $('.price_filter:checked').each(function(i) {
-                price_value[i] = $(this).val();
-            })
-            console.log(price_value);
+            var price_data = {};
+            var min=$(this).data('price_min');
+            var max=$(this).data('price_max');
+            var price_data={
+               'min': min,
+               'max': max
+            };
+           
             $('.size_filter:checked').each(function(i) {
                 size_id[i] = $(this).val();
             })
@@ -882,6 +885,7 @@
                     _token: _token,
                     color_id: color_id,
                     size_id: size_id,
+                    price_data,
                     category_id: category_id,
                 },
                 success: function(data) {
