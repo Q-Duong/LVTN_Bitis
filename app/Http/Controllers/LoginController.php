@@ -59,12 +59,17 @@ class LoginController extends Controller
         return Redirect::to('/');
     }
 
-    public function profile($user_id){
-
+    public function check_profile($user_id){
         $user = User::find($user_id);
+        return response()->json(array('user'=>$user));
+    }
 
-    	
-    	// return view('pages.checkout.account_information')->with('category',$cate_product)->with('category_post',$category_post)->with('customer',$customer);
+    public function profile(){
+       if(Session::get('user_id')){
+            return view('pages.login.account_information');
+       }else{
+            return Redirect::to('login');
+       }
     }
 
 }

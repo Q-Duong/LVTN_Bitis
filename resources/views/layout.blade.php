@@ -369,24 +369,24 @@
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
-        $('.member-profile').click(function(event) {
-            event.preventDefault();
-            var _token = $('input[name="_token"]').val();
-            var user_id = $('input[name="user_id"]').val();
+        // $('.member-profile').click(function(event) {
+        //     event.preventDefault();
+        //     var _token = $('input[name="_token"]').val();
+        //     var user_id = $('input[name="user_id"]').val();
 
-            $.ajax({
-                url: '/member/profile/' + user_id,
-                method: "GET",
-                data: {
-                    _token: _token,
-                    user_id: user_id
-                },
-                success: function(data) {
-                    window.location.href = "member/profile/";
-                }
-            });
-            console.log($(this).attr('href'));
-        });
+        //     $.ajax({
+        //         url: '/member/profile/' + user_id,
+        //         method: "GET",
+        //         data: {
+        //             _token: _token,
+        //             user_id: user_id
+        //         },
+        //         success: function(data) {
+        //             window.location.href = "member/profile/";
+        //         }
+        //     });
+            
+        // });
         $('.nav-item').on('click', function() {
 
             //Remove any previous active classes
@@ -864,11 +864,7 @@
             var category_id = $('.category_id').val();
             var color_id = [];
             var size_id = [];
-            var price_value = [];
-            $('.price_filter:checked').each(function(i) {
-                price_value[i] = $(this).val();
-            })
-
+       
             $('.size_filter:checked').each(function(i) {
                 size_id[i] = $(this).val();
             })
