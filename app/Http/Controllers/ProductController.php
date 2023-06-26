@@ -164,7 +164,7 @@ class ProductController extends Controller
     }
     function filter(Request $request){
         $data=$request->all();
-        if(!empty($data['color_id']) && empty($data['size_id'])){
+        if(!empty($data['color_id']) && empty($data['size_id']) && empty($data['price_data'])){
             $color_array=[];
             foreach($data['color_id'] as $key => $color){
                 $color_array[] = $color.',';
@@ -184,7 +184,7 @@ class ProductController extends Controller
                 $html = view('pages.category.show_empty_render')->render();
             }
         }
-        else if(!empty($data['size_id']) && empty($data['color_id'])){
+        else if(!empty($data['size_id']) && empty($data['color_id']) && empty($data['price_data'])){
             $size_array=[];
             foreach($data['size_id'] as $key => $size){
                 $size_array[]= $size.',';
@@ -204,7 +204,121 @@ class ProductController extends Controller
                 $html = view('pages.category.show_empty_render')->render();
             }
         }
-        else if(!empty($data['size_id']) && !empty($data['color_id'])){
+        else if(empty($data['size_id']) && empty($data['color_id']) && !empty($data['price_data'])){
+            $min = $data['price_data']['min'];
+            $max = $data['price_data']['max'];
+            
+            $filter=DB::table('ware_house')
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('product.category_id',$data['category_id'])
+            ->whereBetween('product.product_price',[(int)$min,(int)$max])
+            ->orderBy('ware_house.product_id','ASC')
+            ->get();
+            if(count($filter)>0){
+                $filter_unique = $filter->unique('product_id');
+                $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+            }
+            else{
+                $html = view('pages.category.show_empty_render')->render();
+            }
+        }
+        else if(!empty($data['size_id']) && !empty($data['color_id']) && empty($data['price_data'])){
+            $size_array=[];
+            $color_array = [];
+            foreach($data['size_id'] as $key => $size){
+                $size_array[] = $size.',';
+            }
+            foreach($data['color_id'] as $key => $color){
+                $color_array[] = $color.',';
+            }
+            $filter=DB::table('ware_house')
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('category.category_id',$data['category_id'])
+            ->whereIn('ware_house.color_id',$color_array)
+            ->whereIn('ware_house.size_id',$size_array)
+            ->get();
+            if(count($filter)>0){
+                $filter_unique = $filter->unique('product_id');
+                $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+            }
+            else{
+                $html = view('pages.category.show_empty_render')->render();
+            }
+        }
+        else if(empty($data['size_id']) && empty($data['color_id']) && !empty($data['price_data'])){
+            $price_=[];
+            foreach($data['size_id'] as $key => $size){
+                $size_array[] = $size.',';
+            }
+            foreach($data['color_id'] as $key => $color){
+                $color_array[] = $color.',';
+            }
+            $filter=DB::table('ware_house')
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('category.category_id',$data['category_id'])
+            ->whereIn('ware_house.color_id',$color_array)
+            ->whereIn('ware_house.size_id',$size_array)
+            ->get();
+            if(count($filter)>0){
+                $filter_unique = $filter->unique('product_id');
+                $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+            }
+            else{
+                $html = view('pages.category.show_empty_render')->render();
+            }
+        }
+        else if(!empty($data['size_id']) && !empty($data['color_id']) && empty($data['price_data'])){
+            $size_array=[];
+            $color_array = [];
+            foreach($data['size_id'] as $key => $size){
+                $size_array[] = $size.',';
+            }
+            foreach($data['color_id'] as $key => $color){
+                $color_array[] = $color.',';
+            }
+            $filter=DB::table('ware_house')
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('category.category_id',$data['category_id'])
+            ->whereIn('ware_house.color_id',$color_array)
+            ->whereIn('ware_house.size_id',$size_array)
+            ->get();
+            if(count($filter)>0){
+                $filter_unique = $filter->unique('product_id');
+                $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+            }
+            else{
+                $html = view('pages.category.show_empty_render')->render();
+            }
+        }
+        else if(!empty($data['size_id']) && !empty($data['color_id']) && empty($data['price_data'])){
+            $size_array=[];
+            $color_array = [];
+            foreach($data['size_id'] as $key => $size){
+                $size_array[] = $size.',';
+            }
+            foreach($data['color_id'] as $key => $color){
+                $color_array[] = $color.',';
+            }
+            $filter=DB::table('ware_house')
+            ->join('product','product.product_id','=','ware_house.product_id')
+            ->join('category','category.category_id','=','product.category_id')
+            ->where('category.category_id',$data['category_id'])
+            ->whereIn('ware_house.color_id',$color_array)
+            ->whereIn('ware_house.size_id',$size_array)
+            ->get();
+            if(count($filter)>0){
+                $filter_unique = $filter->unique('product_id');
+                $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
+            }
+            else{
+                $html = view('pages.category.show_empty_render')->render();
+            }
+        }
+        else if(!empty($data['size_id']) && !empty($data['color_id']) && empty($data['price_data'])){
             $size_array=[];
             $color_array = [];
             foreach($data['size_id'] as $key => $size){
