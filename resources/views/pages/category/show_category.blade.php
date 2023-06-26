@@ -50,34 +50,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="shop__sidebar">
-                        <div class="shop__sidebar__search">
-                        </div>
-                        <div class="shop__sidebar__accordion">
-                            <div class="accordion" id="accordionExample">
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Size</a>
-                                    </div>
-                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__categories">
-                                                <div class="row">
-                                                    @foreach ($getAllSize as $key => $size)
-                                                        @if($size -> size_attribute != 0)
-                                                            <div class="col-4">
-                                                                <div class="section-size">
-                                                                    <label class="size-wrapper size" for="{{ $size -> size_attribute }}">
-                                                                        <input type="checkbox" class="size-input size_filter" value="{{ $size -> size_id }}"
-                                                                        id="{{ $size -> size_attribute }}"/>
-                                                                        <span class="size-tile">
-                                                                            <span class="size-label"> {{ $size -> size_attribute }}</span>
-                                                                        </span>
-                                                                    </label>
+                    @if($category->category_slug != 'phu-kien')
+                        <div class="shop__sidebar">
+                            <div class="shop__sidebar__search">
+                            </div>
+                            <div class="shop__sidebar__accordion">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a data-toggle="collapse" data-target="#collapseOne">Size</a>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <div class="shop__sidebar__categories">
+                                                    <div class="row">
+                                                        @foreach ($getAllSize as $key => $size)
+                                                            @if($size -> size_attribute != 0)
+                                                                <div class="col-4">
+                                                                    <div class="section-size">
+                                                                        <label class="size-wrapper size" for="{{ $size -> size_attribute }}">
+                                                                            <input type="checkbox" class="size-input size_filter" value="{{ $size -> size_id }}"
+                                                                            id="{{ $size -> size_attribute }}"/>
+                                                                            <span class="size-tile">
+                                                                                <span class="size-label"> {{ $size -> size_attribute }}</span>
+                                                                            </span>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        @endif
-                                                    @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
                         </div>

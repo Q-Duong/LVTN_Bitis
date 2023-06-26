@@ -194,6 +194,7 @@ class ProductController extends Controller
             ->join('category','category.category_id','=','product.category_id')
             ->where('product.category_id',$data['category_id'])
             ->whereIn('size_id',$size_array)
+            ->orderBy('ware_house.product_id','ASC')
             ->get();
             if(count($filter)>0){
                 $filter_unique = $filter->unique('product_id');
@@ -313,6 +314,7 @@ class ProductController extends Controller
             ->where('category.category_id',$data['category_id'])
             ->whereIn('ware_house.color_id',$color_array)
             ->whereIn('ware_house.size_id',$size_array)
+            ->orderBy('ware_house.product_id','ASC')
             ->get();
             if(count($filter)>0){
                 $filter_unique = $filter->unique('product_id');
