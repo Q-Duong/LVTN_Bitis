@@ -871,17 +871,12 @@
                'min': min,
                'max': max
             };
-           
             $('.size_filter:checked').each(function(i) {
                 size_id[i] = $(this).val();
             })
             $('.color_filter:checked').each(function(i) {
                 color_id[i] = $(this).val();
             });
-            $('.size_filter:checked').each(function(i){
-                size_id[i] = $(this).val();
-            });
-
             $.ajax({
                 url: "{{ url('/filter') }}",
                 method: 'POST',
