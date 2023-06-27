@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/lightslider.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/prettify.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -348,6 +349,7 @@
     <!-- Js Plugins -->
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    
     {{-- <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script> --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ asset('frontend/js/jquery.nicescroll.min.js') }}"></script>
@@ -365,6 +367,7 @@
     <script src="{{ asset('frontend/js/delete_wistlists.min.js') }}"></script>
     <script src="{{ asset('frontend/js/add_wistlists.min.js') }}"></script>
     <script src="{{ asset('frontend/js/apple.min.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
@@ -859,14 +862,14 @@
                 }
             });
         });
-        $(".color_filter, .size_filter, .price_filter").on('click', function() {
+        $(".color_filter, .size_filter, .price_filter").on("click keyup", function() {
             var _token = $('input[name=_token]').val();
             var category_id = $('.category_id').val();
             var color_id = [];
             var size_id = [];
             var price_data = {};
-            var min=$(this).data('price_min');
-            var max=$(this).data('price_max');
+            var min=$('#min-price').val();
+            var max=$('#max-price').val();
             var price_data={
                'min': min,
                'max': max
@@ -892,6 +895,22 @@
                 }
             })
         });
+
+        $( ".price_filter" ).slider({
+            range: true,
+            min: 0,
+            max: 2000000,
+            step:50000,
+            values: [ 0, 2000000 ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format(ui.values[ 0 ])+ "₫"  + " - " + new Intl.NumberFormat('vi-VN').format(ui.values[ 1 ]) + "₫" );
+                $( "#min-price" ).val(ui.values[ 0 ]);
+                $( "#max-price" ).val(ui.values[ 1 ]);
+            }
+        });
+        $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 0 )) + "₫" +
+            " - " + new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 1 )) + "₫");
+
     </script>
 </body>
 

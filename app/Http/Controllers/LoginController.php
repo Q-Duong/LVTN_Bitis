@@ -72,4 +72,12 @@ class LoginController extends Controller
        }
     }
 
+    public function settings(){
+        if(Session::get('user_id')){
+             return view('pages.login.account_settings');
+        }else{
+             return Redirect::to('login');
+        }
+     }
+
 }

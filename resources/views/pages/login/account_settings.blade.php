@@ -1,15 +1,16 @@
 @extends('layout')
 @section('content')
-@section('title', 'Account Infomation - ')
+@section('title', 'Account Setting - ')
 <section class="breadcrumb-option">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__text">
-                    <h4>Thông tin tài khoản</h4>
+                    <h4>Cập nhật thông tin tài khoản</h4>
                     <div class="breadcrumb__links">
                         <a href="{{URL::to('/')}}">Trang chủ</a>
-                        <span>Thông tin tài khoản</span>
+                        <a href="{{URL::to('/member/profile')}}">Thông tin tài khoản</a>
+                        <span>Cập nhật thông tin tài khoản</span>
                     </div>
                 </div>
             </div>
@@ -20,6 +21,8 @@
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
+            <form >
+                @csrf
                 <div class="row">
                     <div class="col-lg-4 col-md-6" >
                         <div class="account-sidebar">
@@ -94,60 +97,78 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-6" >
-                        <h6 class="checkout__title">Thông tin tài khoản</h6>
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {!! session('success') !!}
-                            </div>
-                        @endif
+                    <div class="col-lg-8 col-md-6 centered">
+                        <h6 class="checkout__title">Cập nhật thông tin tài khoản</h6>
                         <div class="checkout__input_avata">
                             <p>Ảnh đại diện<span>*</span></p>
-                            {{-- @if($customer->customer_image !='' && $customer->customer_password =='')
+                            {{-- @if($customer->customer_image=='')
+                                <input type="file" id="upload" name="customer_image" hidden />
+                                <div class="avata">
+                                    <div class="avata_none">
+                                        <i class="far fa-user-circle"></i>
+                                    </div>
+                                </div>
+                                <label for="upload"><i class="fas fa-pen"></i> Thêm ảnh đại diện</label>
+                            @elseif($customer->customer_image !='' && $customer->customer_password =='')
                                 <div class="avata">
                                     <img class="inbox-avatar"
                                         src="{{$customer->customer_image}}" alt=""
                                         name="customer_image">
                                 </div>
-                            @elseif($customer->customer_image !='' && $customer->customer_password !='')
-                            <div class="avata">
-                                <img class="inbox-avatar"
-                                    src="{{asset('uploads/avata/'.$customer->customer_image)}}" alt=""
-                                    name="customer_image">
-                            </div>
-                            @else --}}
-                            <div class="avata">
-                                <div class="avata_none">
-                                    <i class="far fa-user-circle"></i>
+                            @else
+                                <div class="avata">
+                                    <img class="inbox-avatar"
+                                        src="{{asset('uploads/avata/'.$customer->customer_image)}}" alt=""
+                                        name="customer_image">
                                 </div>
-                            </div>
-                            {{-- @endif --}}
+                                <div class="option">
+                                    <div class="float-left">
+                                        <input type="file" id="upload" name="customer_image" hidden />
+                                        <label for="upload"><i class="fas fa-pen"></i> Thay đổi</label>
+                                    </div>
+                                    <div class="float-right">
+                                        <a onclick="return confirm('Bạn có chắc muốn xóa ảnh đại diện?')"
+                                            href="{{URL::to('delete-avata/'.$customer -> customer_id)}}" class=""
+                                            ui-toggle-class=""><i class="far fa-trash-alt"></i> Xóa
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif --}}
                         </div>
-                        <div class="checkout__input">
+                        <div class="checkout__input {{ $errors->has('user_firstname') ? 'has-error' : ''}}">
                             <p>Họ và tên lót<span>*</span></p>
-                            <input type="text" name="user_firstname	" placeholder="Họ và tên lót" value="{{ Session::get('user_firstname') }}" disabled>
+                            <input type="text" name="user_firstname" placeholder="Họ và tên lót" value="{{ Session::get('user_firstname') }}">
+                            {!! $errors->first('user_firstname', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="checkout__input">
+                        <div class="checkout__input {{ $errors->has('user_lastname') ? 'has-error' : ''}}">
                             <p>Tên<span>*</span></p>
-                            <input type="text" name="user_lastname" placeholder="Tên" value="{{Session::get('user_lastname')}}" disabled>
+                            <input type="text" name="user_lastname" placeholder="Tên" value="{{Session::get('user_lastname')}}">
+                            {!! $errors->first('user_lastname', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="checkout__input">
                             <p>Địa chỉ email<span>*</span></p>
                             <input type="text" name="user_email" placeholder="Địa chỉ email" value="{{Session::get('user_email')}}" disabled>
                         </div>
-                        <div class="checkout__input">
+                        <div class="checkout__input {{ $errors->has('user_phone') ? 'has-error' : ''}}">
                             <p>Số điện thoại<span>*</span></p>
-                            <input type="text" name="user_phone" placeholder="Số điện thoại" value="{{Session::get('user_phone')}}" disabled>
+                            <input type="text" name="user_phone" placeholder="Số điện thoại" value="{{Session::get('user_phone')}}">
+                            {!! $errors->first('user_phone', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
+                        {{-- @if($customer->customer_image !='' && $customer->customer_password =='')
+                        @else
+                            <div class="checkout__input {{ $errors->has('customer_password') ? 'has-error' : ''}}">
+                                <p>Mật khẩu<span>*</span></p>
+                                <input type="password" name="customer_password" placeholder="Điền mật khẩu" value="{{$customer->customer_password}}">
+                                {!! $errors->first('customer_password', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                            </div>
+                        @endif --}}
                         <div class="checkout__input">
-                        {{-- @php
-                            $cust_id=Session::get('customer_id');
-					    @endphp --}}
-                            <a href="{{ URL::to('/member/settings') }}"  type="submit" class="site-btn"><i class="fa fa-cog"></i> Cài đặt tài khoản</a>
+                            <button type="submit" name="update_information" class="site-btn"><i class="fa fa-cog"></i>  
+                                Cập nhật thông tin tài khoản</button>
                         </div>
-
                     </div>
                 </div>
+            </form>
         </div>
     </div>
 </section>

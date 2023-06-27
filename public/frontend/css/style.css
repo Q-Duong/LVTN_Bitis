@@ -5490,7 +5490,7 @@ li.option{
 }
 
 
-.section-price {
+/* .section-price {
 	--background: #fff;
 	--border: #d1d6ee;
 	--border-hover: #bbc1e1;
@@ -5553,7 +5553,7 @@ li.option{
 	stroke-dasharray: var(--a, 86.12);
 	stroke-dashoffset: var(--o, 86.12);
 	transition: stroke-dasharray 0.6s, stroke-dashoffset 0.6s;
-  }
+  } */
 
   .checkout__input_avata{
 	margin: 13px 0;
@@ -5677,7 +5677,44 @@ li.option{
 .account-setting-option-icon{
 	margin-right: 10px;
 }
-.account-setting-option span i{
-	font-size: 20px;
-	
+.account-setting-option-icon{
+	margin-right: 10px;
+}
+.ac-gn-bagview-nav-svgicon{
+	color:#0071e3;
+}
+.account-setting-option a {
+	font-size: 16px;
+	color:#212529;
+	display:flex;
+	align-items: center;
+}
+.account-setting-option a:hover {
+	color:#0071e3;
+}
+.section-price{
+	width: 100%;
+	padding: 15px 10px;
+}
+.price_filter{
+	height: 2px !important;
+	border: 0 !important;
+	background: #d2d2d7 !important;
+}
+.price-wrapper{
+	width: 100%;
+	text-align: center;
+	border: 0;
+	font-weight:400;
+}
+.ui-widget-header {
+	background: #111111 !important;
+}
+.ui-slider-horizontal .ui-slider-handle {
+	top: -9px !important;
+}
+.ui-slider .ui-slider-handle {
+	border-radius: 50% !important;
+	border: 2px solid #111111 !important;
+	background: #ffffff !important;
 }

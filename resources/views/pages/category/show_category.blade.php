@@ -133,7 +133,7 @@
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
-                                                <ul class="nice-scroll">
+                                                {{-- <ul class="nice-scroll">
                                                     <li>
                                                         <label class="section-price path" for="1">
                                                             <input name="price" type="checkbox" data-price_min="0" data-price_max="500000" class="price_filter" id="1">
@@ -161,7 +161,15 @@
                                                             <span>Trên 1.000.000₫</span>
                                                         </label>
                                                     </li>
-                                                </ul>
+                                                </ul> --}}
+                                                <div class="section-price">
+                                                    <p>
+                                                        <input class="price-wrapper" type="text" id="amount" readonly>
+                                                    </p>
+                                                    <input type="hidden" id="min-price" value="0">
+                                                    <input type="hidden" id="max-price" value="20000000">
+                                                    <div class="price_filter"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
