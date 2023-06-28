@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/lightgallery.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/lightslider.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/prettify.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -57,7 +58,7 @@
                         <i class="arrow_carrot-down"></i>
                     </span>
                     <ul>
-                        <a href="{{ URL::to('/member/profile/')}}">
+                        <a href="{{ URL::to('/member/profile/') }}">
                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                         </a>
                         <a href="{{ URL::to('/member/orders/') }}">
@@ -102,7 +103,7 @@
         </div>
     </div>
     <!-- Offcanvas Menu End -->
-    <input type="hidden" name="user_id" value={{Session::get('user_id')}}>
+    <input type="hidden" name="user_id" value={{ Session::get('user_id') }}>
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
@@ -136,7 +137,7 @@
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
-                                        <a href="{{ URL::to('/member/profile')}}" class="member-profile">
+                                        <a href="{{ URL::to('/member/profile') }}" class="member-profile">
                                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                                         </a>
                                         <a href="{{ URL::to('/member/orders') }}" class="member-orders">
@@ -348,6 +349,7 @@
     <!-- Js Plugins -->
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    
     {{-- <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script> --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ asset('frontend/js/jquery.nicescroll.min.js') }}"></script>
@@ -365,28 +367,29 @@
     <script src="{{ asset('frontend/js/delete_wistlists.min.js') }}"></script>
     <script src="{{ asset('frontend/js/add_wistlists.min.js') }}"></script>
     <script src="{{ asset('frontend/js/apple.min.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
-        $('.member-profile').click(function(event) {
-            event.preventDefault();
-            var _token = $('input[name="_token"]').val();
-            var user_id = $('input[name="user_id"]').val();
+        // $('.member-profile').click(function(event) {
+        //     event.preventDefault();
+        //     var _token = $('input[name="_token"]').val();
+        //     var user_id = $('input[name="user_id"]').val();
 
-                $.ajax({
-                    url: '/member/profile/'+user_id,
-                    method: "GET",
-                    data: {
-                        _token: _token,
-                        user_id: user_id
-                    },
-                    success: function(data) {
-                        window.location.href = "member/profile/";
-                    }
-                });
-            console.log($(this).attr('href'));
-        });
+        //     $.ajax({
+        //         url: '/member/profile/' + user_id,
+        //         method: "GET",
+        //         data: {
+        //             _token: _token,
+        //             user_id: user_id
+        //         },
+        //         success: function(data) {
+        //             window.location.href = "member/profile/";
+        //         }
+        //     });
+            
+        // });
         $('.nav-item').on('click', function() {
 
             //Remove any previous active classes
@@ -859,26 +862,55 @@
                 }
             });
         });
-        $('.color_filter').on('click', function() {
+        $(".color_filter, .size_filter, .price_filter").on("click keyup", function() {
             var _token = $('input[name=_token]').val();
             var category_id = $('.category_id').val();
             var color_id = [];
-            $('.color_filter:checked').each(function(i){
+            var size_id = [];
+            var price_data = {};
+            var min=$('#min-price').val();
+            var max=$('#max-price').val();
+            var price_data={
+               'min': min,
+               'max': max
+            };
+            $('.size_filter:checked').each(function(i) {
+                size_id[i] = $(this).val();
+            })
+            $('.color_filter:checked').each(function(i) {
                 color_id[i] = $(this).val();
             });
             $.ajax({
-                url: "{{ url('/color-filter') }}",
+                url: "{{ url('/filter') }}",
                 method: 'POST',
                 data: {
                     _token: _token,
                     color_id: color_id,
+                    size_id: size_id,
+                    price_data,
                     category_id: category_id,
                 },
                 success: function(data) {
                     $('.product').html(data.html);
-                }  
+                }
             })
         });
+
+        $( ".price_filter" ).slider({
+            range: true,
+            min: 0,
+            max: 2000000,
+            step:50000,
+            values: [ 0, 2000000 ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format(ui.values[ 0 ])+ "₫"  + " - " + new Intl.NumberFormat('vi-VN').format(ui.values[ 1 ]) + "₫" );
+                $( "#min-price" ).val(ui.values[ 0 ]);
+                $( "#max-price" ).val(ui.values[ 1 ]);
+            }
+        });
+        $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 0 )) + "₫" +
+            " - " + new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 1 )) + "₫");
+
     </script>
 </body>
 

@@ -18,8 +18,8 @@ class LoginController extends Controller
     public function login_submit(Request $request){
         $data=$request->all();
         $result=Account::where('account_username',$data['account_username'])->where('account_password',md5($data['account_password']))->first();
-        $user=User::where('account_id',$result->account_id)->first();
         if($result){  
+            $user=User::where('account_id',$result->account_id)->first();
             Session::put('user_id',$user->user_id);
 			Session::put('user_firstname',$user->user_firstname);
             Session::put('user_lastname',$user->user_lastname);
@@ -59,12 +59,25 @@ class LoginController extends Controller
         return Redirect::to('/');
     }
 
-    public function profile($user_id){
-
+    public function check_profile($user_id){
         $user = User::find($user_id);
-
-    	
-    	// return view('pages.checkout.account_information')->with('category',$cate_product)->with('category_post',$category_post)->with('customer',$customer);
+        return response()->json(array('user'=>$user));
     }
+
+    public function profile(){
+       if(Session::get('user_id')){
+            return view('pages.login.account_information');
+       }else{
+            return Redirect::to('login');
+       }
+    }
+
+    public function settings(){
+        if(Session::get('user_id')){
+             return view('pages.login.account_settings');
+        }else{
+             return Redirect::to('login');
+        }
+     }
 
 }

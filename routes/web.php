@@ -174,7 +174,7 @@ Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostContro
 //Product
 Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
 Route::post('get-ware-house-id','App\Http\Controllers\ProductController@get_ware_house_id');
-Route::post('color-filter','App\Http\Controllers\ProductController@color_filter');
+Route::post('filter','App\Http\Controllers\ProductController@filter');
 
 //Post 
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
@@ -185,7 +185,8 @@ Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
 Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
-Route::get('/member/profile/{user_id}','App\Http\Controllers\LoginController@profile');
+Route::get('/member/profile/{user_id}','App\Http\Controllers\LoginController@check_profile');
+Route::get('/member/profile','App\Http\Controllers\LoginController@profile');
 Route::get('/member/settings','App\Http\Controllers\LoginController@settings');
 Route::get('/member/orders','App\Http\Controllers\LoginController@orders');
 Route::post('/update-information/{customer_id}','App\Http\Controllers\LoginController@update_information');
