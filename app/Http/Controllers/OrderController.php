@@ -19,10 +19,10 @@ class OrderController extends Controller
         $order = new Order();
         $order_code = substr(md5(microtime()), rand(0, 26), 20);
         $order->order_code = $order_code;
-        $order->order_total = $data['order_total'];
+        $order->order_total = 0;
         $order->order_status = $data['order_status'];
         $order->order_payment_type = $data['order_payment_type'];
-        $order->order_is_paid = 0;
+        $order->order_is_paid = $data['order_is_paid'];
         $order->save();
         return Redirect()->back()->with('success', 'Thêm đơn thành công');
     }

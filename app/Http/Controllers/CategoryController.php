@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
@@ -57,6 +58,11 @@ class CategoryController extends Controller
         $getAllSize=Size::get();
         $getAllColor=Color::get();
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->orderBy('product_id','ASC')->get();
+        $getColorByProduct=[];
+        foreach($getAllListProductCategory as $key => $product){
+            $getColorByProduct[]=WareHouse::where('product_id',$product->product_id)->get();
+        }
+        
         return view('pages.category.show_category')->with(compact('getAllListProductCategory','category','getAllSize','getAllColor'));
     }
     

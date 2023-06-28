@@ -253,4 +253,5 @@ class ProductController extends Controller
         }
 		return response()->json(array('success' => true, 'html'=>$html));
     }
+    
 }

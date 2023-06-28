@@ -75,7 +75,7 @@ class ProductTypeController extends Controller
         $product_type = ProductType::where('product_type_slug',$product_type_slug)->first();
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->where('product_type_id',$product_type->product_type_id)->orderBy('product_id','ASC')->get();
 
-        return view('pages.category.show_product_type')->with(compact('getAllListProductCategory','category'));
+        return view('pages.category.show_product_type')->with(compact('getAllListProductCategory','category','product_type'));
     }
 }
  

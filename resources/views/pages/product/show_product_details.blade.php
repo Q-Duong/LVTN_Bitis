@@ -11,6 +11,8 @@
                         <a href="{{ URL::to('/') }}">Trang chủ</a>
                         <a
                             href="{{ url('/collections/' . $product->category->category_slug) }}">{{ $product->category->category_name }}</a>
+                        <a
+                            href="{{ url('/collections/'. $product->category->category_slug . '/' . $product->productType->product_type_slug) }}">{{ $product->productType->product_type_name }}</a>
                         <span>{{ $product->product_name }}</span>
                     </div>
                 </div>

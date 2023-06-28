@@ -212,5 +212,5 @@ Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@che
 Route::get('/payment/{order_code}','App\Http\Controllers\CheckoutController@payment');
 Route::post('/payment-method','App\Http\Controllers\CheckoutController@payment_method');
 Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
-
 Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_transaction');
+

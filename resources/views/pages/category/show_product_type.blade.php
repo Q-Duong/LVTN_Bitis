@@ -8,7 +8,8 @@
                         <h4>Sản phẩm</h4>
                         <div class="breadcrumb__links">
                             <a href="{{ URL::to('/') }}">Trang chủ</a>
-                            <span>{{ $category->category_name }}</span>
+                            <a href="{{URL::to('/collections/' . $category->category_slug)}}">{{ $category->category_name }}</a>
+                            <span>{{ $product_type->product_type_name }}</span>
                         </div>
                     </div>
                 </div>

@@ -22,16 +22,12 @@
                                 <div class="alert alert-danger">{!! session('error') !!}</div>
                             @endif
                         </div>
-                        <div class="form-group {{ $errors->has('order_total') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Số lượng</label>
-                            <input type="number" name="order_total" class="form-control" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('order_total') }}">
-                                {!! $errors->first('order_total', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Trạng thái</label>
                             <select name="order_status" class="form-control m-bot15">
                                 <option value="0">Đơn hàng mới</option>
                                 <option value="1">Đơn hàng đang giao</option>
+                                <option value="2">Đơn hàng đã hoàn thành</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -39,6 +35,13 @@
                             <select name="order_payment_type" class="form-control m-bot15">
                                 <option value="0">Tiền mặt</option>
                                 <option value="1">Chuyển khoản</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Trạng thái</label>
+                            <select name="order_is_paid" class="form-control m-bot15">
+                                <option value="0">Chưa thanh toán</option>
+                                <option value="1">Đã thanh toán</option>
                             </select>
                         </div>
                         <!--  -->
