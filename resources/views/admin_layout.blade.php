@@ -485,7 +485,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Quản lí tin nhắn</span>
                             </a>
                         </li>
-                            <!-- sidebar menu end-->
+                        <!-- sidebar menu end-->
                 </div>
             </div>
         </aside>
@@ -724,12 +724,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var block = document.getElementById("block0");
             var input = document.getElementById("quantity0");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
 
@@ -738,12 +738,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var block = document.getElementById("block1");
             var input = document.getElementById("quantity1");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
 
@@ -752,103 +752,110 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var block = document.getElementById("block2");
             var input = document.getElementById("quantity2");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction3() {
             var checkBox = document.getElementById("size3");
             var block = document.getElementById("block3");
             var input = document.getElementById("quantity3");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction4() {
             var checkBox = document.getElementById("size4");
             var block = document.getElementById("block4");
             var input = document.getElementById("quantity4");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction5() {
             var checkBox = document.getElementById("size5");
             var block = document.getElementById("block5");
             var input = document.getElementById("quantity5");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction6() {
             var checkBox = document.getElementById("size6");
             var block = document.getElementById("block6");
             var input = document.getElementById("quantity6");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction7() {
             var checkBox = document.getElementById("size7");
             var block = document.getElementById("block7");
             var input = document.getElementById("quantity7");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction8() {
             var checkBox = document.getElementById("size8");
             var block = document.getElementById("block8");
             var input = document.getElementById("quantity8");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
+
         function myFunction9() {
             var checkBox = document.getElementById("size9");
             var block = document.getElementById("block9");
             var input = document.getElementById("quantity9");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
 
@@ -857,12 +864,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             var block = document.getElementById("block10");
             var input = document.getElementById("quantity10");
 
-            if (checkBox.checked == true){
+            if (checkBox.checked == true) {
                 block.style.display = "block";
-                input.disabled=false;
+                input.disabled = false;
             } else {
                 block.style.display = "none";
-                input.disabled=true;
+                input.disabled = true;
             }
         }
 
@@ -886,9 +893,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
             $('.choose_product_type').on('change', function() {
                 var product_type_id = $(this).val();
-                var category_id = $('.choose_category option:selected' ).val();
+                var category_id = $('.choose_category option:selected').val();
                 var _token = $('input[name="_token"]').val();
-                console.log(product_type_id,category_id);
+                console.log(product_type_id, category_id);
 
                 $.ajax({
                     url: "{{ url('/select-product-type') }}",
@@ -903,6 +910,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     }
                 });
             });
+        });
+
+        $(document).ready(function() {
+
+            // var html = '<div class="input_address"><label for="exampleInputEmail1">Địa chỉ</label><input type="text" name="order_customer_address[]" class="form-control" placeholder="Địa chỉ" value=""><div class="col-12 text-right"><input class="btn btn-danger" id="remove" type="button" name="remove" value="Xoá" tabindex="-1"></div></div>';
+
+            var html =
+                '<div class="row input_address"><div class="col-lg-12 centered"><input type="text" name="order_customer_address[]" class="form-control" placeholder="Enter email" ><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+
+            var max = 4;
+            var x = 1;
+            $("#add").click(function() {
+                if (x <= max) {
+                    $("#table_field").append(html);
+                    x++;
+                }
+            })
+
+            $("#table_field").on('click', '#remove', function() {
+                $(this).closest('.input_address').remove();
+                x--;
+            })
+
+            // $('#tab1').on('keydown', function(e){
+            //     if(e.keyCode == 9){
+            //         if(x <= max) {
+            //             $("#table_field").append(html);
+            //             x++
+            //         }
+            //     }
+            // })
+
+            // $("#table_field").on('keydown', '#tab2', function(e) {
+            //     if(e.keyCode == 9){
+            //         if (x <= max){
+            //             $("#table_field").append(html)
+            //             x++
+            //         }
+            //     }
+            // })
         });
 
 

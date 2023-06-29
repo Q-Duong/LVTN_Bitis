@@ -372,24 +372,7 @@
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
-        // $('.member-profile').click(function(event) {
-        //     event.preventDefault();
-        //     var _token = $('input[name="_token"]').val();
-        //     var user_id = $('input[name="user_id"]').val();
-
-        //     $.ajax({
-        //         url: '/member/profile/' + user_id,
-        //         method: "GET",
-        //         data: {
-        //             _token: _token,
-        //             user_id: user_id
-        //         },
-        //         success: function(data) {
-        //             window.location.href = "member/profile/";
-        //         }
-        //     });
-            
-        // });
+        
         $('.nav-item').on('click', function() {
 
             //Remove any previous active classes
@@ -910,7 +893,39 @@
         });
         $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 0 )) + "₫" +
             " - " + new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 1 )) + "₫");
-
+        
+        function successMsg (msg) {
+            $(".alert-success").css('display','block');
+            $(".alert-success").text(msg);
+            setTimeout(function() {
+                $('.alert-success').fadeOut('fast');
+            }, 3000);
+        }
+        $('.update-account-information').click(function(event) {
+            event.preventDefault();
+            var _token = $('input[name="_token"]').val();
+            var user_id = $('input[name="user_id"]').val();
+            var user_firstname = $('input[name=user_firstname]').val();
+            var user_lastname = $('input[name=user_lastname]').val();
+            var user_phone = $('input[name=user_phone]').val();
+            
+            $.ajax({
+                url: '/update-account-infomation/' + user_id,
+                method: "POST",
+                data: {
+                    _token: _token,
+                    user_id: user_id,
+                    user_firstname: user_firstname,
+                    user_lastname: user_lastname,
+                    user_phone: user_phone,
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    
+                }
+            });
+            
+        });
     </script>
 </body>
 

@@ -7,7 +7,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Color;
+use App\Models\WareHouse;
 use Illuminate\Support\Facades\Redirect;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -57,7 +59,20 @@ class CategoryController extends Controller
         $getAllSize=Size::get();
         $getAllColor=Color::get();
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->orderBy('product_id','ASC')->get();
-        return view('pages.category.show_category')->with(compact('getAllListProductCategory','category','getAllSize','getAllColor'));
+        
+        $attribute=DB::table('ware_house')
+        ->join('product','product.product_id', '=', 'ware_house.product_id')
+        ->join('category','product.category_id', '=', 'category.category_id')
+        ->join('color','ware_house.color_id', '=', 'color.color_id')
+        ->where('category.category_id', '=', $category->category_id)
+        ->orderBy('ware_house.product_id','ASC')
+        ->get();
+        // foreach($getAllListProductCategory as $key => $product){
+        //     $attribute[]=WareHouse::where('product_id',$product->product_id)->get();
+        // }
+        // $attribute=WareHouse::where('product_id',$product->product_id)->get();
+        //dd($attribute);
+        return view('pages.category.show_category')->with(compact('getAllListProductCategory','category','getAllSize','getAllColor','attribute'));
     }
     
 }

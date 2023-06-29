@@ -35,7 +35,7 @@ class LoginController extends Controller
     }
     public function save_user_FE(Request $request){
         $data=$request->all();
-        // dd($data);
+        
         $account=new Account();
         $account->account_username=$data['user_email'];
         $account->account_password=md5($data['account_password']);
@@ -78,6 +78,22 @@ class LoginController extends Controller
         }else{
              return Redirect::to('login');
         }
-     }
+    }
 
+    public function update_account_information(Request $request, $user_id){
+        if(Session::get('user_id')){
+            $data = $request->all();
+            $user = User::find($user_id);
+            $user->user_firstname = $data['user_firstname'];
+            $user->user_lastname = $data['user_lastname'];
+            $user->user_phone = $data['user_phone'];
+            $user->save();
+            Session::put('user_firstname',$user->user_firstname);
+            Session::put('user_lastname',$user->user_lastname);
+            Session::put('user_phone',$user->user_phone);
+            return response()->json(array('message' => 'Cập nhật thông tin thành công'));
+        }else{
+             return Redirect::to('login');
+        }
+    }
 }

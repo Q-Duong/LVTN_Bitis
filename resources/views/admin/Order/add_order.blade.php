@@ -41,6 +41,18 @@
                                 <option value="1">Chuyển khoản</option>
                             </select>
                         </div>
+                        <div class="form-group {{ $errors->has('customer_address') ? 'has-error' : ''}}" id="table_field">
+                            <label for="exampleInputEmail1">Địa chỉ</label>
+                            <div class="row input_address">
+                                <div class="col-lg-12 centered">
+                                    <input type="text" name="customer_address[]" class="form-control" placeholder="Enter email" value="{{old('customer_address')}}">
+                                    <div class="bg_add" id="add"> 
+                                        <i class="fa fa-plus add_address"  aria-hidden="true"></i>
+                                    </div>
+                                    {!! $errors->first('ord_start_day', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                                </div>
+                            </div>
+                        </div>
                         <!--  -->
                         <button type="submit" name="add_order" class="btn btn-info">Thêm sản phẩm</button>
                     </form>

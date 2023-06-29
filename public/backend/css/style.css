@@ -3276,3 +3276,88 @@ table.table.table-bordered.table-dark tr th {
     font-size: 15px;
     font-weight: 400;
 }
+
+.bg_add{
+    width: 30px;
+    height: 34px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    border-radius: 0 4px 4px 0;
+    background-color: #27c24c;
+    cursor: pointer;
+}
+.add_address{
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #ffffff;
+    
+}
+.bg_del{
+    width: 30px;
+    height: 34px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    border-radius: 0 4px 4px 0;
+    background-color: #ff6c60;
+    cursor: pointer;
+}
+.del_address{
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #ffffff;
+    
+}
+
+.input_address{
+    margin: 20px -15px;
+}
+.date-icon {
+    position: absolute;
+    top: 31px;
+    right: 28px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #aaa;
+  }
+
+  .date-icon2 {
+    position: absolute;
+    top: 31px;
+    right: 28px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #aaa;
+  }
+  .date-icon3 {
+    position: absolute;
+    top: 31px;
+    right: 28px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #aaa;
+  }
+
+  .date-icon4{
+    position: absolute;
+    top: 9px;
+    right: 28px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #aaa;
+  }
+  .date-icon5 {
+    position: absolute;
+    top: 9px;
+    right: 28px;
+    /* pointer-events: none; */
+    cursor: pointer;
+    color: #aaa;
+  }
