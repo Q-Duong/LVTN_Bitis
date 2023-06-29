@@ -148,13 +148,14 @@ Route::get('/delete-import-order/{import_order_id}','App\Http\Controllers\Import
 Route::post('/save-import-order','App\Http\Controllers\ImportOrderController@save_import_order');
 Route::post('/update-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@update_import_order');
 
-//Order
+//Order, Reciver
 Route::get('/add-order','App\Http\Controllers\OrderController@add_order');
 Route::post('/save-order','App\Http\Controllers\OrderController@save_order');
 Route::get('/list-order','App\Http\Controllers\OrderController@list_order');
-Route::get('/edit-order/{product_id}','App\Http\Controllers\OrderController@edit_order');
-Route::post('update-order/{product_id}','App\Http\Controllers\OrderController@update_order');
-Route::get('/delete-order/{product_id}','App\Http\Controllers\OrderController@delete_order');
+Route::get('/edit-order/{order_id}','App\Http\Controllers\OrderController@edit_order');
+Route::post('update-order/{order_id}','App\Http\Controllers\OrderController@update_order');
+Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@delete_order');
+
 
 
 //-------------------------------------------- Frontend --------------------------------------------
@@ -214,7 +215,6 @@ Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@che
 Route::get('/payment/{order_code}','App\Http\Controllers\CheckoutController@payment');
 Route::post('/payment-method','App\Http\Controllers\CheckoutController@payment_method');
 Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
-
 Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_transaction');
 
 //Search

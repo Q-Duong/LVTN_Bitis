@@ -3299,9 +3299,9 @@ table.table.table-bordered.table-dark tr th {
 .bg_del{
     width: 30px;
     height: 34px;
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    right: 15px;
+    right: 15px; */
     border-radius: 0 4px 4px 0;
     background-color: #ff6c60;
     cursor: pointer;

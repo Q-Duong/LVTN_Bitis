@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WareHouse;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Color;
-use App\Models\WareHouse;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 

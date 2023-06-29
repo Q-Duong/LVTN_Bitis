@@ -917,7 +917,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             // var html = '<div class="input_address"><label for="exampleInputEmail1">Địa chỉ</label><input type="text" name="order_customer_address[]" class="form-control" placeholder="Địa chỉ" value=""><div class="col-12 text-right"><input class="btn btn-danger" id="remove" type="button" name="remove" value="Xoá" tabindex="-1"></div></div>';
 
             var html =
-                '<div class="row input_address"><div class="col-lg-12 centered"><input type="text" name="order_customer_address[]" class="form-control" placeholder="Enter email" ><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+                '<div class="panel-body input_address"><div class="position-center"><div class="form-group"><label for="exampleInputPassword1">Sản phẩm</label><select name="ware_house_id" class="form-control m-bot15 choose_category"><option value="">--Chọn sản phẩm--</option></select></div><div class="form-group"><label for="exampleInputEmail1">Số lượng</label><input type="text" name="order_detail_quantity" class="form-control"data-validation="required" data-validation-error-msg="Vui lòng điền thông tin"></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+                // var html =
+                // '<div class="row input_address"><div class="col-lg-12 centered"><input type="text" name="order_customer_address[]" class="form-control" placeholder="Enter email" ><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
 
             var max = 4;
             var x = 1;
@@ -927,10 +929,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     x++;
                 }
             })
-
+            // <div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div>
             $("#table_field").on('click', '#remove', function() {
                 $(this).closest('.input_address').remove();
                 x--;
+                console.log(1);
             })
 
             // $('#tab1').on('keydown', function(e){
