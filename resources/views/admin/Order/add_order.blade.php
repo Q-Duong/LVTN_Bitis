@@ -59,14 +59,6 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        @csrf
-                        <div class="form-group" style="text-align:center;">
-                            @if (session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
                         <div class="form-group {{ $errors->has('receiver_first_name') ? 'has-error' : '' }}">
                             <label for="exampleInputEmail1">Họ</label>
                             <input type="text" name="receiver_first_name" class="form-control" data-validation="required"
@@ -120,28 +112,17 @@
                 </div>
             </section>
             <section class="panel">
-                <header class="panel-heading">
+                <header class="panel-heading" >
                     Chi tiết đơn hàng
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/list-order') }}" class="btn btn-info edit">Quản lý</a>
+                        <div class="bg_add" id="add"> 
+                            <i class="fa fa-plus add_address "  aria-hidden="true"></i>
+                        </div>
                     </span>
                 </header>
-                <div class="panel-body">
+                <div class="panel-body" id="table_field">
                     <div class="position-center">
-                        @csrf
-                        <div class="form-group" style="text-align:center;">
-                            @if (session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
-                        <div class="form-group {{ $errors->has('order_detail_quantity') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Số lượng</label>
-                            <input type="text" name="order_detail_quantity" class="form-control" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('order_detail_quantity') }}">
-                                {!! $errors->first('order_detail_quantity', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Sản phẩm</label>
                             <select name="ware_house_id" class="form-control m-bot15 choose_category">
@@ -151,6 +132,24 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="form-group {{ $errors->has('order_detail_quantity') ? 'has-error' : ''}}">
+                            <label for="exampleInputEmail1">Số lượng</label>
+                            <input type="text" name="order_detail_quantity" class="form-control" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('order_detail_quantity') }}">
+                                {!! $errors->first('order_detail_quantity', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                        </div>
+                        
+                        {{-- <div class="form-group {{ $errors->has('customer_address') ? 'has-error' : ''}}" >
+                            <label for="exampleInputEmail1">Địa chỉ</label>
+                            <div class="row input_address">
+                                <div class="col-lg-12 centered">
+                                    <input type="text" name="customer_address[]" class="form-control" placeholder="Enter email" value="{{old('customer_address')}}">
+                                    <div class="bg_add" id="add"> 
+                                        <i class="fa fa-plus add_address"  aria-hidden="true"></i>
+                                    </div>
+                                    {!! $errors->first('ord_start_day', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                                </div>
+                            </div>
+                        </div> --}}
                         <!--  -->
                         <button type="submit" name="add_order_detail" class="btn btn-info">Thêm chi tiết đơn hàng</button>
                         </form>

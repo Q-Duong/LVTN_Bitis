@@ -9,7 +9,7 @@
                         <div class="breadcrumb__links">
                             <a href="{{ URL::to('/') }}">Trang chủ</a>
                             <span>{{ $category->category_name }}</span>
-                            <input type="hidden" class="category_id" value="{{$category->category_id}}">
+                            <input type="hidden" class="category_id" value="{{ $category->category_id }}">
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    @if($category->category_slug != 'phu-kien')
+                    @if ($category->category_slug != 'phu-kien')
                         <div class="shop__sidebar">
                             <div class="shop__sidebar__search">
                             </div>
@@ -65,14 +65,18 @@
                                                 <div class="shop__sidebar__categories">
                                                     <div class="row">
                                                         @foreach ($getAllSize as $key => $size)
-                                                            @if($size -> size_attribute != 0)
+                                                            @if ($size->size_attribute != 0)
                                                                 <div class="col-4">
                                                                     <div class="section-size">
-                                                                        <label class="size-wrapper size" for="{{ $size -> size_attribute }}">
-                                                                            <input type="checkbox" class="size-input size_filter" value="{{ $size -> size_id }}"
-                                                                            id="{{ $size -> size_attribute }}"/>
+                                                                        <label class="size-wrapper size"
+                                                                            for="{{ $size->size_attribute }}">
+                                                                            <input type="checkbox"
+                                                                                class="size-input size_filter"
+                                                                                value="{{ $size->size_id }}"
+                                                                                id="{{ $size->size_attribute }}" />
                                                                             <span class="size-tile">
-                                                                                <span class="size-label"> {{ $size -> size_attribute }}</span>
+                                                                                <span class="size-label">
+                                                                                    {{ $size->size_attribute }}</span>
                                                                             </span>
                                                                         </label>
                                                                     </div>
@@ -105,8 +109,13 @@
                                                         @foreach ($getAllColor as $key => $color)
                                                             <div class="col-4">
                                                                 <div class="section-color">
-                                                                    <input type="checkbox" name="color_id" id="{{ $key }}_checkbox" class="_checkbox color_filter" value="{{ $color->color_id }}" >
-                                                                    <label for="{{ $key }}_checkbox" class="label_color" style="background-color:{{ $color->color_value }};">
+                                                                    <input type="checkbox" name="color_id"
+                                                                        id="{{ $key }}_checkbox"
+                                                                        class="_checkbox color_filter"
+                                                                        value="{{ $color->color_id }}">
+                                                                    <label for="{{ $key }}_checkbox"
+                                                                        class="label_color"
+                                                                        style="background-color:{{ $color->color_value }};">
                                                                         <div id="tick_mark"></div>
                                                                     </label>
                                                                 </div>
@@ -202,7 +211,7 @@
                                     <a id="wishlist_producturl{{ $product->product_id }}"
                                         href="{{ URL::to('/products/' . $product->product_slug) }}">
                                         <div class="product__item__picture">
-                                            <img src="{{ URL::to('uploads/product/' . $product->product_image) }}"/>
+                                            <img src="{{ URL::to('uploads/product/' . $product->product_image) }}" />
                                             @if ($product->product_tag == 1)
                                                 <span class="label">
                                                     Mới
@@ -246,15 +255,31 @@
                                         <h6>{{ $product->product_name }}</h6>
                                         <h5>{{ number_format($product->product_price, 0, ',', '.') }}₫</h5>
                                         <div class="product__color__select">
-                                            <label for="pc-1">
-                                                <input type="radio" id="pc-1">
-                                            </label>
-                                            <label class="active black" for="pc-2">
-                                                <input type="radio" id="pc-2">
-                                            </label>
-                                            <label class="grey" for="pc-3">
-                                                <input type="radio" id="pc-3">
-                                            </label>
+                                            @foreach ($getAllListProductCategory->unique('color_id') as $key => $attr)
+                                                @if ($attr->product_id == $product->product_id)
+                                                   
+                                                     @foreach ($getAllListProductCategory->unique('color_id') as $key => $a)
+                                                        @if ($a->color_id == $attr->color_id)
+                                                            <label style="background-color:{{ $attr->color_value }};">
+                                                                <input type="radio">
+                                                            </label>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+{{-- @php
+$collection = collect($cl);
+@endphp           
+                                 @foreach ($getAllColor as $color)
+                                                        @foreach ($collection->unique('color_id') as $a)
+                                                    @if($color->color_id == $a->color_id)
+                                                    <label >
+                                                        <input type="radio" style="background-color:{{ $color->color_value }};">
+                                                    </label>
+                                                    @endif
+                                                    @endforeach
+                                            @endforeach --}}
+
                                         </div>
                                     </div>
                                 </div>
