@@ -486,7 +486,7 @@
                 var _token = $('input[name="_token"]').val();
 
                 $.ajax({
-                    url: "{{ url('/autocomplete-ajax') }}",
+                    url: "{{ url('/search-autocomplete') }}",
                     method: "POST",
                     data: {
                         query: query,

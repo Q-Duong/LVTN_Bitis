@@ -215,3 +215,7 @@ Route::post('/payment-method','App\Http\Controllers\CheckoutController@payment_m
 Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
 
 Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_transaction');
+
+//Search
+Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
+Route::post('/search','App\Http\Controllers\HomeController@search');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Receiver;
 use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
@@ -25,6 +27,10 @@ class OrderController extends Controller
         $order->order_is_paid = 0;
         $order->save();
         return Redirect()->back()->with('success', 'Thêm đơn thành công');
+    }
+    function list_order(){
+        $getListOrder = Order::get();
+        return view('admin.Order.list_order')->with(compact('getListOrder'));
     }
     
 }
