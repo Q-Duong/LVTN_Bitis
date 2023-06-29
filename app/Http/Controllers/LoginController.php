@@ -96,4 +96,12 @@ class LoginController extends Controller
              return Redirect::to('login');
         }
     }
+
+    public function delivery_addresses(){
+        if(Session::get('user_id')){
+             return view('pages.login.account_delivery_address');
+        }else{
+             return Redirect::to('login');
+        }
+    }
 }

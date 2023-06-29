@@ -189,6 +189,7 @@ Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE')
 Route::get('/member/profile','App\Http\Controllers\LoginController@profile');
 Route::get('/member/settings','App\Http\Controllers\LoginController@settings');
 Route::post('/update-account-infomation/{user_id}','App\Http\Controllers\LoginController@update_account_information');
+Route::get('/member/settings/delivery-addresses','App\Http\Controllers\LoginController@delivery_addresses');
 Route::get('/member/orders','App\Http\Controllers\LoginController@orders');
 
 
@@ -219,3 +220,10 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 //Search
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
+
+
+Route::post('auth/register', 'UserController@register');
+Route::post('auth/login', 'UserController@login');
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('user-info', 'UserController@getUserInfo');
+});
