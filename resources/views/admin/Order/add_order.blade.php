@@ -2,6 +2,9 @@
 @section('admin_content')
     <div class="row">
         <div class="col-lg-12">
+            <form role="form" action="{{ URL::to('/save-order') }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
             <section class="panel">
                 <header class="panel-heading">
                     Thêm đơn hàng
@@ -12,9 +15,7 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ URL::to('/save-order') }}" method="post"
-                            enctype="multipart/form-data">
-                            @csrf
+                        
                             <div class="form-group" style="text-align:center;">
                                 @if (session('success'))
                                     <div class="alert alert-success">{!! session('success') !!}</div>
@@ -126,7 +127,7 @@
                         <div class="position-center">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Sản phẩm</label>
-                                <select name="ware_house_id" class="form-control m-bot15 choose_category">
+                                <select name="ware_house_id[]" class="form-control m-bot15 choose_category">
                                     <option value="">--Chọn sản phẩm--</option>
                                     @foreach ($getAllWareHouse as $key => $warehouse)
                                         <option value="{{ $warehouse->ware_house_id }}">
@@ -135,23 +136,20 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group {{ $errors->has('order_detail_quantity') ? 'has-error' : '' }}">
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Số lượng</label>
-                                <input type="text" name="order_detail_quantity" class="form-control"
-                                    data-validation="required" data-validation-error-msg="Vui lòng điền thông tin"
-                                    value="{{ old('order_detail_quantity') }}">
-                                {!! $errors->first(
-                                    'order_detail_quantity',
-                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                ) !!}
+                                <input type="number" min="1" name="order_detail_quantity[]" class="form-control">
                             </div>
-                            <button type="submit" name="add_order_detail" class="btn btn-info">Thêm chi tiết đơn
-                                hàng</button>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
+                
             </section>
+            <button type="submit" name="add_order_detail" class="btn btn-info">
+                Thêm chi tiết đơn hàng
+            </button>
+            </form>
         </div>
     </div>
 @endsection
