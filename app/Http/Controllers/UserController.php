@@ -46,7 +46,9 @@ class UserController extends Controller
     }
     function update_user(Request $request,$user_id){
         $data=$request->all();
+        // dd($data);
         $user=User::find($user_id);
+        $user->user_email=$data['user_email'];
         $user->user_firstname=$data['user_firstname'];
         $user->user_lastname=$data['user_lastname'];
         $user->user_phone=$data['user_phone'];

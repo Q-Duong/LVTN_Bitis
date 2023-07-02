@@ -873,56 +873,100 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
         }
 
-        $(document).ready(function() {
-            $('.choose_category').on('change', function() {
-                var category_id = $(this).val();
-                var _token = $('input[name="_token"]').val();
 
-                $.ajax({
-                    url: "{{ url('/select-category') }}",
-                    method: 'POST',
-                    data: {
-                        category_id: category_id,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('.choose_product_type').html(data.getAllListProductType);
-                        $('.choose_product').html(data.getAllListProduct);
-                    }
-                });
+        $(document).on('change', '.choose_category', function() {
+            var category_id = $(this).val();
+            var order_detail_quantity = $('.order_detail_quantity').val();
+            var _token = $('input[name="_token"]').val();
+            var total = 0;
+            $.ajax({
+                url: "{{ url('/select-category') }}",
+                method: 'POST',
+                data: {
+                    category_id: category_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('.choose_product_type').html(data.getAllListProductType);
+                    $('.choose_product').html(data.getAllListProduct);
+                    $('.choose_ware_house').html(data.getAllListWareHouse);
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                        .product_price) + "₫");
+                    total = order_detail_quantity * data.product_price;
+                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                    $('.total-format').val(total);
+                }
             });
-            $('.choose_product_type').on('change', function() {
-                var product_type_id = $(this).val();
-                var category_id = $('.choose_category option:selected').val();
-                var _token = $('input[name="_token"]').val();
-                console.log(product_type_id, category_id);
-
-                $.ajax({
-                    url: "{{ url('/select-product-type') }}",
-                    method: 'POST',
-                    data: {
-                        product_type_id: product_type_id,
-                        category_id: category_id,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('.choose_product').html(data.getAllListProduct);
-                    }
-                });
+        });
+        $(document).on('change', '.choose_product_type', function() {
+            var product_type_id = $(this).val();
+            var category_id = $('.choose_category option:selected').val();
+            var order_detail_quantity = $('.order_detail_quantity').val();
+            var _token = $('input[name="_token"]').val();
+            var total = 0;
+            // console.log(product_type_id, category_id);
+            $.ajax({
+                url: "{{ url('/select-product-type') }}",
+                method: 'POST',
+                data: {
+                    product_type_id: product_type_id,
+                    category_id: category_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('.choose_product').html(data.getAllListProduct);
+                    $('.choose_ware_house').html(data.getAllListWareHouse);
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                        .product_price) + "₫");
+                    total = order_detail_quantity * data.product_price;
+                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                    $('.total-format').val(total);
+                }
             });
+        });
+        $(document).on('change', '.choose_product', function() {
+            var product_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            var order_detail_quantity = $('.order_detail_quantity').val();
+            var total = 0;
+            $.ajax({
+                url: "{{ url('/select-product') }}",
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    _token: _token,
+                },
+                success: function(data) {
+                    $('.choose_ware_house').html(data.getAllListWareHouse);
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                        .product_price) + "₫");
+                    total = order_detail_quantity * data.product_price;
+                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                    $('.total-format').val(total);
+                }
+            })
+        });
+        $(document).on('keyup change', '.order_detail_quantity', function() {
+            var order_detail_quantity = $(this).val();
+            var product_price = $('.product_price').val();
+            var total = 0;
+            var product_price_format = product_price.replace(/\D/g, "");
+            console.log(product_price_format);
+            total = order_detail_quantity * product_price_format;
+            $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+            $('.total-format').val(total);
         });
 
         $(document).ready(function() {
-
-            // var html = '<div class="input_address"><label for="exampleInputEmail1">Địa chỉ</label><input type="text" name="order_customer_address[]" class="form-control" placeholder="Địa chỉ" value=""><div class="col-12 text-right"><input class="btn btn-danger" id="remove" type="button" name="remove" value="Xoá" tabindex="-1"></div></div>';
-
-            var html =
-                '<div class="panel-body input_address"><div class="position-center"><div class="form-group"><label for="exampleInputPassword1">Sản phẩm</label><select name="ware_house_id" class="form-control m-bot15 choose_category"><option value="">--Chọn sản phẩm--</option></select></div><div class="form-group"><label for="exampleInputEmail1">Số lượng</label><input type="text" name="order_detail_quantity" class="form-control"data-validation="required" data-validation-error-msg="Vui lòng điền thông tin"></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
-                // var html =
-                // '<div class="row input_address"><div class="col-lg-12 centered"><input type="text" name="order_customer_address[]" class="form-control" placeholder="Enter email" ><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
-
+            var sectionCategory = $('.section-category').html();
             var max = 4;
-            var x = 1;
+            var x = 1;0
+            var html =
+                '<div class="panel-body"><div class="position-center"><div class="form-group">' +sectionCategory +'</div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" class="form-control m-bot15 choose_product_type"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" class="form-control m-bot15 choose_product"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity"></div><div class="form-group"><label>Giá tiền</label><input type="text" disabled name="product_price" class="form-control product_price" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+
+
+
+            
             $("#add").click(function() {
                 if (x <= max) {
                     $("#table_field").append(html);

@@ -37,6 +37,7 @@
                                 <option value="">--Chọn Loại Sản Phẩm--</option>
                             </select>
                         </div>
+                        
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>
                             <input type="text" name="product_name" class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_name') }}">
@@ -82,7 +83,6 @@
                 </div>
             </div>
         </section>
-
     </div>
 </div>
 @endsection

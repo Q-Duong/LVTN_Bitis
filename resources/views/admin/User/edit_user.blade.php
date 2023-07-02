@@ -17,14 +17,19 @@
                         method="post">
                         @csrf
                         <div class="form-group {{ $errors->has('account_username') ? 'has-error' : ''}}">
-                            <label for="exampleInputEmail1">Địa chỉ email</label>
-                            <input type="text" name="account_username" value="{{$edit_value->account->account_username}}" class="form-control" placeholder="Enter email">
+                            <label for="exampleInputEmail1">Tên đăng nhập</label>
+                            <input type="text" disabled name="account_username" value="{{$edit_value->account->account_username}}" class="form-control" placeholder="Enter email">
                             {!! $errors->first('account_username', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('account_password') ? 'has-error' : ''}}">
                             <label for="exampleInputPassword1">Mật khẩu</label>
                             <input type="password" name="account_password" class="form-control" placeholder="Mật khẩu" >
                             {!! $errors->first('account_password', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                        </div>  
+                        <div class="form-group {{ $errors->has('account_username') ? 'has-error' : ''}}">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="text" name="user_email" value="{{$edit_value->user_mail}}" class="form-control" placeholder="Enter email">
+                            {!! $errors->first('user_email', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('user_firstname') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Họ tên lót khách hàng</label>
