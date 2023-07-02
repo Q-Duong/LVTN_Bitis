@@ -125,7 +125,7 @@
                 <div id="table_field">
                     <div class="panel-body">
                         <div class="position-center">
-                            <div class="form-group">
+                            <div class="form-group section-category">
                                 <label>Danh mục sản phẩm</label>
                                 <select name="category_id" class="form-control m-bot15 choose_category">
                                     <option value="">--Chọn Danh Mục--</option>
@@ -160,15 +160,15 @@
                                 <label>Giá tiền</label>
                                 <input type="text" disabled name="product_price" class="form-control product_price" value="">
                             </div>
-                            <div class="form-group">
-                                <label>Tổng giá tiền</label>
-                                <input type="hidden"  name="total" class="form-control total-format" value="">
-                                <input type="text" disabled name="total" class="form-control total" value="">
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
-                
+                <div class="form-group">
+                    <label>Tổng giá tiền</label>
+                    <input type="hidden"  name="total" class="form-control total-format" value="">
+                    <input type="text" disabled name="total" class="form-control total" value="">
+                </div>
             </section>
             <button type="submit" name="add_order_detail" class="btn btn-info">
                 Thêm chi tiết đơn hàng
