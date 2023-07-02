@@ -33,38 +33,79 @@ class ProductController extends Controller
         $data = $request->all();
     	$getAllListProductType = '';
         $getAllListProduct = '';
+        $getAllListWareHouse = '';
+        $product_price=0;
     	$select_product_type = CategoryType::where('category_id',$data['category_id'])->get();
         if($select_product_type->count() > 0){ 
             foreach($select_product_type as $key => $product_type){
-                $getAllListProductType.='<option value="'.$product_type->productType->product_type_id.'">'.$product_type->productType->product_type_name.'</option>';
+                $getAllListProductType.='<option value="'.$product_type->product_type_id.'">'.$product_type->productType->product_type_name.'</option>';
             }
         }else{
             $getAllListProductType.='<option value="">--Chọn Danh Mục--</option>';
         }
 
         $select_product = Product::where('category_id',$data['category_id'])->where('product_type_id',$select_product_type[0] -> product_type_id)->orderBy('product_id','ASC')->get();
+        $select_warehouse = WareHouse::where('product_id',$select_product[0]->product_id)->orderBy('ware_house_id','asc')->get();
+        //dd($select_warehouse );
         if($select_product->count() > 0){ 
             foreach($select_product as $key => $product){
                 $getAllListProduct.='<option value="'.$product->product_id.'">'.$product->product_name.'</option>';
             }
+            $product_price=$select_product[0]->product_price;
         }else{
             $getAllListProduct.='<option value="">--Chọn Sản Phẩm--</option>';
         }
-
-    	return response()->json(array('getAllListProductType'=>$getAllListProductType, 'getAllListProduct'=>$getAllListProduct));
+        if($select_warehouse->count()>0){
+            foreach($select_warehouse as $key => $warehouse){
+                $getAllListWareHouse.='<option value="'.$warehouse->ware_house_id.'">'.'Size:'.$warehouse->color->color_name. '&nbsp; - &nbsp;'.'Color:'.$warehouse->size->size_attribute.'</option>';
+            }
+        }
+        else{
+            $getAllListWareHouse.='<option value="">--Chọn Kho Hàng--</option>';
+        }
+    	return response()->json(array('getAllListProductType'=>$getAllListProductType, 'getAllListProduct'=>$getAllListProduct,'getAllListWareHouse'=>$getAllListWareHouse,'product_price' => $product_price));
     }
     public function select_product_type(Request $request){
         $data = $request->all();
     	$getAllListProduct = '';
+        $getAllListWareHouse = '';
+        $product_price=0;
         $select_product = Product::where('category_id',$data['category_id'])->where('product_type_id',$data['product_type_id'])->orderBy('product_id','ASC')->get();
         if($select_product->count() > 0){ 
             foreach($select_product as $key => $product){
                 $getAllListProduct.='<option value="'.$product->product_id.'">'.$product->product_name.'</option>';
-            }
+            } 
+            $product_price=$select_product[0]->product_price;
         }else{
             $getAllListProduct.='<option value="">--Chọn Sản Phẩm--</option>';
         }
-    	return response()->json(array('getAllListProduct'=>$getAllListProduct));
+        $select_warehouse = WareHouse::where('product_id',$select_product[0]->product_id)->orderBy('ware_house_id','asc')->get();
+        // dd($select_warehouse);
+        if($select_warehouse->count()>0){
+            foreach($select_warehouse as $key => $warehouse){
+                $getAllListWareHouse.='<option value="'.$warehouse->ware_house_id.'">'.'Size:&nbsp;'.$warehouse->color->color_name. '&nbsp; - &nbsp;'.'Color:&nbsp;'.$warehouse->size->size_attribute.'</option>';
+            }
+        }
+        else{
+            $getAllListWareHouse.='<option value="">--Chọn Kho Hàng--</option>';
+        }
+    	return response()->json(array('getAllListProduct'=>$getAllListProduct,'getAllListWareHouse'=>$getAllListWareHouse,'product_price'=>$product_price));
+    }
+    public function select_product(Request $request){
+        $data = $request->all();
+        // dd($data);
+        $getAllListWareHouse = '';
+        $product_price=Product::find($data['product_id'])->first('product_price');
+        $select_warehouse = WareHouse::where('product_id',$data['product_id'])->orderBy('ware_house_id','asc')->get();
+        if($select_warehouse->count()>0){
+            foreach($select_warehouse as $key => $warehouse){
+                $getAllListWareHouse.='<option value="'. $warehouse->ware_house_id.'">'.$warehouse->color->color_name. '-'.$warehouse->size->size_attribute.'</option>';
+            }
+        }
+        else{
+            $getAllListWareHouse.='<option value="">--Chọn Kho Hàng--</option>';
+        }
+        return response()->json(array('getAllListWareHouse'=>$getAllListWareHouse,'product_price'=>$product_price->product_price));
     }
     function save_product(Request $request){
         $data=$request->all();

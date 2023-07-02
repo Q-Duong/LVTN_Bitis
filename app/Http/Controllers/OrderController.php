@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\Receiver;
 use App\Models\WareHouse;
@@ -13,8 +14,9 @@ class OrderController extends Controller
 {
     function add_order()
     {
+        $getAllCategory=Category::orderBy('category_id','asc')->get();
         $getAllWareHouse = WareHouse::orderBy('ware_house_id')->get();
-        return view('admin.Order.add_order')->with(compact('getAllWareHouse'));
+        return view('admin.Order.add_order')->with(compact('getAllWareHouse','getAllCategory'));
     }
     function save_order(Request $request)
     {
@@ -27,6 +29,7 @@ class OrderController extends Controller
         $order->order_status = $data['order_status'];
         $order->order_payment_type = $data['order_payment_type'];
         $order->order_is_paid = $data['order_is_paid'];
+        $order->order_total=$data['total'];
         $order->save();
         $receiver = new Receiver();
         $receiver->receiver_first_name = $data['receiver_first_name'];
@@ -47,8 +50,7 @@ class OrderController extends Controller
     }
     function list_order()
     {
-        $getListOrder = Order::get();
+        $getListOrder = Order::orderBy('order_id','desc');
         return view('admin.Order.list_order')->with(compact('getListOrder'));
     }
-
 }

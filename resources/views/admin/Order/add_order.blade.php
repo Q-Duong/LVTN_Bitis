@@ -126,21 +126,45 @@
                     <div class="panel-body">
                         <div class="position-center">
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Sản phẩm</label>
-                                <select name="ware_house_id[]" class="form-control m-bot15 choose_category">
-                                    <option value="">--Chọn sản phẩm--</option>
-                                    @foreach ($getAllWareHouse as $key => $warehouse)
-                                        <option value="{{ $warehouse->ware_house_id }}">
-                                            {{ $warehouse->product->product_name }} - {{ $warehouse->color->color_name }}
-                                            - {{ $warehouse->size->size_attribute }} </option>
+                                <label>Danh mục sản phẩm</label>
+                                <select name="category_id" class="form-control m-bot15 choose_category">
+                                    <option value="">--Chọn Danh Mục--</option>
+                                    @foreach($getAllCategory as $key =>$category)
+                                    <option value="{{$category->category_id}}">{{$category->category_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Số lượng</label>
-                                <input type="number" min="1" name="order_detail_quantity[]" class="form-control">
+                                <label>Loại sản phẩm</label>
+                                <select name="product_type_id" class="form-control m-bot15 choose_product_type">
+                                    <option value="">--Chọn Loại Sản Phẩm--</option>
+                                </select>
                             </div>
-                            
+                            <div class="form-group">
+                                <label>Sản phẩm</label>
+                                <select name="product_id" class="form-control m-bot15 choose_product">
+                                    <option value="">--Chọn Sản Phẩm--</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kho hàng</label>
+                                <select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house">
+                                    <option value="">--Chọn Sản Phẩm Trong Kho--</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Số lượng</label>
+                                <input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity">
+                            </div>
+                            <div class="form-group">
+                                <label>Giá tiền</label>
+                                <input type="text" disabled name="product_price" class="form-control product_price" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Tổng giá tiền</label>
+                                <input type="hidden"  name="total" class="form-control total-format" value="">
+                                <input type="text" disabled name="total" class="form-control total" value="">
+                            </div>
                         </div>
                     </div>
                 </div>
