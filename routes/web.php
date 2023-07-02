@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,23 +16,100 @@ use Illuminate\Support\Facades\Route;
 */
 
 //-------------------------------------------- Backend --------------------------------------------
-Route::get('/admin','App\Http\Controllers\AccountController@index');
-Route::post('/admin-login','App\Http\Controllers\AccountController@admin_login');
-Route::get('/dashboard','App\Http\Controllers\AccountController@dashboard');
-//Category
-Route::get('/add-category','App\Http\Controllers\CategoryController@add_category');
-Route::post('save-category','App\Http\Controllers\CategoryController@save_category');
-Route::get('/list-category','App\Http\Controllers\CategoryController@list_category');
-Route::get('/edit-category/{category_id}','App\Http\Controllers\CategoryController@edit_category');
-Route::post('update-category/{category_id}','App\Http\Controllers\CategoryController@update_category');
-Route::get('/delete-category/{category_id}','App\Http\Controllers\CategoryController@delete_category');
-//CategoryType
-Route::get('/add-category-type','App\Http\Controllers\CategoryTypeController@add_category_type');
-Route::post('save-category-type','App\Http\Controllers\CategoryTypeController@save_category_type');
-Route::get('/list-category-type','App\Http\Controllers\CategoryTypeController@list_category_type');
-Route::get('/edit-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@edit_category_type');
-Route::post('update-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@update_category_type');
-Route::get('/delete-category-type/{category_type_id}','App\Http\Controllers\CategoryTypeController@delete_category_type');
+Route::prefix('admin')->group(function(){
+    Route::get('/',[AccountController::class,'index']);
+    Route::post('/login',[AccountController::class,'admin_login']);
+    Route::prefix('dashboard')->group(function(){
+        Route::get('/dashboard',[AccountController::class,'dashboard']);
+    });
+
+    //Category
+    Route::prefix('category')->group(function(){
+        Route::get('/add',[CategoryController::class,'add_category']);
+        Route::post('save',[CategoryController::class,'save_category']);
+        Route::get('/list',[CategoryController::class,'list_category']);
+        Route::get('/edit/{category_id}',[CategoryController::class,'edit_category']);
+        Route::post('update/{category_id}',[CategoryController::class,'update_category']);
+        Route::get('/delete/{category_id}',[CategoryController::class,'delete_category']);
+    });
+
+    //CategoryType
+    Route::prefix('category-type')->group(function(){
+        Route::get('/add','App\Http\Controllers\CategoryTypeController@add_category_type');
+        Route::post('save','App\Http\Controllers\CategoryTypeController@save_category_type');
+        Route::get('/list','App\Http\Controllers\CategoryTypeController@list_category_type');
+        Route::get('/edit/{category_type_id}','App\Http\Controllers\CategoryTypeController@edit_category_type');
+        Route::post('update/{category_type_id}','App\Http\Controllers\CategoryTypeController@update_category_type');
+        Route::get('/delete/{category_type_id}','App\Http\Controllers\CategoryTypeController@delete_category_type');
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+
+    Route::prefix('category')->group(function(){
+        
+    });
+});
+
+
+
 
 //ProductType
 Route::get('/add-product-type','App\Http\Controllers\ProductTypeController@add_product_type');
@@ -191,8 +270,8 @@ Route::get('/member/profile','App\Http\Controllers\LoginController@profile');
 Route::get('/member/settings','App\Http\Controllers\LoginController@settings');
 Route::post('/update-account-infomation/{user_id}','App\Http\Controllers\LoginController@update_account_information');
 Route::get('/member/settings/delivery-addresses','App\Http\Controllers\LoginController@delivery_addresses');
-Route::get('/member/orders','App\Http\Controllers\LoginController@orders');
-
+Route::get('/orders','App\Http\Controllers\LoginController@orders');
+Route::get('/orders/order-detail/{order_code}','App\Http\Controllers\LoginController@order_detail');
 
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');

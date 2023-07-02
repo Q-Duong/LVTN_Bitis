@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use Session;
 use App\Models\Account;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Receiver;
 use Illuminate\Support\Facades\Redirect;
+use DB;
+
 class LoginController extends Controller
 {
     public function login(){
@@ -102,6 +107,35 @@ class LoginController extends Controller
              return view('pages.login.account_delivery_address');
         }else{
              return Redirect::to('login');
+        }
+    }
+
+    public function orders(){
+        if(Session::get('user_id')){
+            $getAllOrder = Order::join('order_detail','order_detail.order_id', '=', 'order.order_id')
+            ->join('receiver','receiver.order_id', '=', 'order.order_id')
+            ->join('user','user.user_id', '=', 'order.user_id')
+            ->join('ware_house','ware_house.ware_house_id', '=', 'order_detail.ware_house_id')
+            ->join('product','product.product_id', '=', 'ware_house.product_id')
+            ->where('order.user_id',Session::get('user_id'))
+            ->orWhere('receiver.receiver_phone',Session::get('user_phone'))
+            ->orderBy('order.created_at','ASC')
+            ->get(['order_code','order_total','order_detail_quantity','product_image','product_name','product_price','order_status',]);
+            
+            return view('pages.login.account_orders')->with(compact('getAllOrder'));
+        }else{
+            return Redirect::to('login');
+        }
+    }
+
+    public function order_detail($order_code){
+        if(Session::get('user_id')){
+            $getOrder = Order::where('order_code',$order_code)->first();
+            $getOrderReceiver = Receiver::where('order_id',$getOrder->order_id)->first();
+            $getOrderDetail = OrderDetail::where('order_id',$getOrder->order_id)->get();
+            return view('pages.login.account_order_detail')->with(compact('getOrder','getOrderReceiver','getOrderDetail'));
+        }else{
+            return Redirect::to('login');
         }
     }
 }

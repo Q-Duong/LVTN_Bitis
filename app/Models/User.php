@@ -16,7 +16,10 @@ class User extends Model
     public function account(){
         return $this->belongsTo('App\Models\Account','account_id');
     }
-    public function receiver(){
-        $this->hasMany('App\Models\Receiver');
+    public function order(){
+        $this->hasMany('App\Models\Order');
+    }
+    public function delivery(){
+        $this->hasMany('App\Models\Delivery');
     }
 }
