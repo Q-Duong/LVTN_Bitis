@@ -353,12 +353,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-user-admin') }}">
+                                    <a href="{{ URL::to('/admin/user/add') }}">
                                         <i class="fas fa-user-plus"></i> Thêm khách hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-user') }}">
+                                    <a href="{{ URL::to('/admin/user/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý khách hàng
                                     </a>
                                 </li>
@@ -372,12 +372,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-employee') }}">
+                                    <a href="{{ URL::to('/admin/employee/add') }}">
                                         <i class="fas fa-user-plus"></i> Thêm nhân viên
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-employee') }}">
+                                    <a href="{{ URL::to('/admin/employee/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý nhân viên
                                     </a>
                                 </li>

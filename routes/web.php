@@ -8,7 +8,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\GalleryController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +23,14 @@ use App\Http\Controllers\GalleryController;
 */
 
 //-------------------------------------------- Backend --------------------------------------------
+ //Ajax
+        Route::post('select-category','App\Http\Controllers\ProductController@select_category');
+        Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
+        Route::post('select-product','App\Http\Controllers\ProductController@select_product');
+        Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
+        Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
+        Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
+        Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
 Route::prefix('admin')->group(function(){
     Route::get('/',[AccountController::class,'index']);
     Route::post('/login',[AccountController::class,'admin_login']);
@@ -56,9 +66,6 @@ Route::prefix('admin')->group(function(){
         Route::post('update/{product_id}',[ProductController::class,'update_product']);
         Route::get('/delete/{product_id}',[ProductController::class,'delete_product']);   
     });
-        Route::post('select-category','App\Http\Controllers\ProductController@select_category');
-        Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
-        Route::post('select-product','App\Http\Controllers\ProductController@select_product');
     //ProductType
     Route::prefix('product-type')->group(function(){
         Route::get('/add',[ProductTypeController::class,'add_product_type']);
@@ -80,23 +87,34 @@ Route::prefix('admin')->group(function(){
     //Gallery
     Route::prefix('gallery')->group(function(){
         Route::get('add/{product_id}',[GalleryController::class,'add_gallery']);
-        Route::post('select',[GalleryController::class,'select_gallery']);
         Route::post('insert/{product_id}',[GalleryController::class,'insert_gallery']);
-        Route::post('update-name',[GalleryController::class,'update_gallery_name']);
-        Route::post('delete',[GalleryController::class,'delete_gallery']);
-        Route::post('update',[GalleryController::class,'update_gallery']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //User
+    Route::prefix('user')->group(function(){
+        Route::get('/add',[UserController::class,'add_user']);
+        Route::post('/save',[UserController::class,'save_user']);
+        Route::get('/list',[UserController::class,'list_user']);
+        Route::get('/edit/{user_id}',[UserController::class,'edit_user']);
+        Route::post('update/{user_id}',[UserController::class,'update_user']);
+        Route::get('/delete/{user_id}',[UserController::class,'delete_user']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Employee
+    Route::prefix('employee')->group(function(){ 
+        Route::get('/add',[EmployeeController::class,'add_employee']);
+        Route::post('/save',[EmployeeController::class,'save_employee']);
+        Route::get('/list',[EmployeeController::class,'list_employee']);
+        Route::get('/edit/{employee_id}',[EmployeeController::class,'edit_employee']);
+        Route::post('update/{employee_id}',[EmployeeController::class,'update_employee']);
+        Route::get('/delete/{employee_id}',[EmployeeController::class,'delete_employee']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    // Post
+    Route::prefix('post')->group(function(){ 
+        Route::get('/add',[PostController::class,'add_post']);
+        Route::post('/save',[PostController::class,'save_post']);
+        Route::get('/list',[PostController::class,'list_post']);
+        Route::get('/edit/{post_id}',[PostController::class,'edit_post']);
+        Route::post('update/{post_id}',[PostController::class,'update_post']);
+        Route::get('/delete/{post_id}',[PostController::class,'delete_post']);
     });
 
     Route::prefix('category')->group(function(){
@@ -137,23 +155,7 @@ Route::prefix('admin')->group(function(){
 });
 
 
-//Gallery
 
-//User
-Route::get('/add-user-admin','App\Http\Controllers\UserController@add_user');
-Route::post('/save-user','App\Http\Controllers\UserController@save_user');
-Route::get('/list-user','App\Http\Controllers\UserController@list_user');
-Route::get('/edit-user/{user_id}','App\Http\Controllers\UserController@edit_user');
-Route::post('update-user/{user_id}','App\Http\Controllers\UserController@update_user');
-Route::get('/delete-user/{user_id}','App\Http\Controllers\UserController@delete_user');
-
-//Employee
-Route::get('/add-employee','App\Http\Controllers\EmployeeController@add_employee');
-Route::post('/save-employee','App\Http\Controllers\EmployeeController@save_employee');
-Route::get('/list-employee','App\Http\Controllers\EmployeeController@list_employee');
-Route::get('/edit-employee/{employee_id}','App\Http\Controllers\EmployeeController@edit_employee');
-Route::post('update-employee/{employee_id}','App\Http\Controllers\EmployeeController@update_employee');
-Route::get('/delete-employee/{employee_id}','App\Http\Controllers\EmployeeController@delete_employee');
 
 //Category Post
 Route::get('/add-category-post','App\Http\Controllers\CategoryPostController@add_category_post');
@@ -163,13 +165,7 @@ Route::get('/edit-category-post/{category_post_id}','App\Http\Controllers\Catego
 Route::post('update-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@update_category_post');
 Route::get('/delete-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@delete_category_post');
 
-// Post
-Route::get('/add-post','App\Http\Controllers\PostController@add_post');
-Route::post('/save-post','App\Http\Controllers\PostController@save_post');
-Route::get('/list-post','App\Http\Controllers\PostController@list_post');
-Route::get('/edit-post/{post_id}','App\Http\Controllers\PostController@edit_post');
-Route::post('update-post/{post_id}','App\Http\Controllers\PostController@update_post');
-Route::get('/delete-post/{post_id}','App\Http\Controllers\PostController@delete_post');
+
 
 //Color
 Route::get('/add-color','App\Http\Controllers\ColorController@add_color');
