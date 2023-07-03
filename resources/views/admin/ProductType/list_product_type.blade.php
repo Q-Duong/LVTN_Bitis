@@ -27,14 +27,14 @@
                         <td>{{ $pro_type -> product_type_id }}</td>
                         <td>{{$pro_type -> product_type_name}}</td>
                         <td>{{ $pro_type-> product_type_slug }}</td>
-                        <td><img class="img-fluid" src="uploads/productType/{{ $pro_type->product_type_img }}" alt="">
+                        <td><img class="img-fluid" src="{{ asset('uploads/productType/' . $pro_type->product_type_img) }}" alt="">
                         <td>
-                            <a href="{{URL::to('edit-product-type/'.$pro_type -> product_type_id)}}"
+                            <a href="{{URL::to('/admin/product-type/edit/'.$pro_type -> product_type_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i
                                     class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
                             <a onclick="return confirm('Nếu bạn xóa Danh mục sản phẩm thì sản phẩn thuộc danh mục cũng sẻ bị xóa. Bạn có chắc muốn xóa danh mục?')"
-                                href="{{URL::to('delete-product-type/'.$pro_type -> product_type_id)}}"
+                                href="{{URL::to('/admin/product-type/delete/'.$pro_type -> product_type_id)}}"
                                 class="active style-edit" ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>
                             </a>

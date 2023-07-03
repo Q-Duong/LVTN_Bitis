@@ -27,12 +27,12 @@
                         <td>{{$cate_type -> category-> category_name}}</td>
                         <td>{{ $cate_type-> productType ->product_type_name }}</td>
                         <td>
-                            <a href="{{URL::to('edit-category-type/'.$cate_type -> category_type_id)}}"
+                            <a href="{{URL::to('/admin/category-type/edit/'.$cate_type -> category_type_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i
                                     class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
                             <a onclick="return confirm('Nếu bạn xóa Danh mục sản phẩm thì sản phẩn thuộc danh mục cũng sẻ bị xóa. Bạn có chắc muốn xóa danh mục?')"
-                                href="{{URL::to('delete-category-type/'.$cate_type -> category_type_id)}}"
+                                href="{{URL::to('/admin/category-type/delete/'.$cate_type -> category_type_id)}}"
                                 class="active style-edit" ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>
                             </a>

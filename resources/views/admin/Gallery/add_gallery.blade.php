@@ -5,7 +5,7 @@
         <section class="panel">
             <header class="panel-heading">
                 Thêm thư viện ảnh
-                <a href="{{URL::to('/list-product')}}" class="btn btn-info edit">Quản lý</a>
+                <a href="{{URL::to('/admin/gallery/list')}}" class="btn btn-info edit">Quản lý</a>
             </header>
             
             <div class="panel-body">
@@ -16,7 +16,7 @@
                         <div class="alert alert-success">{!! session('success') !!}</div>
                     @endif
                     </div>
-                    <form action="{{url('/insert-gallery/'.$product_id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/gallery/insert/'.$product_id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                         <div class="row">
                             <div class="col-md-2">

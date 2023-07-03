@@ -23,17 +23,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
-    }
-    // public function index(){
-    // 	$getAllListNewProduct=Product::where('product_tag',1)->inRandomOrder('product_id')->limit(8)->get();
-    //     $getAllListSaleProduct=Product::where('product_tag',3)->inRandomOrder('product_id')->limit(8)->get();
-    //     $getAllBanner=Banner::get();
-    //     $getAllPost=Post::inRandomOrder('post_id')->get();
-    // 	return view('pages.home')->with(compact('getAllListSaleProduct','getAllListNewProduct','getAllBanner','getAllPost'));
+    // public function index()
+    // {
+    //     return view('home');
     // }
+    public function index(){
+    	$getAllListNewProduct=Product::where('product_tag',1)->inRandomOrder('product_id')->limit(8)->get();
+        $getAllListSaleProduct=Product::where('product_tag',3)->inRandomOrder('product_id')->limit(8)->get();
+        $getAllBanner=Banner::get();
+        $getAllPost=Post::inRandomOrder('post_id')->get();
+    	return view('pages.home')->with(compact('getAllListSaleProduct','getAllListNewProduct','getAllBanner','getAllPost'));
+    }
 
     public function wistlist(){
        return view('pages.wistlist.wistlist');
