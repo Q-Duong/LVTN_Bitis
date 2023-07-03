@@ -7,13 +7,13 @@
                     Cập nhật cửa hàng
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/list-store') }}" class="btn btn-info edit">Quản lý</a>
+                        <a href="{{ URL::to('/admin/store/list') }}" class="btn btn-info edit">Quản lý</a>
                     </span>
                 </header>
 
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ URL::to('/update-store/' . $edit_value->store_id) }}"
+                        <form role="form" action="{{ URL::to('/admin/store/update/' . $edit_value->store_id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group" style="text-align:center;">

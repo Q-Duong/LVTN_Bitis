@@ -2,7 +2,7 @@
 @section('admin_content')
     <div class="row">
         <div class="col-lg-12">
-            <form role="form" action="{{ URL::to('/save-order') }}" method="post"
+            <form role="form" action="{{ URL::to('/admin/order/save') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
             <section class="panel">
@@ -10,7 +10,7 @@
                     Thêm đơn hàng
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/list-order') }}" class="btn btn-info edit">Quản lý</a>
+                        <a href="{{ URL::to('/admin/order/list') }}" class="btn btn-info edit">Quản lý</a>
                     </span>
                 </header>
                 <div class="panel-body">
@@ -55,7 +55,7 @@
                     Người nhận
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/list-order') }}" class="btn btn-info edit">Quản lý</a>
+                        <a href="{{ URL::to('/admin/order/list') }}" class="btn btn-info edit">Quản lý</a>
                     </span>
                 </header>
                 <div class="panel-body">

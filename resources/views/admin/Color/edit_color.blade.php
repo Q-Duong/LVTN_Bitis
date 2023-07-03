@@ -7,13 +7,13 @@
                 Cập nhật màu sản phẩm
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-color')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/color/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-color/'.$edit_value->color_id)}}"
+                    <form role="form" action="{{URL::to('/admin/color/update/'.$edit_value->color_id)}}"
                         method="post" >
                         @csrf
                         <div class="form-group">

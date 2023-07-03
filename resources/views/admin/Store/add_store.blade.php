@@ -7,13 +7,13 @@
                 Thêm cửa hàng
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-store')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/store/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-store')}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{URL::to('/admin/store/save')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group" style="text-align:center;">
                             @if(session('success'))

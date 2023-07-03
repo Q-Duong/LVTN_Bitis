@@ -15,7 +15,6 @@
                     <tr>
                         <th>Tên danh mục bài viết</th>
                         <th>Slug danh mục bài viết</th>
-                        <th>Hiển thị</th>
                         <th style="width:60px;">Quản lý</th>
                     </tr>
                 </thead>
@@ -24,31 +23,16 @@
                     <tr>
                         <td>{{$cate_post -> category_post_name}}</td>
                         <td>{{$cate_post->category_post_slug}}</td>
-                        <td><span class="text-ellipsis">
-                                <?php
-                            if($cate_post -> category_post_status==1){
-                        ?>
-                                <a href="{{URL::to('/active-category-post/'.$cate_post ->category_post_id)}}"><span
-                                        class="fa-styling fa fa-eye"></span></a>
-                                <?php
-                            }else{
-                        ?>
-                                <a href="{{URL::to('/unactive-category-post/'.$cate_post ->category_post_id)}}"><span
-                                        class="fa-styling fa fa-eye-slash"></span></a>
-                                <?php        
-                            }
-                        ?>
-                            </span></td>
                         <td>
                             <!-- <a href="{{URL::to('/add-category-post')}}"
                                 class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>
                             </a> -->
-                            <a href="{{URL::to('edit-category-post/'.$cate_post -> category_post_id)}}"
+                            <a href="{{URL::to('/admin/category-post/edit/'.$cate_post -> category_post_id)}}"
                                 class="active style-edit" ui-toggle-class=""><i
                                     class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
                             <a onclick="return confirm('Nếu bạn xóa Danh mục tin tức thì tin túc thuộc danh mục cũng sẻ bị xóa. Bạn có chắc muốn xóa danh mục?')"
-                                href="{{URL::to('delete-category-post/'.$cate_post -> category_post_id)}}"
+                                href="{{URL::to('/admin/category-post/delete/'.$cate_post -> category_post_id)}}"
                                 class="active style-edit" ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>
                             </a>

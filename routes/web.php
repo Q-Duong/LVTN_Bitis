@@ -11,6 +11,15 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryPostController;
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\SizeController;
+use App\Http\Controllers\WareHouseController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\InfomationController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ImportOrderController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,113 +125,81 @@ Route::prefix('admin')->group(function(){
         Route::post('update/{post_id}',[PostController::class,'update_post']);
         Route::get('/delete/{post_id}',[PostController::class,'delete_post']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Category Post
+    Route::prefix('category-post')->group(function(){
+        Route::get('/add',[CategoryPostController::class,'add_category_post']);
+        Route::post('/save',[CategoryPostController::class,'save_category_post']);
+        Route::get('/list',[CategoryPostController::class,'list_category_post']);
+        Route::get('/edit/{category_post_id}',[CategoryPostController::class,'edit_category_post']);
+        Route::post('update/{category_post_id}',[CategoryPostController::class,'update_category_post']);
+        Route::get('/delete/{category_post_id}',[CategoryPostController::class,'delete_category_post']);  
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Color
+    Route::prefix('color')->group(function(){
+        Route::get('/add',[ColorController::class,'add_color']);
+        Route::post('/save',[ColorController::class,'save_color']);
+        Route::get('/list',[ColorController::class,'list_color']);
+        Route::get('/edit/{post_id}',[ColorController::class,'edit_color']);
+        Route::post('update/{color_id}',[ColorController::class,'update_color']);
+        Route::get('/delete/{color_id}',[ColorController::class,'delete_color']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Size
+    Route::prefix('size')->group(function(){           
+        Route::get('/add',[SizeController::class,'add_size']);
+        Route::post('/save',[SizeController::class,'save_size']);
+        Route::get('/list',[SizeController::class,'list_size']);
+        Route::get('/edit/{size_id}',[SizeController::class,'edit_size']);
+        Route::post('update/{size_id}',[SizeController::class,'update_size']);
+        Route::get('/delete/{size_id}',[SizeController::class,'delete_size']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //WareHouse
+    Route::prefix('ware-house')->group(function(){
+        Route::get('/add',[WareHouseController::class,'add_ware_house']);
+        Route::get('/list',[WareHouseController::class,'list_ware_house']);
+        Route::get('/edit/{ware_house_id}',[WareHouseController::class,'edit_ware_house']);
+        Route::get('/delete/{ware_house_id}',[WareHouseController::class,'delete_ware_house']);
+        Route::post('/save',[WareHouseController::class,'save_ware_house']);
+        Route::post('/update/{ware_house_id}',[WareHouseController::class,'update_ware_house']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Store
+    Route::prefix('store')->group(function(){ 
+        Route::get('/add',[StoreController::class,'add_store']);
+        Route::get('/list',[StoreController::class,'list_store']);
+        Route::get('/edit/{store_id}',[StoreController::class,'edit_store']);
+        Route::get('/delete/{store_id}',[StoreController::class,'delete_store']);
+        Route::post('/save',[StoreController::class,'save_store']);
+        Route::post('/update/{store_id}',[StoreController::class,'update_store']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Contact
+    Route::prefix('contact')->group(function(){
+        Route::get('/edit/{info_id}',[InfomationController::class,'edit_info']);
+        Route::post('/update/{info_id}',[InfomationController::class,'update_info']);      
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Message
+    Route::prefix('message')->group(function(){
+        Route::get('/list',[MessageController::class,'list_message']);
+        Route::get('/delete/{message_id}',[MessageController::class,'delete_message']); 
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //ImportOrder
+    Route::prefix('import-order')->group(function(){   
+        Route::get('/add',[ImportOrderController::class,'add_import_order']);
+        Route::get('/list',[ImportOrderController::class,'list_import_order']);
+        // Route::get('/edit/{import_order_id}',[ImportOrderController::class,'edit_import_order']);
+        // Route::get('/delete/{import_order_id}',[ImportOrderController::class,'delete_import_order']);
+        Route::post('/save',[ImportOrderController::class,'save_import_order']);
+        // Route::post('/update/{import_order_id}',[ImportOrderController::class,'update_import_order']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Order, Reciver
+    Route::prefix('order')->group(function(){     
+        Route::get('/add',[OrderController::class,'add_order']);
+        Route::post('/save',[OrderController::class,'save_order']);
+        Route::get('/list',[OrderController::class,'list_order']);
+        Route::get('/edit/{order_id}',[OrderController::class,'edit_order']);
+        Route::post('update/{order_id}',[OrderController::class,'update_order']);
+        Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);      
     });
 });
-
-
-
-
-//Category Post
-Route::get('/add-category-post','App\Http\Controllers\CategoryPostController@add_category_post');
-Route::post('/save-category-post','App\Http\Controllers\CategoryPostController@save_category_post');
-Route::get('/list-category-post','App\Http\Controllers\CategoryPostController@list_category_post');
-Route::get('/edit-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@edit_category_post');
-Route::post('update-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@update_category_post');
-Route::get('/delete-category-post/{category_post_id}','App\Http\Controllers\CategoryPostController@delete_category_post');
-
-
-
-//Color
-Route::get('/add-color','App\Http\Controllers\ColorController@add_color');
-Route::post('/save-color','App\Http\Controllers\ColorController@save_color');
-Route::get('/list-color','App\Http\Controllers\ColorController@list_color');
-Route::get('/edit-color/{post_id}','App\Http\Controllers\ColorController@edit_color');
-Route::post('update-color/{color_id}','App\Http\Controllers\ColorController@update_color');
-Route::get('/delete-color/{color_id}','App\Http\Controllers\ColorController@delete_color');
-
-
-//Size
-Route::get('/add-size','App\Http\Controllers\SizeController@add_size');
-Route::post('/save-size','App\Http\Controllers\SizeController@save_size');
-Route::get('/list-size','App\Http\Controllers\SizeController@list_size');
-Route::get('/edit-size/{size_id}','App\Http\Controllers\SizeController@edit_size');
-Route::post('update-size/{size_id}','App\Http\Controllers\SizeController@update_size');
-Route::get('/delete-size/{size_id}','App\Http\Controllers\SizeController@delete_size');
-
-//WareHouse
-Route::get('/add-ware-house','App\Http\Controllers\WareHouseController@add_ware_house');
-Route::get('/list-ware-house','App\Http\Controllers\WareHouseController@list_ware_house');
-Route::get('/edit-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@edit_ware_house');
-Route::get('/delete-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@delete_ware_house');
-Route::post('/save-ware-house','App\Http\Controllers\WareHouseController@save_ware_house');
-Route::post('/update-ware-house/{ware_house_id}','App\Http\Controllers\WareHouseController@update_ware_house');
-//Store
-Route::get('/add-store','App\Http\Controllers\StoreController@add_store');
-Route::get('/list-store','App\Http\Controllers\StoreController@list_store');
-Route::get('/edit-store/{store_id}','App\Http\Controllers\StoreController@edit_store');
-Route::get('/delete-store/{store_id}','App\Http\Controllers\StoreController@delete_store');
-Route::post('/save-store','App\Http\Controllers\StoreController@save_store');
-Route::post('/update-store/{store_id}','App\Http\Controllers\StoreController@update_store');
-
-//Contact
-Route::get('/edit-info/{info_id}','App\Http\Controllers\InfomationController@edit_info');
-Route::post('/update-info/{info_id}','App\Http\Controllers\InfomationController@update_info');
-
-//Message
-Route::get('/list-message','App\Http\Controllers\MessageController@list_message');
 Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
-Route::get('/delete-message/{message_id}','App\Http\Controllers\MessageController@delete_message');
-
-//ImportOrder
-Route::get('/add-import-order','App\Http\Controllers\ImportOrderController@add_import_order');
-Route::get('/list-import-order','App\Http\Controllers\ImportOrderController@list_import_order');
-Route::get('/edit-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@edit_import_order');
-Route::get('/delete-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@delete_import_order');
-Route::post('/save-import-order','App\Http\Controllers\ImportOrderController@save_import_order');
-Route::post('/update-import-order/{import_order_id}','App\Http\Controllers\ImportOrderController@update_import_order');
-
-//Order, Reciver
-Route::get('/add-order','App\Http\Controllers\OrderController@add_order');
-Route::post('/save-order','App\Http\Controllers\OrderController@save_order');
-Route::get('/list-order','App\Http\Controllers\OrderController@list_order');
-Route::get('/edit-order/{order_id}','App\Http\Controllers\OrderController@edit_order');
-Route::post('update-order/{order_id}','App\Http\Controllers\OrderController@update_order');
-Route::get('/delete-order/{order_id}','App\Http\Controllers\OrderController@delete_order');
 
 
 

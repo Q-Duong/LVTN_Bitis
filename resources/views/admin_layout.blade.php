@@ -281,12 +281,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-ware-house') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/add') }}">
                                         <i class="fa fa-plus"></i> Thêm kho hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-ware-house') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý kho hàng
                                     </a>
                                 </li>
@@ -299,12 +299,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-import-order') }}">
+                                    <a href="{{ URL::to('/admin/import-order/add') }}">
                                         <i class="fa fa-plus"></i> Thêm đơn nhập
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-import-order') }}">
+                                    <a href="{{ URL::to('/admin/import-order/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn nhập
                                     </a>
                                 </li>
@@ -317,12 +317,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-size') }}">
+                                    <a href="{{ URL::to('/admin/size/add') }}">
                                         <i class="fa fa-plus"></i> Thêm Size
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-size') }}">
+                                    <a href="{{ URL::to('/admin/size/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý Size
                                     </a>
                                 </li>
@@ -335,12 +335,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-color') }}">
+                                    <a href="{{ URL::to('/admin/color/add') }}">
                                         <i class="fa fa-plus"></i> Thêm màu
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-color') }}">
+                                    <a href="{{ URL::to('/admin/color/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý màu
                                     </a>
                                 </li>
@@ -390,12 +390,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-order') }}">
+                                    <a href="{{ URL::to('/admin/order/add') }}">
                                         <i class="fas fa-user-plus"></i> Thêm đơn hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-order') }}">
+                                    <a href="{{ URL::to('/admin/order/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn hàng
                                     </a>
                                 </li>
@@ -408,12 +408,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-category-post') }}">
+                                    <a href="{{ URL::to('/admin/category-post/add') }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-category-post') }}">
+                                    <a href="{{ URL::to('/admin/category-post/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý danh mục bài viết
                                     </a>
                                 </li>
@@ -426,12 +426,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-post') }}">
+                                    <a href="{{ URL::to('/admin/post/add') }}">
                                         <i class="fa fa-plus"></i> Thêm bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-post') }}">
+                                    <a href="{{ URL::to('/admin/post/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý bài viết
                                     </a>
                                 </li>
@@ -462,25 +462,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-store') }}">
+                                    <a href="{{ URL::to('/admin/store/add') }}">
                                         <i class="fa fa-plus"></i> Thêm cửa hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-store') }}">
+                                    <a href="{{ URL::to('/admin/store/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý cửa hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/edit-info/1') }}">
+                            <a href="{{ URL::to('/admin/contact/edit/1') }}">
                                 <i class="fa fa-users"></i>
                                 <span>Liên hệ</span>
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/list-message') }}">
+                            <a href="{{ URL::to('/admin/message/list') }}">
                                 <i class="far fa-newspaper"></i>
                                 <span>Quản lí tin nhắn</span>
                             </a>

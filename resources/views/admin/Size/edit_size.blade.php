@@ -7,13 +7,13 @@
                     Cập nhật Size
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
-                        <a href="{{ URL::to('/list-size') }}" class="btn btn-info edit">Quản lý</a>
+                        <a href="{{ URL::to('/admin/size/list') }}" class="btn btn-info edit">Quản lý</a>
                     </span>
                 </header>
 
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ URL::to('/update-size/' . $edit_value->size_id) }}"
+                        <form role="form" action="{{ URL::to('/admin/size/update/' . $edit_value->size_id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group" style="text-align:center;">

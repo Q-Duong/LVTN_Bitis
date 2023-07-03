@@ -53,4 +53,5 @@ class OrderController extends Controller
         $getListOrder = Order::orderBy('order_id','desc');
         return view('admin.Order.list_order')->with(compact('getListOrder'));
     }
+    
 }
