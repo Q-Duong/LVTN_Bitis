@@ -127,7 +127,7 @@
                         <div class="position-center">
                             <div class="form-group section-category">
                                 <label>Danh mục sản phẩm</label>
-                                <select name="category_id" class="form-control m-bot15 choose_category">
+                                <select name="category_id" data-id_category="0" class="form-control m-bot15 choose_category">
                                     <option value="">--Chọn Danh Mục--</option>
                                     @foreach($getAllCategory as $key =>$category)
                                     <option value="{{$category->category_id}}">{{$category->category_name}}</option>
@@ -136,13 +136,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Loại sản phẩm</label>
-                                <select name="product_type_id" class="form-control m-bot15 choose_product_type">
+                                <select name="product_type_id" data-id_type="0" class="form-control m-bot15 choose_product_type">
                                     <option value="">--Chọn Loại Sản Phẩm--</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Sản phẩm</label>
-                                <select name="product_id" class="form-control m-bot15 choose_product">
+                                <select name="product_id" data-id_product="0" class="form-control m-bot15 choose_product">
                                     <option value="">--Chọn Sản Phẩm--</option>
                                 </select>
                             </div>
@@ -158,7 +158,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Giá tiền</label>
-                                <input type="text" disabled name="product_price" class="form-control product_price" value="">
+                                <input type="text" disabled name="product_price" class="form-control product_price" >
                             </div>
                             
                         </div>
@@ -166,8 +166,8 @@
                 </div>
                 <div class="form-group">
                     <label>Tổng giá tiền</label>
-                    <input type="hidden"  name="total" class="form-control total-format" value="">
-                    <input type="text" disabled name="total" class="form-control total" value="">
+                    <input type="hidden"  name="total" class="form-control total-format" >
+                    <input type="text" disabled name="total" class="form-control total" >
                 </div>
             </section>
             <button type="submit" name="add_order_detail" class="btn btn-info">

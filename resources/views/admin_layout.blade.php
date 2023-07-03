@@ -874,78 +874,167 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
 
 
-        $(document).on('change', '.choose_category', function() {
-            var category_id = $(this).val();
-            var order_detail_quantity = $('.order_detail_quantity').val();
-            var _token = $('input[name="_token"]').val();
-            var total = 0;
-            $.ajax({
-                url: "{{ url('/select-category') }}",
-                method: 'POST',
-                data: {
-                    category_id: category_id,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('.choose_product_type').html(data.getAllListProductType);
-                    $('.choose_product').html(data.getAllListProduct);
-                    $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
-                        .product_price) + "₫");
-                    total = order_detail_quantity * data.product_price;
-                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
-                    $('.total-format').val(total);
-                }
+        $(document).on('change',
+            ".choose_category, .choose_category_1, .choose_category_2, .choose_category_3, .choose_category_4",
+            function() {
+                var id_category = $(this).data('id_category');
+                var category_id = $(this).val();
+                var order_detail_quantity = $('.order_detail_quantity').val();
+                var _token = $('input[name="_token"]').val();
+                var total = 0;
+                $.ajax({
+                    url: "{{ url('/select-category') }}",
+                    method: 'POST',
+                    data: {
+                        category_id: category_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        if (id_category == 0) {
+                            $('.choose_product_type').html(data.getAllListProductType);
+                            $('.choose_product').html(data.getAllListProduct);
+                            $('.choose_ware_house').html(data.getAllListWareHouse);
+                            $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_category == 1) {
+                            $('.choose_product_type_1').html(data.getAllListProductType);
+                            $('.choose_product_1').html(data.getAllListProduct);
+                            $('.choose_ware_house_1').html(data.getAllListWareHouse);
+                            $('.product_price_1').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_category == 2) {
+                            $('.choose_product_type_2').html(data.getAllListProductType);
+                            $('.choose_product_2').html(data.getAllListProduct);
+                            $('.choose_ware_house_2').html(data.getAllListWareHouse);
+                            $('.product_price_2').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_category == 3) {
+                            $('.choose_product_type_3').html(data.getAllListProductType);
+                            $('.choose_product_3').html(data.getAllListProduct);
+                            $('.choose_ware_house_3').html(data.getAllListWareHouse);
+                            $('.product_price_3').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else {
+                            $('.choose_product_type_4').html(data.getAllListProductType);
+                            $('.choose_product_4').html(data.getAllListProduct);
+                            $('.choose_ware_house_4').html(data.getAllListWareHouse);
+                            $('.product_price_4').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        }
+
+                        total = order_detail_quantity * data.product_price;
+                        $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                        $('.total-format').val(total);
+                    }
+                });
             });
-        });
-        $(document).on('change', '.choose_product_type', function() {
-            var product_type_id = $(this).val();
-            var category_id = $('.choose_category option:selected').val();
-            var order_detail_quantity = $('.order_detail_quantity').val();
-            var _token = $('input[name="_token"]').val();
-            var total = 0;
-            // console.log(product_type_id, category_id);
-            $.ajax({
-                url: "{{ url('/select-product-type') }}",
-                method: 'POST',
-                data: {
-                    product_type_id: product_type_id,
-                    category_id: category_id,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('.choose_product').html(data.getAllListProduct);
-                    $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
-                        .product_price) + "₫");
-                    total = order_detail_quantity * data.product_price;
-                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
-                    $('.total-format').val(total);
+        $(document).on('change',
+            ".choose_product_type, .choose_product_type_1, .choose_product_type_2, .choose_product_type_3, .choose_product_type_4",
+            function() {
+                var id_type = $(this).data('id_type');
+                var product_type_id = $(this).val();
+                if (id_type == 0) {
+                    var category_id = $('.choose_category option:selected').val();
+                } else if (id_type == 1) {
+                    var category_id = $('.choose_category_1 option:selected').val();
+                } else if (id_type == 2) {
+                    var category_id = $('.choose_category_2 option:selected').val();
+                } else if (id_type == 3) {
+                    var category_id = $('.choose_category_3 option:selected').val();
+                } else {
+                    var category_id = $('.choose_category_4 option:selected').val();
                 }
+                
+                var order_detail_quantity = $('.order_detail_quantity').val();
+                var _token = $('input[name="_token"]').val();
+                var total = 0;
+                // console.log(product_type_id, category_id);
+                $.ajax({
+                    url: "{{ url('/select-product-type') }}",
+                    method: 'POST',
+                    data: {
+                        product_type_id: product_type_id,
+                        category_id: category_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        if (id_type == 0) {
+                            $('.choose_product').html(data.getAllListProduct);
+                            $('.choose_ware_house').html(data.getAllListWareHouse);
+                            $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_type == 1) {
+                            $('.choose_product_1').html(data.getAllListProduct);
+                            $('.choose_ware_house_1').html(data.getAllListWareHouse);
+                            $('.product_price_1').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_type == 2) {
+                            $('.choose_product_2').html(data.getAllListProduct);
+                            $('.choose_ware_house_2').html(data.getAllListWareHouse);
+                            $('.product_price_2').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_type == 3) {
+                            $('.choose_product_3').html(data.getAllListProduct);
+                            $('.choose_ware_house_3').html(data.getAllListWareHouse);
+                            $('.product_price_3').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else {
+                            $('.choose_product_4').html(data.getAllListProduct);
+                            $('.choose_ware_house_4').html(data.getAllListWareHouse);
+                            $('.product_price_4').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        }
+
+                        total = order_detail_quantity * data.product_price;
+                        $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                        $('.total-format').val(total);
+                    }
+                });
             });
-        });
-        $(document).on('change', '.choose_product', function() {
-            var product_id = $(this).val();
-            var _token = $('input[name="_token"]').val();
-            var order_detail_quantity = $('.order_detail_quantity').val();
-            var total = 0;
-            $.ajax({
-                url: "{{ url('/select-product') }}",
-                method: 'POST',
-                data: {
-                    product_id: product_id,
-                    _token: _token,
-                },
-                success: function(data) {
-                    $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
-                        .product_price) + "₫");
-                    total = order_detail_quantity * data.product_price;
-                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
-                    $('.total-format').val(total);
-                }
-            })
-        });
+        $(document).on('change',
+            ".choose_product, .choose_product_1, .choose_product_2, .choose_product_3, .choose_product_4",
+            function() {
+                var id_product = $(this).data('id_product');
+                var product_id = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                var order_detail_quantity = $('.order_detail_quantity').val();
+                var total = 0;
+                $.ajax({
+                    url: "{{ url('/select-product') }}",
+                    method: 'POST',
+                    data: {
+                        product_id: product_id,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        if (id_product == 0) {
+                            $('.choose_ware_house').html(data.getAllListWareHouse);
+                            $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_product == 1) {
+                            $('.choose_ware_house_1').html(data.getAllListWareHouse);
+                            $('.product_price_1').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_product == 2) {
+                            $('.choose_ware_house_2').html(data.getAllListWareHouse);
+                            $('.product_price_2').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_product == 3) {
+                            $('.choose_ware_house_3').html(data.getAllListWareHouse);
+                            $('.product_price_3').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else {
+                            $('.choose_ware_house_4').html(data.getAllListWareHouse);
+                            $('.product_price_4').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        }
+
+                        total = order_detail_quantity * data.product_price;
+                        $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                        $('.total-format').val(total);
+                    }
+                })
+            });
         $(document).on('keyup change', '.order_detail_quantity', function() {
             var order_detail_quantity = $(this).val();
             var product_price = $('.product_price').val();
@@ -960,20 +1049,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $(document).ready(function() {
             var sectionCategory = $('.section-category').html();
             var max = 4;
-            var x = 1;0
-            var html =
-                '<div class="panel-body"><div class="position-center"><div class="form-group">' +sectionCategory +'</div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" class="form-control m-bot15 choose_product_type"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" class="form-control m-bot15 choose_product"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity"></div><div class="form-group"><label>Giá tiền</label><input type="text" disabled name="product_price" class="form-control product_price" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+            var x = 1;
 
-
-
-            
             $("#add").click(function() {
                 if (x <= max) {
-                    $("#table_field").append(html);
+                    $("#table_field").append(
+                        '<div class="panel-body"><div class="position-center"><div class="form-group"><label>Danh mục sản phẩm</label><select name="category_id" data-id_category="' +
+                        x + '" class="form-control m-bot15 choose_category_' + x +
+                        '"><option value="">--Chọn Danh Mục--</option><option value="2">Nam</option><option value="4">Nữ</option><option value="8">Phụ Kiện</option><option value="9">Khuyến Mãi</option></select></div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" data-id_type="' +
+                        x + '" class="form-control m-bot15 choose_product_type_' + x +
+                        '"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" data-id_product="' +
+                        x + '" class="form-control m-bot15 choose_product_' + x +
+                        '"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house_' +
+                        x +
+                        '"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity_' +
+                        x +
+                        '"></div><div class="form-group"><label>Giá tiền</label><input type="text" data-id_price="' +
+                        x + '" disabled name="product_price" class="form-control product_price_' + x +
+                        '" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+                        );
                     x++;
                 }
             })
-            // <div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div>
+
             $("#table_field").on('click', '#remove', function() {
                 $(this).closest('.input_address').remove();
                 x--;
@@ -1025,8 +1123,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         //     });
         // });
     </script>
-
-    <!-- //calendar -->
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,11 @@ use App\Http\Controllers\CategoryController;
 */
 
 //-------------------------------------------- Backend --------------------------------------------
-Route::prefix('admin')->group(function(){
-    Route::get('/',[AccountController::class,'index']);
-    Route::post('/login',[AccountController::class,'admin_login']);
+
+
+Route::prefix('admin')->middleware('auth')->group(function(){
+    // Route::get('/',[AccountController::class,'index']);
+    // Route::post('/login',[AccountController::class,'admin_login']);
     Route::prefix('dashboard')->group(function(){
         Route::get('/dashboard',[AccountController::class,'dashboard']);
     });
@@ -262,7 +265,7 @@ Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
 
 //Login
 Route::get('/login','App\Http\Controllers\LoginController@login');
-Route::get('/register','App\Http\Controllers\LoginController@register');
+// Route::get('/register','App\Http\Controllers\LoginController@register');
 Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
 Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
 Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
@@ -302,8 +305,13 @@ Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_a
 Route::post('/search','App\Http\Controllers\HomeController@search');
 
 
+
 Route::post('auth/register', 'UserController@register');
 Route::post('auth/login', 'UserController@login');
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get('user-info', 'UserController@getUserInfo');
 });
+
+Auth::routes();
+
+ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
