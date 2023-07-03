@@ -7,13 +7,13 @@
                 Cập nhật danh mục sản phẩm
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-category')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/category/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-category/'.$edit_value->category_id)}}"
+                    <form role="form" action="{{URL::to('/admin/category/update/'.$edit_value->category_id)}}"
                         method="post" >
                         @csrf
                         <div class="form-group">

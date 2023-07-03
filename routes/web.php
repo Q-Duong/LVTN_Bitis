@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryTypeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,28 +40,51 @@ Route::prefix('admin')->group(function(){
 
     //CategoryType
     Route::prefix('category-type')->group(function(){
-        Route::get('/add','App\Http\Controllers\CategoryTypeController@add_category_type');
-        Route::post('save','App\Http\Controllers\CategoryTypeController@save_category_type');
-        Route::get('/list','App\Http\Controllers\CategoryTypeController@list_category_type');
-        Route::get('/edit/{category_type_id}','App\Http\Controllers\CategoryTypeController@edit_category_type');
-        Route::post('update/{category_type_id}','App\Http\Controllers\CategoryTypeController@update_category_type');
-        Route::get('/delete/{category_type_id}','App\Http\Controllers\CategoryTypeController@delete_category_type');
+        Route::get('/add',[CategoryTypeController::class,'add_category_type']);
+        Route::post('save',[CategoryTypeController::class,'save_category_type']);
+        Route::get('/list',[CategoryTypeController::class,'list_category_type']);
+        Route::get('/edit/{category_type_id}',[CategoryTypeController::class,'edit_category_type']);
+        Route::post('update/{category_type_id}',[CategoryTypeController::class,'update_category_type']);
+        Route::get('/delete/{category_type_id}',[CategoryTypeController::class,'delete_category_type']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Product
+    Route::prefix('product')->group(function(){
+        Route::get('/add',[ProductController::class,'add_product']);
+        Route::post('/save',[ProductController::class,'save_product']);
+        Route::get('/list',[ProductController::class,'list_Product']);
+        Route::get('/edit/{product_id}',[ProductController::class,'edit_product']);
+        Route::post('update/{product_id}',[ProductController::class,'update_product']);
+        Route::get('/delete/{product_id}',[ProductController::class,'delete_product']);   
     });
-
-    Route::prefix('category')->group(function(){
-        
+        Route::post('select-category','App\Http\Controllers\ProductController@select_category');
+        Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
+        Route::post('select-product','App\Http\Controllers\ProductController@select_product');
+    //ProductType
+    Route::prefix('product-type')->group(function(){
+        Route::get('/add',[ProductTypeController::class,'add_product_type']);
+        Route::post('/save',[ProductTypeController::class,'save_product_type']);
+        Route::get('/list',[ProductTypeController::class,'list_product_type']);
+        Route::get('/edit/{product_type_id}',[ProductTypeController::class,'edit_product_type']);
+        Route::post('update/{product_type_id}',[ProductTypeController::class,'update_product_type']);
+        Route::get('/delete/{product_type_id}',[ProductTypeController::class,'delete_product_type']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Banner
+    Route::prefix('banner')->group(function(){ 
+        Route::get('/list',[BannerController::class,'list_banner']);
+        Route::get('/add',[BannerController::class,'add_banner']);
+        Route::get('/delete/{banner_id}',[BannerController::class,'delete_banner']);
+        Route::get('/edit/{banner_id}',[BannerController::class,'edit_banner']);
+        Route::post('/save',[BannerController::class,'save_banner']);
+        Route::post('/update/{banner_id}',[BannerController::class,'update_banner']);
     });
-
-    Route::prefix('category')->group(function(){
-        
+    //Gallery
+    Route::prefix('gallery')->group(function(){
+        Route::get('add/{product_id}',[GalleryController::class,'add_gallery']);
+        Route::post('select',[GalleryController::class,'select_gallery']);
+        Route::post('insert/{product_id}',[GalleryController::class,'insert_gallery']);
+        Route::post('update-name',[GalleryController::class,'update_gallery_name']);
+        Route::post('delete',[GalleryController::class,'delete_gallery']);
+        Route::post('update',[GalleryController::class,'update_gallery']);
     });
 
     Route::prefix('category')->group(function(){
@@ -109,43 +137,7 @@ Route::prefix('admin')->group(function(){
 });
 
 
-
-
-//ProductType
-Route::get('/add-product-type','App\Http\Controllers\ProductTypeController@add_product_type');
-Route::post('/save-product-type','App\Http\Controllers\ProductTypeController@save_product_type');
-Route::get('/list-product-type','App\Http\Controllers\ProductTypeController@list_product_type');
-Route::get('/edit-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@edit_product_type');
-Route::post('update-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@update_product_type');
-Route::get('/delete-product-type/{product_type_id}','App\Http\Controllers\ProductTypeController@delete_product_type');
-
-//Banner
-Route::get('/list-banner','App\Http\Controllers\BannerController@list_banner');
-Route::get('/add-banner','App\Http\Controllers\BannerController@add_banner');
-Route::get('/delete-banner/{banner_id}','App\Http\Controllers\BannerController@delete_banner');
-Route::get('/edit-banner/{banner_id}','App\Http\Controllers\BannerController@edit_banner');
-Route::post('/save-banner','App\Http\Controllers\BannerController@save_banner');
-Route::post('/update-banner/{banner_id}','App\Http\Controllers\BannerController@update_banner');
-//Route::update('/update-product-type','App\Http\Controllers\ProductController@update_product_type');
-
-//Product
-Route::get('/add-product','App\Http\Controllers\ProductController@add_product');
-Route::post('/save-product','App\Http\Controllers\ProductController@save_product');
-Route::get('/list-product','App\Http\Controllers\ProductController@list_product');
-Route::get('/edit-product/{product_id}','App\Http\Controllers\ProductController@edit_product');
-Route::post('update-product/{product_id}','App\Http\Controllers\ProductController@update_product');
-Route::get('/delete-product/{product_id}','App\Http\Controllers\ProductController@delete_product');
-Route::post('select-category','App\Http\Controllers\ProductController@select_category');
-Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
-Route::post('select-product','App\Http\Controllers\ProductController@select_product');
-
 //Gallery
-Route::get('add-gallery/{product_id}','App\Http\Controllers\GalleryController@add_gallery');
-Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
-Route::post('insert-gallery/{product_id}','App\Http\Controllers\GalleryController@insert_gallery');
-Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
-Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
-Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
 
 //User
 Route::get('/add-user-admin','App\Http\Controllers\UserController@add_user');
