@@ -95,7 +95,7 @@ class ProductController extends Controller
         $data = $request->all();
         // dd($data);
         $getAllListWareHouse = '';
-        $product_price=Product::find($data['product_id'])->first('product_price');
+        $product_price=Product::find($data['product_id']);
         $select_warehouse = WareHouse::where('product_id',$data['product_id'])->orderBy('ware_house_id','asc')->get();
         if($select_warehouse->count()>0){
             foreach($select_warehouse as $key => $warehouse){

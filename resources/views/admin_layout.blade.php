@@ -195,7 +195,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a class="active" href="{{ URL::to('/dashboard') }}">
+                            @php
+                                $route=Route::current();
+                            @endphp
+                            <a class="{{ $route->uri == 'dashboard' ? 'active' : '' }}"
+                                href="{{ URL::to('/dashboard') }}">
                                 <i class="far fa-chart-bar"></i>
                                 <span>Thống kê doanh thu</span>
                             </a>
@@ -203,13 +207,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;" class="{{ $route->uri == 'add-category' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-category') }}">
+                                    <a  href="{{ URL::to('/add-category') }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục
                                     </a>
                                 </li>
@@ -960,13 +964,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $(document).ready(function() {
             var sectionCategory = $('.section-category').html();
             var max = 4;
-            var x = 1;0
+            var x = 1;
+            0
             var html =
-                '<div class="panel-body"><div class="position-center"><div class="form-group">' +sectionCategory +'</div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" class="form-control m-bot15 choose_product_type"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" class="form-control m-bot15 choose_product"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity"></div><div class="form-group"><label>Giá tiền</label><input type="text" disabled name="product_price" class="form-control product_price" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+                '<div class="panel-body"><div class="position-center"><div class="form-group">' + sectionCategory +
+                '</div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" class="form-control m-bot15 choose_product_type"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" class="form-control m-bot15 choose_product"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity"></div><div class="form-group"><label>Giá tiền</label><input type="text" disabled name="product_price" class="form-control product_price" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
 
 
 
-            
+
             $("#add").click(function() {
                 if (x <= max) {
                     $("#table_field").append(html);

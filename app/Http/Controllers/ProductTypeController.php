@@ -23,6 +23,7 @@ class ProductTypeController extends Controller
         return view('admin.ProductType.list_product_type')->with(compact('getAllListProduct'));
     }
     function save_product_type(Request $request){
+        $this->checkProductType($request);
         $data=$request->all();
         $productType=new ProductType();
         $productType->product_type_name=$data['product_type_name'];
@@ -48,6 +49,7 @@ class ProductTypeController extends Controller
         return Redirect()->back()->with('success','Xóa danh mục sản phẩm thành công');
     }
     function update_product_type(Request $request,$product_type_id){
+        $this ->checkUpdateProductType($request);
         $data=$request->all();
         $productType=ProductType::find($product_type_id);
         $productType->product_type_name=$data['product_type_name'];
@@ -76,6 +78,35 @@ class ProductTypeController extends Controller
         $getAllListProductCategory = Product::where('category_id',$category->category_id)->where('product_type_id',$product_type->product_type_id)->orderBy('product_id','ASC')->get();
 
         return view('pages.category.show_product_type')->with(compact('getAllListProductCategory','category','product_type'));
+    }
+    //Validate
+    public function checkProductType(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'product_type_name' => 'required|unique:product_type,product_type_name',
+                'product_type_img' => 'required|image'
+            ],
+            [
+                'product_type_name.required' => 'Vui lòng nhập thông tin',
+                'product_type_name.unique' => 'Loại sản phẩm đã tồn tại vui lòng nhập lại',
+                'product_type_img.required' => 'Vui lòng chọn hình',
+                'product_type_img.image' => 'File chọn phải là file hình'
+            ]
+        );
+    }
+    public function checkUpdateProductType(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'product_type_name' => 'required'
+            ],
+            [
+                'product_type_name.required' => 'Vui lòng nhập thông tin',
+            ]
+        );
     }
 }
  

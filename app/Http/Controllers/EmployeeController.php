@@ -61,6 +61,30 @@ class EmployeeController extends Controller
         }
         return Redirect::to('list-employee')->with('success','Cập nhật nhân viên thành công');
     }
-
+    //Validate
+    public function checkEmployeeAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'account_username' => 'required|unique:account,account_username|email',
+                'account_password' => 'required|min:8',
+                'employee_name' => 'required',
+                'user_lastname' => 'required',
+                'user_phone' => 'required|numeric|digits_between:10,10'
+            ],
+            [
+                'account_username.required' => 'Vui lòng điền thông tin đăng nhập',
+                'account_username.unique' => 'Tên đăng nhập đã tồn tại',
+                'account_username.email' => 'Email không hợp lệ',
+                'account_password.required' => 'Vui lòng nhập mật khẩu',
+                'account_password.min' => 'Mật khẩu phải lớn hơn 8 ký tự',
+                'user_firstname.required' => 'Vui lòng nhập thông tin',
+                'user_lastname.required' => 'Vui lòng nhập thông tin',
+                'user_phone.required' => 'Vui lòng nhập thông tin',
+                'user_phone.numeric' => 'Vui lòng kiểm tra số điện thoại',
+                'user_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại',
+            ]);
+    }
 }
  
