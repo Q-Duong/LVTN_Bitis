@@ -7,12 +7,12 @@
                 Cập nhật Slider
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-slider')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/banner/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-banner/'.$edit_value->banner_id)}}" method="post"
+                    <form role="form" action="{{URL::to('/admin/banner/update/'.$edit_value->banner_id)}}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">

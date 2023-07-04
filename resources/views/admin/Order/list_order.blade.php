@@ -36,7 +36,7 @@
                                             @endif
                                 </td>
                                 <td>
-                                <a href="{{URL::to('edit-order/'.$ord -> order_code)}}" class="active style-edit"
+                                <a href="{{URL::to('/admin/order/edit/'.$ord -> order_code)}}" class="active style-edit"
                                 ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
                                 </td>
                             </tr>

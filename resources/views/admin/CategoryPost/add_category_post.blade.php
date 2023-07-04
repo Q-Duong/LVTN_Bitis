@@ -7,13 +7,13 @@
                 Thêm danh mục bài viết
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-category-post')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/category-post/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-category-post')}}" method="post">
+                    <form role="form" action="{{URL::to('/admin/category-post/save')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group">
                             @if(session('success'))
@@ -32,13 +32,6 @@
                             <label for="exampleInputEmail1">Slug danh mục bài viết</label>
                             <input type="text" name="category_post_slug" class="form-control" id="convert_slug"
                                 placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Hiển thị</label>
-                            <select name="category_post_status" class="form-control m-bot15">
-                                <option value="1">Hiển thị</option>
-                                <option value="0">Ẩn</option>
-                            </select>
                         </div>
 
                         <button type="submit" name="add_category_post" class="btn btn-info">Thêm danh mục bài

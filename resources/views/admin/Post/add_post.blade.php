@@ -7,13 +7,13 @@
                 Thêm bài viết
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-post')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/post/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-post')}}" method="post" enctype="multipart/form-data" id="post">
+                    <form role="form" action="{{URL::to('/admin/post/save')}}" method="post" enctype="multipart/form-data" id="post">
                         {{csrf_field()}}
                         <div class="form-group" style="text-align:center;">
                             @if(session('success'))

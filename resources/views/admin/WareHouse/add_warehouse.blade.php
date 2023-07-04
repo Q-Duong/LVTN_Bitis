@@ -7,13 +7,13 @@
                 Thêm kho hàng
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-ware-house')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/ware-house/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-ware-house')}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{URL::to('/admin/ware-house/save')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group" style="text-align:center;">
                             @if(session('success'))

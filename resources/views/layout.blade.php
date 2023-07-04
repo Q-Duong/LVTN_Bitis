@@ -61,8 +61,8 @@
                         <a href="{{ URL::to('/member/profile/') }}">
                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                         </a>
-                        <a href="{{ URL::to('/member/orders/') }}">
-                            <li><i class="fa fa-cog"></i> Quản lý đơn hàng</li>
+                        <a href="{{ URL::to('orders/') }}">
+                            <li><i class="fa fa-cog"></i> Đơn hàng</li>
                         </a>
                         <a href="{{ URL::to('/member/settings/') }}">
                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
@@ -140,8 +140,8 @@
                                         <a href="{{ URL::to('/member/profile') }}" class="member-profile">
                                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                                         </a>
-                                        <a href="{{ URL::to('/member/orders') }}" class="member-orders">
-                                            <li><i class="fa fa-cog"></i> Quản lý đơn hàng</li>
+                                        <a href="{{ URL::to('/orders') }}" class="member-orders">
+                                            <li><i class="fa fa-cog"></i> Đơn hàng</li>
                                         </a>
                                         <a href="{{ URL::to('/member/settings') }}" class="member-settings">
                                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
@@ -349,7 +349,7 @@
     <!-- Js Plugins -->
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    
+
     {{-- <script src="{{asset('public/frontend/js/jquery.nice-select.min.js')}}"></script> --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ asset('frontend/js/jquery.nicescroll.min.js') }}"></script>
@@ -372,7 +372,6 @@
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
-        
         $('.nav-item').on('click', function() {
 
             //Remove any previous active classes
@@ -851,11 +850,11 @@
             var color_id = [];
             var size_id = [];
             var price_data = {};
-            var min=$('#min-price').val();
-            var max=$('#max-price').val();
-            var price_data={
-               'min': min,
-               'max': max
+            var min = $('#min-price').val();
+            var max = $('#max-price').val();
+            var price_data = {
+                'min': min,
+                'max': max
             };
             $('.size_filter:checked').each(function(i) {
                 size_id[i] = $(this).val();
@@ -879,23 +878,24 @@
             })
         });
 
-        $( ".price_filter" ).slider({
+        $(".price_filter").slider({
             range: true,
             min: 0,
             max: 2000000,
-            step:50000,
-            values: [ 0, 2000000 ],
-            slide: function( event, ui ) {
-                $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format(ui.values[ 0 ])+ "₫"  + " - " + new Intl.NumberFormat('vi-VN').format(ui.values[ 1 ]) + "₫" );
-                $( "#min-price" ).val(ui.values[ 0 ]);
-                $( "#max-price" ).val(ui.values[ 1 ]);
+            step: 50000,
+            values: [0, 2000000],
+            slide: function(event, ui) {
+                $("#amount").val(new Intl.NumberFormat('vi-VN').format(ui.values[0]) + "₫" + " - " + new Intl
+                    .NumberFormat('vi-VN').format(ui.values[1]) + "₫");
+                $("#min-price").val(ui.values[0]);
+                $("#max-price").val(ui.values[1]);
             }
         });
-        $( "#amount" ).val(new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 0 )) + "₫" +
-            " - " + new Intl.NumberFormat('vi-VN').format($( ".price_filter" ).slider( "values", 1 )) + "₫");
-        
-        function successMsg (msg) {
-            $(".alert-success").css('display','block');
+        $("#amount").val(new Intl.NumberFormat('vi-VN').format($(".price_filter").slider("values", 0)) + "₫" +
+            " - " + new Intl.NumberFormat('vi-VN').format($(".price_filter").slider("values", 1)) + "₫");
+
+        function successMsg(msg) {
+            $(".alert-success").css('display', 'block');
             $(".alert-success").text(msg);
             setTimeout(function() {
                 $('.alert-success').fadeOut('fast');
@@ -908,7 +908,7 @@
             var user_firstname = $('input[name=user_firstname]').val();
             var user_lastname = $('input[name=user_lastname]').val();
             var user_phone = $('input[name=user_phone]').val();
-            
+
             $.ajax({
                 url: '/update-account-infomation/' + user_id,
                 method: "POST",
@@ -921,10 +921,24 @@
                 },
                 success: function(data) {
                     successMsg(data.message);
-                    
+
                 }
             });
+
+        });
+        $('.delivery-a').on('click', function() {
+            $('.popup-form').fadeIn(400);
+        });
+
+        $('.close-a').on('click', function() {
+            $('.popup-form').fadeOut(400);
             
+        });
+
+        $('.overlay').on('click', function() {
+            $('.search-model').fadeOut(400, function() {
+                $('#search-input').val('');
+            });
         });
     </script>
 </body>

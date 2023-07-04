@@ -23,17 +23,17 @@
                             <tr>
                                 <td>{{ $banner->banner_id }}</td>
                                 <td>{{ $banner->banner_name }}</td>
-                                <td><img src="uploads/banner/{{ $banner->banner_image }}" height="300" width="920"></td>
+                                <td><img src="{{ asset('uploads/banner/' . $banner->banner_image) }}" height="300" width="920"></td>
                                 <!-- <a href="{{ URL::to('/add-slider') }}"
                                     class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>
                                 </a> -->
                                 </td>
                                 <td>
-                                    <a href="{{ URL::to('/edit-banner/' . $banner->banner_id) }}" class="active style-edit"
+                                    <a href="{{ URL::to('/admin/banner/edit/' . $banner->banner_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>
                                     <a onclick="return confirm('Bạn có chắc là muốn xóa slide này không?')"
-                                        href="{{ URL::to('/delete-banner/' . $banner->banner_id) }}"
+                                        href="{{ URL::to('/admin/banner/delete/' . $banner->banner_id) }}"
                                         class="active styling-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>

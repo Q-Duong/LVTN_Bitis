@@ -1,16 +1,15 @@
 @extends('layout')
 @section('content')
-@section('title', 'Account Setting - ')
+@section('title', 'Account Infomation - ')
 <section class="breadcrumb-option">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__text">
-                    <h4>Địa chỉ giao hàng</h4>
+                    <h4>Chi tiết đơn hàng</h4>
                     <div class="breadcrumb__links">
                         <a href="{{ URL::to('/') }}">Trang chủ</a>
-                        <a href="{{ URL::to('/member/profile') }}">Thông tin tài khoản</a>
-                        <span>Địa chỉ giao hàng</span>
+                        <span>Chi tiết đơn hàng</span>
                     </div>
                 </div>
             </div>
@@ -121,152 +120,112 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-6 centered ">
-                    <h4 class="delivery-header">Địa chỉ giao hàng đã lưu</h4>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 centered ">
-                            <section class="delivery">
-                                <div class="row col-md-12 item">
-                                    <div class="col-md-6">
-                                        <p class="delivery-name">Dương</p>
-                                        <p class="delivery-address">66,cổ cò, Thành phố Hồ Chí Minh</p>
-                                        <p><a href="'+url+'">Xem sản phẩm</a></p>
+                <div class="col-lg-8 col-md-6">
+                    <h6 class="checkout__title">Chi tiết đơn hàng</h6>
+                    <section class="order-detail">
+                        <div class="order-detail-header">
+                            Mã đơn hàng: {{ $getOrder->order_code }}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7 col-md-6">
+                                <div class="order-detail-information">
+                                    <div class="order-detail-information-header">
+                                        <img class="header-img"
+                                            src="{{ asset('frontend/img/icon/Shipper_CPS3.0251fdd.png') }}">
+                                        <div class="header-title">Thông tin khách hàng</div>
+                                    </div>
+                                    <div class="order-detail-information-content">
+                                        <div class="information-name">
+                                            <span>Người nhận:</span> {{ $getOrderReceiver->receiver_last_name }}
+                                        </div>
+                                        <div class="information-phone">
+                                            <span>Số điện thoại:</span> {{ $getOrderReceiver->receiver_phone }}
+                                        </div>
+                                        <div class="information-delivery">
+                                            <span>Địa chỉ:</span> {{ $getOrderReceiver->receiver_address }},
+                                            {{ $getOrderReceiver->ward->ward_name }},
+                                            {{ $getOrderReceiver->district->district_name }},
+                                            {{ $getOrderReceiver->city->city_name }}
+                                        </div>
                                     </div>
                                 </div>
-                            </section>
-                        </div>
-                        <div class="col-lg-6 col-md-6 centered ">
-                            <section class="delivery-address">
-                                <div class="row col-md-12 item">
-
-
-                                    <div class="col-md-6 info_wishlist">
-                                        <p>'+name+'</p>
-                                        <p style="color:#FE980F">'+price+'</p>
-                                        <p><a href="'+url+'">Xem sản phẩm</a></p>
+                            </div>
+                            <div class="col-lg-5 col-md-6">
+                                <div class="order-detail-payment">
+                                    <div class="order-detail-payment-header">
+                                        <img class="header-img" src="{{ asset('frontend/img/icon/payment.png') }}">
+                                        <div class="header-title">Hình thức thanh toán</div>
+                                    </div>
+                                    <div class="order-detail-payment-content">
+                                        Thanh toán khi nhận hàng
                                     </div>
                                 </div>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="checkout__input">
-                        <button type="button" name="update_information"
-                            class="site-btn update-account-information delivery-a"><i class="fa fa-cog"></i>
-                            Thêm địa chỉ
-                        </button>
-                    </div>
-                </div>
-                <div class="popup-form">
-                    <div class="dialog">
-                        <p class="close-a">X</p>
-                        <div class="col-lg-12 col-md-12">
-                            <h6 class="checkout__title">Thêm thông tin giao hàng</h6>
-                            <div class="over"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div
-                                    class="checkout__input {{ $errors->has('receiver_first_name') ? 'has-error' : '' }}">
-                                    <p>Họ và tên lót<span>*</span></p>
-                                    <input type="text" name="receiver_first_name" placeholder="Điền họ và tên">
-                                    {!! $errors->first(
-                                        'receiver_first_name',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
-                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div
-                                    class="checkout__input {{ $errors->has('receiver_last_name') ? 'has-error' : '' }}">
-                                    <p>Tên<span>*</span></p>
-                                    <input type="text" name="receiver_last_name" placeholder="Điền họ và tên">
-                                    {!! $errors->first(
-                                        'receiver_last_name',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="checkout__input {{ $errors->has('receiver_email') ? 'has-error' : '' }}">
-                                    <p>Email<span>*</span></p>
-                                    <input type="email" name="receiver_email" placeholder="Điền Email">
-                                    {!! $errors->first(
-                                        'receiver_email',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="checkout__input {{ $errors->has('receiver_phone') ? 'has-error' : '' }}">
-                                    <p>Số điện thoại<span>*</span></p>
-                                    <input type="text" name="receiver_phone" placeholder="Điền SĐT">
-                                    {!! $errors->first(
-                                        'receiver_phone',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Chọn tỉnh / thành phố<span
-                                            style="color:#e53637;">*</span></label>
-                                    <select name="city_id" id="city"
-                                        class="form-control input-sm m-bot15 choose_address city">
-                                        <option value="0" selected>--Chọn tỉnh / thành phố--</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Chọn quận / huyện<span
-                                            style="color:#e53637;">*</span></label>
-                                    <select name="district_id" id="district"
-                                        class="form-control input-sm m-bot15 district choose_address">
-                                        <option value="">--Chọn quận / huyện--</option>
-
-                                    </select>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="order-detail-item">
+                                    <div class="order-detail-item-header">
+                                        {{-- <img class="header-img" src="{{ asset('frontend/img/icon/payment.png') }}"> --}}
+                                        <div class="header-title">Chi tiết đơn hàng</div>
+                                    </div>
+                                    @foreach ($getOrderDetail as $key => $orderDetail)
+                                        <div class="order-detail-item-content">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                                    <img width="100%"
+                                                        src="{{ URL::to('uploads/product/' . $orderDetail->wareHouse->product->product_image) }}">
+                                                </div>
+                                                <div class="col-lg-9 col-md-9">
+                                                    <a class="item-link" href="{{ URL::to('/products/' . $orderDetail->wareHouse->product->product_slug) }}">
+                                                        <p class="item-name">
+                                                            {{ $orderDetail->wareHouse->product->product_name }}
+                                                        </p>
+                                                    </a>
+                                                    <p class="item-color">
+                                                        Màu: {{ $orderDetail->wareHouse->color->color_name }}
+                                                    </p>
+                                                    @if ($orderDetail->wareHouse->size->size_attribute != 0)
+                                                        <p class="item-size">
+                                                            Size:
+                                                            {{ $orderDetail->wareHouse->size->size_attribute }}
+                                                        </p>
+                                                    @endif
+                                                    <p class="item-quantity">
+                                                        Số lượng: {{ $orderDetail->order_detail_quantity }}
+                                                    </p>
+                                                    <p class="item-price">
+                                                        {{ number_format($orderDetail->wareHouse->product->product_price, 0, ',', '.') }}₫
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <div class="order-detail-item-total">
+                                        <div class="item-total">
+                                            <p class="total-title">Tổng tiền sản phẩm:</p>
+                                            <p class="total-content">
+                                                {{ number_format($getOrder->order_total, 0, ',', '.') }}₫</p>
+                                        </div>
+                                        <div class="item-total">
+                                            <p class="total-title">Tổng giảm giá:</p>
+                                            <p class="total-content">0₫</p>
+                                        </div>
+                                        <div class="item-total">
+                                            <p class="total-title">Phí vận chuyển:</p>
+                                            <p class="total-content">Miễn phí</p>
+                                        </div>
+                                        <div class="item-total">
+                                            <p class="total-title">Đã thanh toán:</p>
+                                            <p class="total-content">
+                                                {{ number_format($getOrder->order_total, 0, ',', '.') }}₫</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Chọn phường / xã<span
-                                            style="color:#e53637;">*</span></label>
-                                    <select name="ward_id" id="ward" class="form-control input-sm m-bot15 ward">
-                                        <option value="">--Chọn phường / xã--</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div
-                                    class="checkout__input {{ $errors->has('receiver_address') ? 'has-error' : '' }}">
-                                    <p>Địa chỉ<span>*</span></p>
-                                    <input type="text" name="receiver_address" placeholder="Địa chỉ">
-                                    {!! $errors->first(
-                                        'receiver_address',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="checkout__input">
-                            <button type="button" name="update_information"
-                                class="site-btn update-account-information"><i class="fa fa-cog"></i>
-                                Lưu</button>
-                        </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 

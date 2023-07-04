@@ -52,7 +52,7 @@
                                 <td>
                                     <img class="img-fluid" src="uploads/product/{{ $pro->product_image }}" alt="">
                                 </td>
-                                <td><a href="{{URL::to('/add-gallery/'.$pro -> product_id)}}">Thư viện ảnh</a></td>
+                                <td><a href="{{URL::to('/admin/gallery/add/'.$pro -> product_id)}}">Thư viện ảnh</a></td>
                                 <td>
                                     <a href="{{ URL::to('edit-product/' . $pro->product_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>

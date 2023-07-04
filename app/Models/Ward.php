@@ -16,4 +16,7 @@ class Ward extends Model
     public function receiver(){
         $this->hasMany('App\Models\Receiver');
     }
+    public function delivery(){
+        $this->hasMany('App\Models\Delivery');
+    }
 }
