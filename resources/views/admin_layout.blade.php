@@ -1,9 +1,3 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 
 <head>
@@ -11,9 +5,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link rel='shortcut icon' href="{{ asset('frontend/img/icon.png') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords"
-        content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <meta name="keywords" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script type="application/x-javascript">
     addEventListener("load", function() {
@@ -162,25 +154,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <input type="text" class="form-control search" placeholder=" Search">
                     </li>
                     <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="{{ asset('backend/images/2.png') }}">
-                            <span class="username">
-                                <?php
-                                $name = Session::get('admin_name');
-                                if ($name) {
-                                    echo $name;
-                                }
-                                ?>
-                            </span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                    @if (Auth::check())
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" src="{{ asset('backend/images/2.png') }}">
+                                <span class="username">
+                                    {{ Auth::user()->name }}
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                <li>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Đăng xuất
+                                    </a>
+                                    <form id="logout-form" action="{{URL::to('/admin/logout')}}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+
+                                
+                                {{-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li>
-                        </ul>
-                    </li>
+                            <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li> --}}
+                            </ul>
+                        </li>
+                    @endif
                     <!-- user login dropdown end -->
 
                 </ul>
@@ -195,7 +194,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a class="active" href="{{ URL::to('/dashboard') }}">
+                            @php
+                                $route = Route::current();
+                            @endphp
+                            <a class="{{ $route->uri == 'admin/dashboard' ? 'active' : '' }}"
+                                href="{{ URL::to('admin/dashboard') }}">
                                 <i class="far fa-chart-bar"></i>
                                 <span>Thống kê doanh thu</span>
                             </a>
@@ -203,162 +206,189 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/category/add' || $route->uri == 'admin/category/list' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/category/add') }}">
+                                    <a href="{{ URL::to('/admin/category/add') }}"
+                                        class="{{ $route->uri == 'admin/category/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/category/list') }}">
+                                    <a href="{{ URL::to('/admin/category/list') }}"
+                                        class="{{ $route->uri == 'admin/category/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý danh mục
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/product-type/add' || $route->uri == 'admin/product-type/list' ? 'active' : '' }}">
                                 <i class="fa fa-tshirt"></i>
                                 <span>Loại sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/product-type/add') }}">
+                                    <a href="{{ URL::to('/admin/product-type/add') }}"
+                                        class="{{ $route->uri == 'admin/product-type/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm loại sản phẩm
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/product-type/list') }}">
+                                    <a href="{{ URL::to('/admin/product-type/list') }}"
+                                        class="{{ $route->uri == 'admin/product-type/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý loại sản phẩm
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/category-type/add' || $route->uri == 'admin/category-type/list' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Loại danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-type/add') }}">
+                                    <a href="{{ URL::to('/admin/category-type/add') }}"
+                                        class="{{ $route->uri == 'admin/category-type/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm loại danh mục
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-type/list') }}">
+                                    <a href="{{ URL::to('/admin/category-type/list') }}"
+                                        class="{{ $route->uri == 'admin/category-type/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý loại danh mục
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/product/add' || $route->uri == 'admin/product/list' ? 'active' : '' }}">
                                 <i class="fas fa-tshirt"></i>
                                 <span>Sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/product/add') }}">
+                                    <a href="{{ URL::to('/admin/product/add') }}"
+                                        class="{{ $route->uri == 'admin/product/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm sản phẩm
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/product/list') }}">
+                                    <a href="{{ URL::to('/admin/product/list') }}"
+                                        class="{{ $route->uri == 'admin/product/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý sản phẩm
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/ware-house/add' || $route->uri == 'admin/ware-house/list' ? 'active' : '' }}">
                                 <i class="fas fa-warehouse"></i>
                                 <span>Quản lý kho </span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/ware-house/add') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/add') }}"
+                                        class="{{ $route->uri == 'admin/ware-house/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm kho hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/ware-house/list') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/list') }}"
+                                        class="{{ $route->uri == 'admin/ware-house/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý kho hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/import-order/add' || $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Quản lý nhập hàng </span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/import-order/add') }}">
+                                    <a href="{{ URL::to('/admin/import-order/add') }}"
+                                        class="{{ $route->uri == 'admin/import-order/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm đơn nhập
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/import-order/list') }}">
+                                    <a href="{{ URL::to('/admin/import-order/list') }}"
+                                        class="{{ $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn nhập
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/size/add' || $route->uri == 'admin/size/list' ? 'active' : '' }}">
                                 <i class="fab fa-stripe-s"></i>
                                 <span>Danh sách Size</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/size/add') }}">
+                                    <a href="{{ URL::to('/admin/size/add') }}"
+                                        class="{{ $route->uri == 'admin/size/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm Size
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/size/list') }}">
+                                    <a href="{{ URL::to('/admin/size/list') }}"
+                                        class="{{ $route->uri == 'admin/size/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý Size
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/color/add' || $route->uri == 'admin/color/list' ? 'active' : '' }}">
                                 <i class="fas fa-palette"></i>
                                 <span>Quản lý màu</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/color/add') }}">
+                                    <a href="{{ URL::to('/admin/color/add') }}"
+                                        class="{{ $route->uri == 'admin/color/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm màu
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/color/list') }}">
+                                    <a href="{{ URL::to('/admin/color/list') }}"
+                                        class="{{ $route->uri == 'admin/color/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý màu
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/user/add' || $route->uri == 'admin/user/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách khách hàng</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/user/add') }}">
+                                    <a href="{{ URL::to('/admin/user/add') }}"
+                                        class="{{ $route->uri == 'admin/user/add' ? 'active' : '' }}">
                                         <i class="fas fa-user-plus"></i> Thêm khách hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/user/list') }}">
+                                    <a href="{{ URL::to('/admin/user/list') }}"
+                                        class="{{ $route->uri == 'admin/user/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý khách hàng
                                     </a>
                                 </li>
@@ -366,121 +396,141 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
 
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/employee/add' || $route->uri == 'admin/employee/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách nhân viên</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/employee/add') }}">
+                                    <a href="{{ URL::to('/admin/employee/add') }}"
+                                        class="{{ $route->uri == 'admin/employee/add' ? 'active' : '' }}">
                                         <i class="fas fa-user-plus"></i> Thêm nhân viên
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/employee/list') }}">
+                                    <a href="{{ URL::to('/admin/employee/list') }}"
+                                        class="{{ $route->uri == 'admin/employee/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý nhân viên
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/order/add' || $route->uri == 'admin/order/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách đơn hàng</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/order/add') }}">
+                                    <a href="{{ URL::to('/admin/order/add') }}"
+                                        class="{{ $route->uri == 'admin/order/add' ? 'active' : '' }}">
                                         <i class="fas fa-user-plus"></i> Thêm đơn hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/order/list') }}">
+                                    <a href="{{ URL::to('/admin/order/list') }}"
+                                        class="{{ $route->uri == 'admin/order/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/category-post/add' || $route->uri == 'admin/category-post/list' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Danh mục bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-post/add') }}">
+                                    <a href="{{ URL::to('/admin/category-post/add') }}"
+                                        class="{{ $route->uri == 'admin/category-post/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-post/list') }}">
+                                    <a href="{{ URL::to('/admin/category-post/list') }}"
+                                        class="{{ $route->uri == 'admin/category-post/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý danh mục bài viết
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/post/add' || $route->uri == 'admin/post/list' ? 'active' : '' }}">
                                 <i class="far fa-newspaper"></i>
                                 <span>Quản lý bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/post/add') }}">
+                                    <a href="{{ URL::to('/admin/post/add') }}"
+                                        class="{{ $route->uri == 'admin/post/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/post/list') }}">
+                                    <a href="{{ URL::to('/admin/post/list') }}"
+                                        class="{{ $route->uri == 'admin/post/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý bài viết
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/banner/add' || $route->uri == 'admin/banner/list' ? 'active' : '' }}">
                                 <i class="fas fa-sliders-h"></i>
                                 <span>Danh sách Banner</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/banner/add') }}">
+                                    <a href="{{ URL::to('/admin/banner/add') }}"
+                                        class="{{ $route->uri == 'admin/banner/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm banner
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/banner/list') }}">
+                                    <a href="{{ URL::to('/admin/banner/list') }}"
+                                        class="{{ $route->uri == 'admin/banner/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý banner
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/store/add' || $route->uri == 'admin/store/list' ? 'active' : '' }}">
                                 <i class="fas fa-store-alt"></i>
                                 <span>Quản lý cửa hàng </span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/store/add') }}">
+                                    <a href="{{ URL::to('/admin/store/add') }}"
+                                        class="{{ $route->uri == 'admin/store/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm cửa hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/store/list') }}">
+                                    <a href="{{ URL::to('/admin/store/list') }}"
+                                        class="{{ $route->uri == 'admin/store/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý cửa hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/admin/contact/edit/1') }}">
+                            <a href="{{ URL::to('/admin/contact/edit/1') }}"
+                                class="{{ $route->uri == 'admin/contact/edit/1' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Liên hệ</span>
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/admin/message/list') }}">
+                            <a href="{{ URL::to('/admin/message/list') }}"
+                                class="{{ $route->uri == 'admin/message/list' ? 'active' : '' }}">
                                 <i class="far fa-newspaper"></i>
                                 <span>Quản lí tin nhắn</span>
                             </a>
@@ -874,78 +924,167 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
 
 
-        $(document).on('change', '.choose_category', function() {
-            var category_id = $(this).val();
-            var order_detail_quantity = $('.order_detail_quantity').val();
-            var _token = $('input[name="_token"]').val();
-            var total = 0;
-            $.ajax({
-                url: "{{ url('/select-category') }}",
-                method: 'POST',
-                data: {
-                    category_id: category_id,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('.choose_product_type').html(data.getAllListProductType);
-                    $('.choose_product').html(data.getAllListProduct);
-                    $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
-                        .product_price) + "₫");
-                    total = order_detail_quantity * data.product_price;
-                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
-                    $('.total-format').val(total);
-                }
+        $(document).on('change',
+            ".choose_category, .choose_category_1, .choose_category_2, .choose_category_3, .choose_category_4",
+            function() {
+                var id_category = $(this).data('id_category');
+                var category_id = $(this).val();
+                var order_detail_quantity = $('.order_detail_quantity').val();
+                var _token = $('input[name="_token"]').val();
+                var total = 0;
+                $.ajax({
+                    url: "{{ url('/select-category') }}",
+                    method: 'POST',
+                    data: {
+                        category_id: category_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        if (id_category == 0) {
+                            $('.choose_product_type').html(data.getAllListProductType);
+                            $('.choose_product').html(data.getAllListProduct);
+                            $('.choose_ware_house').html(data.getAllListWareHouse);
+                            $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_category == 1) {
+                            $('.choose_product_type_1').html(data.getAllListProductType);
+                            $('.choose_product_1').html(data.getAllListProduct);
+                            $('.choose_ware_house_1').html(data.getAllListWareHouse);
+                            $('.product_price_1').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_category == 2) {
+                            $('.choose_product_type_2').html(data.getAllListProductType);
+                            $('.choose_product_2').html(data.getAllListProduct);
+                            $('.choose_ware_house_2').html(data.getAllListWareHouse);
+                            $('.product_price_2').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_category == 3) {
+                            $('.choose_product_type_3').html(data.getAllListProductType);
+                            $('.choose_product_3').html(data.getAllListProduct);
+                            $('.choose_ware_house_3').html(data.getAllListWareHouse);
+                            $('.product_price_3').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else {
+                            $('.choose_product_type_4').html(data.getAllListProductType);
+                            $('.choose_product_4').html(data.getAllListProduct);
+                            $('.choose_ware_house_4').html(data.getAllListWareHouse);
+                            $('.product_price_4').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        }
+
+                        total = order_detail_quantity * data.product_price;
+                        $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                        $('.total-format').val(total);
+                    }
+                });
             });
-        });
-        $(document).on('change', '.choose_product_type', function() {
-            var product_type_id = $(this).val();
-            var category_id = $('.choose_category option:selected').val();
-            var order_detail_quantity = $('.order_detail_quantity').val();
-            var _token = $('input[name="_token"]').val();
-            var total = 0;
-            // console.log(product_type_id, category_id);
-            $.ajax({
-                url: "{{ url('/select-product-type') }}",
-                method: 'POST',
-                data: {
-                    product_type_id: product_type_id,
-                    category_id: category_id,
-                    _token: _token
-                },
-                success: function(data) {
-                    $('.choose_product').html(data.getAllListProduct);
-                    $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
-                        .product_price) + "₫");
-                    total = order_detail_quantity * data.product_price;
-                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
-                    $('.total-format').val(total);
+        $(document).on('change',
+            ".choose_product_type, .choose_product_type_1, .choose_product_type_2, .choose_product_type_3, .choose_product_type_4",
+            function() {
+                var id_type = $(this).data('id_type');
+                var product_type_id = $(this).val();
+                if (id_type == 0) {
+                    var category_id = $('.choose_category option:selected').val();
+                } else if (id_type == 1) {
+                    var category_id = $('.choose_category_1 option:selected').val();
+                } else if (id_type == 2) {
+                    var category_id = $('.choose_category_2 option:selected').val();
+                } else if (id_type == 3) {
+                    var category_id = $('.choose_category_3 option:selected').val();
+                } else {
+                    var category_id = $('.choose_category_4 option:selected').val();
                 }
+
+                var order_detail_quantity = $('.order_detail_quantity').val();
+                var _token = $('input[name="_token"]').val();
+                var total = 0;
+                // console.log(product_type_id, category_id);
+                $.ajax({
+                    url: "{{ url('/select-product-type') }}",
+                    method: 'POST',
+                    data: {
+                        product_type_id: product_type_id,
+                        category_id: category_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        if (id_type == 0) {
+                            $('.choose_product').html(data.getAllListProduct);
+                            $('.choose_ware_house').html(data.getAllListWareHouse);
+                            $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_type == 1) {
+                            $('.choose_product_1').html(data.getAllListProduct);
+                            $('.choose_ware_house_1').html(data.getAllListWareHouse);
+                            $('.product_price_1').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_type == 2) {
+                            $('.choose_product_2').html(data.getAllListProduct);
+                            $('.choose_ware_house_2').html(data.getAllListWareHouse);
+                            $('.product_price_2').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_type == 3) {
+                            $('.choose_product_3').html(data.getAllListProduct);
+                            $('.choose_ware_house_3').html(data.getAllListWareHouse);
+                            $('.product_price_3').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else {
+                            $('.choose_product_4').html(data.getAllListProduct);
+                            $('.choose_ware_house_4').html(data.getAllListWareHouse);
+                            $('.product_price_4').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        }
+
+                        total = order_detail_quantity * data.product_price;
+                        $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                        $('.total-format').val(total);
+                    }
+                });
             });
-        });
-        $(document).on('change', '.choose_product', function() {
-            var product_id = $(this).val();
-            var _token = $('input[name="_token"]').val();
-            var order_detail_quantity = $('.order_detail_quantity').val();
-            var total = 0;
-            $.ajax({
-                url: "{{ url('/select-product') }}",
-                method: 'POST',
-                data: {
-                    product_id: product_id,
-                    _token: _token,
-                },
-                success: function(data) {
-                    $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
-                        .product_price) + "₫");
-                    total = order_detail_quantity * data.product_price;
-                    $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
-                    $('.total-format').val(total);
-                }
-            })
-        });
+        $(document).on('change',
+            ".choose_product, .choose_product_1, .choose_product_2, .choose_product_3, .choose_product_4",
+            function() {
+                var id_product = $(this).data('id_product');
+                var product_id = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                var order_detail_quantity = $('.order_detail_quantity').val();
+                var total = 0;
+                $.ajax({
+                    url: "{{ url('/select-product') }}",
+                    method: 'POST',
+                    data: {
+                        product_id: product_id,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        if (id_product == 0) {
+                            $('.choose_ware_house').html(data.getAllListWareHouse);
+                            $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_product == 1) {
+                            $('.choose_ware_house_1').html(data.getAllListWareHouse);
+                            $('.product_price_1').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_product == 2) {
+                            $('.choose_ware_house_2').html(data.getAllListWareHouse);
+                            $('.product_price_2').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else if (id_product == 3) {
+                            $('.choose_ware_house_3').html(data.getAllListWareHouse);
+                            $('.product_price_3').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        } else {
+                            $('.choose_ware_house_4').html(data.getAllListWareHouse);
+                            $('.product_price_4').val(new Intl.NumberFormat('vi-VN').format(data
+                                .product_price) + "₫");
+                        }
+
+                        total = order_detail_quantity * data.product_price;
+                        $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
+                        $('.total-format').val(total);
+                    }
+                })
+            });
         $(document).on('keyup change', '.order_detail_quantity', function() {
             var order_detail_quantity = $(this).val();
             var product_price = $('.product_price').val();
@@ -960,20 +1099,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $(document).ready(function() {
             var sectionCategory = $('.section-category').html();
             var max = 4;
-            var x = 1;0
-            var html =
-                '<div class="panel-body"><div class="position-center"><div class="form-group">' +sectionCategory +'</div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" class="form-control m-bot15 choose_product_type"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" class="form-control m-bot15 choose_product"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity"></div><div class="form-group"><label>Giá tiền</label><input type="text" disabled name="product_price" class="form-control product_price" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+            var x = 1;
 
-
-
-            
             $("#add").click(function() {
                 if (x <= max) {
-                    $("#table_field").append(html);
+                    $("#table_field").append(
+                        '<div class="panel-body"><div class="position-center"><div class="form-group"><label>Danh mục sản phẩm</label><select name="category_id" data-id_category="' +
+                        x + '" class="form-control m-bot15 choose_category_' + x +
+                        '"><option value="">--Chọn Danh Mục--</option><option value="2">Nam</option><option value="4">Nữ</option><option value="8">Phụ Kiện</option><option value="9">Khuyến Mãi</option></select></div><div class="form-group"><label>Loại sản phẩm</label><select name="product_type_id" data-id_type="' +
+                        x + '" class="form-control m-bot15 choose_product_type_' + x +
+                        '"><option value="">--Chọn Loại Sản Phẩm--</option></select></div><div class="form-group"><label>Sản phẩm</label><select name="product_id" data-id_product="' +
+                        x + '" class="form-control m-bot15 choose_product_' + x +
+                        '"><option value="">--Chọn Sản Phẩm--</option></select></div><div class="form-group"><label>Kho hàng</label><select name="ware_house_id[]" class="form-control m-bot15 choose_ware_house_' +
+                        x +
+                        '"><option value="">--Chọn Sản Phẩm Trong Kho--</option></select></div><div class="form-group"><label>Số lượng</label><input type="number" value="1" min="1" name="order_detail_quantity[]" class="form-control order_detail_quantity_' +
+                        x +
+                        '"></div><div class="form-group"><label>Giá tiền</label><input type="text" data-id_price="' +
+                        x + '" disabled name="product_price" class="form-control product_price_' + x +
+                        '" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
+                    );
                     x++;
                 }
             })
-            // <div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div>
+
             $("#table_field").on('click', '#remove', function() {
                 $(this).closest('.input_address').remove();
                 x--;
@@ -1025,8 +1173,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         //     });
         // });
     </script>
-
-    <!-- //calendar -->
 </body>
 
 </html>

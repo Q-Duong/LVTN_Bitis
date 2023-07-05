@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
-use App\Models\Account;
+use App\Models\Member;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Receiver;
 use Illuminate\Support\Facades\Redirect;
 use DB;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -22,45 +24,58 @@ class LoginController extends Controller
     }
     public function login_submit(Request $request){
         $data=$request->all();
-        $result=Account::where('account_username',$data['account_username'])->where('account_password',md5($data['account_password']))->first();
-        if($result){  
-            $user=User::where('account_id',$result->account_id)->first();
-            Session::put('user_id',$user->user_id);
-			Session::put('user_firstname',$user->user_firstname);
-            Session::put('user_lastname',$user->user_lastname);
-            Session::put('user_phone',$user->user_phone);
-            Session::put('user_email',$user->user_email);
-            Session::put('account_username',$user->account_username);
-            Session::put('account_password',$user->account_password);
+        // $result=User::where('email',$data['account_username'])->where('password',bcrypt($data['account_password']))->first();
+        if(Auth::attempt([
+            'email' => $data['account_username'],
+            'password' => $data['account_password'],
+            'role' => 1
+        ])){ 
+            // $member = User::where('email',$data['account_username'])->first();
+            $member = User::where('email',$data['account_username'])->first();
+             //dd($member);
+            Auth::login($member);
+            // $user=Member::where('id',$result->id)->first();
+            // Session::put('member_id',$member->member_id);
+			// Session::put('member_firstname',$member->member_firstname);
+            // Session::put('member_lastname',$member->member_lastname);
+            // Session::put('member_phone',$member->member_phone);
+            // Session::put('member_email',$member->member_email);
+            // Session::put('email',Auth::user()->email);
+            // Session::put('password',Auth::user()->password);
             return Redirect::to('/');
         }
         else{
-            return Redirect::to('login')->with('error','Tài khoản hoặc mật khẩu không đúng');
+            return Redirect::to('member/login')->with('error','Tài khoản hoặc mật khẩu không đúng');
         }
     }
     public function save_user_FE(Request $request){
+        $this->checkUser($request);
         $data=$request->all();
-        
-        $account=new Account();
-        $account->account_username=$data['user_email'];
-        $account->account_password=md5($data['account_password']);
-        $account->account_role=0;
-        $email=Account::where('account_username',$data['user_email'])->exists();
-        if($email){
-            return redirect()->back()->with('error','Email đã tồn tại,vui lòng nhập lại!')->withInput();
-        }
+        // dd($data);
+        $member=new Member();
+        $member->member_firstname=$data['member_firstname'];
+        $member->member_lastname=$data['member_lastname'];
+        $member->member_phone=$data['member_phone'];
+        $member->member_email=$data['user_email'];
+        $member->save();
+
+        $account=new User();
+        $account->email=$data['user_email'];
+        $account->password=bcrypt($data['user_password']);
+        $account->role=1;
+        $account->name=$data['member_lastname'];
+        $account->member_id=$member->member_id;
+        // $email=Account::where('account_username',$data['user_email'])->exists();
+        // if($email){
+        //     return redirect()->back()->with('error','Email đã tồn tại,vui lòng nhập lại!')->withInput();
+        // }
         $account->save();
-        $user=new User();
-        $user->user_firstname=$data['user_firstname'];
-        $user->user_lastname=$data['user_lastname'];
-        $user->user_phone=$data['user_phone'];
-        $user->user_email=$data['user_email'];
-        $user->account_id=$account->account_id;
-        $user->save();
-        return redirect::to('login')->with('success','Đăng ký tài khoản thành công');
+        
+        return redirect::to('member/login')->with('success','Đăng ký tài khoản thành công');
     }
     public function logout_checkout(){
-        Session::flush('user_id');
+        //Session::flush('user_id');
+        Auth::logout();
         return Redirect::to('/');
     }
 
@@ -70,7 +85,7 @@ class LoginController extends Controller
     }
 
     public function profile(){
-       if(Session::get('user_id')){
+       if(Session::get('member_id')){
             return view('pages.login.account_information');
        }else{
             return Redirect::to('login');
@@ -109,7 +124,31 @@ class LoginController extends Controller
              return Redirect::to('login');
         }
     }
-
+    //Validate
+    public function checkUser(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'user_email' => 'required|unique:account,account_username|email',
+                'account_password' => 'required|min:8',
+                'user_firstname' => 'required',
+                'user_lastname' => 'required',
+                'user_phone' => 'required|numeric|digits_between:10,10'
+            ],
+            [
+                'user_email.required' => 'Vui lòng điền thông tin đăng nhập',
+                'user_email.unique' => 'Tên đăng nhập đã tồn tại',
+                'user_email.email' => 'Email không hợp lệ',
+                'account_password.required' => 'Vui lòng nhập mật khẩu',
+                'account_password.min' => 'Mật khẩu phải lớn hơn 8 ký tự',
+                'user_firstname.required' => 'Vui lòng nhập thông tin',
+                'user_lastname.required' => 'Vui lòng nhập thông tin',
+                'user_phone.required' => 'Vui lòng nhập thông tin',
+                'user_phone.numeric' => 'Vui lòng kiểm tra số điện thoại',
+                'user_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại',
+            ]);
+    }
     public function orders(){
         if(Session::get('user_id')){
             $getAllOrder = Order::join('order_detail','order_detail.order_id', '=', 'order.order_id')

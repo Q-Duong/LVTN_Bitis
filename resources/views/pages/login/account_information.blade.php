@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-lg-7 col-md-6" >
                                         <div class="account-sidebar-title">
-                                            Xin chào, <span>{{ Session::get('user_lastname') }}</span>
+                                            Xin chào, <span>{{ Session::get('member_lastname') }}</span>
                                         </div>
                                     </div>
                                 </div>
