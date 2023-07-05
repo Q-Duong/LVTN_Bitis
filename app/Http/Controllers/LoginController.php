@@ -49,6 +49,7 @@ class LoginController extends Controller
         }
     }
     public function save_user_FE(Request $request){
+        $this->checkUser($request);
         $data=$request->all();
         // dd($data);
         $member=new Member();
@@ -123,7 +124,31 @@ class LoginController extends Controller
              return Redirect::to('login');
         }
     }
-
+    //Validate
+    public function checkUser(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'user_email' => 'required|unique:account,account_username|email',
+                'account_password' => 'required|min:8',
+                'user_firstname' => 'required',
+                'user_lastname' => 'required',
+                'user_phone' => 'required|numeric|digits_between:10,10'
+            ],
+            [
+                'user_email.required' => 'Vui lòng điền thông tin đăng nhập',
+                'user_email.unique' => 'Tên đăng nhập đã tồn tại',
+                'user_email.email' => 'Email không hợp lệ',
+                'account_password.required' => 'Vui lòng nhập mật khẩu',
+                'account_password.min' => 'Mật khẩu phải lớn hơn 8 ký tự',
+                'user_firstname.required' => 'Vui lòng nhập thông tin',
+                'user_lastname.required' => 'Vui lòng nhập thông tin',
+                'user_phone.required' => 'Vui lòng nhập thông tin',
+                'user_phone.numeric' => 'Vui lòng kiểm tra số điện thoại',
+                'user_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại',
+            ]);
+    }
     public function orders(){
         if(Session::get('user_id')){
             $getAllOrder = Order::join('order_detail','order_detail.order_id', '=', 'order.order_id')

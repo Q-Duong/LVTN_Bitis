@@ -194,7 +194,11 @@
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
                         <li>
-                            <a class="active" href="{{ URL::to('/dashboard') }}">
+                            @php
+                                $route = Route::current();
+                            @endphp
+                            <a class="{{ $route->uri == 'admin/dashboard' ? 'active' : '' }}"
+                                href="{{ URL::to('admin/dashboard') }}">
                                 <i class="far fa-chart-bar"></i>
                                 <span>Thống kê doanh thu</span>
                             </a>
@@ -202,162 +206,189 @@
 
 
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/category/add' || $route->uri == 'admin/category/list' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/category/add') }}">
+                                    <a href="{{ URL::to('/admin/category/add') }}"
+                                        class="{{ $route->uri == 'admin/category/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/category/list') }}">
+                                    <a href="{{ URL::to('/admin/category/list') }}"
+                                        class="{{ $route->uri == 'admin/category/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý danh mục
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/product-type/add' || $route->uri == 'admin/product-type/list' ? 'active' : '' }}">
                                 <i class="fa fa-tshirt"></i>
                                 <span>Loại sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/product-type/add') }}">
+                                    <a href="{{ URL::to('/admin/product-type/add') }}"
+                                        class="{{ $route->uri == 'admin/product-type/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm loại sản phẩm
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/product-type/list') }}">
+                                    <a href="{{ URL::to('/admin/product-type/list') }}"
+                                        class="{{ $route->uri == 'admin/product-type/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý loại sản phẩm
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/category-type/add' || $route->uri == 'admin/category-type/list' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Loại danh mục sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-type/add') }}">
+                                    <a href="{{ URL::to('/admin/category-type/add') }}"
+                                        class="{{ $route->uri == 'admin/category-type/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm loại danh mục
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-type/list') }}">
+                                    <a href="{{ URL::to('/admin/category-type/list') }}"
+                                        class="{{ $route->uri == 'admin/category-type/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý loại danh mục
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/product/add' || $route->uri == 'admin/product/list' ? 'active' : '' }}">
                                 <i class="fas fa-tshirt"></i>
                                 <span>Sản phẩm</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/product/add') }}">
+                                    <a href="{{ URL::to('/admin/product/add') }}"
+                                        class="{{ $route->uri == 'admin/product/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm sản phẩm
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/product/list') }}">
+                                    <a href="{{ URL::to('/admin/product/list') }}"
+                                        class="{{ $route->uri == 'admin/product/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý sản phẩm
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/ware-house/add' || $route->uri == 'admin/ware-house/list' ? 'active' : '' }}">
                                 <i class="fas fa-warehouse"></i>
                                 <span>Quản lý kho </span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/ware-house/add') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/add') }}"
+                                        class="{{ $route->uri == 'admin/ware-house/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm kho hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/ware-house/list') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/list') }}"
+                                        class="{{ $route->uri == 'admin/ware-house/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý kho hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/import-order/add' || $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Quản lý nhập hàng </span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/import-order/add') }}">
+                                    <a href="{{ URL::to('/admin/import-order/add') }}"
+                                        class="{{ $route->uri == 'admin/import-order/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm đơn nhập
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/import-order/list') }}">
+                                    <a href="{{ URL::to('/admin/import-order/list') }}"
+                                        class="{{ $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn nhập
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/size/add' || $route->uri == 'admin/size/list' ? 'active' : '' }}">
                                 <i class="fab fa-stripe-s"></i>
                                 <span>Danh sách Size</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/size/add') }}">
+                                    <a href="{{ URL::to('/admin/size/add') }}"
+                                        class="{{ $route->uri == 'admin/size/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm Size
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/size/list') }}">
+                                    <a href="{{ URL::to('/admin/size/list') }}"
+                                        class="{{ $route->uri == 'admin/size/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý Size
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/color/add' || $route->uri == 'admin/color/list' ? 'active' : '' }}">
                                 <i class="fas fa-palette"></i>
                                 <span>Quản lý màu</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/color/add') }}">
+                                    <a href="{{ URL::to('/admin/color/add') }}"
+                                        class="{{ $route->uri == 'admin/color/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm màu
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/color/list') }}">
+                                    <a href="{{ URL::to('/admin/color/list') }}"
+                                        class="{{ $route->uri == 'admin/color/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý màu
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/user/add' || $route->uri == 'admin/user/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách khách hàng</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/user/add') }}">
+                                    <a href="{{ URL::to('/admin/user/add') }}"
+                                        class="{{ $route->uri == 'admin/user/add' ? 'active' : '' }}">
                                         <i class="fas fa-user-plus"></i> Thêm khách hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/user/list') }}">
+                                    <a href="{{ URL::to('/admin/user/list') }}"
+                                        class="{{ $route->uri == 'admin/user/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý khách hàng
                                     </a>
                                 </li>
@@ -365,121 +396,141 @@
                         </li>
 
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/employee/add' || $route->uri == 'admin/employee/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách nhân viên</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/employee/add') }}">
+                                    <a href="{{ URL::to('/admin/employee/add') }}"
+                                        class="{{ $route->uri == 'admin/employee/add' ? 'active' : '' }}">
                                         <i class="fas fa-user-plus"></i> Thêm nhân viên
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/employee/list') }}">
+                                    <a href="{{ URL::to('/admin/employee/list') }}"
+                                        class="{{ $route->uri == 'admin/employee/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý nhân viên
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/order/add' || $route->uri == 'admin/order/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách đơn hàng</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/order/add') }}">
+                                    <a href="{{ URL::to('/admin/order/add') }}"
+                                        class="{{ $route->uri == 'admin/order/add' ? 'active' : '' }}">
                                         <i class="fas fa-user-plus"></i> Thêm đơn hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/order/list') }}">
+                                    <a href="{{ URL::to('/admin/order/list') }}"
+                                        class="{{ $route->uri == 'admin/order/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/category-post/add' || $route->uri == 'admin/category-post/list' ? 'active' : '' }}">
                                 <i class="far fa-list-alt"></i>
                                 <span>Danh mục bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-post/add') }}">
+                                    <a href="{{ URL::to('/admin/category-post/add') }}"
+                                        class="{{ $route->uri == 'admin/category-post/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/category-post/list') }}">
+                                    <a href="{{ URL::to('/admin/category-post/list') }}"
+                                        class="{{ $route->uri == 'admin/category-post/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý danh mục bài viết
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/post/add' || $route->uri == 'admin/post/list' ? 'active' : '' }}">
                                 <i class="far fa-newspaper"></i>
                                 <span>Quản lý bài viết</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/post/add') }}">
+                                    <a href="{{ URL::to('/admin/post/add') }}"
+                                        class="{{ $route->uri == 'admin/post/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/post/list') }}">
+                                    <a href="{{ URL::to('/admin/post/list') }}"
+                                        class="{{ $route->uri == 'admin/post/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý bài viết
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/banner/add' || $route->uri == 'admin/banner/list' ? 'active' : '' }}">
                                 <i class="fas fa-sliders-h"></i>
                                 <span>Danh sách Banner</span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/banner/add') }}">
+                                    <a href="{{ URL::to('/admin/banner/add') }}"
+                                        class="{{ $route->uri == 'admin/banner/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm banner
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/banner/list') }}">
+                                    <a href="{{ URL::to('/admin/banner/list') }}"
+                                        class="{{ $route->uri == 'admin/banner/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý banner
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/store/add' || $route->uri == 'admin/store/list' ? 'active' : '' }}">
                                 <i class="fas fa-store-alt"></i>
                                 <span>Quản lý cửa hàng </span>
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/admin/store/add') }}">
+                                    <a href="{{ URL::to('/admin/store/add') }}"
+                                        class="{{ $route->uri == 'admin/store/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm cửa hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/admin/store/list') }}">
+                                    <a href="{{ URL::to('/admin/store/list') }}"
+                                        class="{{ $route->uri == 'admin/store/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý cửa hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/admin/contact/edit/1') }}">
+                            <a href="{{ URL::to('/admin/contact/edit/1') }}"
+                                class="{{ $route->uri == 'admin/contact/edit/1' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Liên hệ</span>
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/admin/message/list') }}">
+                            <a href="{{ URL::to('/admin/message/list') }}"
+                                class="{{ $route->uri == 'admin/message/list' ? 'active' : '' }}">
                                 <i class="far fa-newspaper"></i>
                                 <span>Quản lí tin nhắn</span>
                             </a>

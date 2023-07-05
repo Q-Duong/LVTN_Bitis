@@ -54,7 +54,7 @@
                         </div>
                         <div class="checkout__input  {{ $errors->has('user_email') ? 'has-error' : ''}}">
                             <p>Email đăng nhập<span>*</span></p>
-                            <input type="email" name="user_email" placeholder="Điền địa chỉ email(@gmail.com)" value="{{ old('user_email') }}">
+                            <input type="text" name="user_email" placeholder="Điền địa chỉ email(@gmail.com)" value="{{ old('user_email') }}">
                             {!! $errors->first('user_email', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="checkout__input {{ $errors->has('user_password') ? 'has-error' : ''}}">

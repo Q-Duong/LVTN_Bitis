@@ -43,8 +43,6 @@
                             <label for="exampleInputEmail1">Số điện thoại</label>
                             <input type="text" name="employee_phone" value="{{old('employee_phone')}}" class="form-control" placeholder="Số điện thoại" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
-
-
                         <a type="button" name="add_employee" class="btn btn-info add_employee">Thêm nhân viên</a>
                     </form>
 
