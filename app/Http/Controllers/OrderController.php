@@ -50,8 +50,24 @@ class OrderController extends Controller
     }
     function list_order()
     {
-        $getListOrder = Order::orderBy('order_id','desc');
+        $getListOrder = Order::orderBy('order_id','desc')->get();
         return view('admin.Order.list_order')->with(compact('getListOrder'));
     }
-    
+    function edit_order($order_code){
+        $order = Order::where('order_code',$order_code)->first();
+        $receiver = Receiver::where('order_id',$order->order_id)->first();
+        $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+        return view('admin.order.edit_order')->with(compact('order','receiver','order_detail'));
+    }
+    function update_order(Request $request,$order_code){
+        $data = $request->all();
+        
+        $order = Order::where('order_code',$order_code)->first();
+        $order->order_status = $data['order_status'];
+        $order->order_payment_type = $data['order_payment_type'];
+        $order->save();
+        return Redirect()->back()->with('success','Cập nhật thành công');
+        
+    }
+
 }
