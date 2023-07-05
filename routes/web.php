@@ -43,9 +43,8 @@ use App\Http\Controllers\OrderController;
 Route::prefix('admin')->group(function(){
     Route::get('/',[AccountController::class,'index']);
     Route::post('/login',[AccountController::class,'admin_login']);
-    Route::prefix('dashboard')->group(function(){
-        Route::get('/dashboard',[AccountController::class,'dashboard']);
-    });
+    Route::get('/dashboard',[AccountController::class,'dashboard']);
+   
 
     //Category
     Route::prefix('category')->group(function(){
