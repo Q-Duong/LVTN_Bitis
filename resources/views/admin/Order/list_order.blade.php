@@ -32,7 +32,7 @@
                                             @elseif($ord->order_status == 1)
                                                     Đơn hàng đang giao
                                             @else
-                                                    Đơn hàng đã giao
+                                                    Đơn hàng đã đã hoàn thành
                                             @endif
                                 </td>
                                 <td>
