@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <head>
@@ -6,8 +5,7 @@
     <link rel='shortcut icon' href="{{ asset('frontend/img/icon.png') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords"
-        content="" />
+    <meta name="keywords" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script type="application/x-javascript">
     addEventListener("load", function() {
@@ -156,35 +154,32 @@
                         <input type="text" class="form-control search" placeholder=" Search">
                     </li>
                     <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="{{ asset('backend/images/2.png') }}">
-                            <span class="username">
-                                {{ Auth::user()->name }}
-                            </span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                        
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
-                                Đăng xuất
-                             </a>
+                    @if (Auth::check())
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <img alt="" src="{{ asset('backend/images/2.png') }}">
+                                <span class="username">
+                                    {{ Auth::user()->name }}
+                                </span>
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu extended logout">
+                                <li>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Đăng xuất
+                                    </a>
+                                    <form id="logout-form" action="{{URL::to('/admin/logout')}}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
 
-                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                 @csrf
-                             </form>
-                            </li>
-                            
-                        
-                        
-                            {{-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                                
+                                {{-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li> --}}
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    @endif
                     <!-- user login dropdown end -->
 
                 </ul>
@@ -285,12 +280,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-ware-house') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/add') }}">
                                         <i class="fa fa-plus"></i> Thêm kho hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-ware-house') }}">
+                                    <a href="{{ URL::to('/admin/ware-house/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý kho hàng
                                     </a>
                                 </li>
@@ -303,12 +298,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-import-order') }}">
+                                    <a href="{{ URL::to('/admin/import-order/add') }}">
                                         <i class="fa fa-plus"></i> Thêm đơn nhập
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-import-order') }}">
+                                    <a href="{{ URL::to('/admin/import-order/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn nhập
                                     </a>
                                 </li>
@@ -321,12 +316,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-size') }}">
+                                    <a href="{{ URL::to('/admin/size/add') }}">
                                         <i class="fa fa-plus"></i> Thêm Size
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-size') }}">
+                                    <a href="{{ URL::to('/admin/size/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý Size
                                     </a>
                                 </li>
@@ -339,12 +334,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-color') }}">
+                                    <a href="{{ URL::to('/admin/color/add') }}">
                                         <i class="fa fa-plus"></i> Thêm màu
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-color') }}">
+                                    <a href="{{ URL::to('/admin/color/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý màu
                                     </a>
                                 </li>
@@ -394,12 +389,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-order') }}">
+                                    <a href="{{ URL::to('/admin/order/add') }}">
                                         <i class="fas fa-user-plus"></i> Thêm đơn hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-order') }}">
+                                    <a href="{{ URL::to('/admin/order/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn hàng
                                     </a>
                                 </li>
@@ -412,12 +407,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-category-post') }}">
+                                    <a href="{{ URL::to('/admin/category-post/add') }}">
                                         <i class="fa fa-plus"></i> Thêm danh mục bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-category-post') }}">
+                                    <a href="{{ URL::to('/admin/category-post/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý danh mục bài viết
                                     </a>
                                 </li>
@@ -430,12 +425,12 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-post') }}">
+                                    <a href="{{ URL::to('/admin/post/add') }}">
                                         <i class="fa fa-plus"></i> Thêm bài viết
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-post') }}">
+                                    <a href="{{ URL::to('/admin/post/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý bài viết
                                     </a>
                                 </li>
@@ -466,25 +461,25 @@
                             </a>
                             <ul class="sub">
                                 <li>
-                                    <a href="{{ URL::to('/add-store') }}">
+                                    <a href="{{ URL::to('/admin/store/add') }}">
                                         <i class="fa fa-plus"></i> Thêm cửa hàng
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ URL::to('/list-store') }}">
+                                    <a href="{{ URL::to('/admin/store/list') }}">
                                         <i class="fas fa-list-ol"></i> Quản lý cửa hàng
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/edit-info/1') }}">
+                            <a href="{{ URL::to('/admin/contact/edit/1') }}">
                                 <i class="fa fa-users"></i>
                                 <span>Liên hệ</span>
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{ URL::to('/list-message') }}">
+                            <a href="{{ URL::to('/admin/message/list') }}">
                                 <i class="far fa-newspaper"></i>
                                 <span>Quản lí tin nhắn</span>
                             </a>
@@ -948,7 +943,7 @@
                 } else {
                     var category_id = $('.choose_category_4 option:selected').val();
                 }
-                
+
                 var order_detail_quantity = $('.order_detail_quantity').val();
                 var _token = $('input[name="_token"]').val();
                 var total = 0;
@@ -1071,7 +1066,7 @@
                         '"></div><div class="form-group"><label>Giá tiền</label><input type="text" data-id_price="' +
                         x + '" disabled name="product_price" class="form-control product_price_' + x +
                         '" value=""></div><div class="bg_del" id="remove"><i class="fas fa-backspace del_address"></i></div></div></div>'
-                        );
+                    );
                     x++;
                 }
             })

@@ -22,7 +22,6 @@
                         <th>Hình bài viết</th>
                         <!-- <th style="table-layout: fixed;">Tóm tắt bài viết</th>
                         <th style="table-layout: fixed;">Nội dung bài viết</th> -->
-                        <th>Hiển thị</th>
                         <th style="width:60px;">Quản lý</th>
                     </tr>
                 </thead>
@@ -35,26 +34,14 @@
                         <td><img class="img-fluid" src="{{asset('uploads/post/'.$post -> post_image)}}" alt="">
                         </td>
                         <td>
-                            <span class="text-ellipsis">
-                                @if($post -> post_status==1)
-                                <a href="{{URL::to('/active-post/'.$post -> post_id)}}"><span
-                                        class="fa-styling fa fa-eye"></span></a>
-                                @else
-
-                                <a href="{{URL::to('/unactive-post/'.$post -> post_id)}}"><span
-                                        class="fa-styling fa fa-eye-slash"></span></a>
-                                @endif
-                            </span>
-                        </td>
-                        <td>
                             <!-- <a href="{{URL::to('/add-post')}}"
                                 class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>
                             </a> -->
-                            <a href="{{URL::to('edit-post/'.$post -> post_id)}}" class="active style-edit"
+                            <a href="{{URL::to('/admin/post/edit/'.$post -> post_id)}}" class="active style-edit"
                                 ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
                             <a onclick="return confirm('Bạn có chắc muốn xóa bài viết?')"
-                                href="{{URL::to('delete-post/'.$post -> post_id)}}" class="active style-edit"
+                                href="{{URL::to('/admin/post/delete/'.$post -> post_id)}}" class="active style-edit"
                                 ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>
                             </a>

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -36,5 +40,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    function showLoginForm(){
+        return view('admin_login');
+    }
+    function login(Request $request){
+         $data=$request->all();
+        if(Auth::attempt([
+            'email' => $data['account_username'],
+            'password' => $data['account_password']
+        ])){
+            $user = User::where('email',$data['account_username'])->first();
+            Auth::login($user);
+            return Redirect::to('admin/dashboard');
+        }else{
+            return Redirect::to('login')->with('error','Tài khoản hoặc mật khẩu không đúng');
+        }
     }
 }

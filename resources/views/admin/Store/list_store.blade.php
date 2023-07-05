@@ -31,11 +31,11 @@
                                 <td>{{ $store->store_email}}</td>
                                 <td>{{ $store->store_email}}</td>
                                 <td>
-                                    <a href="{{ URL::to('edit-store/' . $store->store_id) }}" class="active style-edit"
+                                    <a href="{{ URL::to('/admin/store/edit/' . $store->store_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>
                                     <a onclick="return confirm('Bạn có chắc muốn xóa cửa hàng?')"
-                                        href="{{ URL::to('delete-store/' . $store->store_id) }}"
+                                        href="{{ URL::to('/admin/store/delete-store/' . $store->store_id) }}"
                                         class="active style-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>

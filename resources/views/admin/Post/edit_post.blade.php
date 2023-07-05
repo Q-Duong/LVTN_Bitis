@@ -7,13 +7,13 @@
                 Cập nhật bài viết
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-post')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('/admin/post/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-post/'.$edit_value->post_id)}}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{URL::to('/admin/post/update/'.$edit_value->post_id)}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         
                         <div class="form-group">
@@ -47,20 +47,6 @@
                                 placeholder="Mô tả nội dung sản phẩm">{{$edit_value->post_content}}
                             </textarea>
                             {!! $errors->first('post_content', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
-                        
-                        
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Hiển thị</label>
-                            <select name="post_status" class="form-control m-bot15">
-                                @if($edit_value->post_status==1)
-                                    <option selected value="1">Hiển thị</option>
-                                    <option value="0">Ẩn</option>
-                                @else
-                                    <option value="1">Hiển thị</option>
-                                    <option selected value="0">Ẩn</option>
-                                @endif
-                            </select>
                         </div>
 
                         <button type="submit" name="update_post" class="btn btn-info">Cập nhật bài viết</button>

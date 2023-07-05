@@ -25,11 +25,11 @@
                                 <td>{{ $size->size_id}}</td>
                                 <td>{{$size->size_attribute}}</td>
                                 <td>
-                                    <a href="{{ URL::to('edit-size/' . $size->size_id) }}" class="active style-edit"
+                                    <a href="{{ URL::to('/admin/size/edit/' . $size->size_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>
                                     <a onclick="return confirm('Bạn có chắc muốn xóa size?')"
-                                        href="{{ URL::to('delete-size/' . $size->size_id) }}"
+                                        href="{{ URL::to('/admin/size/delete/' . $size->size_id) }}"
                                         class="active style-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>

@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Member extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'user_id', 'user_firstname','user_lastname','user_phone','user_email','account_id','user_avatar'
+    	'member_id', 'member_firstname','member_lastname','member_phone','member_email','member_avatar'
     ];
-    protected $primaryKey = 'user_id';
- 	protected $table = 'user';
+    protected $primaryKey = 'member_id';
+ 	protected $table = 'member';
 
-    public function account(){
-        return $this->belongsTo('App\Models\Account','account_id');
+    public function user(){
+        return $this->hasOne('App\Models\User');
     }
     public function order(){
         $this->hasMany('App\Models\Order');

@@ -32,10 +32,7 @@
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
+    
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -44,7 +41,7 @@
                 <!-- <a href="#">Sign in</a>
                 <a href="#">FAQs</a> -->
             </div>
-            @if (Session::has('customer_id'))
+            @if (Auth::check())
                 <div class="offcanvas__top__hover">
                     <span>
                         @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
@@ -67,7 +64,7 @@
                         <a href="{{ URL::to('/member/settings/') }}">
                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                         </a>
-                        <a href="{{ URL::to('/logout-checkout') }}">
+                        <a href="{{ URL::to('/member/logout') }}">
                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                         </a>
                     </ul>
@@ -78,10 +75,10 @@
                         <i class="arrow_carrot-down"></i>
                     </span>
                     <ul>
-                        <a href="{{ URL::to('/login') }}">
+                        <a href="{{ URL::to('/member/login') }}">
                             <li><i class="fas fa-sign-in-alt"></i> Đăng nhập</li>
                         </a>
-                        <a href="{{ URL::to('/register') }}">
+                        <a href="{{ URL::to('/member/register') }}">
                             <li><i class="fas fa-user-plus"></i> Đăng ký</li>
                         </a>
                     </ul>
@@ -103,7 +100,7 @@
         </div>
     </div>
     <!-- Offcanvas Menu End -->
-    <input type="hidden" name="user_id" value={{ Session::get('user_id') }}>
+    <input type="hidden" name="user_id" value={{ Session::get('member_id') }}>
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
@@ -121,7 +118,7 @@
                                 <a href="#">FAQs</a> -->
                             </div>
 
-                            @if (Session::has('user_id'))
+                            @if (Auth::check())
                                 <div class="header__top__hover">
                                     <span>
                                         {{-- @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
@@ -133,7 +130,9 @@
                                         <i class="far fa-user-circle"></i>
                                     @endif --}}
 
-                                        Xin chào, {{ Session::get('user_lastname') }}
+                                        {{-- Xin chào, {{ Session::get('member_lastname') }} --}}
+                                       {{-- @dd(Auth::user()->load(['member'])) --}}
+                                        {{-- {{ Auth::user()->with('member') }} --}}
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
@@ -146,7 +145,7 @@
                                         <a href="{{ URL::to('/member/settings') }}" class="member-settings">
                                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                                         </a>
-                                        <a href="{{ URL::to('/logout-checkout') }}">
+                                        <a href="{{ URL::to('/member/logout') }}">
                                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                                         </a>
                                     </ul>
@@ -157,10 +156,10 @@
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
-                                        <a href="{{ URL::to('/login') }}">
+                                        <a href="{{ URL::to('/member/login') }}">
                                             <li><i class="fas fa-sign-in-alt"></i> Đăng nhập</li>
                                         </a>
-                                        <a href="{{ URL::to('/register') }}">
+                                        <a href="{{ URL::to('/member/register') }}">
                                             <li><i class="fas fa-user-plus"></i> Đăng ký</li>
                                         </a>
 

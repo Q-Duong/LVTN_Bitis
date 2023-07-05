@@ -12,7 +12,7 @@
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/update-info/'.$edit_value->info_id)}}"
+                    <form role="form" action="{{URL::to('/admin/contact/update/'.$edit_value->info_id)}}"
                         method="post" >
                         @csrf
                         <div class="form-group">

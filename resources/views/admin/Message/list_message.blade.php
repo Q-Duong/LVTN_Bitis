@@ -28,7 +28,7 @@
                         <td>{{ $mes -> message_email }}</td>
                         <td>{{ $mes -> message_content }}</td>
                         <td><a onclick="return confirm('Bạn có chắc muốn xóa tin nhắn?')"
-                            href="{{ URL::to('delete-message/' . $mes->message_id) }}"
+                            href="{{ URL::to('/admin/message/delete/' . $mes->message_id) }}"
                             class="active style-edit" ui-toggle-class="">
                             <i class="fa fa-times text-danger text"></i>
                         </a></td>

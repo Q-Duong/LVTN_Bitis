@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'member_id'
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // public function employee(){
+    //     $this->hasOne('App\Models\Employee');
+    // }
+    public function member(){
+        $this->belongsTo('App\Models\Member','member_id');
+    }
 }
