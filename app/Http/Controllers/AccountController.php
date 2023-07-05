@@ -15,7 +15,7 @@ class AccountController extends Controller
         $data=$request->all();
         $result=Account::where('account_username',$data['account_username'])->where('account_password',md5($data['account_password']))->first();
         if($result){
-            return Redirect::to('dashboard');
+            return Redirect::to('admin/dashboard');
         }
         else{
             return Redirect::to('admin')->with('error','Tài khoản hoặc mật khẩu không đúng');
