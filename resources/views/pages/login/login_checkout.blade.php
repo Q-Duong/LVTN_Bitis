@@ -20,7 +20,7 @@
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
-            <form action="{{ URL::to('/login-submit') }}" method="POST">
+            <form action="{{ URL::to('/member/login-submit') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-5 col-md-5">

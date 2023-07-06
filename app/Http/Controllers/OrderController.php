@@ -61,13 +61,11 @@ class OrderController extends Controller
     }
     function update_order(Request $request,$order_code){
         $data = $request->all();
-        
         $order = Order::where('order_code',$order_code)->first();
         $order->order_status = $data['order_status'];
         $order->order_payment_type = $data['order_payment_type'];
         $order->save();
         return Redirect()->back()->with('success','Cập nhật thành công');
-        
     }
-
+    //Validate
 }

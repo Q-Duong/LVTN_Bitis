@@ -22,20 +22,22 @@
                                 <div class="alert alert-danger">{!! session('error') !!}</div>
                             @endif
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('category_id') ? 'has-error' : ''}}" >
                             <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                            <select name="category_id" class="form-control m-bot15 choose_category">
+                            <select name="category_id" data-id_category="0"  class="form-control m-bot15 choose_category">
                                 <option value="">--Chọn Danh Mục--</option>
                                 @foreach($getAllCategory as $key =>$category)
                                 <option value="{{$category->category_id}}">{{$category->category_name}}</option>
                                 @endforeach
                             </select>
+                            {!! $errors->first('category_id', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('product_type_id') ? 'has-error' : ''}}">
                             <label for="exampleInputPassword1">Loại sản phẩm</label>
-                            <select name="product_type_id" class="form-control m-bot15 choose_product_type">
+                            <select name="product_type_id" data-id_type="0" class="form-control m-bot15 choose_product_type">
                                 <option value="">--Chọn Loại Sản Phẩm--</option>
                             </select>
+                            {!! $errors->first('product_type_id', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">

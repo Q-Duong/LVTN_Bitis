@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $category->category_name = $data['category_name'];
         $category->category_slug = $data['category_slug'];
         $category->save();
-        return Redirect::to('list-category')->with('success', 'Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('admin/category/list')->with('success', 'Cập nhật danh mục sản phẩm thành công');
     }
 
 

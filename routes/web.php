@@ -20,6 +20,9 @@ use App\Http\Controllers\InfomationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ImportOrderController;
 use App\Http\Controllers\OrderController;
+use Illuminate\Support\Facades\Auth;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,18 +36,24 @@ use App\Http\Controllers\OrderController;
 
 //-------------------------------------------- Backend --------------------------------------------
  //Ajax
-        Route::post('select-category','App\Http\Controllers\ProductController@select_category');
-        Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
-        Route::post('select-product','App\Http\Controllers\ProductController@select_product');
-        Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
-        Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
-        Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
-        Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
-Route::prefix('admin')->group(function(){
-    Route::get('/',[AccountController::class,'index']);
-    Route::post('/login',[AccountController::class,'admin_login']);
+Route::post('select-category','App\Http\Controllers\ProductController@select_category');
+Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
+Route::post('select-product','App\Http\Controllers\ProductController@select_product');
+Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
+Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
+Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
+Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
+
+Route::post('admin/logout',[AccountController::class,'admin_logout']);
+// Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
+// Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
+// Route::get('/home',[AccountController::class,'home']);
+Route::get('/403',function(){return view('403');})->name('403');
+Auth::routes(); 
+Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
+
+    //Dashboard
     Route::get('/dashboard',[AccountController::class,'dashboard']);
-   
 
     //Category
     Route::prefix('category')->group(function(){
@@ -225,12 +234,11 @@ Route::post('filter','App\Http\Controllers\ProductController@filter');
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
 
 //Login
-Route::get('/login','App\Http\Controllers\LoginController@login');
-Route::get('/register','App\Http\Controllers\LoginController@register');
-Route::get('/logout-checkout','App\Http\Controllers\LoginController@logout_checkout');
-Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
-Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
-// Route::get('/member/profile/{user_id}','App\Http\Controllers\LoginController@check_profile');
+Route::get('member/login','App\Http\Controllers\LoginController@login')->name('member/login');
+Route::get('member/register','App\Http\Controllers\LoginController@register');
+Route::get('member/logout','App\Http\Controllers\LoginController@logout_checkout');
+Route::post('member/login-submit','App\Http\Controllers\LoginController@login_submit');
+Route::post('member/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
 Route::get('/member/profile','App\Http\Controllers\LoginController@profile');
 Route::get('/member/settings','App\Http\Controllers\LoginController@settings');
 Route::post('/update-account-infomation/{user_id}','App\Http\Controllers\LoginController@update_account_information');
@@ -265,9 +273,3 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
 
-
-Route::post('auth/register', 'UserController@register');
-Route::post('auth/login', 'UserController@login');
-Route::group(['middleware' => 'jwt.auth'], function () {
-    Route::get('user-info', 'UserController@getUserInfo');
-});

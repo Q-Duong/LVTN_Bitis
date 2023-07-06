@@ -12,8 +12,7 @@ class UserController extends Controller
 {
     function add_user()
     {
-        $getAllAccount = Account::orderBy('account_id', 'asc')->get();
-        return view('admin.User.add_user')->with(compact('getAllAccount'));
+        return view('admin.User.add_user');
     }
     function list_user()
     {

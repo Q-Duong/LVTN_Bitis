@@ -47,7 +47,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="alert alert-danger">{!! session('error') !!}</div>
             @endif
 
-            <form action="{{ URL::to('admin/login') }}" method="post">
+            <form action="{{route('login')}}" method="post">
                 @csrf
                 <input type="text" class="ggg" name="account_username" placeholder="Điền E-Mail" required="">
                 <input type="password" class="ggg" name="account_password" placeholder="Điền Password"
