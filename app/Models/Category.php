@@ -14,10 +14,10 @@ class Category extends Model
  	protected $table = 'category';
     
      public function categoryType(){
-         $this->hasMany("App\Model\CategoryType");
+        return $this->hasMany("App\Model\CategoryType");
      }
 
      public function product(){
-        $this->hasMany("App\Model\Product");
+        return $this->hasMany("App\Model\Product");
     }
 }

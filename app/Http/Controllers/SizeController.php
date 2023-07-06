@@ -20,7 +20,6 @@ class SizeController extends Controller
     }
     function save_size(Request $request){
         $data=$request->all();
-        //dd($data);
         $size=new Size();
         $size->size_attribute=$data['size_attribute'];
         $check=Size::where('size_attribute',$data['size_attribute'])->exists();

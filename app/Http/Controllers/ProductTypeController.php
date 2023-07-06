@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 class ProductTypeController extends Controller
 {
     function add_product_type(){
-        
         return view('admin.ProductType.add_product_type');
     }
     function edit_product_type($product_type_id){

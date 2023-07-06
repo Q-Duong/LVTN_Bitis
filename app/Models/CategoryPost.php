@@ -14,6 +14,6 @@ class CategoryPost extends Model
  	protected $table = 'category_post';
 
     public function post(){
-        $this->hasMany('App\Models\Post');
+        return $this->hasMany('App\Models\Post');
     }
 }

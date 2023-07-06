@@ -15,13 +15,11 @@ class StoreController extends Controller
     }
     function edit_store($store_id){
         $edit_value=Store::find($store_id);
-        // dd($edit_value);
         return view('admin.Store.edit_store')->with(compact('edit_value'));
     }
     function save_store(Request $request)
     {
         $data=$request->all();
-        // dd($data);
         $store=new Store();
         $store->store_address=$data['store_address'];
         $store->store_email=$data['store_email'];
@@ -37,7 +35,6 @@ class StoreController extends Controller
     function update_store(Request $request,$store_id){
         $data=$request->all();
         $store=Store::find($store_id);
-        //dd($store);
         $store->store_address=$data['store_address'];
         $store->store_email=$data['store_email'];
         $store->store_phone=$data['store_phone'];

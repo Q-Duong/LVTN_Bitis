@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class CheckMemberLogin
 {
     /**
      * Handle an incoming request.
@@ -18,14 +18,14 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->role == 0){
+            if(Auth::user()->role == 1){
                 return $next($request);
             }else{
                 Auth::logout();
-                return Redirect()->route('login');
+                return Redirect()->route('member/login');
             }
         }else{
-            return Redirect()->route('login');
+            return Redirect()->route('member/login');
         }
     }
 }

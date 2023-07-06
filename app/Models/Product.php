@@ -20,7 +20,7 @@ class Product extends Model
         return $this->belongsTo('App\Models\Category','category_id');
     }
     public function wareHouse(){
-        $this->hasMany("App\Model\WareHouse");
+        return $this->hasMany("App\Model\WareHouse");
     }
 
     // public function comment(){

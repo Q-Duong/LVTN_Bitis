@@ -7,13 +7,13 @@
                 Thêm nhân viên
                 <span class="tools pull-right">
                     <a class="fa fa-chevron-down" href="javascript:;"></a>
-                    <a href="{{URL::to('/list-employee')}}" class="btn btn-info edit">Quản lý</a>
+                    <a href="{{URL::to('admin/employee/list')}}" class="btn btn-info edit">Quản lý</a>
                 </span>
             </header>
             
             <div class="panel-body">
                 <div class="position-center">
-                    <form role="form" action="{{URL::to('/save-employee')}}" method="post" >
+                    <form role="form" action="{{URL::to('admin/employee/save')}}" method="post" >
                         {{csrf_field()}}
                         <div class="form-group">
                             @if(session('success'))
@@ -24,26 +24,30 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1"> Tài khoản đăng nhập</label>
-                            <input type="email" name="account_username" value="{{old('account_username')}}" class="form-control"  placeholder="Tài khoản" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="email" name="email" value="{{old('email')}}" class="form-control"  placeholder="Tài khoản" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div> 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mật khẩu</label>
-                            <input type="password" name="account_password" value="{{old('account_password')}}" class="form-control"  placeholder="Mật khẩu" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="password" name="password" class="form-control"  placeholder="Mật khẩu" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                        </div> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Họ và tên lót nhân viên</label>
+                            <input type="text" name="profile_firstname" value="{{old('profile_firstname')}}" class="form-control"  placeholder="" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div> 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên nhân viên</label>
-                            <input type="text" name="employee_name" value="{{old('employee_name')}}" class="form-control"  placeholder="Mật khẩu" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" name="profile_lastname" value="{{old('profile_lastname')}}" class="form-control" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div> 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email nhân viên</label>
-                            <input type="text" name="employee_email" value="{{old('employee_email')}}" class="form-control"
+                            <input type="text" name="profile_email" value="{{old('profile_email')}}" class="form-control"
                                 placeholder="Enter email" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                          <div class="form-group">
                             <label for="exampleInputEmail1">Số điện thoại</label>
-                            <input type="text" name="employee_phone" value="{{old('employee_phone')}}" class="form-control" placeholder="Số điện thoại" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" name="profile_phone" value="{{old('profile_phone')}}" class="form-control" placeholder="Số điện thoại" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
-                        <a type="button" name="add_employee" class="btn btn-info add_employee">Thêm nhân viên</a>
+                        <button type="submit" name="add_employee" class="btn btn-info">Thêm nhân viên</button>
                     </form>
 
                 </div>

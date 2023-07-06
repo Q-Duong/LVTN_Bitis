@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-lg-7 col-md-6">
                                     <div class="account-sidebar-title">
-                                        Xin chào, <span>{{ Session::get('user_lastname') }}</span>
+                                        Xin chào, <span>{{ Auth::user()->profile->profile_lastname }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -162,35 +162,39 @@
                                 </div>
                             @endif
                         </div> --}}
-                        <div class="checkout__input {{ $errors->has('user_firstname') ? 'has-error' : '' }}">
+                        <div class="checkout__input {{ $errors->has('profile_firstname') ? 'has-error' : '' }}">
                             <p>Họ và tên lót<span>*</span></p>
-                            <input type="text" name="user_firstname" placeholder="Họ và tên lót"
-                                value="{{ Session::get('user_firstname') }}">
+                            <input type="text" name="profile_firstname" placeholder="Họ và tên lót"
+                                value="{{ Auth::user()->profile->profile_firstname }}">
                             {!! $errors->first(
-                                'user_firstname',
+                                'profile_firstname',
                                 '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',
                             ) !!}
                         </div>
-                        <div class="checkout__input {{ $errors->has('user_lastname') ? 'has-error' : '' }}">
+                        <div class="checkout__input {{ $errors->has('profile_lastname') ? 'has-error' : '' }}">
                             <p>Tên<span>*</span></p>
-                            <input type="text" name="user_lastname" placeholder="Tên"
-                                value="{{ Session::get('user_lastname') }}">
+                            <input type="text" name="profile_lastname" placeholder="Tên"
+                                value="{{ Auth::user()->profile->profile_lastname }}">
                             {!! $errors->first(
-                                'user_lastname',
+                                'profile_lastname',
                                 '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',
                             ) !!}
                         </div>
-                        <div class="checkout__input">
-                            <p>Địa chỉ email<span>*</span></p>
-                            <input type="text" name="user_email" placeholder="Địa chỉ email"
-                                value="{{ Session::get('user_email') }}" disabled>
-                        </div>
-                        <div class="checkout__input {{ $errors->has('user_phone') ? 'has-error' : '' }}">
-                            <p>Số điện thoại<span>*</span></p>
-                            <input type="text" name="user_phone" placeholder="Số điện thoại"
-                                value="{{ Session::get('user_phone') }}">
+                        <div class="checkout__input {{ $errors->has('profile_email') ? 'has-error' : '' }}">
+                            <p>Địa chỉ email cá nhân<span>*</span></p>
+                            <input type="text" name="profile_email" placeholder="Địa chỉ email"
+                                value="{{ Auth::user()->profile->profile_email }}">
                             {!! $errors->first(
-                                'user_phone',
+                                'profile_email',
+                                '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',
+                            ) !!}
+                        </div>
+                        <div class="checkout__input {{ $errors->has('profile_phone') ? 'has-error' : '' }}">
+                            <p>Số điện thoại<span>*</span></p>
+                            <input type="text" name="profile_phone" placeholder="Số điện thoại"
+                                value="{{ Auth::user()-> profile -> profile_phone }}">
+                            {!! $errors->first(
+                                'profile_phone',
                                 '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',
                             ) !!}
                         </div>
@@ -205,7 +209,8 @@
                         <div class="checkout__input">
                             <button type="button" name="update_information"
                                 class="site-btn update-account-information"><i class="fa fa-cog"></i>
-                                Cập nhật thông tin tài khoản</button>
+                                Cập nhật thông tin tài khoản
+                            </button>
                         </div>
                     </form>
                 </div>
