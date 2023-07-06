@@ -7,7 +7,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
-class EmployeeController extends Controller
+class MemberController extends Controller
 {
     function add_employee()
     {
@@ -27,8 +27,8 @@ class EmployeeController extends Controller
         $user = new User();
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
-        $user->role = 0;
-        $user->name = 'Employee';
+        $user->role = 1;
+        $user->name = 'Member';
         $user->profile_id = $profile->profile_id;
         $user->save();
         return Redirect()->back()->with('success', 'Thêm nhân viên thành công');

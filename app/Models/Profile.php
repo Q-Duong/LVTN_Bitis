@@ -4,22 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class Profile extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'member_id', 'member_firstname','member_lastname','member_phone','member_email','member_avatar'
+    	'profile_id', 'profile_firstname','profile_lastname','profile_phone','profile_email','profile_avatar'
     ];
-    protected $primaryKey = 'member_id';
- 	protected $table = 'member';
+    protected $primaryKey = 'profile_id';
+ 	protected $table = 'profile';
 
     public function user(){
         return $this->hasOne('App\Models\User');
     }
     public function order(){
-        $this->hasMany('App\Models\Order');
+        return $this->hasMany('App\Models\Order');
     }
     public function delivery(){
-        $this->hasMany('App\Models\Delivery');
+        return $this->hasMany('App\Models\Delivery');
     }
 }

@@ -14,6 +14,6 @@ class Color extends Model
  	protected $table = 'color';
 	
      public function wareHouse(){
-        $this->hasMany("App\Model\WareHouse");
+        return $this->hasMany("App\Model\WareHouse");
     }
 }

@@ -58,20 +58,20 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     //Category
     Route::prefix('category')->group(function(){
         Route::get('/add',[CategoryController::class,'add_category']);
-        Route::post('save',[CategoryController::class,'save_category']);
+        Route::post('/save',[CategoryController::class,'save_category']);
         Route::get('/list',[CategoryController::class,'list_category']);
         Route::get('/edit/{category_id}',[CategoryController::class,'edit_category']);
-        Route::post('update/{category_id}',[CategoryController::class,'update_category']);
+        Route::post('/update/{category_id}',[CategoryController::class,'update_category']);
         Route::get('/delete/{category_id}',[CategoryController::class,'delete_category']);
     });
 
     //CategoryType
     Route::prefix('category-type')->group(function(){
         Route::get('/add',[CategoryTypeController::class,'add_category_type']);
-        Route::post('save',[CategoryTypeController::class,'save_category_type']);
+        Route::post('/save',[CategoryTypeController::class,'save_category_type']);
         Route::get('/list',[CategoryTypeController::class,'list_category_type']);
         Route::get('/edit/{category_type_id}',[CategoryTypeController::class,'edit_category_type']);
-        Route::post('update/{category_type_id}',[CategoryTypeController::class,'update_category_type']);
+        Route::post('/update/{category_type_id}',[CategoryTypeController::class,'update_category_type']);
         Route::get('/delete/{category_type_id}',[CategoryTypeController::class,'delete_category_type']);
     });
     //Product
@@ -120,9 +120,9 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/add',[EmployeeController::class,'add_employee']);
         Route::post('/save',[EmployeeController::class,'save_employee']);
         Route::get('/list',[EmployeeController::class,'list_employee']);
-        Route::get('/edit/{employee_id}',[EmployeeController::class,'edit_employee']);
-        Route::post('update/{employee_id}',[EmployeeController::class,'update_employee']);
-        Route::get('/delete/{employee_id}',[EmployeeController::class,'delete_employee']);
+        Route::get('/edit/{user_id}',[EmployeeController::class,'edit_employee']);
+        Route::post('update/{user_id}',[EmployeeController::class,'update_employee']);
+        Route::get('/delete/{user_id}',[EmployeeController::class,'delete_employee']);
     });
     // Post
     Route::prefix('post')->group(function(){ 
@@ -234,17 +234,23 @@ Route::post('filter','App\Http\Controllers\ProductController@filter');
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
 
 //Login
-Route::get('member/login','App\Http\Controllers\LoginController@login')->name('member/login');
-Route::get('member/register','App\Http\Controllers\LoginController@register');
-Route::get('member/logout','App\Http\Controllers\LoginController@logout_checkout');
-Route::post('member/login-submit','App\Http\Controllers\LoginController@login_submit');
-Route::post('member/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
-Route::get('/member/profile','App\Http\Controllers\LoginController@profile');
-Route::get('/member/settings','App\Http\Controllers\LoginController@settings');
-Route::post('/update-account-infomation/{user_id}','App\Http\Controllers\LoginController@update_account_information');
-Route::get('/member/settings/delivery-addresses','App\Http\Controllers\LoginController@delivery_addresses');
-Route::get('/orders','App\Http\Controllers\LoginController@orders');
-Route::get('/orders/order-detail/{order_code}','App\Http\Controllers\LoginController@order_detail');
+Route::prefix('member')->group(function(){    
+    Route::get('/login','App\Http\Controllers\LoginController@login')->name('member/login');
+    Route::get('/register','App\Http\Controllers\LoginController@register');
+    Route::get('/logout','App\Http\Controllers\LoginController@logout_checkout');
+    Route::post('/login-submit','App\Http\Controllers\LoginController@login_submit');
+    Route::post('/save-user-fe','App\Http\Controllers\LoginController@save_user_FE');
+    
+    Route::group(['middleware' => 'isMember'], function () {
+        Route::get('/profile','App\Http\Controllers\LoginController@profile');
+        Route::get('/settings','App\Http\Controllers\LoginController@settings');
+        Route::post('/update-profile/{profile_id}','App\Http\Controllers\LoginController@update_profile');
+        Route::get('/settings/delivery-addresses','App\Http\Controllers\LoginController@delivery_addresses');
+        Route::get('/orders','App\Http\Controllers\LoginController@orders');
+        Route::get('/orders/order-detail/{order_code}','App\Http\Controllers\LoginController@order_detail');
+    });
+});
+
 
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');

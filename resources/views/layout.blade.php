@@ -32,7 +32,7 @@
 
 <body>
     <!-- Page Preloder -->
-    
+
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
@@ -51,17 +51,17 @@
                         @elseif(Session::get('customer_image') == '' && Session::get('customer_password') != '')
                             <i class="far fa-user-circle"></i>
                         @endif
-                        {{ Session::get('customer_last_name') }}
+                        Xin chào, {{ Auth::user()->profile->profile_lastname }}
                         <i class="arrow_carrot-down"></i>
                     </span>
                     <ul>
-                        <a href="{{ URL::to('/member/profile/') }}">
+                        <a href="{{ URL::to('/member/profile') }}">
                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                         </a>
-                        <a href="{{ URL::to('orders/') }}">
+                        <a href="{{ URL::to('member/orders') }}">
                             <li><i class="fa fa-cog"></i> Đơn hàng</li>
                         </a>
-                        <a href="{{ URL::to('/member/settings/') }}">
+                        <a href="{{ URL::to('/member/settings') }}">
                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                         </a>
                         <a href="{{ URL::to('/member/logout') }}">
@@ -100,7 +100,7 @@
         </div>
     </div>
     <!-- Offcanvas Menu End -->
-    <input type="hidden" name="user_id" value={{ Session::get('member_id') }}>
+
     <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
@@ -119,6 +119,8 @@
                             </div>
 
                             @if (Auth::check())
+                                <input type="hidden" name="profile_id"
+                                    value={{ Auth::user()->profile->profile_id }}>
                                 <div class="header__top__hover">
                                     <span>
                                         {{-- @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
@@ -130,16 +132,14 @@
                                         <i class="far fa-user-circle"></i>
                                     @endif --}}
 
-                                        {{-- Xin chào, {{ Session::get('member_lastname') }} --}}
-                                       {{-- @dd(Auth::user()->load(['member'])) --}}
-                                        {{-- {{ Auth::user()->with('member') }} --}}
+                                        Xin chào, {{ Auth::user()->profile->profile_lastname }}
                                         <i class="arrow_carrot-down"></i>
                                     </span>
                                     <ul>
                                         <a href="{{ URL::to('/member/profile') }}" class="member-profile">
                                             <li><i class="fas fa-address-card"></i> Thông tin tài khoản</li>
                                         </a>
-                                        <a href="{{ URL::to('/orders') }}" class="member-orders">
+                                        <a href="{{ URL::to('member/orders') }}" class="member-orders">
                                             <li><i class="fa fa-cog"></i> Đơn hàng</li>
                                         </a>
                                         <a href="{{ URL::to('/member/settings') }}" class="member-settings">
@@ -903,20 +903,22 @@
         $('.update-account-information').click(function(event) {
             event.preventDefault();
             var _token = $('input[name="_token"]').val();
-            var user_id = $('input[name="user_id"]').val();
-            var user_firstname = $('input[name=user_firstname]').val();
-            var user_lastname = $('input[name=user_lastname]').val();
-            var user_phone = $('input[name=user_phone]').val();
+            var profile_id = $('input[name="profile_id"]').val();
+            var profile_firstname = $('input[name=profile_firstname]').val();
+            var profile_lastname = $('input[name=profile_lastname]').val();
+            var profile_phone = $('input[name=profile_phone]').val();
+            var profile_email = $('input[name=profile_email]').val();
 
             $.ajax({
-                url: '/update-account-infomation/' + user_id,
+                url: 'update-profile/' + profile_id,
                 method: "POST",
                 data: {
                     _token: _token,
-                    user_id: user_id,
-                    user_firstname: user_firstname,
-                    user_lastname: user_lastname,
-                    user_phone: user_phone,
+                    profile_id: profile_id,
+                    profile_firstname: profile_firstname,
+                    profile_lastname: profile_lastname,
+                    profile_phone: profile_phone,
+                    profile_email: profile_email
                 },
                 success: function(data) {
                     successMsg(data.message);
@@ -931,13 +933,84 @@
 
         $('.close-a').on('click', function() {
             $('.popup-form').fadeOut(400);
-            
+
         });
 
         $('.overlay').on('click', function() {
             $('.search-model').fadeOut(400, function() {
                 $('#search-input').val('');
             });
+        });
+
+        $(document).ready(function() {
+
+            load_comment();
+
+            function load_comment() {
+                var product_id = $('.comment_product_id').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ url('/load-comment') }}",
+                    method: "POST",
+                    data: {
+                        product_id: product_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+
+                        $('#comment_show').html(data);
+                    }
+                });
+            }
+            $('.send-comment').click(function() {
+                var product_id = $('.comment_product_id').val();
+                var comment_name = $('.comment_name').val();
+                var comment_content = $('.comment_content').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ url('/send-comment') }}",
+                    method: "POST",
+                    data: {
+                        product_id: product_id,
+                        comment_name: comment_name,
+                        comment_content: comment_content,
+                        _token: _token
+                    },
+                    success: function(data) {
+
+                        $('#notify_comment').html(
+                            '<span class="text text-success">Thêm bình luận thành công, bình luận đang chờ duyệt</span>'
+                            );
+                        load_comment();
+                        $('#notify_comment').fadeOut(9000);
+                        $('.comment_name').val('');
+                        $('.comment_content').val('');
+                    }
+                });
+            });
+        });
+
+        $(document).on('click', '.rating', function() {
+            var val = $(this).val();
+           console.log(val);
+           
+            // $.ajax({
+            //     url: "{{ url('insert-rating') }}",
+            //     method: "POST",
+            //     data: {
+            //         index: index,
+            //         product_id: product_id,
+            //         _token: _token
+            //     },
+            //     success: function(data) {
+            //         if (data == 'done') {
+            //             alert("Bạn đã đánh giá " + index + " trên 5");
+            //         } else {
+            //             alert("Lỗi đánh giá");
+            //         }
+            //     }
+            // });
+
         });
     </script>
 </body>

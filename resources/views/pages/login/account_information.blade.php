@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-lg-7 col-md-6" >
                                         <div class="account-sidebar-title">
-                                            Xin chào, <span>{{ Session::get('member_lastname') }}</span>
+                                            Xin chào, <span>{{ Auth::user()-> profile -> profile_lastname }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -125,25 +125,25 @@
                         </div>
                         <div class="checkout__input">
                             <p>Họ và tên lót<span>*</span></p>
-                            <input type="text" name="user_firstname	" placeholder="Họ và tên lót" value="{{ Session::get('user_firstname') }}" disabled>
+                            <input type="text" value="{{ Auth::user()-> profile -> profile_firstname }}" disabled>
                         </div>
                         <div class="checkout__input">
                             <p>Tên<span>*</span></p>
-                            <input type="text" name="user_lastname" placeholder="Tên" value="{{Session::get('user_lastname')}}" disabled>
+                            <input type="text" value="{{ Auth::user()-> profile -> profile_lastname }}" disabled>
                         </div>
                         <div class="checkout__input">
-                            <p>Địa chỉ email<span>*</span></p>
-                            <input type="text" name="user_email" placeholder="Địa chỉ email" value="{{Session::get('user_email')}}" disabled>
+                            <p>Địa chỉ email cá nhân<span>*</span></p>
+                            <input type="text" value="{{ Auth::user()-> profile -> profile_email }}" disabled>
                         </div>
                         <div class="checkout__input">
                             <p>Số điện thoại<span>*</span></p>
-                            <input type="text" name="user_phone" placeholder="Số điện thoại" value="{{Session::get('user_phone')}}" disabled>
+                            <input type="text" value="{{ Auth::user()-> profile -> profile_phone }}" disabled>
                         </div>
                         <div class="checkout__input">
                         {{-- @php
                             $cust_id=Session::get('customer_id');
 					    @endphp --}}
-                            <a href="{{ URL::to('/member/settings') }}"  type="submit" class="site-btn"><i class="fa fa-cog"></i> Cài đặt tài khoản</a>
+                            <a href="{{ URL::to('/member/settings') }}" class="site-btn"><i class="fa fa-cog"></i> Cài đặt tài khoản</a>
                         </div>
 
                     </div>

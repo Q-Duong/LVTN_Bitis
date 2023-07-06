@@ -69,8 +69,7 @@ class CategoryController extends Controller
         $getAllColor = Color::get();
         $getAllListProductCategory = Product::where('category_id', $category->category_id)->orderBy('product_id', 'ASC')->get();
 
-        $attribute = DB::table('ware_house')
-            ->join('product', 'product.product_id', '=', 'ware_house.product_id')
+        $attribute = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
             ->join('category', 'product.category_id', '=', 'category.category_id')
             ->join('color', 'ware_house.color_id', '=', 'color.color_id')
             ->where('category.category_id', '=', $category->category_id)

@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="order-view-detail">
                                         <div class="checkout__input">
-                                            <a href="{{ URL::to('/orders/order-detail/' . $order->order_code) }}" 
+                                            <a href="{{ URL::to('member/orders/order-detail/' . $order->order_code) }}" 
                                                 class="site-btn">Xem chi tiết</a>
                                         </div>
                                     </div>

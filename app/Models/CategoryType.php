@@ -14,7 +14,7 @@ class CategoryType extends Model
  	protected $table = 'category_type';
    
     public function category(){
-       return $this->belongsTo('App\Models\Category','category_id');
+        return $this->belongsTo('App\Models\Category','category_id');
     }
     public function productType(){
         return $this->belongsTo('App\Models\ProductType','product_type_id');

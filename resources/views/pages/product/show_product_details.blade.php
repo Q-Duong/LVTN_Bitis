@@ -12,7 +12,7 @@
                         <a
                             href="{{ url('/collections/' . $product->category->category_slug) }}">{{ $product->category->category_name }}</a>
                         <a
-                            href="{{ url('/collections/'. $product->category->category_slug . '/' . $product->productType->product_type_slug) }}">{{ $product->productType->product_type_name }}</a>
+                            href="{{ url('/collections/' . $product->category->category_slug . '/' . $product->productType->product_type_slug) }}">{{ $product->productType->product_type_name }}</a>
                         <span>{{ $product->product_name }}</span>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                                 <span>Size:</span>
                                 @foreach ($size as $key => $siz)
                                     <label class="size" for="{{ $siz->size->size_attribute }}">
-                                        {{ $siz->size->size_attribute == 0 ? 'Không có size' : $siz->size -> size_attribute}}
+                                        {{ $siz->size->size_attribute == 0 ? 'Không có size' : $siz->size->size_attribute }}
                                         <input type="radio" class="size_id" value="{{ $siz->size->size_id }}"
                                             id="{{ $siz->size->size_attribute }}">
                                     </label>
@@ -124,6 +124,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Mô tả</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Đánh giá(5)</a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-5" role="tabpanel">
@@ -131,6 +134,50 @@
                                     <p class="note"></p>
                                     <div class="product__details__tab__content__item">
                                         <p>{!! $product->product_description !!}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-6" role="tabpanel">
+                                <div class="product__details__tab__content">
+                                    <form>
+                                        {{ csrf_field() }}
+                                        {{-- <input type="hidden" name="comment_product_id" class="comment_product_id"
+                                            value="{{$value->product_id}}"> --}}
+                                        <div id="comment_show"></div>
+
+                                    </form>
+
+                                    <div class="h-30 row d-flex justify-content-center">
+                                        <div class="col-lg-8 centered">
+                                            <div class="blog__details__comment">
+                                                <h4>Thêm bình luận</h4>
+                                                <!--Rating-->
+                                                <h3>Đánh giá & nhận xét</h3>
+                                                <div class="section-rating">
+                                                    <input class="rating" type="radio" id="star1" value="1" name="star" />
+                                                    <label class="rating_label" for="star1"></label>
+                                                    <input class="rating" type="radio" id="star2" value="2" name="star" />
+                                                    <label class="rating_label" for="star2"></label>
+                                                    <input class="rating" type="radio" id="star3" value="3" name="star" />
+                                                    <label class="rating_label" for="star3"></label>
+                                                    <input class="rating" type="radio" id="star4" value="4" name="star" />
+                                                    <label class="rating_label" for="star4"></label>
+                                                    <input class="rating" type="radio" id="star5" value="5" name="star" />
+                                                    <label class="rating_label" for="star5"></label>
+                                                </div>
+                                                <form action="#">
+                                                    <div id="notify_comment"></div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 text-center">
+                                                            <textarea class="comment_content" placeholder="Comment"></textarea>
+                                                            <button type="submit" class="site-btn send-comment">Gửi
+                                                                đánh
+                                                                giá</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

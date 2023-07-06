@@ -33,34 +33,34 @@
                         @endif
                         <div class="row">
                             <div class="col-lg-6 col-md-6 centered">
-                                <div class="checkout__input  {{ $errors->has('member_firstname') ? 'has-error' : ''}}">
+                                <div class="checkout__input  {{ $errors->has('profile_firstname') ? 'has-error' : ''}}">
                                     <p>Họ và tên lót<span>*</span></p>
-                                    <input type="text" name="member_firstname" placeholder="Điền họ và tên lót" value="{{ old('member_firstname') }}">
-                                    {!! $errors->first('member_firstname', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                                    <input type="text" name="profile_firstname" placeholder="Điền họ và tên lót" value="{{ old('profile_firstname') }}">
+                                    {!! $errors->first('profile_firstname', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 centered">
-                                <div class="checkout__input  {{ $errors->has('member_lastname') ? 'has-error' : ''}}">
+                                <div class="checkout__input  {{ $errors->has('profile_lastname') ? 'has-error' : ''}}">
                                     <p>Tên<span>*</span></p>
-                                    <input type="text" name="member_lastname" placeholder="Điền tên" value="{{ old('member_lastname') }}">
-                                    {!! $errors->first('member_lastname', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                                    <input type="text" name="profile_lastname" placeholder="Điền tên" value="{{ old('profile_lastname') }}">
+                                    {!! $errors->first('profile_lastname', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                                 </div>
                             </div>
                         </div>
-                        <div class="checkout__input  {{ $errors->has('member_phone') ? 'has-error' : ''}}">
+                        <div class="checkout__input  {{ $errors->has('profile_phone') ? 'has-error' : ''}}">
                             <p>Số điện thoại<span>*</span></p>
-                            <input type="text" name="member_phone" placeholder="Điền số điện thoại" value="{{ old('member_phone') }}">
-                            {!! $errors->first('member_phone', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                            <input type="text" name="profile_phone" placeholder="Điền số điện thoại" value="{{ old('profile_phone') }}">
+                            {!! $errors->first('profile_phone', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="checkout__input  {{ $errors->has('user_email') ? 'has-error' : ''}}">
+                        <div class="checkout__input  {{ $errors->has('email') ? 'has-error' : ''}}">
                             <p>Email đăng nhập<span>*</span></p>
-                            <input type="text" name="user_email" placeholder="Điền địa chỉ email(@gmail.com)" value="{{ old('user_email') }}">
-                            {!! $errors->first('user_email', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                            <input type="text" name="email" placeholder="Điền địa chỉ email(@gmail.com)" value="{{ old('email') }}">
+                            {!! $errors->first('email', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="checkout__input {{ $errors->has('user_password') ? 'has-error' : ''}}">
+                        <div class="checkout__input {{ $errors->has('password') ? 'has-error' : ''}}">
                             <p>Mật khẩu<span>*</span></p>
-                            <input type="password" name="user_password" placeholder="Điền mật khẩu" >
-                            {!! $errors->first('user_password', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
+                            <input type="password" name="password" placeholder="Điền mật khẩu" >
+                            {!! $errors->first('password', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="checkout__input">
                             <button type="submit" value="submit" class="site-btn"><i class="fas fa-user-plus"></i> Đăng ký</button>
