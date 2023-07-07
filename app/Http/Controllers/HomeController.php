@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Banner;
 use App\Models\Post;
+use App\Models\Rating;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,21 @@ class HomeController extends Controller
     public function wistlist(){
        return view('pages.wistlist.wistlist');
    }
+
+   public function add_rating(Request $request){
+    $data = $request->all();
+    
+    $rating = new Rating();
+    $rating->rating_star = $data['rating_star'];
+    $rating->rating_comment = $data['rating_comment'];
+    $rating->product_id=$data['product_id'];
+    $rating->user_id=6;
+
+    $rating->save();
+    return Redirect()->back()->with('success','Đã đánh giá thành công sản phẩm');
+   }
+
+   
    
 }
 

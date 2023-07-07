@@ -165,14 +165,16 @@
                                                     <input class="rating" type="radio" id="star5" value="5" name="star" />
                                                     <label class="rating_label" for="star5"></label>
                                                 </div>
-                                                <form action="#">
+                                                <form action="{{URL::to('/add-rating')}}" method="post">
+                                                    @csrf
                                                     <div id="notify_comment"></div>
                                                     <div class="row">
                                                         <div class="col-lg-12 text-center">
-                                                            <textarea class="comment_content" placeholder="Comment"></textarea>
-                                                            <button type="submit" class="site-btn send-comment">Gửi
-                                                                đánh
-                                                                giá</button>
+                                                            <input type="hidden" class="rating_star" name="rating_star"/>
+                                                            <input type="hidden" class="product_id" name="product_id" value="{{$product->product_id}}"/>
+                                                            <textarea class="comment_content" placeholder="Comment" name="rating_comment"></textarea>
+                                                            <button type="submit" class="site-btn send-comment" name="add_rating">Gửi
+                                                                đánh giá</button>
                                                         </div>
                                                     </div>
                                                 </form>

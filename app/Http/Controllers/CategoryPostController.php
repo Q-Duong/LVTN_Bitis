@@ -25,7 +25,6 @@ class CategoryPostController extends Controller
         $category_post=new CategoryPost();
         $category_post->category_post_name=$data['category_post_name'];
         $category_post->category_post_slug=$data['category_post_slug'];
-        $category_post->category_post_status=$data['category_post_status'];
         $name=CategoryPost::where('category_post_name',$data['category_post_name'])->exists();
         if($name){
             return Redirect()->back()->with('error','Danh mục đã tồn tại, vui lòng kiểm tra lại')->withInput();
@@ -43,7 +42,6 @@ class CategoryPostController extends Controller
         $category_post=CategoryPost::find($category_post_id);
         $category_post->category_post_name=$data['category_post_name'];
         $category_post->category_post_slug=$data['category_post_slug'];
-        $category_post->category_post_status=$data['category_post_status'];
         $category_post->save();
         return Redirect::to('list-category-post')->with('success','Cập nhật danh mục sản phẩm thành công');
     }

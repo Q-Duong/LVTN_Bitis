@@ -279,3 +279,5 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
 
+//Rating
+Route::post('/add-rating','App\Http\Controllers\HomeController@add_rating');

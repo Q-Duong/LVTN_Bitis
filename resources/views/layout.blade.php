@@ -944,7 +944,7 @@
 
         $(document).ready(function() {
 
-            load_comment();
+            //load_comment();
 
             function load_comment() {
                 var product_id = $('.comment_product_id').val();
@@ -990,27 +990,9 @@
             });
         });
 
-        $(document).on('click', '.rating', function() {
-            var val = $(this).val();
-           console.log(val);
-           
-            // $.ajax({
-            //     url: "{{ url('insert-rating') }}",
-            //     method: "POST",
-            //     data: {
-            //         index: index,
-            //         product_id: product_id,
-            //         _token: _token
-            //     },
-            //     success: function(data) {
-            //         if (data == 'done') {
-            //             alert("Bạn đã đánh giá " + index + " trên 5");
-            //         } else {
-            //             alert("Lỗi đánh giá");
-            //         }
-            //     }
-            // });
-
+        $('.rating').click(function(){
+            var star = $(this).val()
+            $('.rating_star').val(star)   
         });
     </script>
 </body>
