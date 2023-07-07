@@ -139,43 +139,104 @@
                             </div>
                             <div class="tab-pane" id="tabs-6" role="tabpanel">
                                 <div class="product__details__tab__content">
-                                    <form>
-                                        {{ csrf_field() }}
-                                        {{-- <input type="hidden" name="comment_product_id" class="comment_product_id"
-                                            value="{{$value->product_id}}"> --}}
-                                        <div id="comment_show"></div>
 
-                                    </form>
+                                    {{-- <div id="comment_show">
+                                            <div class="product__details__tab__content__item">
+                                                <div class="blog__hero__text">
+                                                    <h2></h2>
+                                                        <ul>
+                                                            <li>sdf</li>
+                                                        </ul>
+                                                </div>
+                                                <h5>dsfdsf</h5>
+                                                <p>dsfdsfds</p>
+                                            </div>
+                                            
+                                            '<div class="product__details__tab__content__item" style="margin-left:20px;">
+                                                <div class="blog__hero__text">
+                                                    <img src="'.url('/public/frontend/img/admin.png').'" class="">
+                                                </div>
+                                                <h5>Quản Trị Viên</h5>
+                                                <p>sdfdsf</p>
+                                            </div>
+                                        </div> --}}
+
 
                                     <div class="h-30 row d-flex justify-content-center">
-                                        <div class="col-lg-8 centered">
-                                            <div class="blog__details__comment">
-                                                <h4>Thêm bình luận</h4>
-                                                <!--Rating-->
-                                                <h3>Đánh giá & nhận xét</h3>
-                                                <div class="section-rating">
-                                                    <input class="rating" type="radio" id="star1" value="1" name="star" />
-                                                    <label class="rating_label" for="star1"></label>
-                                                    <input class="rating" type="radio" id="star2" value="2" name="star" />
-                                                    <label class="rating_label" for="star2"></label>
-                                                    <input class="rating" type="radio" id="star3" value="3" name="star" />
-                                                    <label class="rating_label" for="star3"></label>
-                                                    <input class="rating" type="radio" id="star4" value="4" name="star" />
-                                                    <label class="rating_label" for="star4"></label>
-                                                    <input class="rating" type="radio" id="star5" value="5" name="star" />
-                                                    <label class="rating_label" for="star5"></label>
+                                        <div class="col-lg-12 centered">
+                                            <div class="product-rating">
+                                                <div class="product-rating-title">
+                                                    <h4>Đánh giá & nhận xét {{ $product->product_name }}</h4>
                                                 </div>
-                                                <form action="#">
-                                                    <div id="notify_comment"></div>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 text-center">
-                                                            <textarea class="comment_content" placeholder="Comment"></textarea>
-                                                            <button type="submit" class="site-btn send-comment">Gửi
-                                                                đánh
-                                                                giá</button>
+                                                <div class="boxReview-review">
+
+                                                </div>
+
+                                                <div class="popup-model-review">
+                                                    <div class="overlay-model-review"></div>
+                                                    <div class="model-review-content">
+                                                        <div class="model-review-close">
+                                                            <p class="model-review-tile">Đánh giá sản phẩm</p>
+                                                            <p class="close-model"><i class="fas fa-times"></i></p>
+                                                        </div>
+                                                        <div class="model-review-img">
+                                                            <img class="review-img"
+                                                                src="{{ asset('uploads/product/' . $product->product_image) }}"
+                                                                alt="{{ $product->product_image }}" />
+                                                        </div>
+                                                        <h6 class="model-review-product">
+                                                            Đánh giá & nhận xét {{ $product->product_name }}
+                                                        </h6>
+                                                        <div class="model-review-description">
+                                                            <textarea class="model-review-textarea" rows="5" placeholder="Xin mời chia sẻ một số cảm nhận về sản phẩm....."></textarea>
+                                                        </div>
+
+                                                        <div class="model-review-star">
+                                                            <p class="model-review-star-title">Bạn thấy sản phẩm này
+                                                                như thế nào?</p>
+                                                            <div class="section-rating">
+                                                                <input type="radio" class="rating" id="star1" name="rating" value="1" />
+                                                                <input type="radio" class="rating" id="star2" name="rating" value="2" />
+                                                                <input type="radio" class="rating" id="star3" name="rating" value="3" />
+                                                                <input type="radio" class="rating" id="star4" name="rating" value="4" />
+                                                                <input type="radio" class="rating" id="star5" name="rating" value="5" />
+
+                                                                <label class="rating_label" for="star1">
+                                                                    <p>Rất tệ</p>
+                                                                </label>
+                                                                <label class="rating_label" for="star2">
+                                                                   <p>Tệ</p>
+                                                                </label>
+                                                                <label class="rating_label" for="star3">
+                                                                    <p>Tạm ổn</p>
+                                                                </label>
+                                                                <label class="rating_label" for="star4">
+                                                                   <p>Tốt</p>
+                                                                </label>
+                                                                <label class="rating_label" for="star5">
+                                                                    <p>Rất tốt</p>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="checkout__input">
+                                                            <button type="button" name="send-rating"
+                                                                class="site-btn send-rating">
+                                                                Gửi đánh giá
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                </form>
+                                                </div>
+
+
+                                                <div id="notify_comment"></div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 text-center">
+                                                        <button class="site-btn button-review">Gửi
+                                                            đánh
+                                                            giá</button>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

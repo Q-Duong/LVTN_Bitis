@@ -45,12 +45,13 @@ class User extends Authenticatable
     public function profile(){
         return $this->belongsTo('App\Models\Profile','profile_id');
     }
-
     public function order(){
         return $this->hasMany('App\Models\Order');
     }
-
     public function delivery(){
         return $this->hasMany('App\Models\Delivery');
+    }
+    public function rating(){
+        return $this->hasMany('App\Models\Rating');
     }
 }

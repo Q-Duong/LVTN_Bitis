@@ -251,7 +251,8 @@ Route::prefix('member')->group(function(){
     });
 });
 
-
+Route::post('member/send-comment','App\Http\Controllers\CommentController@send_comment');
+Route::post('add-rating','App\Http\Controllers\CommentController@add_rating');
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
 
