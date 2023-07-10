@@ -124,7 +124,7 @@
                 <div class="col-lg-8 col-md-6 centered ">
                     <h6 class="checkout__title">Cập nhật thông tin tài khoản</h6>
                     <div class="alert alert-success" style="display:none"></div>
-                    <form id="account-information">
+                    <form action="{{URL::to('member/update-profile')}}" method="POST">
                         @csrf
                         {{-- <div class="checkout__input_avata">
                             <p>Ảnh đại diện<span>*</span></p>
@@ -207,7 +207,7 @@
                             </div>
                         @endif --}}
                         <div class="checkout__input">
-                            <button type="button" name="update_information"
+                            <button type="submit" name="update_information"
                                 class="site-btn update-account-information"><i class="fa fa-cog"></i>
                                 Cập nhật thông tin tài khoản
                             </button>

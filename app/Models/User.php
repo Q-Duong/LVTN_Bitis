@@ -49,7 +49,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Order');
     }
     public function delivery(){
-        return $this->hasMany('App\Models\Delivery');
+        return $this->hasOne('App\Models\Delivery');
     }
     public function rating(){
         return $this->hasMany('App\Models\Rating');

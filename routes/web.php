@@ -46,7 +46,7 @@ Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gall
 
 Route::post('admin/logout',[AccountController::class,'admin_logout']);
 // Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
-// Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
+// Route::post('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 // Route::get('/home',[AccountController::class,'home']);
 Route::get('/403',function(){return view('403');})->name('403');
 Auth::routes(); 
@@ -204,7 +204,8 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/list',[OrderController::class,'list_order']);
         Route::get('/edit/{order_code}',[OrderController::class,'edit_order']);
         Route::post('update/{order_code}',[OrderController::class,'update_order']);
-        Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);      
+        Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);  
+        Route::post('update-order-detail-quantity',[OrderController::class,'update_order_detail_quantity'])->name('update-order-detail-quantity');    
     });
 });
 Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
@@ -244,12 +245,13 @@ Route::prefix('member')->group(function(){
     Route::group(['middleware' => 'isMember'], function () {
         Route::get('/profile','App\Http\Controllers\LoginController@profile');
         Route::get('/settings','App\Http\Controllers\LoginController@settings');
-        Route::post('/update-profile/{profile_id}','App\Http\Controllers\LoginController@update_profile');
+        Route::post('/update-profile','App\Http\Controllers\LoginController@update_profile');
         Route::get('/settings/delivery-addresses','App\Http\Controllers\LoginController@delivery_addresses');
         Route::get('/orders','App\Http\Controllers\LoginController@orders');
         Route::get('/orders/order-detail/{order_code}','App\Http\Controllers\LoginController@order_detail');
     });
 });
+
 
 Route::post('member/send-comment','App\Http\Controllers\CommentController@send_comment');
 Route::post('add-rating','App\Http\Controllers\CommentController@add_rating');

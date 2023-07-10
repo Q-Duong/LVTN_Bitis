@@ -159,21 +159,23 @@
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <img alt="" src="{{ asset('backend/images/2.png') }}">
                                 <span class="username">
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->profile->profile_lastname }}
                                 </span>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu extended logout">
                                 <li>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a href="#"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Đăng xuất
                                     </a>
-                                    <form id="logout-form" action="{{URL::to('/admin/logout')}}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ URL::to('/admin/logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </li>
 
-                                
+
                                 {{-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li> --}}
@@ -1127,51 +1129,42 @@
                 x--;
                 console.log(1);
             })
-
-            // $('#tab1').on('keydown', function(e){
-            //     if(e.keyCode == 9){
-            //         if(x <= max) {
-            //             $("#table_field").append(html);
-            //             x++
-            //         }
-            //     }
-            // })
-
-            // $("#table_field").on('keydown', '#tab2', function(e) {
-            //     if(e.keyCode == 9){
-            //         if (x <= max){
-            //             $("#table_field").append(html)
-            //             x++
-            //         }
-            //     }
-            // })
         });
+        function successMsg(msg) {
+            $(".alert-success").css('display', 'block');
+            $(".alert-success").text(msg);
+            setTimeout(function() {
+                $('.alert-success').fadeOut('fast');
+            }, 3000);
+        }
+        function orderDetailQuantityFunction(event) {
+            var order_detail_quantity = $('.order_quantity').val();
+            var ware_house_id = $('input[name="ware_house_id"]').val();
+            var order_id = $('input[name="order_id"]').val();
+            var order_detail_id = event;
+            var _token = $('input[name="_token"]').val();
 
-
-        // $('.submit_user').on('click', function() {
-        //     var account_username =$('input[name="account_username"]').val();
-        //     var account_password =$('input[name="account_password"]').val();
-        //     var user_firstname =$('input[name="user_firstname"]').val();
-        //     var user_lastname =$('input[name="user_lastname"]').val();
-        //     var user_phone =$('input[name="user_phone"]').val();
-        //     var _token = $('input[name="_token"]').val();
-        //     console.log(account_username,account_password,user_firstname);  
-        //     $.ajax({
-        //         url: "{{ url('/save-user') }}",
-        //         method: 'POST',
-        //         data: {
-        //             account_username:account_username,
-        //             account_password:account_password,
-        //             user_firstname:user_firstname,
-        //             user_lastname:user_lastname,
-        //             user_phone:user_phone,
-        //             _token: _token
-        //         },
-        //         success: function(data) {
-        //             $('.choose_product_type').html(data);
-        //         }
-        //     });
-        // });
+            $.ajax({
+                url: "{{ route('update-order-detail-quantity') }}",
+                method: "POST",
+                data: {
+                    order_detail_quantity: order_detail_quantity,
+                    ware_house_id: ware_house_id,
+                    order_id: order_id,
+                    order_detail_id: order_detail_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if(data.status == 'success'){
+                        $('.sub_total_'+data.order_detail_id).text(new Intl.NumberFormat('vi-VN').format(data.sub_total) + "₫");
+                        $('.order_total').text(new Intl.NumberFormat('vi-VN').format(data.order_total) + "₫");
+                        successMsg(data.message);
+                    }else{
+                        successMsg(data.message);
+                    }
+                }
+            });
+        };
     </script>
 </body>
 
