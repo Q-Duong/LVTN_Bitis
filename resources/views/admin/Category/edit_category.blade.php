@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="text" value="{{$edit_value->category_slug}}" name="category_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" readonly value="{{$edit_value->category_slug}}" name="category_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <button type="submit" name="update_category_product" class="btn btn-info">Cập nhật danh
                             mục</button>

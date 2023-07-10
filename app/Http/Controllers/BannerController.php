@@ -20,6 +20,7 @@ class BannerController extends Controller
         return view('admin.Banner.list_banner')->with(compact('getAllListBanner'));
     }
     function save_banner(Request $request){
+        $this->checkBannerAdmin($request);
         $data=$request->all();
         //dd($data);
         $banner=new Banner();
@@ -39,6 +40,7 @@ class BannerController extends Controller
         return Redirect()->back()->with('success','Xóa banner thành công');
     }
     function update_banner(Request $request,$banner_id){
+        $this->checkBannerUpdateAdmin($request);
         $data=$request->all();
         // dd($data);
         $banner=Banner::find($banner_id);
@@ -52,5 +54,34 @@ class BannerController extends Controller
         }
         $banner->save();
         return Redirect::to('list-banner')->with('success','Cập nhật banner thành công');
+    }
+    //Validate
+    public function checkBannerAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'banner_name' => 'required|unique:banner,banner_name',
+                'banner_image' => 'required|image'
+            ],
+            [
+                'banner_name.required' => 'Vui lòng nhập thông tin',
+                'banner_name.unique' => 'Loại sản phẩm đã tồn tại vui lòng nhập lại',
+                'banner_image.required' => 'Vui lòng chọn hình',
+                'banner_image.image' => 'File chọn phải là file hình'
+            ]
+        );
+    }
+    public function checkBannerUpdateAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'banner_name' => 'required',
+            ],
+            [
+                'banner_name.required' => 'Vui lòng nhập thông tin',
+            ]
+        );
     }
 }

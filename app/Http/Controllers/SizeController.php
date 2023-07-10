@@ -19,8 +19,8 @@ class SizeController extends Controller
         return view('admin.Size.edit_size')->with(compact('edit_value'));
     }
     function save_size(Request $request){
+        $this->checkSizeAdmin($request);
         $data=$request->all();
-        //dd($data);
         $size=new Size();
         $size->size_attribute=$data['size_attribute'];
         $check=Size::where('size_attribute',$data['size_attribute'])->exists();
@@ -31,6 +31,7 @@ class SizeController extends Controller
         return Redirect()->back()->with('success','Thêm size thành công');
     }
     function update_size(Request $request,$size_id){
+        $this->checkSizeAdmin($request);
         $data=$request->all();
         $size=Size::find($size_id);
         $size->size_attribute=$data['size_attribute'];
@@ -45,5 +46,17 @@ class SizeController extends Controller
         $size=Size::find($size_id);
         $size->delete();
         return Redirect()->back()->with('success','Xóa size thành công');
+    }
+    public function checkSizeAdmin(Request $request){
+        $this->validate(
+            $request,
+            [
+                'size_attribute' => 'required|numeric'
+            ],
+            [
+                'size_attribute.required' => 'Vui lòng nhập thông tin',
+                'size_attribute.numeric' => 'Vui lòng nhập số',
+            ]
+        );
     }
 }

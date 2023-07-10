@@ -13,66 +13,65 @@
 
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ URL::to('/save-user') }}" method="post">
+                        <form role="form" action="{{ URL::to('admin/user/save') }}" method="post">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {!! session('success') !!}
-                                    </div>
+                                    <div class="alert alert-success">{!! session('success') !!}</div>
                                 @elseif(session('error'))
-                                    <div class="alert alert-danger">
-                                        {!! session('error') !!}
-                                    </div>
+                                    <div class="alert alert-danger">{!! session('error') !!}</div>
                                 @endif
                             </div>
-                            <div class="form-group {{ $errors->has('account_username') ? 'has-error' : '' }}">
-                                <label for="exampleInputEmail1">Địa chỉ email</label>
-                                <input type="text" name="account_username" class="form-control"
-                                    placeholder="Địa chỉ email" value="{{ old('account_username') }}">
+                            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1"> Tài khoản đăng nhập</label>
+                                <input type="email" name="email" value="{{ old('email') }}" class="form-control"
+                                    placeholder="Tài khoản" data-validation="required"
+                                    data-validation-error-msg="Vui Lòng điền thông tin">
                                 {!! $errors->first(
-                                    'account_username',
+                                    'email',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                             </div>
-                            <div class="form-group {{ $errors->has('account_password') ? 'has-error' : '' }}">
-                                <label for="exampleInputPassword1">Mật khẩu</label>
-                                <input type="password" name="account_password" class="form-control" placeholder="Mật khẩu">
+                            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1">Mật khẩu</label>
+                                <input type="password" name="password" class="form-control" placeholder="Mật khẩu"
+                                    data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                                 {!! $errors->first(
-                                    'account_password',
+                                    'password',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                             </div>
-
-                            <div class="form-group {{ $errors->has('user_firstname') ? 'has-error' : '' }}">
-                                <label for="exampleInputEmail1">Họ tên lót khách hàng</label>
-                                <input type="text" name="user_firstname" class="form-control"
-                                    value="{{ old('user_firstname') }}">
+                            <div class="form-group {{ $errors->has('profile_firstname') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1">Họ và tên lót nhân viên</label>
+                                <input type="text" name="profile_firstname" value="{{ old('profile_firstname') }}"
+                                    class="form-control" placeholder="" data-validation="required"
+                                    data-validation-error-msg="Vui Lòng điền thông tin">
                                 {!! $errors->first(
-                                    'user_firstname',
+                                    'profile_firstname',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                             </div>
-                            <div class="form-group {{ $errors->has('user_lastname') ? 'has-error' : '' }}">
-                                <label for="exampleInputEmail1">Tên khách hàng</label>
-                                <input type="text" name="user_lastname" class="form-control"
-                                    value="{{ old('user_lastname') }}">
+                            <div class="form-group {{ $errors->has('profile_lastname') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1">Tên nhân viên</label>
+                                <input type="text" name="profile_lastname" value="{{ old('profile_lastname') }}"
+                                    class="form-control" data-validation="required"
+                                    data-validation-error-msg="Vui Lòng điền thông tin">
                                 {!! $errors->first(
-                                    'user_lastname',
+                                    'profile_lastname',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                             </div>
-
-                            <div class="form-group {{ $errors->has('user_phone') ? 'has-error' : '' }}">
-                                <label for="exampleInputPassword1">Số điện thoại</label>
-                                <input type="text" name="user_phone" class="form-control" placeholder="Số điện thoại"
-                                    value="{{ old('user_phone') }}">
-                                {!! $errors->first(
-                                    'user_phone',
-                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                ) !!}
+                            <div class="form-group {{ $errors->has('profile_phone') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1">Số điện thoại</label>
+                                <input type="text" name="profile_phone" value="{{ old('profile_phone') }}"
+                                    class="form-control" placeholder="Số điện thoại" data-validation="required"
+                                    data-validation-error-msg="Vui Lòng điền thông tin">
+                                    {!! $errors->first(
+                                        'profile_phone',
+                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                    ) !!}
                             </div>
-                            <button type="submit" name="add_employee" class="btn btn-info">Thêm khách hàng</button>
+                            <button type="submit" name="add_employee" class="btn btn-info">Thêm nhân viên</button>
                         </form>
 
                     </div>

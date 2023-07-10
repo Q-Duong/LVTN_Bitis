@@ -14,9 +14,9 @@ class District extends Model
  	protected $table = 'district';
 
     public function receiver(){
-        $this->hasMany('App\Models\Receiver');
+        return $this->hasMany('App\Models\Receiver');
     }
     public function delivery(){
-        $this->hasMany('App\Models\Delivery');
+        return $this->hasMany('App\Models\Delivery');
     }
 }

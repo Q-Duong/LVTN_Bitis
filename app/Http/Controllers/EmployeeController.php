@@ -3,88 +3,117 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Employee;
-use App\Models\Account;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {
-    function add_employee(){
+    function add_employee()
+    {
         return view('admin.Employee.add_employee');
     }
-    function save_employee(Request $request){
-        $data=$request->all();
-        
-        $account=new Account();
-        $account->account_username=$data['account_username'];
-        $account->account_password=md5($data['account_password']);
-        $account->account_role=1;
-        // $email=Account::where('account_username',$data['account_username'])->exists();
-        // if($email){
-        //     return Redirect()->back()->with('error','Tên email đã tồn tại, vui lòng kiểm tra lại')->withInput();
-        // }
-        $account->save();
-        $employee=new Employee();
-        $employee->employee_name=$data['employee_name'];
-        $employee->employee_phone=$data['employee_phone'];
-        $employee->employee_email=$data['employee_email'];
-        $employee->account_id=$account->account_id;
-        $employee->save();
-        return Redirect()->back()->with('success','Thêm nhân viên thành công');
+    function save_employee(Request $request)
+    {
+        $this->checkEmployee($request);
+        $data = $request->all();
+        $profile = new Profile();
+        $profile->profile_firstname = $data['profile_firstname'];
+        $profile->profile_lastname = $data['profile_lastname'];
+        $profile->profile_phone = $data['profile_phone'];
+        $profile->profile_email = $data['email'];
+        $profile->save();
+
+        $user = new User();
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->role = 0;
+        $user->name = 'Employee';
+        $user->profile_id = $profile->profile_id;
+        $user->save();
+        return Redirect()->back()->with('success', 'Thêm nhân viên thành công');
     }
-    function edit_employee($employee_id){
-        $edit_value=Employee::find($employee_id);
+    function edit_employee($user_id)
+    {
+        $edit_value = User::find($user_id);
         return view('admin.Employee.edit_employee')->with(compact('edit_value'));
     }
-    function list_employee(){
-        $getAllListEmployee=Employee::orderBy('employee_id','ASC')->get();
+    function list_employee()
+    {
+        $getAllListEmployee = User::orderBy('id', 'ASC')->where('role', 0)->get();
         return view('admin.Employee.list_employee')->with(compact('getAllListEmployee'));
     }
-    
-    function delete_employee($employee_id){
-        $employee=Employee::find($employee_id);
-        $account=Account::find($employee->account_id);
-        $account->delete();
-        return Redirect()->back()->with('success','Xóa nhân viên thành công');
-    }
-    function update_employee(Request $request,$employee_id){
-        $data=$request->all();
-        $employee=Employee::find($employee_id);
-        $employee->employee_name=$data['employee_name'];
-        $employee->employee_phone=$data['employee_phone'];
-        $employee->save();
 
-        if($data['account_password']!=null){
-            $account=Account::find($employee->account_id);
-            $account->account_password=md5($data['account_password']);
-            $account->save();
+    function delete_employee($user_id)
+    {
+        $user = User::find($user_id);
+        $profile = Profile::find($user->profile_id);
+        $profile->delete();
+        return Redirect()->back()->with('success', 'Xóa nhân viên thành công');
+    }
+    function update_employee(Request $request, $user_id)
+    {
+        $this->checkUpdateEmployee($request);
+        $data = $request->all();
+        $user = User::find($user_id);
+        $profile = Profile::find($user->profile_id);
+        $profile->profile_firstname = $data['profile_firstname'];
+        $profile->profile_lastname = $data['profile_lastname'];
+        $profile->profile_phone = $data['profile_phone'];
+        $profile->profile_email = $data['profile_email'];
+        $profile->save();
+
+        if ($data['password'] != null) {
+            $user->password = bcrypt($data['password']);
+            $user->save();
         }
-        return Redirect::to('list-employee')->with('success','Cập nhật nhân viên thành công');
+        return Redirect::to('admin/employee/list')->with('success', 'Cập nhật nhân viên thành công');
     }
     //Validate
-    public function checkEmployeeAdmin(Request $request)
+    public function checkEmployee(Request $request)
     {
         $this->validate(
-            $request,
+        $request,
             [
-                'account_username' => 'required|unique:account,account_username|email',
-                'account_password' => 'required|min:8',
-                'employee_name' => 'required',
-                'user_lastname' => 'required',
-                'user_phone' => 'required|numeric|digits_between:10,10'
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8',
+                'profile_firstname' => 'required|string',
+                'profile_lastname' => 'required|string',
+                'profile_phone' => 'required|numeric|digits_between:10,10',
+                'profile_email'
             ],
             [
-                'account_username.required' => 'Vui lòng điền thông tin đăng nhập',
-                'account_username.unique' => 'Tên đăng nhập đã tồn tại',
-                'account_username.email' => 'Email không hợp lệ',
-                'account_password.required' => 'Vui lòng nhập mật khẩu',
-                'account_password.min' => 'Mật khẩu phải lớn hơn 8 ký tự',
-                'user_firstname.required' => 'Vui lòng nhập thông tin',
-                'user_lastname.required' => 'Vui lòng nhập thông tin',
-                'user_phone.required' => 'Vui lòng nhập thông tin',
-                'user_phone.numeric' => 'Vui lòng kiểm tra số điện thoại',
-                'user_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại',
-            ]);
+                'email.required' => 'Vui lòng điền thông tin đăng nhập.',
+                'email.unique' => 'Vui lòng chọn tên đăng nhập khác.',
+                'email.email' => 'Email không hợp lệ.',
+                'password.required' => 'Vui lòng nhập mật khẩu..',
+                'password.min' => 'Mật khẩu phải lớn hơn 8 ký tự.',
+                'profile_firstname.required' => 'Vui lòng nhập thông tin.',
+                'profile_lastname.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.numeric' => 'Số điện thoại phải là số.',
+                'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+            ]
+        );
+    }
+    public function checkUpdateEmployee(Request $request)
+    {
+        $this->validate(
+        $request,
+            [
+                'profile_firstname' => 'required|string',
+                'profile_lastname' => 'required|string',
+                'profile_phone' => 'required|numeric|digits_between:10,10',
+                'profile_email' => 'email'
+            ],
+            [
+                'profile_firstname.required' => 'Vui lòng nhập thông tin.',
+                'profile_lastname.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.numeric' => 'Số điện thoại phải là số.',
+                'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+                'profile_email.email' => 'Email không hợp lệ'
+            ]
+        );
     }
 }
- 

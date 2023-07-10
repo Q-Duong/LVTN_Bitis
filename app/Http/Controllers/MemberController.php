@@ -3,30 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Account;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
-class UserController extends Controller
+class MemberController extends Controller
 {
-    function add_user()
+    function add_employee()
     {
-        return view('admin.User.add_user');
+        return view('admin.Employee.add_employee');
     }
-    function list_user()
+    function save_employee(Request $request)
     {
-        $getAllListUser = User::orderBy('id', 'ASC')->where('role', 1)->get();
-        return view('admin.User.list_user')->with(compact('getAllListUser'));
-    }
-    function edit_user($user_id)
-    {
-        $edit_value = User::find($user_id);
-        return view('admin.User.edit_user')->with(compact('edit_value'));
-    }
-    function save_user(Request $request)
-    {
-        $this->checkUser($request);
+        $this->checkEmployee($request);
         $data = $request->all();
         $profile = new Profile();
         $profile->profile_firstname = $data['profile_firstname'];
@@ -42,11 +31,28 @@ class UserController extends Controller
         $user->name = 'Member';
         $user->profile_id = $profile->profile_id;
         $user->save();
-        return Redirect()->back()->with('success', 'Thêm khách hàng thành công');
+        return Redirect()->back()->with('success', 'Thêm nhân viên thành công');
     }
-    function update_user(Request $request, $user_id)
+    function edit_employee($user_id)
     {
-        $this->checkUpdateUser($request);
+        $edit_value = User::find($user_id);
+        return view('admin.Employee.edit_employee')->with(compact('edit_value'));
+    }
+    function list_employee()
+    {
+        $getAllListEmployee = User::orderBy('id', 'ASC')->where('role', 0)->get();
+        return view('admin.Employee.list_employee')->with(compact('getAllListEmployee'));
+    }
+
+    function delete_employee($user_id)
+    {
+        $user = User::find($user_id);
+        $profile = Profile::find($user->profile_id);
+        $profile->delete();
+        return Redirect()->back()->with('success', 'Xóa nhân viên thành công');
+    }
+    function update_employee(Request $request, $user_id)
+    {
         $data = $request->all();
         $user = User::find($user_id);
         $profile = Profile::find($user->profile_id);
@@ -60,17 +66,10 @@ class UserController extends Controller
             $user->password = bcrypt($data['password']);
             $user->save();
         }
-        return Redirect::to('admin/user/list')->with('success', 'Cập nhật khách hàng thành công');
+        return Redirect::to('admin/employee/list')->with('success', 'Cập nhật nhân viên thành công');
     }
-    function delete_user($user_id)
-    {
-        $user = User::find($user_id);
-        $profile = Profile::find($user->profile_id);
-        $profile->delete();
-        return Redirect()->back()->with('success', 'Xóa khách hàng thành công');
-    }
-
-    public function checkUser(Request $request)
+    //Validate
+    public function checkEmployee(Request $request)
     {
         $this->validate(
         $request,
@@ -79,40 +78,19 @@ class UserController extends Controller
                 'password' => 'required|string|min:8',
                 'profile_firstname' => 'required|string',
                 'profile_lastname' => 'required|string',
-                'profile_phone' => 'required|numeric|digits_between:10,10',
-                'profile_email'
+                'profile_phone' => 'required|numeric|digits_between:10,10'
             ],
             [
                 'email.required' => 'Vui lòng điền thông tin đăng nhập.',
                 'email.unique' => 'Vui lòng chọn tên đăng nhập khác.',
                 'email.email' => 'Email không hợp lệ.',
-                'password.required' => 'Vui lòng nhập mật khẩu.',
+                'password.required' => 'Vui lòng nhập mật khẩu..',
                 'password.min' => 'Mật khẩu phải lớn hơn 8 ký tự.',
                 'profile_firstname.required' => 'Vui lòng nhập thông tin.',
                 'profile_lastname.required' => 'Vui lòng nhập thông tin.',
                 'profile_phone.required' => 'Vui lòng nhập thông tin.',
                 'profile_phone.numeric' => 'Số điện thoại phải là số.',
                 'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
-            ]
-        );
-    }
-    public function checkUpdateUser(Request $request)
-    {
-        $this->validate(
-        $request,
-            [
-                'profile_firstname' => 'required|string',
-                'profile_lastname' => 'required|string',
-                'profile_phone' => 'required|numeric|digits_between:10,10',
-                'profile_email' => 'email'
-            ],
-            [
-                'profile_firstname.required' => 'Vui lòng nhập thông tin.',
-                'profile_lastname.required' => 'Vui lòng nhập thông tin.',
-                'profile_phone.required' => 'Vui lòng nhập thông tin.',
-                'profile_phone.numeric' => 'Số điện thoại phải là số.',
-                'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
-                'profile_email.email' => 'Email không hợp lệ'
             ]
         );
     }

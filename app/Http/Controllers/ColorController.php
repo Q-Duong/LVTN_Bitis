@@ -20,6 +20,7 @@ class ColorController extends Controller
         return view('admin.Color.list_color')->with(compact('getAllListColor'));
     }
     function save_color(Request $request){
+        $this->checkColorAdmin($request);
         $data=$request->all();
         $col=new Color();
         $col->color_name=$data['color_name'];
@@ -33,6 +34,7 @@ class ColorController extends Controller
         return Redirect()->back()->with('success','Xóa màu sản phẩm thành công');
     }
     function update_color(Request $request,$color_id){
+        $this->checkColorAdmin($request);
         $data=$request->all();
         $col=Color::find($color_id);
         $col->color_name=$data['color_name'];
@@ -41,6 +43,16 @@ class ColorController extends Controller
         return Redirect::to('list-color')->with('success','Cập nhật màu thành công');
     }
 
-    
+    public function checkColorAdmin(Request $request){
+        $this->validate(
+            $request,
+            [
+                'color_name' => 'required'
+            ],
+            [
+                'color_name.required' => 'Vui lòng nhập thông tin',
+            ]
+        );
+    }
 }
  

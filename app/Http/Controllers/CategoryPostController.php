@@ -21,11 +21,11 @@ class CategoryPostController extends Controller
         return view('admin.CategoryPost.list_category_post')->with(compact('getAllListCategoryPost'));
     }
     function save_category_post(Request $request){
+        $this->checkCategoryPost($request);
         $data=$request->all();
         $category_post=new CategoryPost();
         $category_post->category_post_name=$data['category_post_name'];
         $category_post->category_post_slug=$data['category_post_slug'];
-        $category_post->category_post_status=$data['category_post_status'];
         $name=CategoryPost::where('category_post_name',$data['category_post_name'])->exists();
         if($name){
             return Redirect()->back()->with('error','Danh mục đã tồn tại, vui lòng kiểm tra lại')->withInput();
@@ -39,13 +39,14 @@ class CategoryPostController extends Controller
         return Redirect()->back()->with('success','Xóa danh mục sản phẩm thành công');
     }
     function update_category_post(Request $request,$category_post_id){
+        $this->checkUpdateCategoryPost($request);
         $data=$request->all();
+        // dd($data);
         $category_post=CategoryPost::find($category_post_id);
         $category_post->category_post_name=$data['category_post_name'];
         $category_post->category_post_slug=$data['category_post_slug'];
-        $category_post->category_post_status=$data['category_post_status'];
         $category_post->save();
-        return Redirect::to('list-category-post')->with('success','Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('admin/category-post/list')->with('success','Cập nhật danh mục sản phẩm thành công');
     }
 
 
@@ -61,8 +62,33 @@ class CategoryPostController extends Controller
     // }
     public function show_category_post($category_post_slug){
         $category_post_id=CategoryPost::where('category_post_slug',$category_post_slug)->first();
-        $post = Post::where('category_post_id',$category_post_id->category_post_id)->get();
+        $post = Post::where('category_post_id',$category_post_id->category_post_id)->where('post_status',1)->get();
         return view('pages.blog.category_blog')->with(compact('post'));
+    }
+    public function checkCategoryPost(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'category_post_name' => 'required|unique:category_post,category_post_name'
+            ],
+            [
+                'category_post_name.required' => 'Vui lòng nhập thông tin',
+                'category_post_name.unique' => 'Danh mục đã tồn tại vui lòng nhập lại'
+            ]
+        );
+    }
+    public function checkUpdateCategoryPost(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'category_post_name' => 'required'
+            ],
+            [
+                'category_post_name.required' => 'Vui lòng nhập thông tin'
+            ]
+        );
     }
 }
  

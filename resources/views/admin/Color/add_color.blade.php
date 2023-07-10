@@ -23,10 +23,14 @@
                             @endif
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('color_name') ? 'has-error' : '' }}">
                             <label for="exampleInputEmail1">Tên màu</label>
                             <input type="text" name="color_name" value="{{old('color_name')}}" class="form-control"
                                 placeholder="Enter email" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                                {!! $errors->first(
+                                    'color_name',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Chọn màu</label>

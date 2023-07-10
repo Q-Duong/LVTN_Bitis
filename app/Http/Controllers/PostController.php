@@ -24,6 +24,7 @@ class PostController extends Controller
     }
     function save_post(Request $request){
         $data=$request->all();
+        dd($data);
         $post=new Post();
         $post->post_title=$data['post_title'];
         $post->post_slug=$data['post_slug'];
@@ -51,6 +52,7 @@ class PostController extends Controller
         return Redirect()->back()->with('success','Xóa danh mục sản phẩm thành công');
     }
     function update_post(Request $request,$post_id){
+        $this->checkPostUpdateAdmin($request);
         $data=$request->all();
         $post=Post::find($post_id);
         $post->post_title=$data['post_title'];
@@ -67,7 +69,7 @@ class PostController extends Controller
             $post->post_image = $new_image;
         }
         $post->save();
-        return Redirect::to('list-post')->with('success','Cập nhật bài viết thành công');
+        return Redirect::to('admin/post/list')->with('success','Cập nhật bài viết thành công');
     }
 
 
@@ -86,6 +88,43 @@ class PostController extends Controller
         $post=Post::where('post_slug',$post_slug)->first();
         return view('pages.blog.blog_details')->with(compact('post'));
     }
-    
+    public function checkPostAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'category_post_id' => 'required',
+                'post_title' => 'required',
+                'post_content' => 'required',
+                'post_status' => 'required',
+                'post_image' => 'image',
+            ],
+            [
+                'category_post_id.required' => 'Vui lòng chọn danh mục cần thêm',
+                'post_title.required' => 'Vui lòng nhập thông tin',
+                'post_content.required' => 'Vui lòng nhập thông tin',
+                'post_status.required' => 'Vui lòng nhập thông tin',
+                'post_image.image' => 'Vui lòng chọn file hình',
+            ]
+        );
+    }
+    public function checkPostUpdateAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'category_post_id' => 'required',
+                'post_title' => 'required',
+                'post_content' => 'required',
+                'post_status' => 'required',
+            ],
+            [
+                'category_post_id.required' => 'Vui lòng chọn danh mục cần thêm',
+                'post_title.required' => 'Vui lòng nhập thông tin',
+                'post_content.required' => 'Vui lòng nhập thông tin',
+                'post_status.required' => 'Vui lòng nhập thông tin',
+            ]
+        );
+    }
 }
  

@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug sản phẩm</label>
-                            <input type="text" name="product_type_slug" value="{{old('product_type_slug')}}" class="form-control" id="convert_slug" placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" readonly name="product_type_slug" value="{{old('product_type_slug')}}" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <div class="form-group {{ $errors->has('product_type_img') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh loại sản phẩm</label>

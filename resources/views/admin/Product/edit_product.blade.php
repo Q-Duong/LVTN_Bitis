@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('product_slug') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Slug</label>
-                                <input type="text" value="{{ $edit_value->product_slug }}" name="product_slug"
+                                <input type="text" readonly value="{{ $edit_value->product_slug }}" name="product_slug"
                                     class="form-control" id="convert_slug" data-validation="required"
                                     data-validation-error-msg="Vui lòng điền thông tin">
                                 {!! $errors->first(

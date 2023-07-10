@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-lg-7 col-md-6">
                                     <div class="account-sidebar-title">
-                                        Xin chào, <span>{{ Session::get('user_lastname') }}</span>
+                                        Xin chào, <span>{{ Auth::user()->profile->profile_lastname }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +141,8 @@
 
 
                                     <div class="col-md-6 info_wishlist">
-                                        <p>'+name+'</p>
-                                        <p style="color:#FE980F">'+price+'</p>
+                                        <p></p>
+                                        <p style="color:#FE980F"></p>
                                         <p><a href="'+url+'">Xem sản phẩm</a></p>
                                     </div>
                                 </div>

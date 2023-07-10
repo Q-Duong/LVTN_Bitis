@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug loại sản phẩm</label>
-                            <input type="text" value="{{$edit_value->product_type_slug}}" name="product_type_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" readonly value="{{$edit_value->product_type_slug}}" name="product_type_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Hình ảnh loại sản phẩm</label>

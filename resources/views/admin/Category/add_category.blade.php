@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="text" name="category_slug" value="{{old('category_slug')}}" class="form-control" id="convert_slug" placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" readonly name="category_slug" value="{{old('category_slug')}}" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
         
 

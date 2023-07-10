@@ -36,11 +36,11 @@
                         <h4 class="checkout__title">Đăng nhập</h4>
                         <div class="checkout__input">
                             <p>Tên đăng nhập <span>*</span></p>
-                            <input type="text" name="account_username" placeholder="Điền tên tài khoản" />
+                            <input type="text" name="email" placeholder="Điền tên tài khoản" />
                         </div>
                         <div class="checkout__input">
                             <p>Mật khẩu<span>*</span></p>
-                            <input type="password" name="account_password" placeholder="Điền mật khẩu" />
+                            <input type="password" name="password" placeholder="Điền mật khẩu" />
                         </div>
                         <div class="checkout__input">
                             <button type="submit" class="site-btn"><i class="fas fa-sign-in-alt"></i> Đăng
@@ -55,7 +55,7 @@
                                     khẩu?</a> </p>
                         </div>
                         <div class="checkout__input">
-                            <p><a href="{{ URL::to('/register') }}"><i class="fas fa-user-plus"></i> Tạo tài khoản
+                            <p><a href="{{ URL::to('member/register') }}"><i class="fas fa-user-plus"></i> Tạo tài khoản
                                     mới.</a> </p>
                         </div>
                     </div>

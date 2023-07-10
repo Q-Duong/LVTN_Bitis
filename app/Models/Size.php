@@ -15,6 +15,6 @@ class Size extends Model
       protected $table = 'size';
       
       public function wareHouse(){
-            $this->hasMany("App\Model\WareHouse");
+            return $this->hasMany("App\Model\WareHouse");
       }
 }

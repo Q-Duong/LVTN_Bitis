@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('post_slug') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Slug</label>
-                            <input type="text" name="post_slug" class="form-control" placeholder="Điền slug bài viết"
+                            <input type="text" readonly name="post_slug" class="form-control" placeholder="Điền slug bài viết"
                                 id="convert_slug" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('post_slug') }}">
                                 {!! $errors->first('post_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>

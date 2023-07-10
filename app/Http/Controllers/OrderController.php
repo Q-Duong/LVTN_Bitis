@@ -21,7 +21,6 @@ class OrderController extends Controller
     function save_order(Request $request)
     {
         $data = $request->all();
-        // dd($data);
         $order = new Order();
         $order_code = substr(md5(microtime()), rand(0, 26), 20);
         $order->order_code = $order_code;
