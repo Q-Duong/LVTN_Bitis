@@ -20,6 +20,7 @@ class CategoryController extends Controller
     function edit_category($category_id)
     {
         $edit_value = Category::find($category_id);
+        dd($edit_value);
         return view('admin.Category.edit_category')->with(compact('edit_value'));
     }
     function list_category()

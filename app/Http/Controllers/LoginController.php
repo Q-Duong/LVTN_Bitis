@@ -9,9 +9,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Receiver;
 use Illuminate\Support\Facades\Redirect;
-
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {

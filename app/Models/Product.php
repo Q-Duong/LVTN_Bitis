@@ -22,7 +22,9 @@ class Product extends Model
     public function wareHouse(){
         return $this->hasMany("App\Model\WareHouse");
     }
-
+    public function rating(){
+        return $this->hasMany('App\Models\Rating');
+    }
     // public function comment(){
     //     return $this->hasMany('App\Models\Comment');
     // }

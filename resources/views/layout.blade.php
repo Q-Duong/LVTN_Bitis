@@ -937,8 +937,23 @@
         });
 
         $('.overlay').on('click', function() {
-            $('.search-model').fadeOut(400, function() {
-                $('#search-input').val('');
+            $('.popup-form').fadeOut(400, function() {
+                
+            });
+        });
+
+        $('.button-review').on('click', function() {
+            $('.popup-model-review').fadeIn(300);
+        });
+
+        $('.close-model').on('click', function() {
+            $('.popup-model-review').fadeOut(300);
+
+        });
+
+        $('.overlay-model-review').on('click', function() {
+            $('.popup-model-review').fadeOut(300, function() {
+                
             });
         });
 
@@ -962,37 +977,28 @@
                     }
                 });
             }
-            $('.send-comment').click(function() {
-                var product_id = $('.comment_product_id').val();
-                var comment_name = $('.comment_name').val();
-                var comment_content = $('.comment_content').val();
-                var _token = $('input[name="_token"]').val();
+            $('.send-rating').click(function() {
+                var product_id = $('.product_id').val();
+                var star = $('.rating:checked').val();
+                var comment = $('.model-review-textarea').val();
+                var _token = $('input[name="_token"]').val(); 
+                
                 $.ajax({
-                    url: "{{ url('/send-comment') }}",
-                    method: "POST",
-                    data: {
-                        product_id: product_id,
-                        comment_name: comment_name,
-                        comment_content: comment_content,
-                        _token: _token
+                    url:"{{url('/send-comment')}}",
+                    method:"POST",
+                    data:{
+                        product_id:product_id,
+                        star:star,
+                        comment:comment,
+                        _token:_token
                     },
-                    success: function(data) {
-
-                        $('#notify_comment').html(
-                            '<span class="text text-success">Thêm bình luận thành công, bình luận đang chờ duyệt</span>'
-                            );
-                        load_comment();
-                        $('#notify_comment').fadeOut(9000);
-                        $('.comment_name').val('');
-                        $('.comment_content').val('');
+                    success: function(data){
+                        $('.boxReview-review').text('nmzbxmnzbvmnmn');
+                        $('.popup-model-review').fadeOut(300);
                     }
-                });
+                })
             });
-        });
-
-        $('.rating').click(function(){
-            var star = $(this).val()
-            $('.rating_star').val(star)   
+            
         });
     </script>
 </body>

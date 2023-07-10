@@ -251,7 +251,8 @@ Route::prefix('member')->group(function(){
     });
 });
 
-
+Route::post('member/send-comment','App\Http\Controllers\CommentController@send_comment');
+Route::post('add-rating','App\Http\Controllers\CommentController@add_rating');
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
 
@@ -281,3 +282,5 @@ Route::post('/search','App\Http\Controllers\HomeController@search');
 
 //Rating
 Route::post('/add-rating','App\Http\Controllers\HomeController@add_rating');
+
+Route::post('/send-comment','App\Http\Controllers\HomeController@send_comment');

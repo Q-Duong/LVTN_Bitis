@@ -51,7 +51,19 @@ class HomeController extends Controller
     return Redirect()->back()->with('success','Đã đánh giá thành công sản phẩm');
    }
 
-   
+    public function send_comment(Request $request){
+        $data = $request->all();
+
+        $comment = new Rating();
+        $comment->rating_star = $data['star'];
+        $comment->rating_comment = $data['comment'];
+        $comment->product_id=$data['product_id'];
+        $comment->user_id=Auth::user()->id;
+        $comment->rating_status=1;
+
+        $comment->save();
+        return response()->json(array('success' => true));
+    }  
    
 }
 
