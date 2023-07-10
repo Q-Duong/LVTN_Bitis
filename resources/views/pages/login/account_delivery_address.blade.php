@@ -135,19 +135,6 @@
                                 </div>
                             </section>
                         </div>
-                        <div class="col-lg-6 col-md-6 centered ">
-                            <section class="delivery-address">
-                                <div class="row col-md-12 item">
-
-
-                                    <div class="col-md-6 info_wishlist">
-                                        <p></p>
-                                        <p style="color:#FE980F"></p>
-                                        <p><a href="'+url+'">Xem sản phẩm</a></p>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
                     </div>
                     <div class="checkout__input">
                         <button type="button" name="update_information"

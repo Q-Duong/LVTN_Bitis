@@ -9,6 +9,7 @@
                     <h4>Chi tiết đơn hàng</h4>
                     <div class="breadcrumb__links">
                         <a href="{{ URL::to('/') }}">Trang chủ</a>
+                        <a href="{{ URL::to('/member/orders') }}">Đơn hàng</a>
                         <span>Chi tiết đơn hàng</span>
                     </div>
                 </div>
@@ -124,7 +125,12 @@
                     <h6 class="checkout__title">Chi tiết đơn hàng</h6>
                     <section class="order-detail">
                         <div class="order-detail-header">
-                            Mã đơn hàng: {{ $getOrder->order_code }}
+                            <div>
+                                <strong>Mã đơn hàng:</strong> {{ $getOrder->order_code }}
+                            </div>
+                            <div>
+                                <strong>Thời gian đặt hàng:</strong> {{ $getOrder->created_at->format('d/m/Y H:i') }}
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-7 col-md-6">
@@ -136,16 +142,16 @@
                                     </div>
                                     <div class="order-detail-information-content">
                                         <div class="information-name">
-                                            <span>Người nhận:</span> {{ $getOrderReceiver->receiver_last_name }}
+                                            <span>Người nhận:</span> {{ $getOrder -> receiver -> receiver_last_name }}
                                         </div>
                                         <div class="information-phone">
-                                            <span>Số điện thoại:</span> {{ $getOrderReceiver->receiver_phone }}
+                                            <span>Số điện thoại:</span> {{ $getOrder -> receiver -> receiver_phone }}
                                         </div>
                                         <div class="information-delivery">
-                                            <span>Địa chỉ:</span> {{ $getOrderReceiver->receiver_address }},
-                                            {{ $getOrderReceiver->ward->ward_name }},
-                                            {{ $getOrderReceiver->district->district_name }},
-                                            {{ $getOrderReceiver->city->city_name }}
+                                            <span>Địa chỉ:</span> {{ $getOrder -> receiver -> receiver_address }},
+                                            {{ $getOrder -> receiver -> ward -> ward_name }},
+                                            {{ $getOrder -> receiver -> district -> district_name }},
+                                            {{ $getOrder -> receiver -> city -> city_name }}
                                         </div>
                                     </div>
                                 </div>

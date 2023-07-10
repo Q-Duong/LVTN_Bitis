@@ -46,12 +46,10 @@ class LoginController extends Controller
     }
     function login(Request $request){
          $data=$request->all();
-        if(Auth::attempt([
-            'email' => $data['account_username'],
-            'password' => $data['account_password']
+        if(Auth::attempt(['email' => $data['account_username'],'password' => $data['account_password']
         ])){
-            $user = User::where('email',$data['account_username'])->first();
-            Auth::login($user);
+            // $user = User::where('email',$data['account_username'])->first();
+            // Auth::login($user);
             return Redirect::to('admin/dashboard');
         }else{
             return Redirect::to('login')->with('error','Tài khoản hoặc mật khẩu không đúng');

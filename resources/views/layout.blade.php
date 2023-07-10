@@ -341,6 +341,31 @@
     </div>
     <!-- Search End -->
 
+    <!-- Login Popup -->
+    <div class="popup-model-login">
+        <div class="overlay-model-review"></div>
+        <div class="model-login-content">
+            <div class="model-login-close">
+                <p class="model-login-noti">Thông báo</p>
+                <p class="close-model"><i class="fas fa-times"></i></p>
+            </div>
+            <h6 class="model-login-title">
+                Vui lòng đăng nhập tài khoản để đánh giá 
+            </h6>
+            <div class="group-login-btn">
+                <a href="{{ URL::to('/member/login') }}"
+                    class="site-btn login-btn">
+                    Đăng nhập
+                </a>
+                <a href="{{ URL::to('/member/register') }}"
+                    class="site-btn register-btn">
+                    Đăng ký
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--End Login Popup -->
+
     <!-- scrollUp -->
     <a id="button"></a>
     <!-- scrollUp End -->
@@ -371,6 +396,8 @@
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
+        var check = '{{Auth::check()}}';
+
         $('.nav-item').on('click', function() {
 
             //Remove any previous active classes
@@ -900,33 +927,35 @@
                 $('.alert-success').fadeOut('fast');
             }, 3000);
         }
-        $('.update-account-information').click(function(event) {
-            event.preventDefault();
-            var _token = $('input[name="_token"]').val();
-            var profile_id = $('input[name="profile_id"]').val();
-            var profile_firstname = $('input[name=profile_firstname]').val();
-            var profile_lastname = $('input[name=profile_lastname]').val();
-            var profile_phone = $('input[name=profile_phone]').val();
-            var profile_email = $('input[name=profile_email]').val();
+        // $('.update-account-information').click(function(event) {
+        //     event.preventDefault();
+        //     var _token = $('input[name="_token"]').val();
+        //     var profile_id = $('input[name="profile_id"]').val();
+        //     var profile_firstname = $('input[name=profile_firstname]').val();
+        //     var profile_lastname = $('input[name=profile_lastname]').val();
+        //     var profile_phone = $('input[name=profile_phone]').val();
+        //     var profile_email = $('input[name=profile_email]').val();
 
-            $.ajax({
-                url: 'update-profile/' + profile_id,
-                method: "POST",
-                data: {
-                    _token: _token,
-                    profile_id: profile_id,
-                    profile_firstname: profile_firstname,
-                    profile_lastname: profile_lastname,
-                    profile_phone: profile_phone,
-                    profile_email: profile_email
-                },
-                success: function(data) {
-                    successMsg(data.message);
+        //     $.ajax({
+        //         url: 'update-profile/' + profile_id,
+        //         method: "POST",
+        //         data: {
+        //             _token: _token,
+        //             profile_id: profile_id,
+        //             profile_firstname: profile_firstname,
+        //             profile_lastname: profile_lastname,
+        //             profile_phone: profile_phone,
+        //             profile_email: profile_email
+        //         },
+        //         success: function(data) {
+        //             successMsg(data.message);
 
-                }
-            });
+        //         }
+        //     });
 
-        });
+        // });
+
+        //Delivery
         $('.delivery-a').on('click', function() {
             $('.popup-form').fadeIn(400);
         });
@@ -937,14 +966,32 @@
         });
 
         $('.overlay').on('click', function() {
-            $('.search-model').fadeOut(400, function() {
-                $('#search-input').val('');
+            $('.popup-form').fadeOut(400, function() {
+                
             });
+        });
+        //Rating Review
+        $('.button-review').on('click', function() {
+           if(check){
+                $('.popup-model-review').fadeIn(300);
+           }else{
+                $('.popup-model-login').fadeIn(300);
+           }
+        });
+
+        $('.close-model').on('click', function() {
+            $('.popup-model-review').fadeOut(300);
+            $('.popup-model-login').fadeOut(300);
+        });
+
+        $('.overlay-model-review').on('click', function() {
+            $('.popup-model-review').fadeOut(300);
+            $('.popup-model-login').fadeOut(300);
         });
 
         $(document).ready(function() {
 
-            load_comment();
+            // load_comment();
 
             function load_comment() {
                 var product_id = $('.comment_product_id').val();
@@ -962,55 +1009,34 @@
                     }
                 });
             }
-            $('.send-comment').click(function() {
-                var product_id = $('.comment_product_id').val();
-                var comment_name = $('.comment_name').val();
-                var comment_content = $('.comment_content').val();
+            $('.send-rating').click(function(e) {
+                e.preventDefault();
                 var _token = $('input[name="_token"]').val();
+                var product_id = $('.product_id').val();
+                var rating_comment = $('.model-review-textarea').val();
+                var rating_star = $('.rating:checked').val()
                 $.ajax({
-                    url: "{{ url('/send-comment') }}",
+                    url: "{{ url('member/send-comment') }}",
                     method: "POST",
                     data: {
                         product_id: product_id,
-                        comment_name: comment_name,
-                        comment_content: comment_content,
+                        rating_star: rating_star,
+                        rating_comment: rating_comment,
                         _token: _token
                     },
                     success: function(data) {
-
+                        $('.popup-model-review').fadeOut(300);
                         $('#notify_comment').html(
                             '<span class="text text-success">Thêm bình luận thành công, bình luận đang chờ duyệt</span>'
                             );
-                        load_comment();
-                        $('#notify_comment').fadeOut(9000);
-                        $('.comment_name').val('');
-                        $('.comment_content').val('');
+                        // load_comment();
+                        // $('#notify_comment').fadeOut(9000);
+                        // $('.comment_name').val('');
+                        // $('.comment_content').val('');
                     }
                 });
             });
-        });
-
-        $(document).on('click', '.rating', function() {
-            var val = $(this).val();
-           console.log(val);
-           
-            // $.ajax({
-            //     url: "{{ url('insert-rating') }}",
-            //     method: "POST",
-            //     data: {
-            //         index: index,
-            //         product_id: product_id,
-            //         _token: _token
-            //     },
-            //     success: function(data) {
-            //         if (data == 'done') {
-            //             alert("Bạn đã đánh giá " + index + " trên 5");
-            //         } else {
-            //             alert("Lỗi đánh giá");
-            //         }
-            //     }
-            // });
-
+            
         });
     </script>
 </body>

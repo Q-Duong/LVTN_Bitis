@@ -9,9 +9,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Receiver;
 use Illuminate\Support\Facades\Redirect;
-
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -26,14 +24,12 @@ class LoginController extends Controller
     public function login_submit(Request $request)
     {
         $data = $request->all();
-        if (
-            Auth::attempt([
-                'email' => $data['email'],
-                'password' => $data['password'],
-            ])
-        ) {
-            $profile = User::where('email', $data['email'])->first();
-            Auth::login($profile);
+        if (Auth::attempt([
+            'email' => $data['email'],
+            'password' => $data['password'],
+        ])) {
+            // $profile = User::where('email', $data['email'])->first();
+            // Auth::login($profile);
             return Redirect::to('/');
         } else {
             return Redirect::to('member/login')->with('error', 'Tài khoản hoặc mật khẩu không đúng');
@@ -55,7 +51,7 @@ class LoginController extends Controller
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
         $user->role = 1;
-        $user->name = $data['profile_lastname'];
+        $user->name = "Member";
         $user->profile_id = $profile->profile_id;
         $user->save();
 
@@ -76,17 +72,17 @@ class LoginController extends Controller
         return view('pages.login.account_settings');
     }
 
-    public function update_profile(Request $request, $profile_id)
+    public function update_profile(Request $request)
     {
         $this->checkUpdateProfile($request);
         $data = $request->all();
-        $profile = Profile::find($profile_id);
+        $profile = Profile::find(Auth::user()->profile_id);
         $profile->profile_firstname = $data['profile_firstname'];
         $profile->profile_lastname = $data['profile_lastname'];
-        $profile->profile_phone = $data['profile_phone'];
         $profile->profile_email = $data['profile_email'];
+        $profile->profile_phone = $data['profile_phone'];
         $profile->save();
-        return response()->json(array('message' => 'Cập nhật thông tin thành công'));
+        return Redirect::to('member/profile')->with('success','Cập nhật thông tin thành công');
     }
 
     public function delivery_addresses()
@@ -97,13 +93,12 @@ class LoginController extends Controller
     public function orders()
     {
         $getAllOrder = Order::join('order_detail', 'order_detail.order_id', '=', 'order.order_id')
-            ->join('receiver', 'receiver.order_id', '=', 'order.order_id')
+            ->join('receiver', 'receiver.receiver_id', '=', 'order.receiver_id')
             ->join('users', 'users.id', '=', 'order.user_id')
             ->join('ware_house', 'ware_house.ware_house_id', '=', 'order_detail.ware_house_id')
             ->join('product', 'product.product_id', '=', 'ware_house.product_id')
             ->where('order.user_id', Auth::user()->id)
-            // ->orWhere('receiver.receiver_phone', Session::get('user_phone'))
-            ->orderBy('order.created_at', 'ASC')
+            ->orderBy('order.created_at', 'DESC')
             ->get(['order_code', 'order_total', 'order_detail_quantity', 'product_image', 'product_name', 'product_price', 'order_status',]);
         return view('pages.login.account_orders')->with(compact('getAllOrder'));
     }
@@ -111,9 +106,8 @@ class LoginController extends Controller
     public function order_detail($order_code)
     {
         $getOrder = Order::where('order_code', $order_code)->first();
-        $getOrderReceiver = Receiver::where('order_id', $getOrder->order_id)->first();
         $getOrderDetail = OrderDetail::where('order_id', $getOrder->order_id)->get();
-        return view('pages.login.account_order_detail')->with(compact('getOrder', 'getOrderReceiver', 'getOrderDetail'));
+        return view('pages.login.account_order_detail')->with(compact('getOrder', 'getOrderDetail'));
     }
 
     //Validate
