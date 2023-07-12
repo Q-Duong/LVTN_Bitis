@@ -191,10 +191,15 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     //ImportOrder
     Route::prefix('import-order')->group(function(){   
         Route::get('/add',[ImportOrderController::class,'add_import_order']);
+        Route::post('/save',[ImportOrderController::class,'save_import_order'])->name('save-import-order');
+        Route::get('/add/{import_order_id}',[ImportOrderController::class,'add_import_order_detail']);
+        Route::post('/save-import-order-detail',[ImportOrderController::class,'save_import_order_detail'])->name('save-import-order-detail');
+        Route::post('/load-import-order-detail',[ImportOrderController::class,'load_import_order_detail'])->name('load-import-order-detail');
         Route::get('/list',[ImportOrderController::class,'list_import_order']);
         // Route::get('/edit/{import_order_id}',[ImportOrderController::class,'edit_import_order']);
         // Route::get('/delete/{import_order_id}',[ImportOrderController::class,'delete_import_order']);
-        Route::post('/save',[ImportOrderController::class,'save_import_order']);
+        
+       
         // Route::post('/update/{import_order_id}',[ImportOrderController::class,'update_import_order']);
     });
     //Order, Reciver
@@ -210,7 +215,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 });
 Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
 
-
+Route::post('/search-product-admin',[ImportOrderController::class,'search_product_admin']);
 
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
@@ -270,6 +275,7 @@ Route::get('/count-cart-products','App\Http\Controllers\CartController@count_car
 
 
 Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
+Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
 Route::post('/select-address','App\Http\Controllers\CheckoutController@select_address');
 Route::post('/save-checkout-information','App\Http\Controllers\CheckoutController@save_checkout_information');
 Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@checkout_step_1');
