@@ -46,7 +46,6 @@
                         <!--  -->
                         {{-- <button type="submit" name="add_order" class="btn btn-info">Thêm đơn hàng</button> --}}
                     </div>
-        </div>
         </section>
         <section class="panel">
             <header class="panel-heading">
@@ -170,7 +169,7 @@
                     <input type="text" disabled name="total" class="form-control total">
                 </div>
         </section>
-        
+
     </div>
     <div class="form-group">
         <label>Tổng giá tiền</label>

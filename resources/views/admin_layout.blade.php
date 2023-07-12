@@ -561,21 +561,32 @@
         </section>
         <!--main content end-->
         <!-- Noti Popup -->
-        <div class="popup-model-login">
-        <div class="toast active">
-            <div class="toast-content">
-              <i class="fas fa-solid fa-check check"></i>
-          
-              <div class="message">
-                <span class="text text-1">Success</span>
-                <span class="text text-2">Your changes has been saved</span>
-              </div>
+
+        <div class="notifications-popup">
+            <div class="notifications-content">
+                <i class="fas fa-solid fa-check notifications-check"></i>
+
+                <div class="notifications-message">
+                    <span class="message-title">Thông báo !</span>
+                    <span class="message-text"></span>
+                </div>
             </div>
-            <i class="fa-solid fa-xmark close"></i>
-          </div>
+            <i class="fas fa-times notifications-close"></i>
         </div>
-          
-          <button>Show Toast</button>
+
+        @if (session('success'))
+            <div class="notifications-popup active">
+                <div class="notifications-content">
+                    <i class="fas fa-solid fa-check notifications-check"></i>
+
+                    <div class="notifications-message">
+                        <span class="message-title">Thông báo !</span>
+                        <span class="message-text">{!! session('success') !!}</span>
+                    </div>
+                </div>
+                <i class="fas fa-times notifications-close"></i>
+            </div>
+        @endif
         <!--End Login Popup -->
     </section>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
@@ -594,35 +605,21 @@
 
 
     <script type="text/javascript">
-        const button = document.querySelector("button"),
-        toast = document.querySelector(".toast");
-        (closeIcon = document.querySelector(".close")),
-        (progress = document.querySelector(".progress"));
+        function successMsg(msg) {
+            $(".notifications-popup").addClass('active');
+            $(".message-text").text(msg);
+            setTimeout(function() {
+                $('.notifications-popup').removeClass('active');
+            }, 5000);
+            $('.notifications-close').click(function() {
+                $('.notifications-popup').removeClass('active');
+            });
+        }
 
-        let timer1, timer2;
-
-        button.addEventListener("click", () => {
-        toast.classList.add("active");
-        progress.classList.add("active");
-
-        timer1 = setTimeout(() => {
-            toast.classList.remove("active");
-        }, 5000); //1s = 1000 milliseconds
-
-        timer2 = setTimeout(() => {
-            progress.classList.remove("active");
-        }, 5300);
-        });
-
-        closeIcon.addEventListener("click", () => {
-        toast.classList.remove("active");
-
-        setTimeout(() => {
-            progress.classList.remove("active");
-        }, 300);
-
-        clearTimeout(timer1);
-        clearTimeout(timer2);
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.notifications-popup').removeClass('active');
+            }, 5000);
         });
 
         $('#select_attribute').change(function(event) {
@@ -1178,13 +1175,7 @@
                 console.log(1);
             })
         });
-        function successMsg(msg) {
-            $(".alert-success").css('display', 'block');
-            $(".alert-success").text(msg);
-            setTimeout(function() {
-                $('.alert-success').fadeOut('fast');
-            }, 3000);
-        }
+
         function orderDetailQuantityFunction(event) {
             var order_detail_quantity = $('.order_quantity').val();
             var ware_house_id = $('input[name="ware_house_id"]').val();
@@ -1203,16 +1194,117 @@
                     _token: _token
                 },
                 success: function(data) {
-                    if(data.status == 'success'){
-                        $('.sub_total_'+data.order_detail_id).text(new Intl.NumberFormat('vi-VN').format(data.sub_total) + "₫");
+                    if (data.status == 'success') {
+                        $('.sub_total_' + data.order_detail_id).text(new Intl.NumberFormat('vi-VN').format(data
+                            .sub_total) + "₫");
                         $('.order_total').text(new Intl.NumberFormat('vi-VN').format(data.order_total) + "₫");
                         successMsg(data.message);
-                    }else{
+                    } else {
                         successMsg(data.message);
                     }
                 }
             });
         };
+
+
+        let suggestions = [
+            "Channel",
+
+        ];
+
+
+        $('.add-import-order-detail-btn').on('click', function() {
+            $('.popup-model-review').fadeIn(300);
+        });
+
+        $('.close-model').on('click', function() {
+            $('.popup-model-review').fadeOut(300);
+        });
+
+        $('.overlay-model-review').on('click', function() {
+            $('.popup-model-review').fadeOut(300);
+        });
+        $('#keywords').keyup(function() {
+            var query = $(this).val();
+
+            if (query != '') {
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "{{ url('/search-product-admin') }}",
+                    method: "POST",
+                    data: {
+                        query: query,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('.resultBox').html(data.output);
+                    }
+                });
+
+            }
+        });
+
+        $(document).on('change', '.choose_category', function() {
+            var category_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ url('/select-category') }}",
+                method: 'POST',
+                data: {
+                    category_id: category_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('.choose_product_type').html(data.getAllListProductType);
+                    $('.choose_product').html(data.getAllListProduct);
+                    $('.choose_ware_house').html(data.getAllListWareHouse);
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                        "₫");
+                }
+            });
+        });
+        $(document).on('change', '.choose_product_type', function() {
+            var product_type_id = $(this).val();
+            var category_id = $('.choose_category option:selected').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ url('/select-product-type') }}",
+                method: 'POST',
+                data: {
+                    product_type_id: product_type_id,
+                    category_id: category_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('.choose_product').html(data.getAllListProduct);
+                    $('.choose_ware_house').html(data.getAllListWareHouse);
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                        "₫");
+                }
+            });
+        });
+        $(document).on('change', '.choose_product', function() {
+            var product_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ url('/select-product') }}",
+                method: 'POST',
+                data: {
+                    product_id: product_id,
+                    _token: _token,
+                },
+                success: function(data) {
+                    $('.choose_ware_house').html(data.getAllListWareHouse);
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data
+                        .product_price) + "₫");
+                }
+            })
+        });
+
+
+        
+ 
     </script>
 </body>
 

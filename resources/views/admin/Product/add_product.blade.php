@@ -14,14 +14,7 @@
             <div class="panel-body">
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/admin/product/save')}}" method="post" enctype="multipart/form-data">
-                        {{csrf_field()}}
-                        <div class="form-group" style="text-align:center;">
-                            @if(session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
+                        @csrf
                         <div class="form-group {{ $errors->has('category_id') ? 'has-error' : ''}}" >
                             <label for="exampleInputPassword1">Danh mục sản phẩm</label>
                             <select name="category_id" data-id_category="0"  class="form-control m-bot15 choose_category">

@@ -397,111 +397,7 @@
 
     <script type="text/javascript">
         var check = '{{Auth::check()}}';
-
-        $('.nav-item').on('click', function() {
-
-            //Remove any previous active classes
-            $('.nav-item').removeClass('active');
-
-            //Add active class to the clicked item
-            $(this).addClass('active');
-        });
-
-        var slideCount = $('#slider ul li').length;
-        var slideWidth = $('#slider ul li').width();
-        var slideHeight = $('#slider ul li').height();
-        var sliderUlWidth = slideCount * slideWidth;
-
-        $('#slider').css({
-            width: slideWidth,
-            height: slideHeight
-        });
-
-        $('#slider ul').css({
-            width: sliderUlWidth,
-            marginLeft: -slideWidth
-        });
-
-        $('#slider ul li:last-child').prependTo('#slider ul');
-
-        function moveLeft() {
-            $('#slider ul').animate({
-                left: +slideWidth
-            }, 600, function() {
-                $('#slider ul li:last-child').prependTo('#slider ul');
-                $('#slider ul').css('left', '');
-            });
-        };
-
-        function moveRight() {
-            $('#slider ul').animate({
-                left: -slideWidth
-            }, 600, function() {
-                $('#slider ul li:first-child').appendTo('#slider ul');
-                $('#slider ul').css('left', '');
-            });
-        };
-
-        $('a.control_prev').click(function() {
-            moveLeft();
-        });
-
-        $('a.control_next').click(function() {
-            moveRight();
-        });
-
-        setInterval(function() {
-            moveRight();
-        }, 5000);
     </script>
-
-    {{-- <script type="text/javascript">
-        var slideIndex = 1;
-        showSlides(slideIndex);
-
-        // Start autoplaying automatically
-        var autoplayInterval = setInterval(function() {
-            // Get element via id and click next
-            document.getElementById("next").click();
-        }, 3000); // Do this every 1 second, increase this!
-
-        // Stop function added to button
-        function stopAutoplay() {
-        // Stop the autoplay
-        clearInterval(autoplayInterval);
-        }
-
-        // Next/previous controls
-        function plusSlides(n) {
-        showSlides(slideIndex += n);
-        }
-
-        // Thumbnail image controls
-        function currentSlide(n) {
-        showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        }
-    </script> --}}
 
     <script type="text/javascript">
         $('#keywords').keyup(function() {
@@ -524,7 +420,6 @@
                 });
 
             } else {
-
                 $('#search_ajax').fadeOut();
             }
         });
@@ -813,7 +708,7 @@
             }
             localStorage.setItem('sessionId', JSON.stringify(newItem));
         }
-        $('.checkout-btn').on('click', function() {
+        $('.guest-checkout-button').on('click', function() {
             var _token = $('input[name="_token"]').val();
             var Items = JSON.parse(localStorage.getItem('cart')) || [];
             var sessionId = JSON.parse(localStorage.getItem('sessionId')) || [];
@@ -835,38 +730,25 @@
                 }
             });
         });
-        $('.send_checkout_information').on('click', function() {
+        $('.member-checkout-button').on('click', function() {
             var _token = $('input[name="_token"]').val();
-            var order_id = $('input[name="order_id"]').val();
-            var receiver_first_name = $('input[name=receiver_first_name]').val();
-            var receiver_last_name = $('input[name=receiver_last_name]').val();
-            var receiver_email = $('input[name=receiver_email]').val();
-            var receiver_phone = $('input[name=receiver_phone]').val();
-            var city_id = $('.city').val();
-            var district_id = $('.district').val();
-            var ward_id = $('.ward').val();
-            var receiver_address = $('input[name=receiver_address]').val();
-            var receiver_note = $('.shipping_notes').val();
-            var order_code = JSON.parse(localStorage.getItem('sessionId')) || [];
+            var Items = JSON.parse(localStorage.getItem('cart')) || [];
+            var sessionId = JSON.parse(localStorage.getItem('sessionId')) || [];
             $.ajax({
-                url: "{{ url('/save-checkout-information') }}",
+                url: "{{ url('member/checkout') }}",
                 method: 'POST',
                 data: {
-                    receiver_first_name: receiver_first_name,
-                    receiver_last_name: receiver_last_name,
-                    receiver_email: receiver_email,
-                    receiver_phone: receiver_phone,
-                    receiver_note: receiver_note,
-                    city_id: city_id,
-                    district_id: district_id,
-                    ward_id: ward_id,
-                    receiver_address: receiver_address,
-                    order_id: order_id,
-                    _token: _token,
-                    order_code: order_code,
+                    sessionId: sessionId,
+                    cart: Items,
+                    _token: _token
                 },
                 success: function(data) {
-                    window.location.assign("../payment/" + data.order_code);
+                    if (data.route == 'checkout') {
+                        pushSessionId(data.order_code);
+                        window.location.href = "checkout/" + data.order_code;
+                    } else {
+                        window.location.href = "payment/" + data.order_code;
+                    }
                 }
             });
         });

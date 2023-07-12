@@ -6,9 +6,9 @@
                 Liệt kê sản phẩm
             </div>
 
-            @if (session('success'))
+            {{-- @if (session('success'))
                 <div class="alert alert-success">{!! session('success') !!}</div>
-            @endif
+            @endif --}}
             <div class="table-responsive">
 
                 <table class="table table-striped b-t b-light" id="myTable">
