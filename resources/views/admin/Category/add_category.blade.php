@@ -14,15 +14,7 @@
             <div class="panel-body">
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/admin/category/save')}}" method="post" >
-                        {{csrf_field()}}
-                        <div class="form-group">
-                            @if(session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
-                        
+                        @csrf
                         <div class="form-group {{ $errors->has('category_name') ? 'has-error' : '' }}">
                             <label for="exampleInputEmail1">Tên danh mục</label>
                             <input type="text" name="category_name" value="{{old('category_name')}}" class="form-control" id="slug"
@@ -34,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="text" name="category_slug" value="{{old('category_slug')}}" class="form-control" id="convert_slug" placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" readonly name="category_slug" value="{{old('category_slug')}}" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
         
 

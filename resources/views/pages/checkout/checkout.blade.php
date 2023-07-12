@@ -73,55 +73,40 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div
-                                    class="checkout__input {{ $errors->has('receiver_first_name') ? 'has-error' : '' }}">
+                                    class="checkout__input">
                                     <p>Họ và tên lót<span>*</span></p>
                                     <input type="text" name="receiver_first_name" placeholder="Điền họ và tên"
-                                        value="{{ $receiver->receiver_first_name }}" data-validation="required"
-                                        data-validation-error-msg="Vui Lòng điền thông tin">
-                                    {!! $errors->first(
-                                        'receiver_first_name',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
+                                        value="{{$order -> receiver -> receiver_first_name}}">
+                                    
+                                    <div class="alert-error error hidden receiver_first_name"><i class="fa fa-exclamation-circle"></i> <span class="receiver_first_name_message"></span></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div
-                                    class="checkout__input {{ $errors->has('receiver_last_name') ? 'has-error' : '' }}">
+                                    class="checkout__input">
                                     <p>Tên<span>*</span></p>
                                     <input type="text" name="receiver_last_name" placeholder="Điền họ và tên"
-                                        value="{{ $receiver->receiver_last_name }}" data-validation="required"
-                                        data-validation-error-msg="Vui Lòng điền thông tin">
-                                    {!! $errors->first(
-                                        'receiver_last_name',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
+                                        value="{{$order -> receiver -> receiver_last_name}}">
+                                   <div class="alert-error error hidden receiver_last_name"><i class="fa fa-exclamation-circle"></i> <span class="receiver_last_name_message"></span></div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
-                                <div class="checkout__input {{ $errors->has('receiver_email') ? 'has-error' : '' }}">
+                            <div class="col-lg-7">
+                                <div class="checkout__input">
                                     <p>Email<span>*</span></p>
                                     <input type="email" name="receiver_email"
                                         placeholder="Email (Vui lòng điền email để nhận hoá đơn VAT)"
-                                        value="{{ $receiver->receiver_email }}" data-validation="email"
-                                        data-validation-error-msg="Vui Lòng điền thông tin">
-                                    {!! $errors->first(
-                                        'receiver_email',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
+                                        value="{{$order -> receiver -> receiver_email}}">
+                                    <div class="alert-error error hidden receiver_email"><i class="fa fa-exclamation-circle"></i> <span class="receiver_email_message"></span></div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="checkout__input {{ $errors->has('receiver_phone') ? 'has-error' : '' }}">
+                            <div class="col-lg-5">
+                                <div class="checkout__input">
                                     <p>Số điện thoại<span>*</span></p>
                                     <input type="text" name="receiver_phone" placeholder="Điền số điện thoại"
-                                        value="{{ $receiver->receiver_phone }}" data-validation="number"
-                                        data-validation-error-msg="Vui Lòng điền thông tin">
-                                    {!! $errors->first(
-                                        'receiver_phone',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
+                                        value="{{$order -> receiver -> receiver_phone}}">
+                                    <div class="alert-error error hidden receiver_phone"><i class="fa fa-exclamation-circle"></i> <span class="receiver_phone_message"></span></div>
                                 </div>
                             </div>
                         </div>
@@ -132,34 +117,34 @@
                                     <label for="exampleInputPassword1">Chọn tỉnh / thành phố<span
                                             style="color:#e53637;">*</span></label>
                                     <select name="city_id" id="city"
-                                        class="form-control input-sm m-bot15 choose_address city"
-                                        data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
-                                        <option value="0" selected>--Chọn tỉnh / thành phố--</option>
+                                        class="form-control input-sm m-bot15 choose_address city">
+                                        <option selected>--Chọn tỉnh / thành phố--</option>
                                         @foreach ($city as $key => $city_select)
                                             <option
-                                                value="{{ $city_select->city_id }}"{{ $city_select->city_id == $receiver->city_id ? 'selected' : '' }}>
+                                                value="{{ $city_select->city_id }}"{{ $city_select->city_id == $order -> receiver -> city_id ? 'selected' : '' }}>
                                                 {{ $city_select->city_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="alert-error error hidden city_id"><i class="fa fa-exclamation-circle"></i> <span class="city_id_message"></span></div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Chọn quận / huyện<span
                                             style="color:#e53637;">*</span></label>
                                     <select name="district_id" id="district"
-                                        class="form-control input-sm m-bot15 district choose_address"
-                                        data-validation="required">
-                                        <option value="">--Chọn quận / huyện--</option>
-                                        @if ($receiver->district_id != null)
+                                        class="form-control input-sm m-bot15 district choose_address">
+                                        <option >--Chọn quận / huyện--</option>
+                                        @if ($order -> receiver -> district_id != null)
                                             @foreach ($district as $key => $district_select)
                                                 <option
-                                                    value="{{ $district_select->district_id }}"{{ $district_select->district_id == $receiver->district_id ? 'selected' : '' }}>
+                                                    value="{{ $district_select->district_id }}"{{ $district_select->district_id == $order -> receiver -> district_id ? 'selected' : '' }}>
                                                     {{ $district_select->district_name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
                                 </div>
+                                <div class="alert-error error hidden district_id"><i class="fa fa-exclamation-circle"></i> <span class="district_id_message"></span></div>
                             </div>
                         </div>
                         <div class="row">
@@ -167,30 +152,26 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Chọn phường / xã<span
                                             style="color:#e53637;">*</span></label>
-                                    <select name="ward_id" id="ward" class="form-control input-sm m-bot15 ward"
-                                        data-validation="required">
-                                        <option value="">--Chọn phường / xã--</option>
-                                        @if ($receiver->ward_id != null)
+                                    <select name="ward_id" id="ward" class="form-control input-sm m-bot15 ward">
+                                        <option >--Chọn phường / xã--</option>
+                                        @if ($order -> receiver -> ward_id != null)
                                             @foreach ($ward as $key => $ward_select)
                                                 <option
-                                                    value="{{ $ward_select->ward_id }}"{{ $ward_select->ward_id == $receiver->ward_id ? 'selected' : '' }}>
+                                                    value="{{ $ward_select->ward_id }}"{{ $ward_select->ward_id == $order -> receiver -> ward_id ? 'selected' : '' }}>
                                                     {{ $ward_select->ward_name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
                                 </div>
+                                <div class="alert-error error hidden ward_id"><i class="fa fa-exclamation-circle"></i> <span class="ward_id_message"></span></div>
                             </div>
                             <div class="col-lg-6">
                                 <div
-                                    class="checkout__input {{ $errors->has('receiver_address') ? 'has-error' : '' }}">
+                                    class="checkout__input">
                                     <p>Địa chỉ<span>*</span></p>
                                     <input type="text" name="receiver_address" placeholder="Địa chỉ"
-                                        data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin"
-                                        value="{{ $receiver->receiver_address }}">
-                                    {!! $errors->first(
-                                        'receiver_address',
-                                        '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
-                                    ) !!}
+                                        value="{{ $order -> receiver -> receiver_address }}">
+                                    <div class="alert-error error hidden receiver_address"><i class="fa fa-exclamation-circle"></i> <span class="receiver_address_message"></span></div>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +182,7 @@
                             <div class="checkout__order__products">
                                 <p>Ghi chú đơn hàng<span style="color:#e53637;">*</span></p>
                                 <textarea name="receiver_note" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn (Không bắt buộc)"
-                                    rows="10" cols="42" style="resize: none;">{{ $receiver->receiver_note }}</textarea>
+                                    rows="10" cols="42" style="resize: none;">{{ $order -> receiver -> receiver_note }}</textarea>
                             </div>
                             <button type="button" name="send_order " class="site-btn send_checkout_information"><i
                                     class="fas fa-share-square"></i> Tiến đến phương thức thanh toán</button>

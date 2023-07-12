@@ -54,4 +54,7 @@ class User extends Authenticatable
     public function rating(){
         return $this->hasMany('App\Models\Rating');
     }
+    public function importOrder(){
+        return $this->hasMany('App\Models\ImportOrder');
+    }
 }

@@ -62,7 +62,6 @@ class LoginController extends Controller
         Auth::logout();
         return Redirect::to('/');
     }
-
     public function profile()
     {
         return view('pages.login.account_information');

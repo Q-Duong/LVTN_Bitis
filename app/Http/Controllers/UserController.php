@@ -5,20 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
-use App\Http\Requests;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
     function add_user()
     {
-        $getAllAccount = Account::orderBy('account_id', 'asc')->get();
-        return view('admin.User.add_user')->with(compact('getAllAccount'));
+        return view('admin.User.add_user');
     }
     function list_user()
     {
-        $getAllListUser = User::orderBy('user_id', 'ASC')->get();
-        // dd($getAllListProduct);
+        $getAllListUser = User::orderBy('id', 'ASC')->where('role', 1)->get();
         return view('admin.User.list_user')->with(compact('getAllListUser'));
     }
     function edit_user($user_id)
@@ -28,100 +26,94 @@ class UserController extends Controller
     }
     function save_user(Request $request)
     {
-        $this->checkUserAdmin($request);
+        $this->checkUser($request);
         $data = $request->all();
-        // dd($data);
-        $account = new Account();
-        $account->account_username = $data['account_username'];
-        $account->account_password = md5($data['account_password']);
-        $account->account_role = 0;
-        $email = Account::where('account_username', $data['account_username'])->exists();
-        if ($email) {
-            return Redirect()->back()->with('error', 'Email đã tồn tại,vui lòng nhập lại')->withInput();
-        }
-        $account->save();
+        $profile = new Profile();
+        $profile->profile_firstname = $data['profile_firstname'];
+        $profile->profile_lastname = $data['profile_lastname'];
+        $profile->profile_phone = $data['profile_phone'];
+        $profile->profile_email = $data['email'];
+        $profile->save();
+
         $user = new User();
-        $user->user_firstname = $data['user_firstname'];
-        $user->user_lastname = $data['user_lastname'];
-        $user->user_phone = $data['user_phone'];
-        $user->user_email = $data['account_username'];
-        $user->account_id = $account->account_id;
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
+        $user->role = 1;
+        $user->name = 'Member';
+        $user->profile_id = $profile->profile_id;
         $user->save();
         return Redirect()->back()->with('success', 'Thêm khách hàng thành công');
     }
     function update_user(Request $request, $user_id)
     {
-        $this->checkUpdateUserAdmin($request);
+        $this->checkUpdateUser($request);
         $data = $request->all();
-        // dd($data);
         $user = User::find($user_id);
-        $user->user_email = $data['user_email'];
-        $user->user_firstname = $data['user_firstname'];
-        $user->user_lastname = $data['user_lastname'];
-        $user->user_phone = $data['user_phone'];
-        $user->save();
+        $profile = Profile::find($user->profile_id);
+        $profile->profile_firstname = $data['profile_firstname'];
+        $profile->profile_lastname = $data['profile_lastname'];
+        $profile->profile_phone = $data['profile_phone'];
+        $profile->profile_email = $data['profile_email'];
+        $profile->save();
 
-        $account = Account::find($user->account_id);
-        if ($data['account_password'] != null) {
-            $account->account_password = md5($data['account_password']);
-            $account->save();
+        if ($data['password'] != null) {
+            $user->password = bcrypt($data['password']);
+            $user->save();
         }
-
-        return Redirect::to('list-user')->with('success', 'Cập nhật khách hàng thành công');
+        return Redirect::to('admin/user/list')->with('success', 'Cập nhật khách hàng thành công');
     }
     function delete_user($user_id)
     {
         $user = User::find($user_id);
-        $account = Account::find($user->account_id);
-        $account->delete();
+        $profile = Profile::find($user->profile_id);
+        $profile->delete();
         return Redirect()->back()->with('success', 'Xóa khách hàng thành công');
     }
 
-    public function checkUserAdmin(Request $request)
+    public function checkUser(Request $request)
     {
         $this->validate(
-            $request,
+        $request,
             [
-                'account_username' => 'required|unique:account,account_username|email',
-                'account_password' => 'required|min:8',
-                'user_email' => 'required|email',
-                'user_firstname' => 'required',
-                'user_lastname' => 'required',
-                'user_phone' => 'required|numeric|digits_between:10,10'
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8',
+                'profile_firstname' => 'required|string',
+                'profile_lastname' => 'required|string',
+                'profile_phone' => 'required|numeric|digits_between:10,10',
+                'profile_email'
             ],
             [
-                'account_username.required' => 'Vui lòng điền thông tin đăng nhập',
-                'account_username.unique' => 'Tên đăng nhập đã tồn tại',
-                'account_username.email' => 'Email không hợp lệ',
-                'account_password.required' => 'Vui lòng nhập mật khẩu',
-                'account_password.min' => 'Mật khẩu phải lớn hơn 8 ký tự',
-                'user_email.required' => 'Vui lòng điền thông tin',
-                'user_email.email' => 'Email không hợp lệ',
-                'user_firstname.required' => 'Vui lòng nhập thông tin',
-                'user_lastname.required' => 'Vui lòng nhập thông tin',
-                'user_phone.required' => 'Vui lòng nhập thông tin',
-                'user_phone.numeric' => 'Vui lòng kiểm tra số điện thoại',
-                'user_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại',
-            ]);
+                'email.required' => 'Vui lòng điền thông tin đăng nhập.',
+                'email.unique' => 'Vui lòng chọn tên đăng nhập khác.',
+                'email.email' => 'Email không hợp lệ.',
+                'password.required' => 'Vui lòng nhập mật khẩu.',
+                'password.min' => 'Mật khẩu phải lớn hơn 8 ký tự.',
+                'profile_firstname.required' => 'Vui lòng nhập thông tin.',
+                'profile_lastname.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.numeric' => 'Số điện thoại phải là số.',
+                'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+            ]
+        );
     }
-    public function checkUpdateUserAdmin(Request $request)
+    public function checkUpdateUser(Request $request)
     {
         $this->validate(
-            $request,
+        $request,
             [
-                'user_email' => 'required|email',
-                'user_firstname' => 'required',
-                'user_lastname' => 'required',
-                'user_phone' => 'required|numeric|digits_between:10,10'
+                'profile_firstname' => 'required|string',
+                'profile_lastname' => 'required|string',
+                'profile_phone' => 'required|numeric|digits_between:10,10',
+                'profile_email' => 'email'
             ],
             [
-                'user_email.required' => 'Vui lòng điền thông tin',
-                'user_email.email' => 'Email không hợp lệ',
-                'user_firstname.required' => 'Vui lòng nhập thông tin',
-                'user_lastname.required' => 'Vui lòng nhập thông tin',
-                'user_phone.required' => 'Vui lòng nhập thông tin',
-                'user_phone.numeric' => 'Vui lòng kiểm tra số điện thoại',
-                'user_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại',
-            ]);
+                'profile_firstname.required' => 'Vui lòng nhập thông tin.',
+                'profile_lastname.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.numeric' => 'Số điện thoại phải là số.',
+                'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+                'profile_email.email' => 'Email không hợp lệ'
+            ]
+        );
     }
 }

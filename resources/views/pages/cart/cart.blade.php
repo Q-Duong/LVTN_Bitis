@@ -62,18 +62,20 @@
                         <li class="cart__total__border__top">Tổng Tiền <span id="total"></span></li>
                         <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span></li>
                     </ul>
-                    {{-- @if(Session::get('customer_id')) --}}
-                    <a class="primary-btn check_out checkout-btn" href="#" ><i class="fab fa-amazon-pay"></i>
-                        Thanh toán
-                    </a>
-                    {{-- <a class="primary-btn check_out" href="{{URL::to('/checkout')}}"><i class="fab fa-amazon-pay"></i>
-                        Thanh
-                        toán</a> --}}
-                    {{-- @else
-                    <a class="primary-btn check_out" href="{{URL::to('/login')}}"><i
-                            class="fab fa-amazon-pay"></i>
-                        Thanh toán</a>
-                    @endif --}}
+                    @if(Auth::check())
+                        <a class="primary-btn check_out member-checkout-button" href="javascript:void(0)" ><i class="fab fa-amazon-pay"></i>
+                            biti's thanh toán
+                        </a>
+                    @else
+                        <a class="primary-btn check_out" href="{{URL::to('member/login')}}">
+                            <i class="fab fa-amazon-pay"></i>
+                            biti's thanh toán
+                        </a>
+                        <a class="primary-btn check_out guest-checkout-button" href="javascript:void(0)" >
+                            <i class="fab fa-amazon-pay"></i>
+                            khách thanh toán
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

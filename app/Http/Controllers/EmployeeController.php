@@ -53,6 +53,7 @@ class EmployeeController extends Controller
     }
     function update_employee(Request $request, $user_id)
     {
+        $this->checkUpdateEmployee($request);
         $data = $request->all();
         $user = User::find($user_id);
         $profile = Profile::find($user->profile_id);
@@ -78,7 +79,8 @@ class EmployeeController extends Controller
                 'password' => 'required|string|min:8',
                 'profile_firstname' => 'required|string',
                 'profile_lastname' => 'required|string',
-                'profile_phone' => 'required|numeric|digits_between:10,10'
+                'profile_phone' => 'required|numeric|digits_between:10,10',
+                'profile_email'
             ],
             [
                 'email.required' => 'Vui lòng điền thông tin đăng nhập.',
@@ -91,6 +93,26 @@ class EmployeeController extends Controller
                 'profile_phone.required' => 'Vui lòng nhập thông tin.',
                 'profile_phone.numeric' => 'Số điện thoại phải là số.',
                 'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+            ]
+        );
+    }
+    public function checkUpdateEmployee(Request $request)
+    {
+        $this->validate(
+        $request,
+            [
+                'profile_firstname' => 'required|string',
+                'profile_lastname' => 'required|string',
+                'profile_phone' => 'required|numeric|digits_between:10,10',
+                'profile_email' => 'email'
+            ],
+            [
+                'profile_firstname.required' => 'Vui lòng nhập thông tin.',
+                'profile_lastname.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.required' => 'Vui lòng nhập thông tin.',
+                'profile_phone.numeric' => 'Số điện thoại phải là số.',
+                'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+                'profile_email.email' => 'Email không hợp lệ'
             ]
         );
     }

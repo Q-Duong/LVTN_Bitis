@@ -5,11 +5,6 @@
         <div class="panel-heading">
             Liệt kê danh mục sản phẩm
         </div>
-        @if(session('success'))
-            <div class="alert alert-success">{!! session('success') !!}</div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">{!! session('error') !!}</div>
-        @endif
         <div class="table-responsive">
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>

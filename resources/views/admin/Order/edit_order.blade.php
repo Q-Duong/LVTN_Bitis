@@ -84,7 +84,6 @@
                 </span>
             </div>
             <div class="table-responsive">
-                <div class="alert alert-success" style="display: none;"></div>
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>

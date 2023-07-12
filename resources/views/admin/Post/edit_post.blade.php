@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('post_slug') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Slug</label>
-                            <input type="text" name="post_slug" class="form-control" placeholder="Điền tên danh mục"
+                            <input type="text" readonly name="post_slug" class="form-control" placeholder="Điền tên danh mục"
                                 id="convert_slug" value="{{$edit_value->post_slug}}" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin">
                                 {!! $errors->first('post_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
@@ -48,7 +48,18 @@
                             </textarea>
                             {!! $errors->first('post_content', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Trạng thái</label>
+                            <select name="post_status" class="form-control m-bot15">
+                                @if ($edit_value->post_status == 1)
+                                    <option selected value="1">Hiển thị</option>
+                                    <option value="0">Ẩn</option>
+                                @else
+                                    <option value="1">Hiển thị</option>
+                                    <option selected value="0">Ẩn</option>
+                                @endif
+                            </select>
+                        </div>
                         <button type="submit" name="update_post" class="btn btn-info">Cập nhật bài viết</button>
                     </form>
                 </div>

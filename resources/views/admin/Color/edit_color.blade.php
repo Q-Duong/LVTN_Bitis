@@ -26,8 +26,8 @@
                             <input type="text" value="{{$edit_value->color_name}}" name="color_name" class="form-control"  onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Slug danh mục</label>
-                            <input type="color" value="{{$edit_value->color_value}}" name="color_value" class="form-control"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <label for="exampleInputEmail1">Màu</label>
+                            <input type="color" readonly value="{{$edit_value->color_value}}" name="color_value" class="form-control"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>
 
                         <button type="submit" name="update_color" class="btn btn-info">Cập nhật danh
