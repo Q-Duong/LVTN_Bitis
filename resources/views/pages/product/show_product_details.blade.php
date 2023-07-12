@@ -125,7 +125,7 @@
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Mô tả</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Đánh giá(5)</a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Đánh giá({{$countRating}})</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -139,39 +139,79 @@
                             </div>
                             <div class="tab-pane" id="tabs-6" role="tabpanel">
                                 <div class="product__details__tab__content">
-
-                                    {{-- <div id="comment_show">
-                                            <div class="product__details__tab__content__item">
-                                                <div class="blog__hero__text">
-                                                    <h2></h2>
-                                                        <ul>
-                                                            <li>sdf</li>
-                                                        </ul>
-                                                </div>
-                                                <h5>dsfdsf</h5>
-                                                <p>dsfdsfds</p>
-                                            </div>
-                                            
-                                            '<div class="product__details__tab__content__item" style="margin-left:20px;">
-                                                <div class="blog__hero__text">
-                                                    <img src="'.url('/public/frontend/img/admin.png').'" class="">
-                                                </div>
-                                                <h5>Quản Trị Viên</h5>
-                                                <p>sdfdsf</p>
-                                            </div>
-                                        </div> --}}
-
-
                                     <div class="h-30 row d-flex justify-content-center">
                                         <div class="col-lg-12 centered">
                                             <div class="product-rating">
                                                 <div class="product-rating-title">
                                                     <h4>Đánh giá & nhận xét {{ $product->product_name }}</h4>
                                                 </div>
-                                                <div class="boxReview-review">
-
+                                                <div class="product-rating-review">
+                                                    <div class="product-rating-score">
+                                                        <h4 class="rating-score-title">{{$avgRating != null ? $avgRating : 0}}/5.0</h4>
+                                                        <div class="item-rating-score-star">
+                                                            <i class="fas fa-star {{ $roundAvgRating >= 1 ? 'active':''}}"></i>
+                                                            <i class="fas fa-star {{ $roundAvgRating >= 2 ? 'active':''}}"></i>
+                                                            <i class="fas fa-star {{ $roundAvgRating >= 3 ? 'active':''}}"></i>
+                                                            <i class="fas fa-star {{ $roundAvgRating >= 4 ? 'active':''}}"></i>
+                                                            <i class="fas fa-star {{ $roundAvgRating >= 5 ? 'active':''}}"></i>
+                                                        </div>
+                                                        <p><strong>{{$countRating}}</strong> đánh giá và nhận xét</p>
+                                                    </div>
+                                                    <div class="product-rating-star">
+                                                        <div class="rating-level">
+                                                            <div class="star-count">
+                                                                <span class="star-title">5</span>
+                                                                <div class="is-active">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            </div> 
+                                                            <progress max="{{$countRating}}" value="{{$star5}}" class="progress progress-rating "></progress> 
+                                                            <span class="rating-count">{{$star5}} đánh giá </span>
+                                                        </div>
+                                                        <div class="rating-level">
+                                                            <div class="star-count">
+                                                                <span class="star-title">4</span>
+                                                                <div class="is-active">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            </div> 
+                                                            <progress max="{{$countRating}}" value="{{$star4}}" class="progress progress-rating "></progress> 
+                                                            <span class="rating-count">{{$star4}} đánh giá </span>
+                                                        </div>
+                                                        <div class="rating-level">
+                                                            <div class="star-count">
+                                                                <span class="star-title">3</span>
+                                                                <div class="is-active">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            </div> 
+                                                            <progress max="{{$countRating}}" value="{{$star3}}" class="progress progress-rating "></progress> 
+                                                            <span class="rating-count">{{$star3}} đánh giá </span>
+                                                        </div>
+                                                        <div class="rating-level">
+                                                            <div class="star-count">
+                                                                <span class="star-title">2</span>
+                                                                <div class="is-active">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            </div> 
+                                                            <progress max="{{$countRating}}" value="{{$star2}}" class="progress progress-rating "></progress> 
+                                                            <span class="rating-count">{{$star2}} đánh giá </span>
+                                                        </div>
+                                                        <div class="rating-level">
+                                                            <div class="star-count">
+                                                                <span class="star-title">1</span>
+                                                                <div class="is-active">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            </div> 
+                                                            <progress max="{{$countRating}}" value="{{$star1}}" class="progress progress-rating "></progress> 
+                                                            <span class="rating-count">{{$star1}} đánh giá </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
+                                                <!-- Review Popup -->
                                                 <div class="popup-model-review">
                                                     <div class="overlay-model-review"></div>
                                                     <div class="model-review-content">
@@ -188,30 +228,36 @@
                                                             Đánh giá & nhận xét {{ $product->product_name }}
                                                         </h6>
                                                         <div class="model-review-description">
-                                                            <textarea class="model-review-textarea" rows="5" placeholder="Xin mời chia sẻ một số cảm nhận về sản phẩm....."></textarea>
+                                                            <textarea class="model-review-textarea" rows="5"
+                                                                placeholder="Xin mời chia sẻ một số cảm nhận về sản phẩm....."></textarea>
                                                         </div>
 
                                                         <div class="model-review-star">
                                                             <p class="model-review-star-title">Bạn thấy sản phẩm này
                                                                 như thế nào?</p>
                                                             <div class="section-rating">
-                                                                <input type="radio" class="rating" id="star1" name="rating" value="1" />
-                                                                <input type="radio" class="rating" id="star2" name="rating" value="2" />
-                                                                <input type="radio" class="rating" id="star3" name="rating" value="3" />
-                                                                <input type="radio" class="rating" id="star4" name="rating" value="4" />
-                                                                <input type="radio" class="rating" id="star5" name="rating" value="5" />
+                                                                <input type="radio" class="rating" id="star1"
+                                                                    name="rating" value="1" />
+                                                                <input type="radio" class="rating" id="star2"
+                                                                    name="rating" value="2" />
+                                                                <input type="radio" class="rating" id="star3"
+                                                                    name="rating" value="3" />
+                                                                <input type="radio" class="rating" id="star4"
+                                                                    name="rating" value="4" />
+                                                                <input type="radio" class="rating" id="star5"
+                                                                    name="rating" value="5" />
 
                                                                 <label class="rating_label" for="star1">
                                                                     <p>Rất tệ</p>
                                                                 </label>
                                                                 <label class="rating_label" for="star2">
-                                                                   <p>Tệ</p>
+                                                                    <p>Tệ</p>
                                                                 </label>
                                                                 <label class="rating_label" for="star3">
                                                                     <p>Tạm ổn</p>
                                                                 </label>
                                                                 <label class="rating_label" for="star4">
-                                                                   <p>Tốt</p>
+                                                                    <p>Tốt</p>
                                                                 </label>
                                                                 <label class="rating_label" for="star5">
                                                                     <p>Rất tốt</p>
@@ -226,17 +272,42 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!--End Review Popup -->
 
-
-                                                <div id="notify_comment"></div>
+                                                <p class="title-buttonn-rating">Bạn đánh giá sao sản phẩm này</p>
                                                 <div class="row">
                                                     <div class="col-lg-12 text-center">
-                                                        <button class="site-btn button-review">Gửi
-                                                            đánh
-                                                            giá</button>
+                                                        <button class="site-btn button-review">
+                                                            Đánh giá ngay
+                                                        </button>
                                                     </div>
                                                 </div>
 
+                                                @foreach ($getAllRating as $key => $rating)
+                                                    <div class="review-rating-item">
+                                                        <div class="review-rating-item-title">
+                                                            <span class="name-rating">{{$rating -> user -> profile -> profile_lastname}}</span>
+                                                            <span class="date-rating">{{$rating -> created_at -> format('d/m/Y H:i')}}</span>
+                                                        </div>
+                                                        <div class="review-rating-item-content">
+                                                            <div class="item-rating">
+                                                                <strong>Đánh giá : </strong>
+                                                                <div class="item-rating-star">
+                                                                    <i class="fas fa-star {{ $rating->rating_star >= 1 ? 'active':''}}"></i>
+                                                                    <i class="fas fa-star {{ $rating->rating_star >= 2 ? 'active':''}}"></i>
+                                                                    <i class="fas fa-star {{ $rating->rating_star >= 3 ? 'active':''}}"></i>
+                                                                    <i class="fas fa-star {{ $rating->rating_star >= 4 ? 'active':''}}"></i>
+                                                                    <i class="fas fa-star {{ $rating->rating_star >= 5 ? 'active':''}}"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-comment">
+                                                                <div class="comment-content">
+                                                                    <strong>Nhận xét : </strong> {{$rating -> rating_comment}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

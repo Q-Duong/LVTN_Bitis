@@ -14,9 +14,9 @@
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>
                     <tr>
-                        <th>Id danh mục</th>
-                        <th>Tên danh mục</th>
-                        <th>Slug danh mục</th>
+                        <th>Id loại sản phẩm</th>
+                        <th>Tên loại sản phẩm</th>
+                        <th>Slug loại sản phẩm</th>
                         <th>Hình ảnh</th>
                         <th style="width:100px;">Quản lý</th>
                     </tr>
@@ -33,7 +33,7 @@
                                 class="active style-edit" ui-toggle-class=""><i
                                     class="fa fa-pencil-square-o text-success text-active"></i>
                             </a>
-                            <a onclick="return confirm('Nếu bạn xóa Danh mục sản phẩm thì sản phẩn thuộc danh mục cũng sẻ bị xóa. Bạn có chắc muốn xóa danh mục?')"
+                            <a onclick="return confirm('Bạn có chắc muốn loại sản phẩm?')"
                                 href="{{URL::to('/admin/product-type/delete/'.$pro_type -> product_type_id)}}"
                                 class="active style-edit" ui-toggle-class="">
                                 <i class="fa fa-times text-danger text"></i>

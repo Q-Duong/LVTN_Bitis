@@ -23,21 +23,24 @@
                     </thead>
                     <tbody>
                         @foreach ($getListOrder as $key => $ord)
-                            <tr>    
+                            <tr>
                                 <td>{{ $ord->order_id }}</td>
-                                <td>{{ $ord->order_code}}</td>
+                                <td>{{ $ord->order_code }}</td>
                                 <td>{{ $ord->created_at }}</td>
-                                <td> @if($ord->order_status == 0)
-                                                    Đơn hàng mới
-                                            @elseif($ord->order_status == 1)
-                                                    Đơn hàng đang giao
-                                            @else
-                                                    Đơn hàng đã đã hoàn thành
-                                            @endif
+                                <td>
+                                    @if ($ord->order_status == 0)
+                                        <span style="color: #0071e3;">Đơn hàng mới</span>
+                                    @elseif($ord->order_status == 1)
+                                        <span style="color: #ffd400;">Đơn hàng đang được giao</span>
+                                    @elseif($ord->order_status == 2)
+                                        <span style="color: #27c24c;">Đơn hàng đã hoàn thành</span>
+                                    @else
+                                        <span style="color: #e53637;">Đơn hàng đã được huỷ</span>
+                                    @endif
                                 </td>
                                 <td>
-                                <a href="{{URL::to('/admin/order/edit/'.$ord -> order_code)}}" class="active style-edit"
-                                ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
+                                    <a href="{{ URL::to('/admin/order/edit/' . $ord->order_code) }}" class="active style-edit"
+                                        ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
                                 </td>
                             </tr>
                         @endforeach

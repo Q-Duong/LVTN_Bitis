@@ -264,7 +264,7 @@ ol {
 	border-radius: 12px;
 	-webkit-transition: all, 0.6s;
 	-o-transition: all, 0.6s;
-
+	text-align: center;
 }
 
 .site-btn:hover{
@@ -6016,12 +6016,102 @@ li.option{
     border-radius: 10px;
     margin: 15px 0;
 }
+.product-rating-title h4{
+	font-weight: 700;
+}
+.product-rating-review{
+	/* border: 2px solid #dbdbdb;
+    color: #363636;
+    border-radius: 10px;
+	padding: 20px;
+	margin: 25px 0;
+	display: flex; */
+
+	border: 2px solid #e5e7eb;
+    border-radius: 20px;
+    height: 160px;
+    overflow: hidden;
+	display: flex;
+	margin: 25px 0;
+}
+.product-rating-score{
+    border-right: 2px solid #e5e7eb;
+    flex-direction: column;
+    width: 40%;
+	display: flex;
+	align-items: center !important;
+	justify-content: center !important;
+}
+.rating-score-title{
+    font-weight: 700;
+	color: #363636;
+}
+
+.item-rating-score-star i{
+	color: #c1bebe;
+}
+.item-rating-score-star .active{
+	color: #f59e0b;
+}
+.product-rating-score p{
+    font-size: 18px;
+	font-weight: 500;
+}
+.product-rating-star{
+	flex-direction: column;
+    width: 60%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.rating-level{
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 100%;
+
+}
+.star-count{
+	display: flex;
+	align-items: center;
+}
+.star-title{
+	font-size: 17px;
+	font-weight: 700;
+}
+.is-active i{
+	color: #f59e0b;
+    margin-left: 4px;
+    font-size: 14px;
+}
+.progress-rating{
+	border-radius: 5px;
+    height: 10px;
+    width: 70%; 
+}
+progress::-webkit-progress-bar {
+	background-color: #e5e7eb;
+ }
+ progress::-webkit-progress-value {
+	background-color: #0071e3;
+ }
+
+.rating-count{
+	width: 70px;
+	font-size: 14px;
+	color: #4a4a4a;
+}
+
+/* Popup model review */
 .popup-model-review{
 	display: none;
+	position: relative;
+	position: fixed;
 	width: 100%;
 	height: 100%;
 	top:0;
 	left: 0;
+	z-index: 100;
 }
 .overlay-model-review{
 	position: fixed;
@@ -6030,7 +6120,6 @@ li.option{
 	top:0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.6);
-	z-index: 10000;
 }
 .model-review-content {
 	padding: 1rem 3rem;
@@ -6044,7 +6133,6 @@ li.option{
 	top: 50%;
     left: 50%;
     transform: translate3d(-50%, -50%, 0px);
-	z-index: 999999;
 }
 .model-review-close{
 	border-bottom: 1px solid #d1d1d1;
@@ -6149,3 +6237,122 @@ li.option{
   .send-rating{
 	width: 100%;
   }
+/* End popup model review */
+
+  .title-buttonn-rating{
+	text-align: center;
+	font-size: 18px;
+  }
+  .review-rating-item{
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+	margin: 25px;
+	background-color: #f3f4f6
+  }
+  .review-rating-item-title{
+	display: flex!important;
+	align-items: center!important;
+	justify-content: space-between!important;
+  }
+  .name-rating{
+	font-size: 18px;
+    font-weight: 800;
+	color: #4a4a4a;
+  }
+  .date-rating{
+	color: #4a4a4a;
+    font-size: 14px;
+    font-weight: 700;
+}
+.review-rating-item-content{
+	margin: 10px 0 10px 30px;
+}
+.item-rating{
+	display: flex!important;
+	align-items: center!important;
+}
+.item-rating-star{
+	margin-left: 10px;
+}
+.item-rating-star i{
+	color: #c1bebe;
+}
+.item-rating-star .active{
+	color: #f59e0b;
+}
+.item-comment{
+	display: flex;
+	justify-content: space-between;
+}
+.comment-content{
+	width: 100%;
+}
+
+/* Popup model login */
+.popup-model-login{
+	display: none;
+	position: relative;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top:0;
+	left: 0;
+	z-index: 100;
+}
+.model-login-content {
+	padding: 1rem 3rem;
+	background: white;
+	/* width: 700px; */
+	padding-top: 2rem;
+	border-radius: 20px;
+	border: 0;
+	box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);
+	position: absolute;
+	top: 40%;
+    left: 50%;
+	margin-left: auto;
+    transform: translate3d(-50%, -50%, 0px);
+}
+.model-login-close{
+	border-bottom: 1px solid #d1d1d1;
+}
+.model-login-noti{
+	text-align: center;
+	font-weight: 700;
+	font-size: 20px;
+}
+.close-model {
+	/* filter: grayscale(1); */
+	position: absolute;
+	top: 32px;
+	right: 50px;
+	transition: ease filter, transform 0.3s;
+	cursor: pointer;
+	transform-origin: center;
+	/* &:hover {
+		filter: grayscale(0);
+		transform: scale(1.1);
+	} */
+}
+.close-model i{
+	font-size: 25px;
+}
+.model-login-title{
+	text-align: center;
+	font-weight: 700;
+	font-size: 22px;
+	padding: 20px 0;
+}
+.group-login-btn{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.login-btn{
+	width: 40%;
+}
+.register-btn{
+	width: 40%;
+}
+  /* End popup model login */

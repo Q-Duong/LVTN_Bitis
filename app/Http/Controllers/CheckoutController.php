@@ -10,33 +10,40 @@ use App\Models\Ward;
 use App\Models\Receiver;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\WareHouse;
 use Illuminate\Support\Facades\Redirect;
 
 class CheckoutController extends Controller
 {
     public function checkout(Request $request){
-        $data= $request->all();
+        
         if(empty($request->sessionId)){
+            $order_total = 0;
+            $receiver= new Receiver();
+            $receiver -> save();
+
             $order_code = substr(md5(microtime()),rand(0,26),20);
             $order = new Order();
             $order -> order_code = $order_code;
-            $order -> order_total = 12345;
             $order -> order_status = 0;
             $order -> order_is_paid = 0;
             $order -> order_payment_type = 0;
+            $order -> receiver_id = $receiver->receiver_id;
             $order -> save();
 
-            $receiver= new Receiver();
-            $receiver -> order_id = $order -> order_id;
-            $receiver -> save();
-
-            foreach($request->cart as $key=>$cart){
+            foreach($request->cart as $key => $cart){
                 $order_detail = new OrderDetail();
+                $ware_house = WareHouse::find($cart['id']);
+                $order_total += $ware_house -> product -> product_price;
                 $order_detail -> order_id = $order -> order_id;
                 $order_detail -> order_detail_quantity = $cart['quantity'];
                 $order_detail -> ware_house_id = $cart['id'];
                 $order_detail->save();
             }
+            
+            $order -> order_total = $order_total;
+            $order -> save();
+
             return response()->json(array('order_code'=>$order_code,'route'=>'checkout'));
         }else{
             $order_code = $request->sessionId['sessionId'];
@@ -47,7 +54,7 @@ class CheckoutController extends Controller
         $code = $order_code;
         $order = Order::where('order_code',$order_code)->first();
         $order_detail = OrderDetail::where('order_id',$order->order_id)->first();
-        $receiver = Receiver::where('order_id',$order->order_id)->first();
+        $receiver = Receiver::find($order->receiver_id);
         $city = City::orderby('city_name','ASC')->get();
         if($receiver->city_id != null){
             $district = District::where('city_id',$receiver->city_id)->orderby('district_name','ASC')->get();
@@ -78,7 +85,8 @@ class CheckoutController extends Controller
     }
     public function save_checkout_information(Request $request){
         $data = $request->all();
-        $receiver = Receiver::where('order_id',$data['order_id'])->first();
+        $order = Order::find($data['order_id']);
+        $receiver = Receiver::find($order->receiver_id);
         $receiver -> receiver_first_name = $data['receiver_first_name'];
         $receiver -> receiver_last_name = $data['receiver_last_name'];
         $receiver -> receiver_phone = $data['receiver_phone'];
@@ -90,7 +98,6 @@ class CheckoutController extends Controller
         $receiver -> ward_id = $data['ward_id'];
         $receiver -> save();
 
-        $order = Order::find($data['order_id']);
         $order_code = $order -> order_code;
         return response()->json(array('order_code'=>$order_code));
         
@@ -104,7 +111,7 @@ class CheckoutController extends Controller
         
         if($data['payment_method'] == 'cash'){
             $order = Order::where('order_code',$data['order_code'])->first();
-            $order -> order_status = 1;
+            $order -> order_status = 0;
             $order -> save();
             return response()->json(array('url'=>'handcash','type'=>'cash'));
         }else{
@@ -117,9 +124,9 @@ class CheckoutController extends Controller
         }
     }
     public function handcash(){
-        
         return view('pages.checkout.handcash');
-       }
+    }
+
     function execPostRequest($url, $data){
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
