@@ -3615,20 +3615,29 @@ table.table.table-bordered.table-dark tr th {
     align-items: center;
 }
 .section-quantity{
-    width: 50%;
+    width: 20%;
     margin-right: 50px;
     display: flex !important;
     align-items: center !important;
 }
 .section-quantity strong{
-    width: 20%;
+    width: 50%;
 }
 .section-price{
-    width: 50%;
+    width: 40%;
+    margin-right: 50px;
     display: flex !important;
     align-items: center !important;
 }
 .section-price strong{
+    width: 20%;
+}
+.section-sub-total{
+    width: 40%;
+    display: flex !important;
+    align-items: center !important;
+}
+.section-sub-total strong{
     width: 20%;
 }
 .name-title{

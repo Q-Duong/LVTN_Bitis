@@ -195,12 +195,12 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/add/{import_order_id}',[ImportOrderController::class,'add_import_order_detail']);
         Route::post('/save-import-order-detail',[ImportOrderController::class,'save_import_order_detail'])->name('save-import-order-detail');
         Route::post('/load-import-order-detail',[ImportOrderController::class,'load_import_order_detail'])->name('load-import-order-detail');
-        Route::get('/list',[ImportOrderController::class,'list_import_order']);
-        // Route::get('/edit/{import_order_id}',[ImportOrderController::class,'edit_import_order']);
-        // Route::get('/delete/{import_order_id}',[ImportOrderController::class,'delete_import_order']);
+        Route::get('/list',[ImportOrderController::class,'list_import_order'])->name('list-import-order');
+        Route::get('/edit/{import_order_id}',[ImportOrderController::class,'edit_import_order']
+        )->name('edit-import-order');
+        Route::post('/update/{import_order_id}',[ImportOrderController::class,'update_import_order'])->name('update-import-order');;
+        Route::get('/delete/{import_order_id}',[ImportOrderController::class,'delete_import_order'])->name('delete-import-order');
         
-       
-        // Route::post('/update/{import_order_id}',[ImportOrderController::class,'update_import_order']);
     });
     //Order, Reciver
     Route::prefix('order')->group(function(){     
