@@ -61,10 +61,17 @@
                         <tr>
                             <td>{{ $order->receiver->receiver_first_name }}
                                 {{ $order->receiver->receiver_last_name }} </td>
-                            <td>{{ $order->receiver->receiver_address }},
-                                {{ $order->receiver->ward->ward_name }},
-                                {{ $order->receiver->district->district_name }},
-                                {{ $order->receiver->city->city_name }}</td>
+                            @if($order->receiver->city_id != null)
+                                <td>
+                                    {{ $order->receiver->receiver_address }},
+                                    {{ $order->receiver->ward->ward_name }},
+                                    {{ $order->receiver->district->district_name }},
+                                    {{ $order->receiver->city->city_name }}
+                                </td>
+                            @else   
+                            <td>Mua tại cửa hàng</td>
+                            @endif
+                            
                             <td>{{ $order->receiver->receiver_email }}</td>
                         </tr>
 
