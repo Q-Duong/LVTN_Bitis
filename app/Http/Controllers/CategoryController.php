@@ -68,7 +68,6 @@ class CategoryController extends Controller
         $getAllSize = Size::get();
         $getAllColor = Color::get();
         $getAllListProductCategory = Product::where('category_id', $category->category_id)->orderBy('product_id', 'ASC')->get();
-
         $attribute = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
             ->join('category', 'product.category_id', '=', 'category.category_id')
             ->join('color', 'ware_house.color_id', '=', 'color.color_id')

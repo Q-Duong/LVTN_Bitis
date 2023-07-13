@@ -126,42 +126,6 @@
                     <div class="alert alert-success" style="display:none"></div>
                     <form action="{{URL::to('member/update-profile')}}" method="POST">
                         @csrf
-                        {{-- <div class="checkout__input_avata">
-                            <p>Ảnh đại diện<span>*</span></p>
-                            @if ($customer->customer_image == '')
-                                <input type="file" id="upload" name="customer_image" hidden />
-                                <div class="avata">
-                                    <div class="avata_none">
-                                        <i class="far fa-user-circle"></i>
-                                    </div>
-                                </div>
-                                <label for="upload"><i class="fas fa-pen"></i> Thêm ảnh đại diện</label>
-                            @elseif($customer->customer_image !='' && $customer->customer_password =='')
-                                <div class="avata">
-                                    <img class="inbox-avatar"
-                                        src="{{$customer->customer_image}}" alt=""
-                                        name="customer_image">
-                                </div>
-                            @else
-                                <div class="avata">
-                                    <img class="inbox-avatar"
-                                        src="{{asset('uploads/avata/'.$customer->customer_image)}}" alt=""
-                                        name="customer_image">
-                                </div>
-                                <div class="option">
-                                    <div class="float-left">
-                                        <input type="file" id="upload" name="customer_image" hidden />
-                                        <label for="upload"><i class="fas fa-pen"></i> Thay đổi</label>
-                                    </div>
-                                    <div class="float-right">
-                                        <a onclick="return confirm('Bạn có chắc muốn xóa ảnh đại diện?')"
-                                            href="{{URL::to('delete-avata/'.$customer -> customer_id)}}" class=""
-                                            ui-toggle-class=""><i class="far fa-trash-alt"></i> Xóa
-                                        </a>
-                                    </div>
-                                </div>
-                            @endif
-                        </div> --}}
                         <div class="checkout__input {{ $errors->has('profile_firstname') ? 'has-error' : '' }}">
                             <p>Họ và tên lót<span>*</span></p>
                             <input type="text" name="profile_firstname" placeholder="Họ và tên lót"
@@ -198,14 +162,6 @@
                                 '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',
                             ) !!}
                         </div>
-                        {{-- @if ($customer->customer_image != '' && $customer->customer_password == '')
-                        @else
-                            <div class="checkout__input {{ $errors->has('customer_password') ? 'has-error' : ''}}">
-                                <p>Mật khẩu<span>*</span></p>
-                                <input type="password" name="customer_password" placeholder="Điền mật khẩu" value="{{$customer->customer_password}}">
-                                {!! $errors->first('customer_password', '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>') !!}
-                            </div>
-                        @endif --}}
                         <div class="checkout__input">
                             <button type="submit" name="update_information"
                                 class="site-btn update-account-information"><i class="fa fa-cog"></i>

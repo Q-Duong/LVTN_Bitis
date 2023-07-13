@@ -131,7 +131,6 @@
                 var cart_length = 0;
                 var length = data.length;
                 data.reverse();
-                
                 for(i = 0; i < data.length; i++){
                     subtotal = data[i].price*data[i].quantity;
                     total += subtotal;
@@ -187,29 +186,6 @@
             }
             localStorage.setItem('sessionId', JSON.stringify(newItem));     
         }
-        $('.checkout-btn').on('click',function() {
-            var _token = $('input[name="_token"]').val();
-            var Items = JSON.parse(localStorage.getItem('cart')) || [];
-            var sessionId = JSON.parse(localStorage.getItem('sessionId')) || [];
-            
-            $.ajax({
-                url: "{{ url('/checkout') }}",
-                method: 'POST',
-                data: {
-                    sessionId: sessionId,
-                    cart: Items,
-                    _token: _token
-                },
-                success: function(data) {
-                    if(data.route == 'checkout'){
-                        pushSessionId(data.order_code);
-                        window.location.href = "checkout/" + data.order_code;
-                    }else{
-                        window.location.href = "payment/" + data.order_code;
-                    }
-                }
-            });
-        });
         $('.send_checkout_information').on('click',function() {
             var _token = $('input[name="_token"]').val();
             var order_id = $('input[name="order_id"]').val();
@@ -287,7 +263,5 @@
             });
         });
     </script>
-    
 </body>
-
 </html>

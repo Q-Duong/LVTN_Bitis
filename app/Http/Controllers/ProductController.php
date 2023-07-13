@@ -85,7 +85,6 @@ class ProductController extends Controller
             $getAllListProduct .= '<option value="">--Chọn Sản Phẩm--</option>';
         }
         $select_warehouse = WareHouse::where('product_id', $select_product[0]->product_id)->orderBy('ware_house_id', 'asc')->get();
-        // dd($select_warehouse);
         if ($select_warehouse->count() > 0) {
             foreach ($select_warehouse as $key => $warehouse) {
                 $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Size:&nbsp;' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Color:&nbsp;' . $warehouse->size->size_attribute . '</option>';
@@ -97,8 +96,7 @@ class ProductController extends Controller
     }
     public function select_product(Request $request)
     {
-        $data = $request->all();
-        // dd($data);
+        $data = $request->all(); 
         $getAllListWareHouse = '';
         $product_price = Product::find($data['product_id']);
         $select_warehouse = WareHouse::where('product_id', $data['product_id'])->orderBy('ware_house_id', 'asc')->get();
@@ -191,31 +189,31 @@ class ProductController extends Controller
         $attribute = WareHouse::where('product_id', $product->product_id)->get();
         $color = $attribute->unique('color_id');
         $size = $attribute->unique('size_id');
-        $relate=Product::where('product_type_id',$product->product_type_id)->whereNotIn('product_slug',[$product_slug])->inRandomOrder('product_id')->limit(8)->get();
-        $getAllRating = Rating::where('product_id',$product->product_id)->get();
+        $relate = Product::where('product_type_id', $product->product_type_id)->whereNotIn('product_slug', [$product_slug])->inRandomOrder('product_id')->limit(8)->get();
+        $getAllRating = Rating::where('product_id', $product->product_id)->get();
         $countRating = count($getAllRating);
         $avgRating = $getAllRating->avg('rating_star');
         $roundAvgRating = round($avgRating);
-        $star1 = $getAllRating->where('rating_star',1)->count(); 
-        $star2 = $getAllRating->where('rating_star',2)->count(); 
-        $star3 = $getAllRating->where('rating_star',3)->count(); 
-        $star4 = $getAllRating->where('rating_star',4)->count(); 
-        $star5 = $getAllRating->where('rating_star',5)->count(); 
-        
+        $star1 = $getAllRating->where('rating_star', 1)->count();
+        $star2 = $getAllRating->where('rating_star', 2)->count();
+        $star3 = $getAllRating->where('rating_star', 3)->count();
+        $star4 = $getAllRating->where('rating_star', 4)->count();
+        $star5 = $getAllRating->where('rating_star', 5)->count();
+
         //dd($rating);
-        return view('pages.product.show_product_details')->with(compact('product','gallery','attribute','color','size','relate','getAllRating','countRating','avgRating','roundAvgRating','star1','star2','star3','star4','star5'));
+        return view('pages.product.show_product_details')->with(compact('product', 'gallery', 'attribute', 'color', 'size', 'relate', 'getAllRating', 'countRating', 'avgRating', 'roundAvgRating', 'star1', 'star2', 'star3', 'star4', 'star5'));
     }
 
-    function get_ware_house_id(Request $request){
-        $data = $request -> all();
-        $wareHouse=WareHouse::where('product_id',$data['product_id'])->where('color_id',$data['color_id'])->where('size_id',$data['size_id'])->where('ware_house_quantity','>',0)->first();
-       
-        if($wareHouse){
-            $color=$wareHouse->color->color_name;
-            $size=$wareHouse->size->size_attribute;
-            return response()->json(array('wareHouse'=>$wareHouse,'color'=>$color,'size'=>$size));
-        }else{
-            return response()->json(array('message'=>'Đã bán hết','status'=>'400'));
+    function get_ware_house_id(Request $request)
+    {
+        $data = $request->all();
+        $wareHouse = WareHouse::where('product_id', $data['product_id'])->where('color_id', $data['color_id'])->where('size_id', $data['size_id'])->where('ware_house_quantity', '>', 0)->first();
+        if ($wareHouse) {
+            $color = $wareHouse->color->color_name;
+            $size = $wareHouse->size->size_attribute;
+            return response()->json(array('wareHouse' => $wareHouse, 'color' => $color, 'size' => $size));
+        } else {
+            return response()->json(array('message' => 'Đã bán hết', 'status' => '400'));
         }
     }
     function filter(Request $request)
