@@ -99,7 +99,7 @@
                                 ) !!}
                             </div>
                             <button type="submit" name="add_order" class="btn btn-info">
-                                Thêm chi tiết đơn hàng
+                                THêm đơn hàng
                             </button>
                         </div>
                     </div>
@@ -168,10 +168,7 @@
                         <label>Giá tiền</label>
                         <input type="text" readonly name="product_price" class="form-control product_price">
                     </div>
-                    <div class="form-group">
-                        <label>Tạm tính</label>
-                        <input type="text" readonly name="sub_total" class="form-control sub_total">
-                    </div>
+                   
                     <button type="button" 
                         class="btn btn-info save-order-detail">
                         Thêm chi tiết sản phẩm

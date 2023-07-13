@@ -602,11 +602,11 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
+            
             dataObj = {};
             $(data_cart).each(function(i, field) {
                 dataObj[field.name] = field.value;
             });
-
             var newItem = {
                 'id': dataObj.ware_house_id,
                 'url': slug,
@@ -908,13 +908,7 @@
                     },
                     success: function(data) {
                         $('.popup-model-review').fadeOut(300);
-                        $('#notify_comment').html(
-                            '<span class="text text-success">Thêm bình luận thành công, bình luận đang chờ duyệt</span>'
-                            );
-                        // load_comment();
-                        // $('#notify_comment').fadeOut(9000);
-                        // $('.comment_name').val('');
-                        // $('.comment_content').val('');
+                        window.location.reload();
                     }
                 });
             });

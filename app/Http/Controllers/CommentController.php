@@ -20,7 +20,7 @@ class CommentController extends Controller
         $rating->user_id = Auth::user()->id;
         $rating->rating_status = 0;
         $rating->save();
-        return response()->json(array('message'=>'Đã bán hết'));
+        return response()->json(array('message'=>'Đánh giá thành công'));
     }   
 
     function add_rating(Request $request){

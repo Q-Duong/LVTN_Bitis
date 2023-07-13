@@ -214,6 +214,9 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::post('/save-order/{order_id}',[OrderController::class,'save_order_admin'])->name('save-order-admin');;
         Route::get('/list',[OrderController::class,'list_order'])->name('list-order');
         Route::get('/edit/{order_code}',[OrderController::class,'edit_order']);
+
+
+        
         Route::post('update/{order_code}',[OrderController::class,'update_order']);
         Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);  
         Route::post('update-order-detail-quantity',[OrderController::class,'update_order_detail_quantity'])->name('update-order-detail-quantity');    

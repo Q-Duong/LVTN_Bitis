@@ -66,7 +66,7 @@ class OrderController extends Controller
     }
     function save_order_admin(Request $request,$order_id){
         $data = $request->all();
-    
+
         $order = Order::find($order_id);
         $order->order_total = $data['order_total'];
         $order->order_status = $data['order_status'];
