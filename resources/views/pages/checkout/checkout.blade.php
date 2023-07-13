@@ -76,7 +76,7 @@
                                     class="checkout__input">
                                     <p>Họ và tên lót<span>*</span></p>
                                     <input type="text" name="receiver_first_name" placeholder="Điền họ và tên"
-                                        value="{{$order -> receiver -> receiver_first_name}}">
+                                        value="{{$order ->receiver ->receiver_first_name}}">
                                     
                                     <div class="alert-error error hidden receiver_first_name"><i class="fa fa-exclamation-circle"></i> <span class="receiver_first_name_message"></span></div>
                                 </div>
@@ -86,7 +86,7 @@
                                     class="checkout__input">
                                     <p>Tên<span>*</span></p>
                                     <input type="text" name="receiver_last_name" placeholder="Điền họ và tên"
-                                        value="{{$order -> receiver -> receiver_last_name}}">
+                                        value="{{$order ->receiver ->receiver_last_name}}">
                                    <div class="alert-error error hidden receiver_last_name"><i class="fa fa-exclamation-circle"></i> <span class="receiver_last_name_message"></span></div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                     <p>Email<span>*</span></p>
                                     <input type="email" name="receiver_email"
                                         placeholder="Email (Vui lòng điền email để nhận hoá đơn VAT)"
-                                        value="{{$order -> receiver -> receiver_email}}">
+                                        value="{{$order ->receiver ->receiver_email}}">
                                     <div class="alert-error error hidden receiver_email"><i class="fa fa-exclamation-circle"></i> <span class="receiver_email_message"></span></div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                 <div class="checkout__input">
                                     <p>Số điện thoại<span>*</span></p>
                                     <input type="text" name="receiver_phone" placeholder="Điền số điện thoại"
-                                        value="{{$order -> receiver -> receiver_phone}}">
+                                        value="{{$order ->receiver ->receiver_phone}}">
                                     <div class="alert-error error hidden receiver_phone"><i class="fa fa-exclamation-circle"></i> <span class="receiver_phone_message"></span></div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@
                                         <option selected>--Chọn tỉnh / thành phố--</option>
                                         @foreach ($city as $key => $city_select)
                                             <option
-                                                value="{{ $city_select->city_id }}"{{ $city_select->city_id == $order -> receiver -> city_id ? 'selected' : '' }}>
+                                                value="{{ $city_select->city_id }}"{{ $city_select->city_id == $order ->receiver ->city_id ? 'selected' : '' }}>
                                                 {{ $city_select->city_name }}</option>
                                         @endforeach
                                     </select>
@@ -135,10 +135,10 @@
                                     <select name="district_id" id="district"
                                         class="form-control input-sm m-bot15 district choose_address">
                                         <option >--Chọn quận / huyện--</option>
-                                        @if ($order -> receiver -> district_id != null)
+                                        @if ($order ->receiver ->district_id != null)
                                             @foreach ($district as $key => $district_select)
                                                 <option
-                                                    value="{{ $district_select->district_id }}"{{ $district_select->district_id == $order -> receiver -> district_id ? 'selected' : '' }}>
+                                                    value="{{ $district_select->district_id }}"{{ $district_select->district_id == $order ->receiver ->district_id ? 'selected' : '' }}>
                                                     {{ $district_select->district_name }}</option>
                                             @endforeach
                                         @endif
@@ -154,10 +154,10 @@
                                             style="color:#e53637;">*</span></label>
                                     <select name="ward_id" id="ward" class="form-control input-sm m-bot15 ward">
                                         <option >--Chọn phường / xã--</option>
-                                        @if ($order -> receiver -> ward_id != null)
+                                        @if ($order ->receiver ->ward_id != null)
                                             @foreach ($ward as $key => $ward_select)
                                                 <option
-                                                    value="{{ $ward_select->ward_id }}"{{ $ward_select->ward_id == $order -> receiver -> ward_id ? 'selected' : '' }}>
+                                                    value="{{ $ward_select->ward_id }}"{{ $ward_select->ward_id == $order ->receiver ->ward_id ? 'selected' : '' }}>
                                                     {{ $ward_select->ward_name }}</option>
                                             @endforeach
                                         @endif
@@ -170,7 +170,7 @@
                                     class="checkout__input">
                                     <p>Địa chỉ<span>*</span></p>
                                     <input type="text" name="receiver_address" placeholder="Địa chỉ"
-                                        value="{{ $order -> receiver -> receiver_address }}">
+                                        value="{{ $order ->receiver ->receiver_address }}">
                                     <div class="alert-error error hidden receiver_address"><i class="fa fa-exclamation-circle"></i> <span class="receiver_address_message"></span></div>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                             <div class="checkout__order__products">
                                 <p>Ghi chú đơn hàng<span style="color:#e53637;">*</span></p>
                                 <textarea name="receiver_note" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn (Không bắt buộc)"
-                                    rows="10" cols="42" style="resize: none;">{{ $order -> receiver -> receiver_note }}</textarea>
+                                    rows="10" cols="42" style="resize: none;">{{ $order ->receiver ->receiver_note }}</textarea>
                             </div>
                             <button type="button" name="send_order " class="site-btn send_checkout_information"><i
                                     class="fas fa-share-square"></i> Tiến đến phương thức thanh toán</button>

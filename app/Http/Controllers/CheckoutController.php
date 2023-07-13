@@ -65,7 +65,7 @@ class CheckoutController extends Controller
     }
     public function member_checkout(Request $request)
     {
-
+        
         if (empty($request->sessionId)) {
             $order_total = 0;
             $delivery = Delivery::where('user_id', Auth::id())->first();
@@ -167,6 +167,7 @@ class CheckoutController extends Controller
             return response()->json(array('errors'=>true,'validator'=>$validator->errors()));
         }
         $data = $request->all();
+        // dd($data);
         $order = Order::find($data['order_id']);
         $receiver = Receiver::find($order->receiver_id);
         $receiver -> receiver_first_name = $data['receiver_first_name'];

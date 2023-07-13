@@ -43,7 +43,9 @@ Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gall
 Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
 Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
 Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
-
+Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
+Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
+Route::post('filter','App\Http\Controllers\ProductController@filter');
 Route::post('admin/logout',[AccountController::class,'admin_logout']);
 // Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
@@ -206,8 +208,15 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::prefix('order')->group(function(){     
         Route::get('/add',[OrderController::class,'add_order']);
         Route::post('/save',[OrderController::class,'save_order']);
-        Route::get('/list',[OrderController::class,'list_order']);
+        Route::get('/add/{order_id}',[OrderController::class,'add_order_detail'])->name('add-order');
+        Route::post('/save-order-detail',[OrderController::class,'save_order_detail'])->name('save-order-detail');
+        Route::post('/load-order-detail',[OrderController::class,'load_order_detail'])->name('load-order-detail');
+        Route::post('/save-order/{order_id}',[OrderController::class,'save_order_admin'])->name('save-order-admin');;
+        Route::get('/list',[OrderController::class,'list_order'])->name('list-order');
         Route::get('/edit/{order_code}',[OrderController::class,'edit_order']);
+
+
+        
         Route::post('update/{order_code}',[OrderController::class,'update_order']);
         Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);  
         Route::post('update-order-detail-quantity',[OrderController::class,'update_order_detail_quantity'])->name('update-order-detail-quantity');    
@@ -234,7 +243,7 @@ Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostContro
 //Product
 Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
 Route::post('get-ware-house-id','App\Http\Controllers\ProductController@get_ware_house_id');
-Route::post('filter','App\Http\Controllers\ProductController@filter');
+
 
 //Post 
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
@@ -272,10 +281,6 @@ Route::get('/del-product/{session_id}','App\Http\Controllers\CartController@dele
 Route::get('/count-cart-products','App\Http\Controllers\CartController@count_cart_products');
 
 //Checkout
-
-
-Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
-Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
 Route::post('/select-address','App\Http\Controllers\CheckoutController@select_address');
 Route::post('/save-checkout-information','App\Http\Controllers\CheckoutController@save_checkout_information');
 Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@checkout_step_1');

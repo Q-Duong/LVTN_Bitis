@@ -14,9 +14,7 @@ class OrderController extends Controller
 {
     function add_order()
     {
-        $getAllCategory=Category::orderBy('category_id','asc')->get();
-        $getAllWareHouse = WareHouse::orderBy('ware_house_id')->get();
-        return view('admin.Order.add_order')->with(compact('getAllWareHouse','getAllCategory'));
+        return view('admin.Order.add_order');
     }
     function save_order(Request $request)
     {
@@ -36,18 +34,54 @@ class OrderController extends Controller
         $order->order_status = $data['order_status'];
         $order->order_payment_type = $data['order_payment_type'];
         $order->order_is_paid = $data['order_is_paid'];
-        $order->order_total = $data['total'];
         $order->receiver_id = $receiver->receiver_id;
         $order->save();
-        
-        foreach ($data['ware_house_id'] as $key => $warehoue) {
-            $order_detail = new OrderDetail();
-            $order_detail->order_detail_quantity = $data['order_detail_quantity'][$key];
-            $order_detail->ware_house_id = $data['ware_house_id'][$key];
-            $order_detail->order_id = $order->order_id;
-            $order_detail->save();
+
+        return Redirect::to('admin/order/add/'.$order -> order_id)->with('success', 'Thêm chi tiết đơn hàng');
+    }
+    function add_order_detail($order_id){
+        $order = Order::find($order_id);
+        $getAllCategory=Category::orderBy('category_id','asc')->get();
+        return view('admin.Order.add_order_detail')->with(compact('order','getAllCategory'));
+    }
+    function save_order_detail(Request $request){
+        $data = $request->all();
+        $order_detail = new OrderDetail();
+        $order_detail -> order_detail_quantity = $data['order_detail_quantity'];
+        $order_detail -> ware_house_id  = $data['ware_house_id'];
+        $order_detail -> order_id = $data['order_id'];
+        $order_detail -> save();
+        return response()->json(array('success' => true,'message' => 'Thêm chi tiết đơn hàng thành công'));
+    }
+    function load_order_detail(Request $request){
+        $data = $request->all();
+        $order_total = 0;
+        $getAllOrderDetail = OrderDetail::where('order_id',$data['order_id'])->orderBy('order_detail_id','DESC')->get();
+        foreach($getAllOrderDetail as $key => $order_detail){
+            $ware_house = WareHouse::find($order_detail -> ware_house_id);
+            $order_total += $ware_house->product->product_price * $order_detail -> order_detail_quantity;
         }
-        return Redirect()->back()->with('success', 'Thêm đơn thành công');
+        $html = view('admin.Order.load_order_detail')->with(compact('getAllOrderDetail'))->render();
+        return response()->json(array('success' => true,'order_total' => $order_total, 'html' => $html));
+    }
+    function save_order_admin(Request $request,$order_id){
+        $data = $request->all();
+
+        $order = Order::find($order_id);
+        $order->order_total = $data['order_total'];
+        $order->order_status = $data['order_status'];
+        $order->order_payment_type = $data['order_payment_type'];
+        $order->order_is_paid = $data['order_is_paid'];
+        $order->save();
+
+        $receiver = Receiver::find($order->receiver_id);
+        $receiver->receiver_first_name = $data['receiver_first_name'];
+        $receiver->receiver_last_name = $data['receiver_last_name'];
+        $receiver->receiver_phone = $data['receiver_phone'];
+        $receiver->receiver_email = $data['receiver_email'];
+        $receiver->receiver_note = $data['receiver_note'];
+        $receiver->save();
+        return Redirect::route('list-order')->with('success', 'cập nhật đơn hàng thành công');
     }
     function list_order()
     {

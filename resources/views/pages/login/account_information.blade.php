@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-lg-7 col-md-6" >
                                         <div class="account-sidebar-title">
-                                            Xin chào, <span>{{ Auth::user()-> profile -> profile_lastname }}</span>
+                                            Xin chào, <span>{{ Auth::user()->profile ->profile_lastname }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -103,49 +103,31 @@
                         @endif
                         <div class="checkout__input_avata">
                             <p>Ảnh đại diện<span>*</span></p>
-                            {{-- @if($customer->customer_image !='' && $customer->customer_password =='')
-                                <div class="avata">
-                                    <img class="inbox-avatar"
-                                        src="{{$customer->customer_image}}" alt=""
-                                        name="customer_image">
-                                </div>
-                            @elseif($customer->customer_image !='' && $customer->customer_password !='')
-                            <div class="avata">
-                                <img class="inbox-avatar"
-                                    src="{{asset('uploads/avata/'.$customer->customer_image)}}" alt=""
-                                    name="customer_image">
-                            </div>
-                            @else --}}
                             <div class="avata">
                                 <div class="avata_none">
                                     <i class="far fa-user-circle"></i>
                                 </div>
                             </div>
-                            {{-- @endif --}}
                         </div>
                         <div class="checkout__input">
                             <p>Họ và tên lót<span>*</span></p>
-                            <input type="text" value="{{ Auth::user()-> profile -> profile_firstname }}" disabled>
+                            <input type="text" value="{{ Auth::user()->profile ->profile_firstname }}" disabled>
                         </div>
                         <div class="checkout__input">
                             <p>Tên<span>*</span></p>
-                            <input type="text" value="{{ Auth::user()-> profile -> profile_lastname }}" disabled>
+                            <input type="text" value="{{ Auth::user()->profile ->profile_lastname }}" disabled>
                         </div>
                         <div class="checkout__input">
                             <p>Địa chỉ email cá nhân<span>*</span></p>
-                            <input type="text" value="{{ Auth::user()-> profile -> profile_email }}" disabled>
+                            <input type="text" value="{{ Auth::user()->profile ->profile_email }}" disabled>
                         </div>
                         <div class="checkout__input">
                             <p>Số điện thoại<span>*</span></p>
-                            <input type="text" value="{{ Auth::user()-> profile -> profile_phone }}" disabled>
+                            <input type="text" value="{{ Auth::user()->profile ->profile_phone }}" disabled>
                         </div>
                         <div class="checkout__input">
-                        {{-- @php
-                            $cust_id=Session::get('customer_id');
-					    @endphp --}}
                             <a href="{{ URL::to('/member/settings') }}" class="site-btn"><i class="fa fa-cog"></i> Cài đặt tài khoản</a>
                         </div>
-
                     </div>
                 </div>
         </div>

@@ -142,16 +142,16 @@
                                     </div>
                                     <div class="order-detail-information-content">
                                         <div class="information-name">
-                                            <span>Người nhận:</span> {{ $getOrder -> receiver -> receiver_last_name }}
+                                            <span>Người nhận:</span> {{ $getOrder->receiver->receiver_last_name }}
                                         </div>
                                         <div class="information-phone">
-                                            <span>Số điện thoại:</span> {{ $getOrder -> receiver -> receiver_phone }}
+                                            <span>Số điện thoại:</span> {{ $getOrder->receiver->receiver_phone }}
                                         </div>
                                         <div class="information-delivery">
-                                            <span>Địa chỉ:</span> {{ $getOrder -> receiver -> receiver_address }},
-                                            {{ $getOrder -> receiver -> ward -> ward_name }},
-                                            {{ $getOrder -> receiver -> district -> district_name }},
-                                            {{ $getOrder -> receiver -> city -> city_name }}
+                                            <span>Địa chỉ:</span> {{ $getOrder->receiver->receiver_address }},
+                                            {{ $getOrder->receiver->ward->ward_name }},
+                                            {{ $getOrder->receiver->district->district_name }},
+                                            {{ $getOrder->receiver->city->city_name }}
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +181,8 @@
                                                         src="{{ URL::to('uploads/product/' . $orderDetail->wareHouse->product->product_image) }}">
                                                 </div>
                                                 <div class="col-lg-9 col-md-9">
-                                                    <a class="item-link" href="{{ URL::to('/products/' . $orderDetail->wareHouse->product->product_slug) }}">
+                                                    <a class="item-link"
+                                                        href="{{ URL::to('/products/' . $orderDetail->wareHouse->product->product_slug) }}">
                                                         <p class="item-name">
                                                             {{ $orderDetail->wareHouse->product->product_name }}
                                                         </p>

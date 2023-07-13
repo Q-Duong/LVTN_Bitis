@@ -50,7 +50,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    @if ($category->category_slug != 'phu-kien')
+                    @if ($category->category_slug !='phu-kien')
                         <div class="shop__sidebar">
                             <div class="shop__sidebar__search">
                             </div>
@@ -142,35 +142,6 @@
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
-                                                {{-- <ul class="nice-scroll">
-                                                    <li>
-                                                        <label class="section-price path" for="1">
-                                                            <input name="price" type="checkbox" data-price_min="0" data-price_max="500000" class="price_filter" id="1">
-                                                            <svg viewBox="0 0 21 21">
-                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
-                                                            </svg>
-                                                            <span>Từ 500.000₫ trở xuống</span>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="section-price path" for="2">
-                                                            <input name="price" type="checkbox" data-price_min="500000" data-price_max="1000000" class="price_filter"  id="2">
-                                                            <svg viewBox="0 0 21 21">
-                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
-                                                            </svg>
-                                                            <span>500.000₫ - 1.000.000₫</span>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="section-price path" for="3">
-                                                            <input name="price" type="checkbox"  data-price_min="1000000" data-price_max="10000000" class="price_filter" id="3">
-                                                            <svg viewBox="0 0 21 21">
-                                                                <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
-                                                            </svg>
-                                                            <span>Trên 1.000.000₫</span>
-                                                        </label>
-                                                    </li>
-                                                </ul> --}}
                                                 <div class="section-price">
                                                     <p>
                                                         <input class="price-wrapper" type="text" id="amount" readonly>
@@ -257,8 +228,7 @@
                                         <div class="product__color__select">
                                             @foreach ($getAllListProductCategory->unique('color_id') as $key => $attr)
                                                 @if ($attr->product_id == $product->product_id)
-                                                   
-                                                     @foreach ($getAllListProductCategory->unique('color_id') as $key => $a)
+                                                    @foreach ($getAllListProductCategory->unique('color_id') as $key => $a)
                                                         @if ($a->color_id == $attr->color_id)
                                                             <label style="background-color:{{ $attr->color_value }};">
                                                                 <input type="radio">
@@ -267,19 +237,6 @@
                                                     @endforeach
                                                 @endif
                                             @endforeach
-{{-- @php
-$collection = collect($cl);
-@endphp           
-                                 @foreach ($getAllColor as $color)
-                                                        @foreach ($collection->unique('color_id') as $a)
-                                                    @if($color->color_id == $a->color_id)
-                                                    <label >
-                                                        <input type="radio" style="background-color:{{ $color->color_value }};">
-                                                    </label>
-                                                    @endif
-                                                    @endforeach
-                                            @endforeach --}}
-
                                         </div>
                                     </div>
                                 </div>
@@ -289,8 +246,5 @@ $collection = collect($cl);
                 </div>
             </div>
         </div>
-
-        {{-- {{ $getAllListProductCategory->links('pagination::bootstrap-4') }} --}}
-
     </section>
 @endsection
