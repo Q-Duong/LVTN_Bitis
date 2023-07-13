@@ -7,109 +7,83 @@ use App\Models\Category;
 use App\Models\CategoryType;
 use App\Models\Product;
 use App\Models\ImportOrder;
-use App\Models\Employee;
-use File;
+use App\Models\ImportOrderDetail;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
+use Sabberworm\CSS\Property\Import;
 
 class ImportOrderController extends Controller
 {
     function add_import_order(){
+        $getAllEmployee=User::where('role',0)->orderBy('id','asc')->get();
+        return view('admin.ImportOrder.add_import')->with(compact('getAllEmployee'));
+    }
+    function save_import_order(Request $request){
+        $data = $request->all();
+        $import_order = new ImportOrder();
+        $import_order -> user_id = $data['user_id'];
+        $import_order -> save();
+        return Redirect::to('admin/import-order/add/'.$import_order->import_order_id);
+    }
+    function add_import_order_detail($import_order_id){
+        $import_order = ImportOrder::find($import_order_id);
         $getAllCategory=Category::orderBy('category_id','asc')->get();
-        $getAllEmployee=Employee::orderBy('employee_id','asc')->get();
-        return view('admin.ImportOrder.add_import')->with(compact('getAllCategory','getAllEmployee'));
+        return view('admin.ImportOrder.add_import_order_detail')->with(compact('import_order','getAllCategory'));
+    }
+    function save_import_order_detail(Request $request){
+        $data = $request->all();
+        $import_order_detail = new ImportOrderDetail();
+        $import_order_detail -> import_order_detail_price = $data['import_order_detail_price'];
+        $import_order_detail -> import_order_detail_quantity = $data['import_order_detail_quantity'];
+        $import_order_detail -> import_order_id = $data['import_order_id'];
+        $import_order_detail -> ware_house_id = $data['ware_house_id'];
+        $import_order_detail -> save();
+        return response()->json(array('success' => true));
+    }
+    function load_import_order_detail(Request $request){
+        $data = $request->all();
+        $getAllImportOrderDetail = ImportOrderDetail::where('import_order_id',$data['import_order_id'])->get();
+        $html = view('admin.ImportOrder.load_import_order_detail')->with(compact('getAllImportOrderDetail'))->render();
+        return response()->json(array('success' => true, 'html' => $html));
+    }
+
+    public function search_product_admin(Request $request){
+        $data = $request->all();
+        $output = '';
+        if($data['query']){
+            $product = Product::where('product_name','LIKE','%'.$data['query'].'%')->get();
+
+            foreach($product as $key => $val){
+               $output .= '
+               <li value="'.$val->product_id.'">'.$val->product_name.'</li>
+               ';
+            }
+            return response()->json(array('output' => $output));
+        }
     }
     function list_import_order(){
         $getAllListImport=ImportOrder::orderBy('import_order_id','ASC')->get();
         return view('admin.ImportOrder.list_import')->with(compact('getAllListImport'));
     }
-    function edit_import_order($product_id){
-        $edit_value=Product::find($product_id);
-        $getAllProductType=CategoryType::where('category_id',$edit_value->category_id)->get();
+    function edit_import_order($import_order_id){
+        $getAllEmployee=User::where('role',0)->orderBy('id','asc')->get();
         $getAllCategory=Category::orderBy('category_id','asc')->get();
-        return view('admin.Product.edit_product')->with(compact('edit_value','getAllProductType','getAllCategory'));
+        $import_order = ImportOrder::find($import_order_id);
+        $getAllImportOrderDetail = ImportOrderDetail::where('import_order_id',$import_order->import_order_id)->get();
+        return view('admin.ImportOrder.edit_import')->with(compact('getAllEmployee','getAllCategory','import_order','getAllImportOrderDetail'));
     }
-    public function select_category(Request $request){
-        $data = $request->all();
-    	$output = '';
-    	$select_product_type = CategoryType::where('category_id',$data['category_id'])->get();
-        if($select_product_type->count() > 0){ 
-            foreach($select_product_type as $key => $product_type){
-                $output.='<option value="'.$product_type->productType->product_type_id.'">'.$product_type->productType->product_type_name.'</option>';
-            }
-        }else{
-            $output.='<option value="">--Chọn Danh Mục--</option>';
-        }
-    	echo $output;
-    }
-    function save_import_order(Request $request){
+    
+    function update_import_order(Request $request,$import_order_id){
         $data=$request->all();
-        $product = new Product();
-        $product->product_name = $data['product_name'];
-        $product->product_price = $data['product_price'];
-        $product->product_tag = $data['product_tag'];
-        $product->product_description = $data['product_description'];
-        $product->product_type_id = $data['product_type_id'];
-        $product->category_id = $data['category_id'];
-        $product->product_slug = $data['product_slug'];
-        $check=Product::where('product_name',$data['product_name'])->where('product_type_id',$data['product_type_id'])->where('category_id',$data['category_id'])->exists();
-        if($check){
-            return Redirect()->back()->with('error','Tên sản phẩm đã tồn tại,vui lòng nhập lại')->withInput();
-        }
-        $get_image = request('product_image');
-      
-        if($get_image){
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move(public_path('uploads/product/'), $new_image);
-            File::copy(public_path('uploads/product/'.$new_image),public_path('uploads/gallery/'.$new_image));
-            $product->product_image = $new_image;
-        }
-        $product->save();
-
-        $gallery = new Gallery();
-        $gallery->gallery_image = $new_image;
-        $gallery->gallery_name = $new_image;
-        $gallery->product_id = $product->product_id;
-        $gallery->save();
-
-        return Redirect()->back()->with('success','Thêm sản phẩm thành công');
+        $import_order = ImportOrder::find($import_order_id);
+        $import_order -> user_id = $data['user_id'];
+        $import_order -> import_order_total = $data['import_order_total'];
+        $import_order -> save();
+        return Redirect::route('list-import-order')->with('success','Cập nhật đơn nhập hàng thành công');
     }
-    function update_import_order(Request $request,$product_id){
-        $data=$request->all();
-        
-        $product=Product::find($product_id);
-        $product->product_name=$data['product_name'];
-        $product->product_price=$data['product_price'];
-        $product->product_tag=$data['product_tag'];
-        $product->product_description=$data['product_description'];
-        $product->product_type_id=$data['product_type_id'];
-        $product->category_id=$data['category_id'];
-        $product->product_slug=$data['product_slug'];
-
-        $get_image = request('product_image');
-      
-        if($get_image){
-            $product_image_old = $product->product_image;
-            $path = public_path('uploads/product/');
-            unlink($path.$product_image_old);
-
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.',$get_name_image));
-            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move($path,$new_image);
-            $product->product_image = $new_image;
-        }
-        $product->save();
-        return Redirect::to('list-product')->with('success','Cập nhật sản phẩm thành công');
-    }
-    function delete_import_order($product_id){
-        $product=Product::find($product_id);
-        $product_image = $product->product_image;
-        if($product_image){
-            unlink(public_path('uploads/product/').$product_image);
-        }
-        $product->delete();
-        return Redirect()->back()->with('success','Xóa sản phẩm thành công');
+    function delete_import_order($import_order_id){
+        $import_order = ImportOrder::find($import_order_id);
+        $import_order->delete();
+        return Redirect()->back()->with('success','Xóa sản đơn nhập hàng thành công');
     }
 }

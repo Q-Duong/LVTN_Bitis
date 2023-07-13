@@ -92,8 +92,7 @@
                                 </div>
                             </div>
                             <!--End Review Popup -->
-                            <button type="button" name="add_product" class="btn btn-info add-import-order-detail-btn">Thêm
-                                chi
+                            <button type="button" name="add_product" class="btn btn-info ">Lưu chi
                                 tiết đơn nhập</button>
 
                         </form>
@@ -105,6 +104,9 @@
                     Chi tiết đơn nhập
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
+                        <a href="javascript:void0();" class="btn btn-info edit add-import-order-detail-btn">Thêm
+                            chi
+                            tiết đơn nhập</a>
                     </span>
                 </header>
                 <div class="panel-body list-order-detail">
