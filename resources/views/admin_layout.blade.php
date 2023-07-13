@@ -53,7 +53,7 @@
         <header class="header fixed-top clearfix">
             <!--logo start-->
             <div class="brand">
-                <a href="{{ URL::to('/dashboard') }}" class="logo">
+                <a href="{{ URL::to('admin/dashboard') }}" class="logo">
                     ADMIN
                 </a>
                 <div class="sidebar-toggle-box">
@@ -498,27 +498,6 @@
                                     <a href="{{ URL::to('/admin/banner/list') }}"
                                         class="{{ $route->uri == 'admin/banner/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý banner
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;"
-                                class="{{ $route->uri == 'admin/store/add' || $route->uri == 'admin/store/list' ? 'active' : '' }}">
-                                <i class="fas fa-store-alt"></i>
-                                <span>Quản lý cửa hàng </span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{ URL::to('/admin/store/add') }}"
-                                        class="{{ $route->uri == 'admin/store/add' ? 'active' : '' }}">
-                                        <i class="fa fa-plus"></i> Thêm cửa hàng
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL::to('/admin/store/list') }}"
-                                        class="{{ $route->uri == 'admin/store/list' ? 'active' : '' }}">
-                                        <i class="fas fa-list-ol"></i> Quản lý cửa hàng
                                     </a>
                                 </li>
                             </ul>

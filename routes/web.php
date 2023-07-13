@@ -43,7 +43,8 @@ Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gall
 Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
 Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gallery');
 Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
-
+Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
+Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
 Route::post('admin/logout',[AccountController::class,'admin_logout']);
 // Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
@@ -272,10 +273,6 @@ Route::get('/del-product/{session_id}','App\Http\Controllers\CartController@dele
 Route::get('/count-cart-products','App\Http\Controllers\CartController@count_cart_products');
 
 //Checkout
-
-
-Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
-Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
 Route::post('/select-address','App\Http\Controllers\CheckoutController@select_address');
 Route::post('/save-checkout-information','App\Http\Controllers\CheckoutController@save_checkout_information');
 Route::get('/checkout/{order_code}','App\Http\Controllers\CheckoutController@checkout_step_1');
