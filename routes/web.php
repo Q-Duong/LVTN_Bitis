@@ -45,6 +45,7 @@ Route::post('delete-gallery','App\Http\Controllers\GalleryController@delete_gall
 Route::post('update-gallery','App\Http\Controllers\GalleryController@update_gallery');
 Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
 Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
+Route::post('filter','App\Http\Controllers\ProductController@filter');
 Route::post('admin/logout',[AccountController::class,'admin_logout']);
 // Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
@@ -235,7 +236,7 @@ Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostContro
 //Product
 Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
 Route::post('get-ware-house-id','App\Http\Controllers\ProductController@get_ware_house_id');
-Route::post('filter','App\Http\Controllers\ProductController@filter');
+
 
 //Post 
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
