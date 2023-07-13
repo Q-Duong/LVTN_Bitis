@@ -1303,8 +1303,46 @@
         });
 
 
-        
- 
+        load_import_order_detailload_gallery()
+
+        function load_import_order_detailload_gallery() {
+            var import_order_id = $('input[name="import_order_id"]').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('load-import-order-detail') }}",
+                method: "POST",
+                data: {
+                    import_order_id: import_order_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('.list-order-detail').html(data.html);
+                }
+            });
+        }
+        $('.send-import-order-detail').click(function() {
+            var _token = $('input[name="_token"]').val();
+            var import_order_id = $('input[name="import_order_id"]').val();
+            var ware_house_id = $('.ware_house_id option:selected').val();
+            var import_order_detail_quantity = $('input[name="import_order_detail_quantity"]').val();
+            var import_order_detail_price = $('input[name="import_order_detail_price"]').val();
+            $.ajax({
+                url: "{{ route('save-import-order-detail') }}",
+                method: 'POST',
+                data: {
+                    import_order_id: import_order_id,
+                    ware_house_id: ware_house_id,
+                    import_order_detail_quantity: import_order_detail_quantity,
+                    import_order_detail_price: import_order_detail_price,
+                    _token: _token
+                },
+                success: function(data) {
+                    if (data.success) {
+                        load_import_order_detailload_gallery()
+                    }
+                }
+            });
+        });
     </script>
 </body>
 

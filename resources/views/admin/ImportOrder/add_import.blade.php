@@ -17,8 +17,10 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nhân viên nhập hàng</label>
                                 <select name="user_id" class="form-control m-bot15">
-                                    
-                                    <option value=""></option>
+                                    @foreach ($getAllEmployee as $key => $employee)
+                                        <option value="{{ $employee->id }}">{{ $employee->profile->profile_firstname }}
+                                            {{ $employee->profile->profile_lastname }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             
