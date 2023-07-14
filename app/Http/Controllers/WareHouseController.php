@@ -44,7 +44,7 @@ class WareHouseController extends Controller
         $wareHouse->ware_house_quantity = $data['ware_house_quantity'];
         $wareHouse->ware_house_status = $data['ware_house_status'];
         $wareHouse->save();
-        return Redirect::to('list-ware-house')->with('success','Cập nhật kho thành công');
+        return Redirect::to('admin/ware-house/list')->with('success','Cập nhật kho thành công');
     }
     function delete_ware_house($ware_house_id){ 
         $wareHouse = WareHouse::find($ware_house_id);
