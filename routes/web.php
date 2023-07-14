@@ -216,7 +216,7 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::get('/edit/{order_code}',[OrderController::class,'edit_order']);
 
 
-        
+
         Route::post('update/{order_code}',[OrderController::class,'update_order']);
         Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);  
         Route::post('update-order-detail-quantity',[OrderController::class,'update_order_detail_quantity'])->name('update-order-detail-quantity');    
@@ -292,4 +292,5 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 //Search
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
+
 
