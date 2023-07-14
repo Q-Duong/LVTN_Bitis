@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row product__filter">
-        @foreach($product as $key => $product)
+        @foreach($search_product as $key => $product)
         <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
             <a class="heart" type="button" id="{{$product->product_id}}" onclick="add_wistlist(this.id);">
                 <i class="far fa-heart"></i>

@@ -1112,7 +1112,7 @@
             var _token = $('input[name="_token"]').val();
             var order_id = $('input[name="order_id"]').val();
             var ware_house_id = $('.ware_house_id option:selected').val();
-            var order_detail_quantity = $('input[name="order_detail_quantity"]').val();
+            var order_detail_quantity = $('.order_detail_quantity').val();
             $.ajax({
                 url: "{{ route('save-order-detail') }}",
                 method: 'POST',
@@ -1126,7 +1126,7 @@
                     if (data.success) {
                         $('.popup-model-review').fadeOut(300);
                         successMsg(data.message);
-                        load_order_detail()
+                        load_order_detail();
                     }
                 }
             });

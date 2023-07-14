@@ -36,7 +36,42 @@ class HomeController extends Controller
     public function wistlist(){
        return view('pages.wistlist.wistlist');
    }
-   
+   public function search_autocomplete(Request $request){
+
+    $data = $request->all();
+
+    if($data['query']){
+
+        $product = Product::where('product_name','LIKE','%'.$data['query'].'%')->inRandomOrder('product_id')->limit(10)->get();
+
+        $output = '
+        <ul  class="dropdown-menu">
+            <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
+        ;
+
+        foreach($product as $key => $val){
+           $output .= '
+           <li class="li_search_ajax"><a href="'.url('/products/'.$val->product_slug).'" ><i class="fas fa-search"></i>'.$val->product_name.'</a></li>
+           ';
+        }
+
+        $output .= '</ul>';
+        echo $output;
+    }else{
+        $output = '
+        <ul  class="dropdown-menu">
+            <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
+        ;
+        $output .= '</ul>';
+        echo $output;
+    }
+}
+public function search(Request $request){
+    $keywords = $request->keywords_submit;
+    $search_product =  Product::where('product_name','like','%'.$keywords.'%')->get(); 
+    return view('pages.product.search')->with(compact('search_product'));
+
+}
 }
 
 
