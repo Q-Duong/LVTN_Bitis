@@ -116,9 +116,24 @@ class OrderController extends Controller
     }
     function update_order(Request $request,$order_code){
         $data = $request->all();
+        
         $order = Order::where('order_code',$order_code)->first();
         if($order->order_status == 0){
-            if($data['order_status'] == 1){
+            if($data['order_status'] == 2 || $data['order_status'] == 3){
+                $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+                foreach ($order_detail as $key => $orderDetails) { 
+                    $wareHouse = WareHouse::find($orderDetails->ware_house_id);
+                    $wareHouse->ware_house_quantity = $wareHouse->ware_house_quantity - $orderDetails->order_detail_quantity;
+                    $wareHouse->save();
+                }
+                $order->order_status = $data['order_status'];
+                $order->save();
+            }else{
+                $order->order_status = $data['order_status'];
+                $order->save();
+            }
+        }elseif($order->order_status == 1){
+            if($data['order_status'] == 2 ){
                 $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
                 foreach ($order_detail as $key => $orderDetails) { 
                     $wareHouse = WareHouse::find($orderDetails->ware_house_id);
@@ -132,7 +147,7 @@ class OrderController extends Controller
                 $order->save();
             }
         }else{
-            if($data['order_status'] == 2){
+            if($data['order_status'] == 3){
                 $order->order_status = $data['order_status'];
                 $order->save();
             }else{

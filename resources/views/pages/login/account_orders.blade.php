@@ -46,7 +46,17 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="order-view-status">
-                                        <span>Đã thánh toán</span>
+                                        @if ($order->order_status == 0)
+                                            <span style="color: #c500e3;">Chưa hoàn thành đơn hàng</span>
+                                        @elseif($order->order_status == 1)
+                                            <span style="color: #0071e3;">Đơn hàng mới</span>
+                                        @elseif($order->order_status == 2)
+                                            <span style="color: #ffd400;">Đơn hàng đang được giao</span>
+                                        @elseif($order->order_status == 3)
+                                            <span style="color: #27c24c;">Đơn hàng đã hoàn thành</span>
+                                        @else
+                                            <span style="color: #e53637;">Đơn hàng đã được huỷ</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
