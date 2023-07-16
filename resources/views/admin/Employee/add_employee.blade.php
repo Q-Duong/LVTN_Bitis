@@ -15,13 +15,6 @@
                     <div class="position-center">
                         <form role="form" action="{{ URL::to('admin/employee/save') }}" method="post">
                             {{ csrf_field() }}
-                            <div class="form-group">
-                                @if (session('success'))
-                                    <div class="alert alert-success">{!! session('success') !!}</div>
-                                @elseif(session('error'))
-                                    <div class="alert alert-danger">{!! session('error') !!}</div>
-                                @endif
-                            </div>
                             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1"> Tài khoản đăng nhập</label>
                                 <input type="email" name="email" value="{{ old('email') }}" class="form-control"
@@ -70,6 +63,24 @@
                                         'profile_phone',
                                         '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                     ) !!}
+                            </div>
+                            <div class="form-group {{ $errors->has('sex') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1">Giới tính</label><br>   
+                                <label for="nam" class="accent-l">Nam</label>
+                                <input type="radio" name="sex" value="0" id="nam" checked class="accent">
+                                <label for="nu" class="accent-l">Nữ</label>
+                                <input type="radio" name="sex" value="1" id="nu" class="accent">
+                                {!! $errors->first('sex', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
+                            </div>
+                            <div class="form-group {{ $errors->has('day_of_birth') ? 'has-error' : '' }}">
+                                <label for="exampleInputEmail1">Ngày sinh</label>
+                                <input type="date" name="day_of_birth" value="{{ old('day_of_birth') }}"
+                                    class="form-control" data-validation="required"
+                                    data-validation-error-msg="Vui Lòng điền thông tin">
+                                {!! $errors->first(
+                                    'day_of_birth',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
                             </div>
                             <button type="submit" name="add_employee" class="btn btn-info">Thêm nhân viên</button>
                         </form>

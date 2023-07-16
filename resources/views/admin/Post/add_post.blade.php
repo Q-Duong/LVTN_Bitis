@@ -15,13 +15,6 @@
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/admin/post/save')}}" method="post" enctype="multipart/form-data" id="post">
                         {{csrf_field()}}
-                        <div class="form-group" style="text-align:center;">
-                            @if(session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Danh mục bài viết</label>
                             <select name="category_post_id" class="form-control m-bot15">

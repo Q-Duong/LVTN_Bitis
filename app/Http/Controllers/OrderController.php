@@ -149,5 +149,12 @@ class OrderController extends Controller
         
         return Redirect()->back()->with('success','Cập nhật thành công');
     }
+    function delete_order($order_code){
+        $order=Order::where('order_code',$order_code)->first();
+        $receiver=Receiver::find($order->receiver_id);
+        // dd($receiver);
+        $receiver->delete();
+        return redirect()->back()->with('success','Xóa thành công');
+    }
     //Validate
 }

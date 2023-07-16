@@ -5,10 +5,6 @@
             <div class="panel-heading">
                 Liệt kê Size
             </div>
-
-            @if (session('success'))
-                <div class="alert alert-success">{!! session('success') !!}</div>
-            @endif
             <div class="table-responsive">
 
                 <table class="table table-striped b-t b-light" id="myTable">

@@ -16,11 +16,6 @@
                     <form role="form" action="{{URL::to('/admin/category/update/'.$edit_value->category_id)}}"
                         method="post" >
                         @csrf
-                        <div class="form-group">
-                            @if(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
                         <div class="form-group ">
                             <label for="exampleInputEmail1">Tên danh mục</label>
                             <input type="text" value="{{$edit_value->category_name}}" name="category_name" class="form-control" id="slug" onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">

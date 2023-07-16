@@ -28,11 +28,14 @@ class UserController extends Controller
     {
         $this->checkUser($request);
         $data = $request->all();
+        // dd($data);
         $profile = new Profile();
         $profile->profile_firstname = $data['profile_firstname'];
         $profile->profile_lastname = $data['profile_lastname'];
         $profile->profile_phone = $data['profile_phone'];
         $profile->profile_email = $data['email'];
+        $profile->sex = $data['sex'];
+        $profile->day_of_birth = $data['day_of_birth'];
         $profile->save();
 
         $user = new User();
@@ -73,14 +76,15 @@ class UserController extends Controller
     public function checkUser(Request $request)
     {
         $this->validate(
-        $request,
+            $request,
             [
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
                 'profile_firstname' => 'required|string',
                 'profile_lastname' => 'required|string',
                 'profile_phone' => 'required|numeric|digits_between:10,10',
-                'profile_email'
+                'sex' => 'required',
+                'day_of_birth' => 'date'
             ],
             [
                 'email.required' => 'Vui lòng điền thông tin đăng nhập.',
@@ -93,18 +97,20 @@ class UserController extends Controller
                 'profile_phone.required' => 'Vui lòng nhập thông tin.',
                 'profile_phone.numeric' => 'Số điện thoại phải là số.',
                 'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
+                'sex.required' => 'Vui lòng chọn giới tính',
+                'day_of_birth.date' => 'Vui lòng chọn ngày sinh'
             ]
         );
     }
     public function checkUpdateUser(Request $request)
     {
         $this->validate(
-        $request,
+            $request,
             [
                 'profile_firstname' => 'required|string',
                 'profile_lastname' => 'required|string',
                 'profile_phone' => 'required|numeric|digits_between:10,10',
-                'profile_email' => 'email'
+                'profile_email' => 'email',
             ],
             [
                 'profile_firstname.required' => 'Vui lòng nhập thông tin.',
@@ -112,7 +118,7 @@ class UserController extends Controller
                 'profile_phone.required' => 'Vui lòng nhập thông tin.',
                 'profile_phone.numeric' => 'Số điện thoại phải là số.',
                 'profile_phone.digits_between' => 'Vui lòng kiểm tra số điện thoại.',
-                'profile_email.email' => 'Email không hợp lệ'
+                'profile_email.email' => 'Email không hợp lệ',
             ]
         );
     }

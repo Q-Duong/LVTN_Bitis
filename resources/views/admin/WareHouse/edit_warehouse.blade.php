@@ -16,13 +16,6 @@
                         <form role="form" action="{{ URL::to('/admin/ware-house/update/' . $wareHouse->ware_house_id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group" style="text-align:center;">
-                                @if(session('success'))
-                                    <div class="alert alert-success">{!! session('success') !!}</div>
-                                @elseif(session('error'))
-                                    <div class="alert alert-danger">{!! session('error') !!}</div>
-                                @endif
-                            </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Danh mục sản phẩm: <span class="content">{{$wareHouse -> product -> category -> category_name}}</span></label>
                             </div>

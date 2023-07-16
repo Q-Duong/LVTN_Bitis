@@ -24,7 +24,7 @@ class PostController extends Controller
     }
     function save_post(Request $request){
         $data=$request->all();
-        dd($data);
+    
         $post=new Post();
         $post->post_title=$data['post_title'];
         $post->post_slug=$data['post_slug'];

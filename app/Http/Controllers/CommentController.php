@@ -12,21 +12,14 @@ class CommentController extends Controller
 {
     function send_comment(Request $request){
         $data=$request->all();
-
         $rating = new Rating();
         $rating->rating_star = $data['rating_star'];
         $rating->rating_comment = $data['rating_comment'];
         $rating->product_id = $data['product_id'];
-        $rating->user_id = Auth::user()->id;
+        $rating->user_id = Auth::id();
         $rating->rating_status = 0;
         $rating->save();
-        return response()->json(array('message'=>'Đánh giá thành công'));
-    }   
-
-    function add_rating(Request $request){
-        $data=$request->all();
-dd($data);
- 
+        return redirect()->back()->with('success','Đánh giá thành công');
     }   
 }
  

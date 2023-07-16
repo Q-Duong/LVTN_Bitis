@@ -15,13 +15,6 @@
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/admin/category-post/save')}}" method="post">
                         {{csrf_field()}}
-                        <div class="form-group">
-                            @if(session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
                         <div class="form-group {{ $errors->has('category_post_name') ? 'has-error' : '' }}">
                             <label for="exampleInputEmail1">Tên danh mục bài viết</label>
                             <input type="text" name="category_post_name" class="form-control" id="slug"

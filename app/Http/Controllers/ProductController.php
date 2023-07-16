@@ -96,7 +96,7 @@ class ProductController extends Controller
     }
     public function select_product(Request $request)
     {
-        $data = $request->all(); 
+        $data = $request->all();
         $getAllListWareHouse = '';
         $product_price = Product::find($data['product_id']);
         $select_warehouse = WareHouse::where('product_id', $data['product_id'])->orderBy('ware_house_id', 'asc')->get();
@@ -192,7 +192,7 @@ class ProductController extends Controller
         $relate = Product::where('product_type_id', $product->product_type_id)->whereNotIn('product_slug', [$product_slug])->inRandomOrder('product_id')->limit(8)->get();
         $getAllRating = Rating::where('product_id', $product->product_id)->get();
         $countRating = count($getAllRating);
-        $avgRating = $getAllRating->avg('rating_star');
+        $avgRating = round($getAllRating->avg('rating_star'),1);
         $roundAvgRating = round($avgRating);
         $star1 = $getAllRating->where('rating_star', 1)->count();
         $star2 = $getAllRating->where('rating_star', 2)->count();

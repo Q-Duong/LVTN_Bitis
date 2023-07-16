@@ -30,7 +30,7 @@ class WareHouseController extends Controller
         return Redirect::back()->with('success','Thêm kho hàng thành công');
     }
     function list_ware_house(){
-        $getAllWareHouse = WareHouse::orderBy('ware_house_id','ASC')->get();
+        $getAllWareHouse = WareHouse::orderBy('ware_house_id','ASC')->paginate(15);
         return view('admin.WareHouse.list_warehouse')->with(compact('getAllWareHouse'));
     }
     function edit_ware_house($ware_house_id){

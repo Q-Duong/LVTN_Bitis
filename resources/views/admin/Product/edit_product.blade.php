@@ -16,13 +16,6 @@
                         <form role="form" action="{{ URL::to('/admin/product/update/' . $edit_value->product_id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group" style="text-align:center;">
-                                @if(session('success'))
-                                    <div class="alert alert-success">{!! session('success') !!}</div>
-                                @elseif(session('error'))
-                                    <div class="alert alert-danger">{!! session('error') !!}</div>
-                                @endif
-                            </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Danh mục sản phẩm</label>
                                 <select name="category_id" data-id_category="0" class="form-control m-bot15 choose_category">

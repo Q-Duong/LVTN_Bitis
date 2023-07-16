@@ -3,12 +3,8 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Liệt kê sản phẩm
+                Liệt kê đơn hàng
             </div>
-
-            @if (session('success'))
-                <div class="alert alert-success">{!! session('success') !!}</div>
-            @endif
             <div class="table-responsive">
 
                 <table class="table table-striped b-t b-light" id="myTable">
@@ -39,8 +35,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ URL::to('/admin/order/edit/' . $ord->order_code) }}" class="active style-edit"
-                                        ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i></a>
+                                    <a href="{{ URL::to('/admin/order/edit/' . $ord->order_code) }}"
+                                        class="active style-edit" ui-toggle-class=""><i
+                                            class="fa fa-pencil-square-o text-success text-active"></i></a>
+                                    <a onclick="return confirm('Bạn có chắc muốn xóa đơn hàng?')"
+                                        href="{{ URL::to('/admin/order/delete/' . $ord->order_code) }}"
+                                        class="active style-edit" ui-toggle-class="">
+                                        <i class="fa fa-times text-danger text"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

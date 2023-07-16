@@ -17,14 +17,24 @@
                         method="post">
                         @csrf
                         <div class="form-group">
-                            @if (session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1"> Tài khoản đăng nhập</label>
-                            <input type="email" value="{{ $edit_value->email }}" class="form-control" disabled>
+                            <label for="exampleInputPassword1">Tên đăng nhập: <span class="content">{{$edit_value ->email}}</span></label>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Ngày sinh: <span class="content">{{Carbon\Carbon::parse($edit_value ->profile ->day_of_birth)->format('d/m/Y')}}</span></label>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Giới tính:</label>
+                            <td><span class="text-ellipsis">
+                                @if ($edit_value->profile->sex == 0)
+                                    Nam
+                                @else
+                                    Nữ
+                                @endif
+                            </span></td>
+                        </div>
+                        
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mật khẩu</label>
                             <input type="password" name="password" class="form-control" placeholder="Mật khẩu"
@@ -60,7 +70,6 @@
                                 data-validation-error-msg="Vui Lòng điền thông tin">
                             {!! $errors->first('profile_phone', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-
                         <button type="submit" name="update_employee" class="btn btn-info">Cập nhật khách hàng</button>
                     </form>
                 </div>

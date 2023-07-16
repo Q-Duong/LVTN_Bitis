@@ -44,13 +44,6 @@
             @if (Auth::check())
                 <div class="offcanvas__top__hover">
                     <span>
-                        @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
-                            <img src="{{ asset('uploads/avata/' . Session::get('customer_image')) }}" alt="">
-                        @elseif(Session::get('customer_password') == '')
-                            <img src="{{ Session::get('customer_image') }}" alt="">
-                        @elseif(Session::get('customer_image') == '' && Session::get('customer_password') != '')
-                            <i class="far fa-user-circle"></i>
-                        @endif
                         Xin chào, {{ Auth::user()->profile->profile_lastname }}
                         <i class="arrow_carrot-down"></i>
                     </span>
@@ -64,7 +57,7 @@
                         <a href="{{ URL::to('/member/settings') }}">
                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                         </a>
-                        <a href="{{ URL::to('/member/logout') }}">
+                        <a href="{{ URL::to('/member/logout') }}" class="logout">
                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                         </a>
                     </ul>
@@ -119,8 +112,7 @@
                             </div>
 
                             @if (Auth::check())
-                                <input type="hidden" name="profile_id"
-                                    value={{ Auth::user()->profile->profile_id }}>
+                                <input type="hidden" name="profile_id" value={{ Auth::user()->profile->profile_id }}>
                                 <div class="header__top__hover">
                                     <span>
                                         {{-- @if (Session::get('customer_image') != '' && Session::get('customer_password') != '')
@@ -145,8 +137,8 @@
                                         <a href="{{ URL::to('/member/settings') }}" class="member-settings">
                                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                                         </a>
-                                        <a href="{{ URL::to('/member/logout') }}">
-                                            <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
+                                        <a href="{{ URL::to('/member/logout') }}" class="logout">
+                                            <li><i class="fas fa-sign-out-alt "></i> Đăng xuất</li>
                                         </a>
                                     </ul>
                                 </div>
@@ -350,21 +342,32 @@
                 <p class="close-model"><i class="fas fa-times"></i></p>
             </div>
             <h6 class="model-login-title">
-                Vui lòng đăng nhập tài khoản để đánh giá 
+                Vui lòng đăng nhập tài khoản để đánh giá
             </h6>
             <div class="group-login-btn">
-                <a href="{{ URL::to('/member/login') }}"
-                    class="site-btn login-btn">
+                <a href="{{ URL::to('/member/login') }}" class="site-btn login-btn">
                     Đăng nhập
                 </a>
-                <a href="{{ URL::to('/member/register') }}"
-                    class="site-btn register-btn">
+                <a href="{{ URL::to('/member/register') }}" class="site-btn register-btn">
                     Đăng ký
                 </a>
             </div>
         </div>
     </div>
     <!--End Login Popup -->
+    @if (session('success'))
+        <div class="notifications-popup notifications-active">
+            <div class="notifications-content">
+                <i class="fas fa-solid fa-check notifications-check"></i>
+
+                <div class="notifications-message">
+                    <span class="message-title">Thông báo !</span>
+                    <span class="message-text">{!! session('success') !!}</span>
+                </div>
+            </div>
+            <i class="fas fa-times notifications-close"></i>
+        </div>
+    @endif
 
     <!-- scrollUp -->
     <a id="button"></a>
@@ -396,7 +399,26 @@
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
-        var check = '{{Auth::check()}}';
+        function successMsg(msg) {
+            $(".notifications-popup").addClass('notifications-active');
+            $(".message-text").text(msg);
+            setTimeout(function() {
+                $('.notifications-popup').removeClass('notifications-active');
+            }, 5000);
+            $('.notifications-close').click(function() {
+                $('.notifications-popup').removeClass('notifications-active');
+            });
+        }
+
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.notifications-popup').removeClass('notifications-active');
+            }, 5000);
+        });
+        $('.notifications-close').click(function() {
+            $('.notifications-popup').removeClass('notifications-active');
+        });
+        var check = '{{ Auth::check() }}';
     </script>
 
     <script type="text/javascript">
@@ -602,7 +624,7 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-            
+
             dataObj = {};
             $(data_cart).each(function(i, field) {
                 dataObj[field.name] = field.value;
@@ -629,6 +651,7 @@
             localStorage.setItem('cart', JSON.stringify(Items));
             $('#cart').html('');
             view_cart();
+            // location.replace('http://127.0.0.1:8000/cart')
         }
 
         function remove_cart_item(position) {
@@ -643,6 +666,20 @@
             $('#cart').html('');
             view_cart();
         }
+        $('.add-cart').click(function() {
+            // var _token = $('input[name="_token"]').val();
+            // $.ajax({
+            //         url: "{{ url('/dispacth') }}",
+            //         method: 'POST',
+            //         data: {
+            //             _token: _token,
+            //         },
+            //         success: function(data) {
+            //            location.replace('http://127.0.0.1:8000/'+data.route);
+            //         }
+            //     });
+            // location.replace('http://127.0.0.1:8000/cart')
+        })
         $(document).on('change', '.cart_quantity', function() {
             var quantity = $(this).val();
             var id = $(this).data('id');
@@ -849,16 +886,16 @@
 
         $('.overlay').on('click', function() {
             $('.popup-form').fadeOut(400, function() {
-                
+
             });
         });
         //Rating Review
         $('.button-review').on('click', function() {
-           if(check){
+            if (check) {
                 $('.popup-model-review').fadeIn(300);
-           }else{
+            } else {
                 $('.popup-model-login').fadeIn(300);
-           }
+            }
         });
 
         $('.close-model').on('click', function() {
@@ -891,29 +928,33 @@
                     }
                 });
             }
-            $('.send-rating').click(function(e) {
-                e.preventDefault();
-                var _token = $('input[name="_token"]').val();
-                var product_id = $('.product_id').val();
-                var rating_comment = $('.model-review-textarea').val();
-                var rating_star = $('.rating:checked').val()
-                $.ajax({
-                    url: "{{ url('member/send-comment') }}",
-                    method: "POST",
-                    data: {
-                        product_id: product_id,
-                        rating_star: rating_star,
-                        rating_comment: rating_comment,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('.popup-model-review').fadeOut(300);
-                        window.location.reload();
-                    }
-                });
-            });
-            
+            // $('.send-rating').click(function(e) {
+            //     e.preventDefault();
+            //     var _token = $('input[name="_token"]').val();
+            //     var product_id = $('.product_id').val();
+            //     var rating_comment = $('.model-review-textarea').val();
+            //     var rating_star = $('.rating:checked').val()
+            //     $.ajax({
+            //         url: "{{ url('member/send-comment') }}",
+            //         method: "POST",
+            //         data: {
+            //             product_id: product_id,
+            //             rating_star: rating_star,
+            //             rating_comment: rating_comment,
+            //             _token: _token
+            //         },
+            //         success: function(data) {
+            //             $('.popup-model-review').fadeOut(300);
+            //             window.location.reload();
+            //         }
+            //     });
+            // });
+
         });
+        $('.logout').click(function() {
+            localStorage.removeItem('cart');
+            localStorage.removeItem('sessionId');
+        })
     </script>
 </body>
 

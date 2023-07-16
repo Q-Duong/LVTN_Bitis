@@ -5,17 +5,13 @@
         <div class="panel-heading">
             Quản lý danh mục bài viết
         </div>
-
-        @if(session('success'))
-            <div class="alert alert-success">{!! session('success') !!}</div>
-        @endif
         <div class="table-responsive">
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>
                     <tr>
                         <th>Tên danh mục bài viết</th>
                         <th>Slug danh mục bài viết</th>
-                        <th style="width:60px;">Quản lý</th>
+                        <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
                 <tbody>

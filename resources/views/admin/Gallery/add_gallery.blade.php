@@ -10,12 +10,6 @@
             
             <div class="panel-body">
                 <div class="position-center">
-
-                    <div class="form-group">
-                    @if(session('success'))
-                        <div class="alert alert-success">{!! session('success') !!}</div>
-                    @endif
-                    </div>
                     <form action="{{url('/admin/gallery/insert/'.$product_id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                         <div class="row">

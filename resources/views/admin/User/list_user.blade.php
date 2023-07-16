@@ -5,9 +5,6 @@
         <div class="panel-heading">
             Liệt kê khách hàng
         </div>
-        @if(session('success'))
-            <div class="alert alert-success">{!! session('success') !!}</div>
-        @endif
         <div class="table-responsive">
             <table class="table table-striped b-t b-light" id="myTable">
                 <thead>
@@ -17,6 +14,8 @@
                         <th>Tên khách hàng</th>
                         <th>Email liên hệ</th>
                         <th>Số điện thoại</th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
                         <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
@@ -28,6 +27,14 @@
                         <td>{{ $user ->profile ->profile_lastname}}</td>
                         <td>{{ $user ->profile ->profile_email }}</td>
                         <td>{{ $user ->profile ->profile_phone }}</td>
+                        <td><span class="text-ellipsis">
+                            @if ($user->profile->sex == 0)
+                                Nam
+                            @else
+                                Nữ
+                            @endif
+                        </span></td>
+                        <td>{{Carbon\Carbon::parse($user ->profile ->day_of_birth)->format('d/m/Y')}}</td>
                         <td>
                             <!-- <a href="{{URL::to('/add-customer-admin')}}"
                                 class="active style-edit" ui-toggle-class=""><i class="fa fa-plus"></i>

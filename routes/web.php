@@ -293,4 +293,4 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
 
-
+// Route::post('/dispacth','App\Http\Controllers\HomeController@dispacth');

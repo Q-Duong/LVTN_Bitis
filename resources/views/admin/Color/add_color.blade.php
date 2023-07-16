@@ -14,15 +14,7 @@
             <div class="panel-body">
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/admin/color/save')}}" method="post" >
-                        {{csrf_field()}}
-                        <div class="form-group">
-                            @if(session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
-                        
+                        {{csrf_field()}} 
                         <div class="form-group {{ $errors->has('color_name') ? 'has-error' : '' }}">
                             <label for="exampleInputEmail1">Tên màu</label>
                             <input type="text" name="color_name" value="{{old('color_name')}}" class="form-control"

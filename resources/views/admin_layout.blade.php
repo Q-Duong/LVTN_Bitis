@@ -40,7 +40,8 @@
 
     <!-- //font-awesome icons -->
     <link rel="stylesheet" href="{{ asset('backend/fontawesome-free-5.15.4-web/css/all.css') }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="{{ asset('backend/js/jquery2.0.3.min.js') }}"></script>
     <script src="{{ asset('backend/js/raphael-min.js') }}"></script>
     <script src="{{ asset('backend/js/morris.js') }}"></script>

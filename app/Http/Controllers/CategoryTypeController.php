@@ -18,7 +18,7 @@ class CategoryTypeController extends Controller
     function save_category_type(Request $request){
         $data=$request->all();
         $category_type=new CategoryType();
-        $category_type->category_id=$data['category_id'];
+        $category_type->category_id=$data['category_id'] ;
         $category_type->product_type_id=$data['product_type_id'];
         $category_type->save();
         return Redirect()->back()->with('success','Thêm thành công');
