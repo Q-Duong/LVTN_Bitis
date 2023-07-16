@@ -20,7 +20,6 @@ class CategoryController extends Controller
     function edit_category($category_id)
     {
         $edit_value = Category::find($category_id);
-        dd($edit_value);
         return view('admin.Category.edit_category')->with(compact('edit_value'));
     }
     function list_category()
@@ -87,11 +86,13 @@ class CategoryController extends Controller
         $this->validate(
             $request,
             [
-                'category_name' => 'required|unique:category,category_name'
+                'category_name' => 'required|unique:category,category_name',
+                'category_slug'=>'required'
             ],
             [
                 'category_name.required' => 'Vui lòng nhập thông tin',
-                'category_name.unique' => 'Danh mục đã tồn tại vui lòng nhập lại'
+                'category_name.unique' => 'Danh mục đã tồn tại vui lòng nhập lại',
+                'category_slug.required'=>'Vui lòng nhập lại tên'
             ]
         );
     }
@@ -100,10 +101,12 @@ class CategoryController extends Controller
         $this->validate(
             $request,
             [
-                'category_name' => 'required'
+                'category_name' => 'required',
+                'category_slug'=>'required'
             ],
             [
-                'category_name.required' => 'Vui lòng nhập thông tin'
+                'category_name.required' => 'Vui lòng nhập thông tin',
+                'category_slug.required'=>'Vui lòng nhập lại tên'
             ]
         );
     }

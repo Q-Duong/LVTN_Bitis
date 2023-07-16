@@ -268,7 +268,8 @@ Route::prefix('member')->group(function(){
 
 
 Route::post('member/send-comment','App\Http\Controllers\CommentController@send_comment');
-Route::post('add-rating','App\Http\Controllers\CommentController@add_rating');
+Route::post('/send-rating','App\Http\Controllers\CommentController@send_rating');
+
 //Contact
 Route::get('/contact','App\Http\Controllers\InfomationController@show_Info');
 
@@ -290,7 +291,7 @@ Route::get('/handcash','App\Http\Controllers\CheckoutController@handcash');
 Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_transaction');
 
 //Search
-Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search-autocomplete');
+Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
 
 //Rating

@@ -48,17 +48,6 @@
                             </textarea>
                             {!! $errors->first('post_content', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Trạng thái</label>
-                            <select name="post_status" class="form-control m-bot15">
-                                @if ($edit_value->post_status == 1)
-                                    <option selected value="1">Hiển thị</option>
-                                    <option value="0">Ẩn</option>
-                                @else
-                                    <option value="1">Hiển thị</option>
-                                    <option selected value="0">Ẩn</option>
-                                @endif
-                            </select>
                         </div>
                         <button type="submit" name="update_post" class="btn btn-info">Cập nhật bài viết</button>
                     </form>

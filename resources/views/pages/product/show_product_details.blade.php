@@ -215,6 +215,9 @@
                                                 <div class="popup-model-review">
                                                     <div class="overlay-model-review"></div>
                                                     <div class="model-review-content">
+                                                        <form action="{{URL::to('/send-rating')}}" method='POST'>
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{$product->product_id}}"/>
                                                         <div class="model-review-close">
                                                             <p class="model-review-tile">Đánh giá sản phẩm</p>
                                                             <p class="close-model"><i class="fas fa-times"></i></p>
@@ -228,7 +231,7 @@
                                                             Đánh giá & nhận xét {{ $product->product_name }}
                                                         </h6>
                                                         <div class="model-review-description">
-                                                            <textarea class="model-review-textarea" rows="5"
+                                                            <textarea class="model-review-textarea" rows="5" name="comment" 
                                                                 placeholder="Xin mời chia sẻ một số cảm nhận về sản phẩm....."></textarea>
                                                         </div>
 
@@ -265,11 +268,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="checkout__input">
-                                                            <button type="button" name="send-rating"
+                                                            <button type="submit" name="send-rating"
                                                                 class="site-btn send-rating">
                                                                 Gửi đánh giá
                                                             </button>
                                                         </div>
+                                                    </form>   
                                                     </div>
                                                 </div>
                                                 <!--End Review Popup -->

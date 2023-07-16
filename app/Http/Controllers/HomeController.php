@@ -65,21 +65,20 @@ class HomeController extends Controller
         return response()->json(array('success' => true));
     }  
     public function search(Request $request){
-        $keywords = $request->keywords_submit;
+        $data = $request->all();
+        
+        $product = Product::where('product_name','like','%'.$data['keywords_submit'].'%')->get();
 
-        $product =  Product::where('product_slug','like','%'.$keywords.'%')->get(); 
-
-        return view('pages.product.search')->with(compact('keywords','product'));
-
+        return view('pages.product.search')->with(compact('product'));
     }
 
     public function search_autocomplete(Request $request){
 
-        $data = $request->all();
-
-        if($data['query']){
-
-            $product = Product::where('product_name','LIKE','%'.$data['query'].'%')->inRandomOrder('product_id')->limit(5)->get();
+        $data = $request->querykey;
+        
+        if($data){
+        
+            $product = Product::where('product_name','LIKE','%'.$data.'%')->inRandomOrder('product_id')->limit(5)->get();
 
             $output = '
             <ul  class="dropdown-menu">
@@ -88,19 +87,19 @@ class HomeController extends Controller
 
             foreach($product as $key => $val){
                $output .= '
-               <li class="li_search_ajax"><a href="'.url('/product/'.$val->product_slug).'" ><i class="fas fa-search"></i>'.$val->product_name.'</a></li>
+               <li class="li_search_ajax"><a href="'.url('/products/'.$val->product_slug).'" ><i class="fas fa-search"></i>'.$val->product_name.'</a></li>
                ';
             }
 
             $output .= '</ul>';
-            echo $output;
+            return response()->json(array('success' => true, 'html' => $output));
         }else{
             $output = '
             <ul  class="dropdown-menu">
                 <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
             ;
             $output .= '</ul>';
-            echo $output;
+            return response()->json(array('success' => true, 'html' => $output));
         }  
     }
 }

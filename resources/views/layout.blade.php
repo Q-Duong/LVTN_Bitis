@@ -410,12 +410,13 @@
                     url: "{{ url('/search-autocomplete') }}",
                     method: "POST",
                     data: {
-                        query: query,
+                        querykey: query,
                         _token: _token
                     },
                     success: function(data) {
                         $('#search_ajax').fadeIn();
-                        $('#search_ajax').html(data);
+                        $('#search_ajax').html(data.html);
+                        
                     }
                 });
 
@@ -424,7 +425,7 @@
             }
         });
 
-        $(document).on('click', '.li_search_ajax', function() {
+        $(document).on('click','.li_search_ajax', function() {
             $('#keywords').val($(this).text());
             $('#search_ajax').fadeOut();
         });
@@ -891,27 +892,27 @@
                     }
                 });
             }
-            $('.send-rating').click(function(e) {
-                e.preventDefault();
-                var _token = $('input[name="_token"]').val();
-                var product_id = $('.product_id').val();
-                var rating_comment = $('.model-review-textarea').val();
-                var rating_star = $('.rating:checked').val()
-                $.ajax({
-                    url:"{{url('/send-comment')}}",
-                    method:"POST",
-                    data:{
-                        product_id:product_id,
-                        star:star,
-                        comment:comment,
-                        _token:_token
-                    },
-                    success: function(data) {
-                        $('.popup-model-review').fadeOut(300);
-                        window.location.reload();
-                    }
-                })
-            });
+            // $('.send-rating').click(function(e) {
+            //     e.preventDefault();
+            //     var _token = $('input[name="_token"]').val();
+            //     var product_id = $('.product_id').val();
+            //     var rating_comment = $('.model-review-textarea').val();
+            //     var rating_star = $('.rating:checked').val()
+            //     $.ajax({
+            //         url:"{{url('/send-comment')}}",
+            //         method:"POST",
+            //         data:{
+            //             product_id:product_id,
+            //             star:star,
+            //             comment:comment,
+            //             _token:_token
+            //         },
+            //         success: function(data) {
+            //             $('.popup-model-review').fadeOut(300);
+            //             window.location.reload();
+            //         }
+            //     })
+            // });
             
         });
     </script>

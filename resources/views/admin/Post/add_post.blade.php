@@ -50,13 +50,6 @@
                             </textarea>
                             {!! $errors->first('post_content', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Hiển thị</label>
-                            <select name="post_status" class="form-control m-bot15">
-                                <option value="1">Hiển thị</option>
-                                <option value="0">Ẩn</option>
-                            </select>
-                        </div>
                         <div class="form-group {{ $errors->has('post_image') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh bài viết</label>
                             <input type="file" name="post_image" class="form-control" data-validation="required" data-validation-error-msg="Vui lòng thêm hình ảnh" value="{{ old('post_image') }}">
