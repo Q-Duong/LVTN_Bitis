@@ -96,13 +96,13 @@
                                 <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng
                             </button>
                         </div>
-                        <div class="product__details__btns__option">
+                        {{-- <div class="product__details__btns__option">
                             <a type="button" class="primary-btn-wistlist" id="{{ $product->product_id }}"
                                 onclick="add_wistlist(this.id);">
                                 <i class="fa fa-heart"></i>
                                 Yêu thích
                             </a>
-                        </div>
+                        </div> --}}
                         <div class="product__details__last__option">
                             <h5><span>Phương thức thanh toán</span></h5>
                             <img src="{{ asset('frontend/img/shop-details/details-payment.png') }}" alt="">

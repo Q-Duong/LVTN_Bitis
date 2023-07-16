@@ -313,7 +313,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
+                        {{-- <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/import-order/add' || $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
@@ -333,7 +333,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/size/add' || $route->uri == 'admin/size/list' ? 'active' : '' }}">

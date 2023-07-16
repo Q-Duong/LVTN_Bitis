@@ -38,7 +38,7 @@ class CheckoutController extends Controller
             foreach ($request->cart as $key => $cart) {
                 $order_detail = new OrderDetail();
                 $ware_house = WareHouse::find($cart['id']);
-                $order_total += $ware_house->product->product_price;
+                $order_total += $ware_house->product->product_price * $cart['quantity'];
                 $order_detail->order_id = $order->order_id;
                 $order_detail->order_detail_quantity = $cart['quantity'];
                 $order_detail->ware_house_id = $cart['id'];
@@ -57,6 +57,14 @@ class CheckoutController extends Controller
                 $order->receiver->ward_id == null ||
                 $order->receiver->receiver_address == null
             ) {
+                $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+                foreach ($request->cart as $key => $cart) {
+                    $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+                    $ware_house = WareHouse::find($cart['id']);
+                    $order_detail->order_detail_quantity = $cart['quantity'];
+                    $order_detail->ware_house_id = $cart['id'];
+                    $order_detail->save();
+                }
                 return response()->json(array('order_code' => $request->sessionId['sessionId'], 'route' => 'checkout'));
             } else {
                 return response()->json(array('order_code' => $request->sessionId['sessionId'], 'route' => 'payment'));
@@ -101,7 +109,7 @@ class CheckoutController extends Controller
             foreach ($request->cart as $key => $cart) {
                 $order_detail = new OrderDetail();
                 $ware_house = WareHouse::find($cart['id']);
-                $order_total += $ware_house->product->product_price;
+                $order_total += $ware_house->product->product_price * $cart['quantity'];
                 $order_detail->order_id = $order->order_id;
                 $order_detail->order_detail_quantity = $cart['quantity'];
                 $order_detail->ware_house_id = $cart['id'];
@@ -206,11 +214,12 @@ class CheckoutController extends Controller
 
         if ($data['payment_method'] == 'cash') {
             $order = Order::where('order_code', $data['order_code'])->first();
-            $order->order_status = 0;
+            $order->order_status = 1;
             $order->save();
             return response()->json(array('url' => 'handcash', 'type' => 'cash'));
         } else {
             $order = Order::where('order_code', $data['order_code'])->first();
+            $order->order_status = 1;
             $url =  $this->momo($order);
             // $order -> order_status = 1;
             // $order -> save();

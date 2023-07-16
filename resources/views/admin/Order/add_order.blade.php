@@ -17,9 +17,9 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Trạng thái đơn hàng</label>
                                 <select name="order_status" class="form-control m-bot15">
-                                    <option value="0">Đơn hàng mới</option>
-                                    <option value="1">Đơn hàng đang giao</option>
-                                    <option value="2">Đơn hàng đã hoàn thành</option>
+                                    <option value="1">Đơn hàng mới</option>
+                                    <option value="2">Đơn hàng đang giao</option>
+                                    <option value="3">Đơn hàng đã hoàn thành</option>
                                 </select>
                             </div>
                             <div class="form-group">

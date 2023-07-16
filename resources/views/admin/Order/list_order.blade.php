@@ -25,10 +25,12 @@
                                 <td>{{ $ord->created_at }}</td>
                                 <td>
                                     @if ($ord->order_status == 0)
-                                        <span style="color: #0071e3;">Đơn hàng mới</span>
+                                        <span style="color: #c500e3;">Chưa hoàn thành đơn hàng</span>
                                     @elseif($ord->order_status == 1)
-                                        <span style="color: #ffd400;">Đơn hàng đang được giao</span>
+                                        <span style="color: #0071e3;">Đơn hàng mới</span>
                                     @elseif($ord->order_status == 2)
+                                        <span style="color: #ffd400;">Đơn hàng đang được giao</span>
+                                    @elseif($ord->order_status == 3)
                                         <span style="color: #27c24c;">Đơn hàng đã hoàn thành</span>
                                     @else
                                         <span style="color: #e53637;">Đơn hàng đã được huỷ</span>

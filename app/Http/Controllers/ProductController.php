@@ -192,7 +192,7 @@ class ProductController extends Controller
         $relate = Product::where('product_type_id', $product->product_type_id)->whereNotIn('product_slug', [$product_slug])->inRandomOrder('product_id')->limit(8)->get();
         $getAllRating = Rating::where('product_id', $product->product_id)->get();
         $countRating = count($getAllRating);
-        $avgRating = round($getAllRating->avg('rating_star'),1);
+        $avgRating = round($getAllRating->avg('rating_star'), 1);
         $roundAvgRating = round($avgRating);
         $star1 = $getAllRating->where('rating_star', 1)->count();
         $star2 = $getAllRating->where('rating_star', 2)->count();
@@ -234,6 +234,7 @@ class ProductController extends Controller
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
                 ->orderBy('ware_house.product_id', 'ASC')
                 ->get();
+                dd($filter);
             if (count($filter) > 0) {
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
@@ -267,7 +268,6 @@ class ProductController extends Controller
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
                 ->orderBy('ware_house.product_id', 'ASC')
                 ->get();
-            // dd($filter->unique('product_id'));
             if (count($filter) > 0) {
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
@@ -291,6 +291,7 @@ class ProductController extends Controller
                 ->whereIn('ware_house.size_id', $size_array)
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
                 ->get();
+                dd($filter);
             if (count($filter) > 0) {
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
