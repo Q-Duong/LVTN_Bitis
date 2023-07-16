@@ -127,9 +127,11 @@ class OrderController extends Controller
                     $wareHouse->save();
                 }
                 $order->order_status = $data['order_status'];
+                $order->order_is_paid = $data['order_is_paid'];
                 $order->save();
             }else{
                 $order->order_status = $data['order_status'];
+                $order->order_is_paid = $data['order_is_paid'];
                 $order->save();
             }
         }elseif($order->order_status == 1){
@@ -141,14 +143,17 @@ class OrderController extends Controller
                     $wareHouse->save();
                 }
                 $order->order_status = $data['order_status'];
+                $order->order_is_paid = $data['order_is_paid'];
                 $order->save();
             }else{
                 $order->order_status = $data['order_status'];
+                $order->order_is_paid = $data['order_is_paid'];
                 $order->save();
             }
         }else{
             if($data['order_status'] == 3){
                 $order->order_status = $data['order_status'];
+                $order->order_is_paid = $data['order_is_paid'];
                 $order->save();
             }else{
                 $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
@@ -158,6 +163,7 @@ class OrderController extends Controller
                     $wareHouse->save();
                 }
                 $order->order_status = $data['order_status'];
+                $order->order_is_paid = $data['order_is_paid'];
                 $order->save();
             }
         }
