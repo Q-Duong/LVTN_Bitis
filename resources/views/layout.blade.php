@@ -64,7 +64,7 @@
                         <a href="{{ URL::to('/member/settings') }}">
                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                         </a>
-                        <a href="{{ URL::to('/member/logout') }}">
+                        <a href="{{ URL::to('/member/logout') }}" class="logout">
                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                         </a>
                     </ul>
@@ -145,7 +145,7 @@
                                         <a href="{{ URL::to('/member/settings') }}" class="member-settings">
                                             <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                                         </a>
-                                        <a href="{{ URL::to('/member/logout') }}">
+                                        <a href="{{ URL::to('/member/logout') }}" class="logout">
                                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                                         </a>
                                     </ul>
@@ -410,12 +410,12 @@
                     url: "{{ url('/search-autocomplete') }}",
                     method: "POST",
                     data: {
-                        querykey: query,
+                        query: query,
                         _token: _token
                     },
                     success: function(data) {
                         $('#search_ajax').fadeIn();
-                        $('#search_ajax').html(data.html);
+                        $('#search_ajax').html(data);
                         
                     }
                 });
@@ -440,6 +440,11 @@
     </script>
 
     <script type="text/javascript">
+        $('.logout').click(function(){
+            localStorage.removeItem('cart');
+            localStorage.removeItem('sessionId');
+        });
+
         check_first();
 
         function check_first() {
@@ -810,33 +815,6 @@
                 $('.alert-success').fadeOut('fast');
             }, 3000);
         }
-        // $('.update-account-information').click(function(event) {
-        //     event.preventDefault();
-        //     var _token = $('input[name="_token"]').val();
-        //     var profile_id = $('input[name="profile_id"]').val();
-        //     var profile_firstname = $('input[name=profile_firstname]').val();
-        //     var profile_lastname = $('input[name=profile_lastname]').val();
-        //     var profile_phone = $('input[name=profile_phone]').val();
-        //     var profile_email = $('input[name=profile_email]').val();
-
-        //     $.ajax({
-        //         url: 'update-profile/' + profile_id,
-        //         method: "POST",
-        //         data: {
-        //             _token: _token,
-        //             profile_id: profile_id,
-        //             profile_firstname: profile_firstname,
-        //             profile_lastname: profile_lastname,
-        //             profile_phone: profile_phone,
-        //             profile_email: profile_email
-        //         },
-        //         success: function(data) {
-        //             successMsg(data.message);
-
-        //         }
-        //     });
-
-        // });
 
         //Delivery
         $('.delivery-a').on('click', function() {
@@ -873,9 +851,6 @@
         });
 
         $(document).ready(function() {
-
-            // load_comment();
-
             function load_comment() {
                 var product_id = $('.comment_product_id').val();
                 var _token = $('input[name="_token"]').val();

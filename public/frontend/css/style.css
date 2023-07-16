@@ -1935,7 +1935,7 @@ i.far.fa-heart:hover {
 	top: 10px;
 }
 
-.product__details__option__color span {
+/* .product__details__option__color span {
 	color: #111111;
 	display: inline-block;
 	margin-right: 10px;
@@ -1955,30 +1955,9 @@ i.far.fa-heart:hover {
 }
 
 .product__details__option__color .active {
-	/* border: 1px solid #0071e3; */
-
-
+	border: 1px solid #0071e3;
 }
 
-/* .product__details__option__color label.c-1 {
-	background: #0b090c;
-}
-
-.product__details__option__color label.c-2 {
-	background: #20315f;
-}
-
-.product__details__option__color label.c-3 {
-	background: #f1af4d;
-}
-
-.product__details__option__color label.c-4 {
-	background: #ed1c24;
-}
-
-.product__details__option__color label.c-9 {
-	background: #ffffff;
-} */
 
 .product__details__option__color label:after {
 	position: absolute;
@@ -1994,7 +1973,99 @@ i.far.fa-heart:hover {
 .product__details__option__color label input {
 	position: absolute;
 	visibility: hidden;
-}
+} */
+
+
+.color_id {
+	display: none;
+  }
+  
+  .color {
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+	border: 2px solid #e5e5e5;
+	transform: translateY(-58%);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: 0.2s ease transform, 0.2s ease background-color,
+	  0.2s ease box-shadow;
+	overflow: hidden;
+	z-index: 1;
+	display: inline-table;
+	position: relative;
+  }
+  
+  /* .color:before {
+
+	width: 50px;
+	height: 50px;
+	transform: translateY(-58%);
+	
+	border-radius: 50%;
+	box-shadow: inset 0 7px 10px #ffbeb8;
+	transition: 0.2s ease width, 0.2s ease height;
+	border: 1px solid #e5e5e5;;
+  } */
+  
+  .color:hover:before {
+	width: 55px;
+	height: 55px;
+  }
+  
+  .color:active {
+	transform: translateY(-50%) scale(0.9);
+  }
+  
+  #tick_color {
+	position: absolute;
+	top: -1px;
+	right: 0;
+	left: 0;
+	width: 60px;
+	height: 60px;
+	margin: 0 auto;
+	margin-left: 14px;
+	transform: rotateZ(-40deg);
+  }
+  
+  #tick_color:before,
+  #tick_color:after {
+	content: "";
+	position: absolute;
+	background-color: #fff;
+	border-radius: 2px;
+	opacity: 0;
+	transition: 0.2s ease transform, 0.2s ease opacity;
+  }
+  
+  #tick_color:before {
+	left: 9px;
+    bottom: 50px;
+    width: 2px;
+    height: 14px;
+	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
+	transform: translateY(-68px);
+  }
+  
+  #tick_color:after {
+	left: 10px;
+    bottom: 50px;
+    width: 35%;
+    height: 2px;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+	transform: translateX(78px);
+  }
+  .color_id:checked + label:before {
+	width: 0;
+	height: 0;
+  }
+  
+  .color_id:checked + label #tick_color:before,
+  .color_id:checked + label #tick_color:after {
+	transform: translate(0);
+	opacity: 1;
+  }
 
 .product__details__cart__option {
 	margin-bottom: 25px;
@@ -5859,7 +5930,7 @@ li.option{
 	padding: 20px;
 	box-shadow: rgb(60 64 67 / 10%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
     border-radius: 10px;
-    margin: 40px 0;
+    margin-bottom: 40px;
 }
 .order-view-header{
 	width: 100%;
@@ -6355,4 +6426,72 @@ progress::-webkit-progress-bar {
 .register-btn{
 	width: 40%;
 }
+  /* End popup model login */
+
+  /* Popup model notifications */
+.notifications-popup{
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    margin:auto;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+  }
+  
+ .notifications-active {
+    transform: translateX(0%);
+  }
+  
+  .notifications-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notifications-check {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    min-width: 35px;
+    background-color: #4070f4;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+  }
+  
+  .notifications-message {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+  }
+  
+  .message-title{
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    font-weight: 600;
+    color: #333;
+  }
+  .message-text{
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+  }
+  .notifications-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  
+  .notifications-close:hover {
+    opacity: 1;
+  }
   /* End popup model login */

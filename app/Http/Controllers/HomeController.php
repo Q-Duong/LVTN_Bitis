@@ -37,71 +37,42 @@ class HomeController extends Controller
     public function wistlist(){
        return view('pages.wistlist.wistlist');
    }
+   public function search_autocomplete(Request $request){
 
-   public function add_rating(Request $request){
     $data = $request->all();
-    
-    $rating = new Rating();
-    $rating->rating_star = $data['rating_star'];
-    $rating->rating_comment = $data['rating_comment'];
-    $rating->product_id=$data['product_id'];
-    $rating->user_id=6;
 
-    $rating->save();
-    return Redirect()->back()->with('success','Đã đánh giá thành công sản phẩm');
-   }
+    if($data['query']){
 
-    public function send_comment(Request $request){
-        $data = $request->all();
+        $product = Product::where('product_name','LIKE','%'.$data['query'].'%')->inRandomOrder('product_id')->limit(10)->get();
 
-        $comment = new Rating();
-        $comment->rating_star = $data['star'];
-        $comment->rating_comment = $data['comment'];
-        $comment->product_id=$data['product_id'];
-        $comment->user_id=Auth::user()->id;
-        $comment->rating_status=1;
+        $output = '
+        <ul  class="dropdown-menu">
+            <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
+        ;
 
-        $comment->save();
-        return response()->json(array('success' => true));
-    }  
-    public function search(Request $request){
-        $data = $request->all();
-        
-        $product = Product::where('product_name','like','%'.$data['keywords_submit'].'%')->get();
+        foreach($product as $key => $val){
+           $output .= '
+           <li class="li_search_ajax"><a href="'.url('/products/'.$val->product_slug).'" ><i class="fas fa-search"></i>'.$val->product_name.'</a></li>
+           ';
+        }
 
-        return view('pages.product.search')->with(compact('product'));
+        $output .= '</ul>';
+        echo $output;
+    }else{
+        $output = '
+        <ul  class="dropdown-menu">
+            <li class="li_search_ajax">Bạn muốn tìm sản phẩm nào</li>'
+        ;
+        $output .= '</ul>';
+        echo $output;
     }
+}
+public function search(Request $request){
+    $keywords = $request->keywords_submit;
+    $search_product =  Product::where('product_name','like','%'.$keywords.'%')->get(); 
+    return view('pages.product.search')->with(compact('search_product'));
 
-    public function search_autocomplete(Request $request){
-
-        $data = $request->querykey;
-        
-        if($data){
-        
-            $product = Product::where('product_name','LIKE','%'.$data.'%')->inRandomOrder('product_id')->limit(5)->get();
-
-            $output = '
-            <ul  class="dropdown-menu">
-                <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
-            ;
-
-            foreach($product as $key => $val){
-               $output .= '
-               <li class="li_search_ajax"><a href="'.url('/products/'.$val->product_slug).'" ><i class="fas fa-search"></i>'.$val->product_name.'</a></li>
-               ';
-            }
-
-            $output .= '</ul>';
-            return response()->json(array('success' => true, 'html' => $output));
-        }else{
-            $output = '
-            <ul  class="dropdown-menu">
-                <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
-            ;
-            $output .= '</ul>';
-            return response()->json(array('success' => true, 'html' => $output));
-        }  
-    }
+}
 }
 
 

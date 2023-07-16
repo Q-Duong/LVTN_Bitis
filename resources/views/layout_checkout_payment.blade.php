@@ -251,12 +251,13 @@
                     payment_method: payment_method
                 },
                 success: function(data) {
-                   
                     if(data.type == 'cash'){
                         localStorage.removeItem('cart');
                         localStorage.removeItem('sessionId');
                         window.location.assign("../"+ data.url);
                     }else{
+                        localStorage.removeItem('cart');
+                        localStorage.removeItem('sessionId');
                         location.replace(data.url);
                     }
                 }

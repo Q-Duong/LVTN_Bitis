@@ -121,7 +121,7 @@
                                     <input type="hidden" name="ware_house_id" value="{{$ord -> ware_house_id}}">
                                     <input type="hidden" name="order_id" value="{{$order -> order_id}}">
                                     {{-- <input type="hidden" name="order_detail_id" value="{{$ord -> order_detail_id}}"> --}}
-                                    <select name="order_detail_quantity" class="form-control order_quantity" onchange="orderDetailQuantityFunction({{$ord -> order_detail_id}})" {{ $order -> order_status != 0 ? 'disabled' : '' }}>
+                                    <select name="order_detail_quantity" class="form-control order_quantity" onchange="orderDetailQuantityFunction({{$ord -> order_detail_id}})" {{ $order -> order_status != 0 && $order -> order_status != 1 ? 'disabled' : '' }}>
                                         @for ($i = 1; $i <= 10; $i++)
                                             <option {{ $ord -> order_detail_quantity == $i ? 'selected' : '' }} value="{{ $i }}">
                                                 {{ $i }}
@@ -155,7 +155,7 @@
                             <tr>
                                 <td colspan="2">
                                     <strong>Trạng thái thanh toán:</strong>
-                                    <select class="form-control" name="order_is_paid" {{ $order -> order_status == 2 || $order -> order_status == 3 ? 'disabled' : '' }}>
+                                    <select class="form-control" name="order_is_paid" {{ $order -> order_status == 3 || $order -> order_status == 4 ? 'disabled' : '' }}>
                                         <option {{$order->order_is_paid == 0 ? 'selected' : ''}} value="0">Chưa thanh toán</option>
                                         <option {{$order->order_is_paid == 1 ? 'selected' : ''}} value="1">Đã thanh toán</option>
                                     </select>
@@ -164,20 +164,27 @@
                             <tr>
                                 <td colspan="2">
                                     <strong>Trạng thái đơn hàng:</strong>
-                                    <select class="form-control order_details" name="order_status" {{ $order -> order_status == 2 || $order -> order_status == 3 ? 'disabled' : '' }}>
+                                    <select class="form-control order_details" name="order_status" {{ $order -> order_status == 3 || $order -> order_status == 4 ? 'disabled' : '' }}>
                                         @if ($order->order_status == 0)
-                                            <option selected disabled value="0">Đơn hàng mới</option>
-                                            <option value="1">Đơn hàng đang giao</option>
-                                            <option disabled value="2">Đơn hàng đã hoàn thành</option>
-                                            <option value="3">Huỷ đơn hàng</option>
+                                            <option selected disabled value="0">Chưa hoàn thành đơn hàng</option>
+                                            <option disabled value="1">Đơn hàng mới</option>
+                                            <option value="2">Đơn hàng đang giao</option>
+                                            <option value="3">Đơn hàng đã hoàn thành</option>
+                                            <option value="4">Huỷ đơn hàng</option>
                                         @elseif($order->order_status == 1)
-                                            <option selected disabled value="1">Đơn hàng đang giao</option>
-                                            <option value="2">Đơn hàng đã hoàn thành</option>
-                                            <option value="3">Huỷ đơn hàng</option>
+                                            <option disabled value="0">Chưa hoàn thành đơn hàng</option>
+                                            <option selected disabled value="1">Đơn hàng mới</option>
+                                            <option value="2">Đơn hàng đang giao</option>
+                                            <option disabled value="3">Đơn hàng đã hoàn thành</option>
+                                            <option value="4">Huỷ đơn hàng</option>
                                         @elseif($order->order_status == 2)
-                                            <option disabled selected value="2">Đơn hàng đã hoàn thành</option>
+                                            <option disabled selected value="2">Đơn hàng đang giao</option>
+                                            <option value="3">Đơn hàng đã hoàn thành</option>
+                                            <option value="4">Huỷ đơn hàng</option>
+                                        @elseif($order->order_status == 3)
+                                            <option disabled selected>Đơn hàng đã hoàn thành</option>
                                         @else
-                                            <option disabled selected value="3">Huỷ đơn hàng</option>
+                                            <option disabled selected>Huỷ đơn hàng</option>
                                         @endif
                                     </select>
                                 </td>
