@@ -143,7 +143,7 @@ class ProductController extends Controller
         $gallery->product_id = $product->product_id;
         $gallery->save();
 
-        return Redirect()->back()->with('success', 'Thêm sản phẩm thành công');
+        return Redirect::to('admin/ware-house/add')->with('success', 'Them sản phẩm thành công');
     }
     function update_product(Request $request, $product_id)
     {

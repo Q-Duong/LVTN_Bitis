@@ -92,7 +92,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-7">
+                            <div class="col-lg-8">
                                 <div class="checkout__input">
                                     <p>Email<span>*</span></p>
                                     <input type="email" name="receiver_email"
@@ -101,7 +101,7 @@
                                     <div class="alert-error error hidden receiver_email"><i class="fa fa-exclamation-circle"></i> <span class="receiver_email_message"></span></div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
                                 <div class="checkout__input">
                                     <p>Số điện thoại<span>*</span></p>
                                     <input type="text" name="receiver_phone" placeholder="Điền số điện thoại"

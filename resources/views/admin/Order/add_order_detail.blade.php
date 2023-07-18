@@ -99,7 +99,7 @@
                                 ) !!}
                             </div>
                             <button type="submit" name="add_order" class="btn btn-info">
-                                THêm đơn hàng
+                                Thêm đơn hàng
                             </button>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                     </div>
                     <div class="form-group">
                         <label>Số lượng</label>
-                        <input type="number" value="1" min="1"
+                        <input type="number" value="1" min="1" 
                             name="order_detail_quantity" class="form-control order_detail_quantity">
                     </div>
                     <div class="form-group">

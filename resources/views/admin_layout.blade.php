@@ -166,15 +166,32 @@
                             </a>
                             <ul class="dropdown-menu extended logout">
                                 <li>
+                                    
+                                    <a href="{{ URL::to('/admin/profile') }}" class="member-profile">
+                                        <i class="fas fa-address-card"></i> Thông tin tài khoản
+                                    </a>
+                                    <a href="{{ URL::to('/admin/settings') }}" class="member-settings">
+                                        <i class="fa fa-cog"></i> Chỉnh sửa tài khoản
+                                    </a>
                                     <a href="#"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Đăng xuất
+                                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
                                     </a>
                                     <form id="logout-form" action="{{ URL::to('/admin/logout') }}" method="POST"
                                         class="d-none">
                                         @csrf
                                     </form>
                                 </li>
+                                {{-- <li>
+                                    <a href="{{ URL::to('/admin/settings') }}" class="member-settings">
+                                        <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/admin/logout') }}" class="logout">
+                                        <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
+                                    </a>
+                                </li> --}}
 
 
                                 {{-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>

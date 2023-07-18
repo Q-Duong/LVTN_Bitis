@@ -12,18 +12,31 @@
                     <div class="form-group" style="text-align:center;">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Tên tài khoản</label>
-                        <input type="text" name="service_title" class="form-control" value="">
+                        <label for="exampleInputEmail1">Họ và tên lót</label>
+                        <input disabled type="text" name="service_title" class="form-control" value="{{Auth::user()->profile->profile_firstname}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên </label>
+                        <input disabled type="text" name="service_title" class="form-control" value="{{Auth::user()->profile->profile_lastname}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tên đăng nhập</label>
-                        <input type="text" name="service_title" class="form-control" >
+                        <input disabled type="text" name="service_title" class="form-control"  value="{{Auth::user()->email}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Số điện thoại</label>
-                        <input type="text" name="service_title" class="form-control" >
+                        <input disabled type="text" name="service_title" class="form-control"  value="{{Auth::user()->profile->profile_phone}}">
                     </div>
-                    <a href=""  type="submit" class="btn btn-info"><i class="fa fa-cog"></i> Cài đặt tài khoản</a>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Giới tính</label>
+                        <input disabled type="text" name="service_title" class="form-control" value="{{Auth::user()->profile->sex == 0 ? 'Nam' : 'Nữ'}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ngày sinh</label>
+                        <input disabled type="text" name="service_title" class="form-control" value="{{Carbon\Carbon::parse(Auth::user()->profile->day_of_birth)->format('d/m/Y') }}">
+                    </div>
+                    <a href="{{URL::to('/admin/settings')}}"  type="submit" class="btn btn-info"><i class="fa fa-cog"></i> Cài đặt tài khoản</a>
+                    
                 </div>
             </div>
         </section>
