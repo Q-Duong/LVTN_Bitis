@@ -558,11 +558,21 @@
         </section>
         <!--main content end-->
         <!-- Noti Popup -->
-
-        <div class="notifications-popup">
+        <div class="notifications-popup-success">
             <div class="notifications-content">
-                <i class="fas fa-solid fa-check notifications-check"></i>
-
+                <div class="notifications-icon">
+                </div>
+                <div class="notifications-message">
+                    <span class="message-title">Thông báo !</span>
+                    <span class="message-text"></span>
+                </div>
+            </div>
+            <i class="fas fa-times notifications-close"></i>
+        </div>
+        <div class="notifications-popup-error">
+            <div class="notifications-content">
+                <div class="notifications-icon">
+                </div>
                 <div class="notifications-message">
                     <span class="message-title">Thông báo !</span>
                     <span class="message-text"></span>
@@ -572,10 +582,11 @@
         </div>
 
         @if (session('success'))
-            <div class="notifications-popup active">
+            <div class="notifications-popup-success active">
                 <div class="notifications-content">
-                    <i class="fas fa-solid fa-check notifications-check"></i>
-
+                    <div class="notifications-icon">
+                        <i class="fas fa-solid fa-check notifications-success"></i>
+                    </div>
                     <div class="notifications-message">
                         <span class="message-title">Thông báo !</span>
                         <span class="message-text">{!! session('success') !!}</span>
@@ -583,8 +594,21 @@
                 </div>
                 <i class="fas fa-times notifications-close"></i>
             </div>
+        @elseif(session('error'))
+            <div class="notifications-popup-error active">
+                <div class="notifications-content">
+                    <div class="notifications-icon">
+                        <i class="fas fa-times notifications-error"></i>
+                    </div>
+                    <div class="notifications-message">
+                        <span class="message-title">Thông báo !</span>
+                        <span class="message-text">{!! session('error') !!}</span>
+                    </div>
+                </div>
+                <i class="fas fa-times notifications-close"></i>
+            </div>
         @endif
-        <!--End Login Popup -->
+        <!--End Noti Popup -->
     </section>
     <script src="{{ asset('backend/js/bootstrap.js') }}"></script>
     <script src="{{ asset('backend/js/jquery.dcjqaccordion.2.7.js') }}"></script>
@@ -603,19 +627,33 @@
 
     <script type="text/javascript">
         function successMsg(msg) {
-            $(".notifications-popup").addClass('active');
+            $(".notifications-popup-success").addClass('active');
+            $('.notifications-icon').html('<i class="fas fa-solid fa-check notifications-success"></i>')
             $(".message-text").text(msg);
             setTimeout(function() {
-                $('.notifications-popup').removeClass('active');
+                $('.notifications-popup-success').removeClass('active');
             }, 5000);
             $('.notifications-close').click(function() {
-                $('.notifications-popup').removeClass('active');
+                $('.notifications-popup-success').removeClass('active');
             });
         }
-
+        function errorMsg(msg) {
+            $(".notifications-popup-error").addClass('active');
+            $('.notifications-icon').html('<i class="fas fa-times notifications-error"></i>')
+            $(".message-text").text(msg);
+            setTimeout(function() {
+                $('.notifications-popup-error').removeClass('active');
+            }, 5000);
+            $('.notifications-close').click(function() {
+                $('.notifications-popup-error').removeClass('active');
+            });
+        }
         $(document).ready(function() {
             setTimeout(function() {
-                $('.notifications-popup').removeClass('active');
+                $('.notifications-popup-success').removeClass('active');
+            }, 5000);
+            setTimeout(function() {
+                $('.notifications-popup-error').removeClass('active');
             }, 5000);
         });
 
