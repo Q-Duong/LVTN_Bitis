@@ -3364,7 +3364,7 @@ table.table.table-bordered.table-dark tr th {
 
   
 /* Popup model notifications */
-.notifications-popup{
+.notifications-popup-success{
     position: fixed;
     top: 100px;
     right: 30px;
@@ -3376,24 +3376,49 @@ table.table.table-bordered.table-dark tr th {
     overflow: hidden;
     transform: translateX(calc(100% + 30px));
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    z-index: 10000;
+    border: 2px solid #4070f4;
   }
-  
-.active {
-    transform: translateX(0%);
+  .notifications-popup-error{
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    margin:auto;
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px 35px 20px 25px;
+    box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transform: translateX(calc(100% + 30px));
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+    z-index: 10000;
+    border: 2px solid #d70018;
   }
-  
+    .active{
+    transform: translateX(0%); 
+  }
   .notifications-content {
     display: flex;
     align-items: center;
   }
-  
-  .notifications-check {
+  .notifications-success {
     display: flex !important;
     align-items: center;
     justify-content: center;
     height: 35px;
     min-width: 35px;
     background-color: #4070f4;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+  }
+  .notifications-error {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    min-width: 35px;
+    background-color: #d70018;
     color: #fff;
     font-size: 20px;
     border-radius: 50%;
@@ -3648,8 +3673,4 @@ table.table.table-bordered.table-dark tr th {
     border-radius: 10px;
     padding: 20px;
     border: 1px solid #d1d1d1;
-}
-.pagi{
-    display: flex;
-    justify-content: center;
 }
