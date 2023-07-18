@@ -5,12 +5,7 @@
             <div class="panel-heading">
                 Liệt kê kho
             </div>
-
-            @if (session('success'))
-                <div class="alert alert-success">{!! session('success') !!}</div>
-            @endif
             <div class="table-responsive">
-
                 <table class="table table-striped b-t b-light" id="myTable">
                     <thead>
                         <tr>
@@ -67,8 +62,10 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> 
             </div>
         </div>
+        <div class="pagi">{{$getAllWareHouse->links('pagination::bootstrap-4')}}</div>
+        
     </div>
 @endsection

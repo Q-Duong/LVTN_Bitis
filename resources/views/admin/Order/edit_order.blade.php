@@ -45,9 +45,6 @@
             </div>
 
             <div class="table-responsive">
-                @if (session('success'))
-                    <div class="alert alert-success">{!! session('success') !!}</div>
-                @endif
                 <table class="table table-striped b-t b-light">
                     <thead>
                         <tr>

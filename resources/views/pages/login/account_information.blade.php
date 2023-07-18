@@ -145,26 +145,39 @@
                             <i class="far fa-user-circle"></i>
                         </div>
                     </div>
-                </div>
-                <div class="checkout__input">
-                    <p>Họ và tên lót<span>*</span></p>
-                    <input type="text" value="{{ Auth::user()->profile->profile_firstname }}" disabled>
-                </div>
-                <div class="checkout__input">
-                    <p>Tên<span>*</span></p>
-                    <input type="text" value="{{ Auth::user()->profile->profile_lastname }}" disabled>
-                </div>
-                <div class="checkout__input">
-                    <p>Địa chỉ email cá nhân<span>*</span></p>
-                    <input type="text" value="{{ Auth::user()->profile->profile_email }}" disabled>
-                </div>
-                <div class="checkout__input">
-                    <p>Số điện thoại<span>*</span></p>
-                    <input type="text" value="{{ Auth::user()->profile->profile_phone }}" disabled>
-                </div>
-                <div class="checkout__input">
-                    <a href="{{ URL::to('/member/settings') }}" class="site-btn"><i class="fa fa-cog"></i> Cài đặt
-                        tài khoản</a>
+                    <div class="checkout__input">
+                        <p>Họ và tên lót<span>*</span></p>
+                        <input type="text" value="{{ Auth::user()->profile->profile_firstname }}" disabled>
+                    </div>
+                    <div class="checkout__input">
+                        <p>Tên<span>*</span></p>
+                        <input type="text" value="{{ Auth::user()->profile->profile_lastname }}" disabled>
+                    </div>
+                    <div class="checkout__input">
+                        <p>Địa chỉ email cá nhân<span>*</span></p>
+                        <input type="text" value="{{ Auth::user()->profile->profile_email }}" disabled>
+                    </div>
+                    <div class="checkout__input">
+                        <p>Số điện thoại<span>*</span></p>
+                        <input type="text" value="{{ Auth::user()->profile->profile_phone }}" disabled>
+                    </div>
+                    <div class="checkout__input">
+                        <p>Giới tính<span>*:</span></p>
+                        <span class="text-ellipsis">
+                            <input type="text" value="{{ Auth::user()->profile->sex == 0 ? 'Nam' : 'Nữ' }}"
+                                disabled>
+                        </span>
+                    </div>
+                    <div class="checkout__input">
+                        <p>Ngày sinh<span>*</span></p>
+                        <input type="text"
+                            value="{{ Carbon\Carbon::parse(Auth::user()->profile->day_of_birth)->format('d/m/Y') }}"
+                            disabled>
+                    </div>
+                    <div class="checkout__input">
+                        <a href="{{ URL::to('/member/settings') }}" class="site-btn"><i class="fa fa-cog"></i> Cài
+                            đặt tài khoản</a>
+                    </div>
                 </div>
             </div>
         </div>

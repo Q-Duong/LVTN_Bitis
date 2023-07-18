@@ -17,11 +17,6 @@
                         method="post" >
                         @csrf
                         <div class="form-group">
-                            @if(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputEmail1">Tên màu</label>
                             <input type="text" value="{{$edit_value->color_name}}" name="color_name" class="form-control"  onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
                         </div>

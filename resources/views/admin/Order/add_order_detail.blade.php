@@ -18,23 +18,23 @@
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Trạng thái đơn hàng</label>
                                 <select name="order_status" class="form-control m-bot15">
-                                    <option value="0" {{$order -> order_status == 0 ? 'selected' : ''}}>Đơn hàng mới</option>
-                                    <option value="1" {{$order -> order_status == 1 ? 'selected' : ''}}>Đơn hàng đang giao</option>
-                                    <option value="2" {{$order -> order_status == 2 ? 'selected' : ''}}>Đơn hàng đã hoàn thành</option>
+                                    <option value="1" {{$order ->order_status == 1 ? 'selected' : ''}}>Đơn hàng mới</option>
+                                    <option value="2" {{$order ->order_status == 2 ? 'selected' : ''}}>Đơn hàng đang giao</option>
+                                    <option value="3" {{$order ->order_status == 3 ? 'selected' : ''}}>Đơn hàng đã hoàn thành</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Phương thức thanh toán</label>
                                 <select name="order_payment_type" class="form-control m-bot15">
-                                    <option value="0" {{$order -> order_payment_type == 0? 'selected' : ''}}>Tiền mặt</option>
-                                    <option value="1" {{$order -> order_payment_type == 1? 'selected' : ''}}>Chuyển khoản</option>
+                                    <option value="0" {{$order ->order_payment_type == 0? 'selected' : ''}}>Tiền mặt</option>
+                                    <option value="1" {{$order ->order_payment_type == 1? 'selected' : ''}}>Chuyển khoản</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Trạng thái thanh toán</label>
                                 <select name="order_is_paid" class="form-control m-bot15">
-                                    <option value="0" {{$order -> order_is_paid ==0 ? 'selected' : ''}}>Chưa thanh toán</option>
-                                    <option value="1" {{$order -> order_is_paid ==1 ? 'selected' : ''}}>Đã thanh toán</option>
+                                    <option value="0" {{$order ->order_is_paid ==0 ? 'selected' : ''}}>Chưa thanh toán</option>
+                                    <option value="1" {{$order ->order_is_paid ==1 ? 'selected' : ''}}>Đã thanh toán</option>
                                 </select>
                             </div>
                             <div class="form-group {{ $errors->has('order_total') ? 'has-error' : '' }}">

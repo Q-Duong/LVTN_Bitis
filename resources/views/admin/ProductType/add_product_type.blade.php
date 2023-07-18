@@ -16,11 +16,6 @@
                     <form role="form" action="{{URL::to('/admin/product-type/save')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
-                        @if(session('success'))
-                            <div class="alert alert-success">{!! session('success') !!}</div>
-                        @elseif(session('error'))
-                            <div class="alert alert-danger">{!! session('error') !!}</div>
-                        @endif
                         </div>
                         <div class="form-group {{ $errors->has('product_type_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên loại sản phẩm</label>

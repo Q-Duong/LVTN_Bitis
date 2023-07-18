@@ -15,13 +15,6 @@
                 <div class="position-center">
                     <form role="form" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
-                        <div class="form-group" style="text-align:center;">
-                            @if(session('success'))
-                                <div class="alert alert-success">{!! session('success') !!}</div>
-                            @elseif(session('error'))
-                                <div class="alert alert-danger">{!! session('error') !!}</div>
-                            @endif
-                        </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Nhà cung cấp</label>
                             <select name="producer_id" class="form-control m-bot15">

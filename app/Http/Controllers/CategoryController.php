@@ -87,12 +87,12 @@ class CategoryController extends Controller
             $request,
             [
                 'category_name' => 'required|unique:category,category_name',
-                'category_slug'=>'required'
+                'category_slug' => 'required'
             ],
             [
                 'category_name.required' => 'Vui lòng nhập thông tin',
                 'category_name.unique' => 'Danh mục đã tồn tại vui lòng nhập lại',
-                'category_slug.required'=>'Vui lòng nhập lại tên'
+                'category_slug.required' => 'Vui lòng nhập thông tin'
             ]
         );
     }

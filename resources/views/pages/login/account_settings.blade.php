@@ -139,6 +139,19 @@
                 <div class="alert alert-success" style="display:none"></div>
                 <form action="{{ URL::to('member/update-profile') }}" method="POST">
                     @csrf
+                    <div class="checkout__input">
+                        <p>Giới tính<span>*:</span></p>
+                        <span class="text-ellipsis">
+                            <input type="text" value="{{ Auth::user()->profile->sex == 0 ? 'Nam' : 'Nữ' }}"
+                                disabled>
+                        </span>
+                    </div>
+                    <div class="checkout__input">
+                        <p>Ngày sinh<span>*</span></p>
+                        <input type="text"
+                            value="{{ Carbon\Carbon::parse(Auth::user()->profile->day_of_birth)->format('d/m/Y') }}"
+                            disabled>
+                    </div>
                     <div class="checkout__input {{ $errors->has('profile_firstname') ? 'has-error' : '' }}">
                         <p>Họ và tên lót<span>*</span></p>
                         <input type="text" name="profile_firstname" placeholder="Họ và tên lót"

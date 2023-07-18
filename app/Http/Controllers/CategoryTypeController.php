@@ -18,7 +18,7 @@ class CategoryTypeController extends Controller
     function save_category_type(Request $request){
         $data=$request->all();
         $category_type=new CategoryType();
-        $category_type->category_id=$data['category_id'];
+        $category_type->category_id=$data['category_id'] ;
         $category_type->product_type_id=$data['product_type_id'];
         $category_type->save();
         return Redirect()->back()->with('success','Thêm thành công');
@@ -44,7 +44,7 @@ class CategoryTypeController extends Controller
         $category_type->category_id=$data['category_id'];
         $category_type->product_type_id=$data['product_type_id'];
         $category_type->save();
-        return Redirect::to('list-category-type')->with('success','Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('admin/category-type/list')->with('success','Cập nhật danh mục sản phẩm thành công');
     }
 }
  

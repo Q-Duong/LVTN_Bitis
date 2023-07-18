@@ -5,12 +5,6 @@
         <div class="panel-heading">
             Liệt kê tin nhắn
         </div>
-
-        <div class="form-group">
-            @if(session('success'))
-                <div class="alert alert-success">{!! session('success') !!}</div>
-            @endif
-        </div>
         <div class="table-responsive">
 
             <table class="table table-striped b-t b-light" id="myTable">

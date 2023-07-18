@@ -40,7 +40,7 @@ class SizeController extends Controller
             return Redirect()->back()->with('error','Size đã tồn tại, vui lòng kiểm tra lại')->withInput();
         }
         $size->save();
-        return Redirect::to('list-size')->with('success','Cập nhật size thành công');
+        return Redirect::to('admin/size/list')->with('success','Cập nhật size thành công');
     }
     function delete_size(Request $request,$size_id){
         $size=Size::find($size_id);

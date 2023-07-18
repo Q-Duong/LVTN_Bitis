@@ -3649,3 +3649,7 @@ table.table.table-bordered.table-dark tr th {
     padding: 20px;
     border: 1px solid #d1d1d1;
 }
+.pagi{
+    display: flex;
+    justify-content: center;
+}

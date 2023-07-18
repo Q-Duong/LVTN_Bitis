@@ -40,7 +40,7 @@ class ColorController extends Controller
         $col->color_name=$data['color_name'];
         $col->color_value=$data['color_value'];
         $col->save();
-        return Redirect::to('list-color')->with('success','Cập nhật màu thành công');
+        return Redirect::to('admin/color/list')->with('success','Cập nhật màu thành công');
     }
 
     public function checkColorAdmin(Request $request){

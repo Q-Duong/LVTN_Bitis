@@ -30,7 +30,7 @@ class WareHouseController extends Controller
         return Redirect::back()->with('success','Thêm kho hàng thành công');
     }
     function list_ware_house(){
-        $getAllWareHouse = WareHouse::orderBy('ware_house_id','ASC')->get();
+        $getAllWareHouse = WareHouse::orderBy('ware_house_id','ASC')->paginate(15);
         return view('admin.WareHouse.list_warehouse')->with(compact('getAllWareHouse'));
     }
     function edit_ware_house($ware_house_id){
@@ -44,7 +44,7 @@ class WareHouseController extends Controller
         $wareHouse->ware_house_quantity = $data['ware_house_quantity'];
         $wareHouse->ware_house_status = $data['ware_house_status'];
         $wareHouse->save();
-        return Redirect::to('list-ware-house')->with('success','Cập nhật kho thành công');
+        return Redirect::to('admin/ware-house/list')->with('success','Cập nhật kho thành công');
     }
     function delete_ware_house($ware_house_id){ 
         $wareHouse = WareHouse::find($ware_house_id);
