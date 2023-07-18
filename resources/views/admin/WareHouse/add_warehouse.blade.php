@@ -66,7 +66,7 @@
                                 @foreach($getAllSize as $key =>$size)
                                     <div class="col-lg-3 col-md-12 centered">
                                         <section>
-                                            <input type="checkbox" id="size{{$key}}" value="{{$size ->size_id}}" name="size_id[]" onclick="myFunction{{$key}}()">
+                                            <input type="checkbox" id="size{{$key}}" value="{{$size ->size_id}}" name="size_id[]" onclick="myFunction({{$key}})">
                                             <label for="size{{$key}}" class="accent-l">{{$size ->size_attribute == 0 ? 'Không có size' : $size -> size_attribute}}</label>
                                                
                                             <div class="form-group {{ $errors->has('ware_house_quantity') ? 'has-error' : '' }}" id="block{{$key}}" style="display:none">
