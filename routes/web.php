@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Auth;
 //-------------------------------------------- Backend --------------------------------------------
  //Ajax
 Route::post('select-category','App\Http\Controllers\ProductController@select_category');
-Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
+Route::post('select-pruodct-type','App\Http\Controllers\ProductController@select_product_type');
 Route::post('select-product','App\Http\Controllers\ProductController@select_product');
 Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
 Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
@@ -47,7 +47,7 @@ Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
 Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
 Route::post('filter','App\Http\Controllers\ProductController@filter');
 Route::post('admin/logout',[AccountController::class,'admin_logout']);
-// Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
+// Route::get('login','App\Http\Controllers\Auth\LoginController@showLoginForm')->middleware(['isAdmin'])->name('login');
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 // Route::get('/home',[AccountController::class,'home']);
 Route::get('/403',function(){return view('403');})->name('403');
@@ -292,5 +292,3 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 //Search
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
-
-// Route::post('/dispacth','App\Http\Controllers\HomeController@dispacth');

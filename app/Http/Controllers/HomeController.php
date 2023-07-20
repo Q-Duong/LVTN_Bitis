@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Banner;
 use App\Models\Post;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -77,8 +76,4 @@ class HomeController extends Controller
         return view('pages.product.search')->with(compact('search_product'));
 
     }
-// public function dispacth(Request $request){
-//     return response()->json(array('route'=>'cart'));
-// }
-
 }

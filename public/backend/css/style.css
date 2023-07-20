@@ -3454,7 +3454,7 @@ table.table.table-bordered.table-dark tr th {
   .notifications-close:hover {
     opacity: 1;
   }
-  /* End popup model login */
+  /* End popup notifications */
 
   ::selection{
     color: #fff;

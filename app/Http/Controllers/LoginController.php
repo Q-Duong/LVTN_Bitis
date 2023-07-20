@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\User;
@@ -27,9 +28,8 @@ class LoginController extends Controller
         if (Auth::attempt([
             'email' => $data['email'],
             'password' => $data['password'],
+            'role' => 1,
         ])) {
-            // $profile = User::where('email', $data['email'])->first();
-            // Auth::login($profile);
             return Redirect::to('/');
         } else {
             return Redirect::to('member/login')->with('error', 'Tài khoản hoặc mật khẩu không đúng');
@@ -88,7 +88,8 @@ class LoginController extends Controller
 
     public function delivery_addresses()
     {
-        return view('pages.login.account_delivery_address');
+        $city = City::orderby('city_name', 'ASC')->get();
+        return view('pages.login.account_delivery_address')->with(compact('city'));
     }
 
     public function orders()
