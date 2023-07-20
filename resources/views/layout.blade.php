@@ -192,6 +192,18 @@
                                         </ul>
                                     </li>
                                 @endforeach
+                                <li class="nav-item"><a>Khuyến mãi</a>
+                                    <ul class="dropdown">
+                                        @foreach ($getAllDiscount as $key => $dis)
+                                            <li>
+                                                <a
+                                                    href="{{ asset(URL::to('/collections/' . $dis->discount_slug)) }}">
+                                                    {{ $dis->discount_name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                                 <li class="nav-item"><a>Tin tức</a>
                                     <ul class="dropdown">
                                         @foreach ($getAllListCategoryPost as $key => $categoryPost)
@@ -437,7 +449,7 @@
                     },
                     success: function(data) {
                         $('#search_ajax').fadeIn();
-                        $('#search_ajax').html(data);
+                        $('#search_ajax').html(data.html);
                         
                     }
                 });

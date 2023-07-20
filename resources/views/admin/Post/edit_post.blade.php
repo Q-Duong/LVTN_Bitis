@@ -20,7 +20,7 @@
                             <label for="exampleInputPassword1">Danh mục bài viết</label>
                             <select name="category_post_id" class="form-control m-bot15">
                                 @foreach($getAllListCategoryPost as $key =>$cate)
-                                <option {{$cate->category_post_id == $cate->category_post_id ? 'selected' : ''}} value="{{$cate->category_post_id}}">{{$cate->category_post_name}}</option>
+                                <option {{$edit_value->category_post_id == $cate->category_post_id ? 'selected' : ''}} value="{{$cate->category_post_id}}">{{$cate->category_post_name}}</option>
                                 @endforeach
                             </select>
                         </div>

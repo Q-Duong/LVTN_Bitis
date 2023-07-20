@@ -61,14 +61,14 @@ class HomeController extends Controller
             }
 
             $output .= '</ul>';
-            echo $output;
+            return response()->json(array('success' => true, 'html' => $output));
         } else {
             $output = '
         <ul  class="dropdown-menu">
             <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
             ;
             $output .= '</ul>';
-            echo $output;
+            return response()->json(array('success' => true, 'html' =>$output));
         }
     }
     public function search(Request $request)

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Gallery;
 use App\Models\Rating;
 use App\Models\WareHouse;
+use App\Models\Discount;
 use File;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -19,7 +20,8 @@ class ProductController extends Controller
     function add_product()
     {
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
-        return view('admin.Product.add_product')->with(compact('getAllCategory'));
+        $getDiscount = Discount::orderBy('discount_id','asc')->get();
+        return view('admin.Product.add_product')->with(compact('getAllCategory','getDiscount'));
     }
     function list_product()
     {
@@ -31,7 +33,8 @@ class ProductController extends Controller
         $edit_value = Product::find($product_id);
         $getAllProductType = CategoryType::where('category_id', $edit_value->category_id)->get();
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
-        return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory'));
+        $getDiscount = Discount::orderBy('discount_id','asc')->get();
+        return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory','getDiscount'));
     }
     public function select_category(Request $request)
     {
@@ -113,6 +116,7 @@ class ProductController extends Controller
     {
         $this->checkProductAdmin($request);
         $data = $request->all();
+
         $product = new Product();
         $product->product_name = $data['product_name'];
         $product->product_price = $data['product_price'];
@@ -120,6 +124,7 @@ class ProductController extends Controller
         $product->product_description = $data['product_description'];
         $product->product_type_id = $data['product_type_id'];
         $product->category_id = $data['category_id'];
+        $product->discount_id = $data['discount_id'];
         $product->product_slug = $data['product_slug'];
         $check = Product::where('product_name', $data['product_name'])->where('product_type_id', $data['product_type_id'])->where('category_id', $data['category_id'])->exists();
         if ($check) {
@@ -157,6 +162,7 @@ class ProductController extends Controller
         $product->product_type_id = $data['product_type_id'];
         $product->category_id = $data['category_id'];
         $product->product_slug = $data['product_slug'];
+        $product->discount_id=$data['discount_id'];
         $get_image = request('product_image');
         if ($get_image) {
             $path = public_path('uploads/product/');
@@ -189,7 +195,7 @@ class ProductController extends Controller
         $attribute = WareHouse::where('product_id', $product->product_id)->get();
         $color = $attribute->unique('color_id');
         $size = $attribute->unique('size_id');
-        $relate = Product::where('product_type_id', $product->product_type_id)->whereNotIn('product_slug', [$product_slug])->inRandomOrder('product_id')->limit(8)->get();
+        $relate = Product::where('product_type_id', $product->product_type_id)->whereNotIn('product_slug', [$product_slug])->inRandomOrder('product_id')->limit(4)->get();
         $getAllRating = Rating::where('product_id', $product->product_id)->get();
         $countRating = count($getAllRating);
         $avgRating = round($getAllRating->avg('rating_star'), 1);
@@ -203,6 +209,7 @@ class ProductController extends Controller
         //dd($rating);
         return view('pages.product.show_product_details')->with(compact('product', 'gallery', 'attribute', 'color', 'size', 'relate', 'getAllRating', 'countRating', 'avgRating', 'roundAvgRating', 'star1', 'star2', 'star3', 'star4', 'star5'));
     }
+    
 
     function get_ware_house_id(Request $request)
     {
@@ -313,6 +320,7 @@ class ProductController extends Controller
                 'product_slug' => 'required',
                 'product_image' => 'required|image',
                 'product_price' => 'required|numeric',
+                'discount_id'=>'required'
             ],
             [
                 'category_id.required' => 'Vui lòng chọn danh mục cần thêm',
@@ -323,6 +331,7 @@ class ProductController extends Controller
                 'product_name.required' => 'Vui lòng nhập thông tin',
                 'product_price.required' => 'Vui lòng nhập thông tin',
                 'product_price.numeric' => 'Vui lòng nhập số',
+                'discount_id.required'=>'Vui lòng chọn mã khuyến mãi'
             ]
         );
     }
@@ -336,6 +345,7 @@ class ProductController extends Controller
                 'product_name' => 'required',
                 'product_slug' => 'required',
                 'product_price' => 'required|numeric',
+                'discount_id'=>'required'
             ],
             [
                 'category_id.required' => 'Vui lòng chọn danh mục cần thêm',
@@ -344,6 +354,7 @@ class ProductController extends Controller
                 'product_name.required' => 'Vui lòng nhập thông tin',
                 'product_price.required' => 'Vui lòng nhập thông tin',
                 'product_price.numeric' => 'Vui lòng nhập số',
+                'discount_id.required'=>'Vui lòng chọn mã khuyến mãi'
             ]
         );
     }

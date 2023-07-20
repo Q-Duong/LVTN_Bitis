@@ -20,6 +20,7 @@ use App\Http\Controllers\InfomationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ImportOrderController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DiscountController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -220,6 +221,15 @@ Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
         Route::post('update/{order_code}',[OrderController::class,'update_order']);
         Route::get('/delete/{order_id}',[OrderController::class,'delete_order']);  
         Route::post('update-order-detail-quantity',[OrderController::class,'update_order_detail_quantity'])->name('update-order-detail-quantity');    
+    });
+    //Discount
+    Route::prefix('discount')->group(function(){ 
+        Route::get('/add',[DiscountController::class,'add_discount']);
+        Route::post('/save',[DiscountController::class,'save_discount']);
+        Route::get('/list',[DiscountController::class,'list_discount']);
+        Route::get('/edit/{discount_id}',[DiscountController::class,'edit_discount']);
+        Route::post('/update/{discount_id}',[DiscountController::class,'update_discount']);
+        Route::get('/delete/{discount_id}',[DiscountController::class,'delete_discount']);
     });
 });
 Route::post('/save-message','App\Http\Controllers\MessageController@save_message');
