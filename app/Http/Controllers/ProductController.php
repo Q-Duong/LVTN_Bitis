@@ -23,7 +23,7 @@ class ProductController extends Controller
     }
     function list_product()
     {
-        $getAllListProduct = Product::orderBy('product_id', 'ASC')->get();
+        $getAllListProduct = Product::orderBy('product_id', 'DESC')->get();
         return view('admin.Product.list_product')->with(compact('getAllListProduct'));
     }
     function edit_product($product_id)

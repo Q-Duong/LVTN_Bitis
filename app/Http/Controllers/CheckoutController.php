@@ -73,7 +73,6 @@ class CheckoutController extends Controller
     }
     public function member_checkout(Request $request)
     {
-        
         if (empty($request->sessionId)) {
             $order_total = 0;
             $delivery = Delivery::where('user_id', Auth::id())->first();
@@ -118,7 +117,6 @@ class CheckoutController extends Controller
 
             $order->order_total = $order_total;
             $order->save();
-
             return response()->json(array('order_code' => $order_code, 'route' => 'checkout'));
         } else {
             $order = Order::where('order_code', $request->sessionId['sessionId'])->first();
@@ -188,7 +186,6 @@ class CheckoutController extends Controller
         $receiver -> district_id = $data['district_id'];
         $receiver -> ward_id = $data['ward_id'];
         $receiver -> save();
-
         $order_code = $order -> order_code;
         return response()->json(array('order_code'=>$order_code));
 

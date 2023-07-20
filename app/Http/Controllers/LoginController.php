@@ -28,8 +28,6 @@ class LoginController extends Controller
             'email' => $data['email'],
             'password' => $data['password'],
         ])) {
-            // $profile = User::where('email', $data['email'])->first();
-            // Auth::login($profile);
             return Redirect::to('/');
         } else {
             return Redirect::to('member/login')->with('error', 'Tài khoản hoặc mật khẩu không đúng');

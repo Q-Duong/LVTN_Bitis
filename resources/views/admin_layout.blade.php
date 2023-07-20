@@ -330,7 +330,7 @@
                                 </li>
                             </ul>
                         </li>
-                        {{-- <li class="sub-menu">
+                        <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/import-order/add' || $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
@@ -350,7 +350,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li>
                         <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/size/add' || $route->uri == 'admin/size/list' ? 'active' : '' }}">
@@ -851,10 +851,10 @@
             }, 3000);
         });
 
-        function myFunction0() {
-            var checkBox = document.getElementById("size0");
-            var block = document.getElementById("block0");
-            var input = document.getElementById("quantity0");
+        function myFunction(e) {
+            var checkBox = document.getElementById("size"+e);
+            var block = document.getElementById("block"+e);
+            var input = document.getElementById("quantity"+e);
 
             if (checkBox.checked == true) {
                 block.style.display = "block";
@@ -865,145 +865,7 @@
             }
         }
 
-        function myFunction1() {
-            var checkBox = document.getElementById("size1");
-            var block = document.getElementById("block1");
-            var input = document.getElementById("quantity1");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction2() {
-            var checkBox = document.getElementById("size2");
-            var block = document.getElementById("block2");
-            var input = document.getElementById("quantity2");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction3() {
-            var checkBox = document.getElementById("size3");
-            var block = document.getElementById("block3");
-            var input = document.getElementById("quantity3");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction4() {
-            var checkBox = document.getElementById("size4");
-            var block = document.getElementById("block4");
-            var input = document.getElementById("quantity4");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction5() {
-            var checkBox = document.getElementById("size5");
-            var block = document.getElementById("block5");
-            var input = document.getElementById("quantity5");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction6() {
-            var checkBox = document.getElementById("size6");
-            var block = document.getElementById("block6");
-            var input = document.getElementById("quantity6");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction7() {
-            var checkBox = document.getElementById("size7");
-            var block = document.getElementById("block7");
-            var input = document.getElementById("quantity7");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction8() {
-            var checkBox = document.getElementById("size8");
-            var block = document.getElementById("block8");
-            var input = document.getElementById("quantity8");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction9() {
-            var checkBox = document.getElementById("size9");
-            var block = document.getElementById("block9");
-            var input = document.getElementById("quantity9");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction10() {
-            var checkBox = document.getElementById("size10");
-            var block = document.getElementById("block10");
-            var input = document.getElementById("quantity10");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
+        
         $(document).on('keyup change', '.order_detail_quantity', function() {
             var order_detail_quantity = $(this).val();
             var product_price = $('.product_price').val();

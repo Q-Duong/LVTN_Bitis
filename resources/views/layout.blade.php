@@ -475,10 +475,8 @@
             var size_id = $('.size input').first().val();
             $('.color').first().addClass("active");
             $('.color_id').first().prop("checked", true);
-            $('.product_color_id').val(color_id);
             $('.size').first().addClass("active");
             $('.size_id').first().prop("checked", true);
-            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -591,7 +589,7 @@
                 var total = 0;
                 var cart_length = 0;
                 var length = data.length;
-                data.reverse();
+                data.reverse();//đảo mảng
                 for (i = 0; i < data.length; i++) {
                     subtotal = data[i].price * data[i].quantity;
                     total += subtotal;
@@ -629,7 +627,7 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-
+            console.log(data_cart);
             dataObj = {};
             $(data_cart).each(function(i, field) {
                 dataObj[field.name] = field.value;
@@ -693,6 +691,7 @@
             if (matches) {
                 matches.quantity = parseInt(quantity);
                 //alert('Đã cập nhật số lượng.');
+                
             }
             localStorage.setItem('cart', JSON.stringify(Items));
             $('#cart').html('');

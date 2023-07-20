@@ -20,9 +20,6 @@
                             <div class="row ">
                                 <div class="col-lg-12">
                                     <input type="password" name="admin_password" class="form-control" id="password">
-                                    <div> 
-                                        <i class="fa-styling fa fa-eye-slash " id="togglePassword"></i>
-                                    </div>
                                 </div>
                             </div>
                         </div>

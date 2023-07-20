@@ -41,7 +41,7 @@ class AccountController extends Controller
             $user->password=bcrypt($data['admin_password']);
             $user->save();
         }
-        return redirect::to('admin/profile')->with('error','Cập nhật thành công');
+        return redirect::to('admin/profile')->with('success','Cập nhật thành công');
    }
     function dashboard(){
         return view('admin.dashboard');
