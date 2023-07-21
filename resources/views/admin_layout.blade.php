@@ -834,159 +834,6 @@
             }, 3000);
         });
 
-        function myFunction0() {
-            var checkBox = document.getElementById("size0");
-            var block = document.getElementById("block0");
-            var input = document.getElementById("quantity0");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction1() {
-            var checkBox = document.getElementById("size1");
-            var block = document.getElementById("block1");
-            var input = document.getElementById("quantity1");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction2() {
-            var checkBox = document.getElementById("size2");
-            var block = document.getElementById("block2");
-            var input = document.getElementById("quantity2");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction3() {
-            var checkBox = document.getElementById("size3");
-            var block = document.getElementById("block3");
-            var input = document.getElementById("quantity3");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction4() {
-            var checkBox = document.getElementById("size4");
-            var block = document.getElementById("block4");
-            var input = document.getElementById("quantity4");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction5() {
-            var checkBox = document.getElementById("size5");
-            var block = document.getElementById("block5");
-            var input = document.getElementById("quantity5");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction6() {
-            var checkBox = document.getElementById("size6");
-            var block = document.getElementById("block6");
-            var input = document.getElementById("quantity6");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction7() {
-            var checkBox = document.getElementById("size7");
-            var block = document.getElementById("block7");
-            var input = document.getElementById("quantity7");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction8() {
-            var checkBox = document.getElementById("size8");
-            var block = document.getElementById("block8");
-            var input = document.getElementById("quantity8");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction9() {
-            var checkBox = document.getElementById("size9");
-            var block = document.getElementById("block9");
-            var input = document.getElementById("quantity9");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
-
-        function myFunction10() {
-            var checkBox = document.getElementById("size10");
-            var block = document.getElementById("block10");
-            var input = document.getElementById("quantity10");
-
-            if (checkBox.checked == true) {
-                block.style.display = "block";
-                input.disabled = false;
-            } else {
-                block.style.display = "none";
-                input.disabled = true;
-            }
-        }
         $(document).on('keyup change', '.order_detail_quantity', function() {
             var order_detail_quantity = $(this).val();
             var product_price = $('.product_price').val();
@@ -1214,6 +1061,52 @@
             });
         });
         //End Import Order Detail
+
+        $(document).ready(function(){
+            chartInMonth();
+            var chart = new Morris.Bar({
+                element: 'chart',
+                barColors: ['#eb6f6f', '#926383', '#111111'],
+                parseTime: false,
+                hideHover: 'auto',
+                stacked: true,
+                axes: true,
+                grid: true,
+                xkey: 'period',
+                ykeys: ['price','sales','quantity'],
+                labels: ['Doanh số','Số đơn','Số lượng hàng'],
+                resize: true
+            });
+            function chartInMonth(){
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{route('get-statistics-in-month')}}",
+                    method:"POST",
+                    data:{_token:_token},
+                    success:function(data){
+                        chart.setData(data);
+                    }   
+                });
+            }
+
+            $('.filter').click(function(){
+                var _token = $('input[name="_token"]').val();
+                var from_date = $('input[name="from_date"]').val();
+                var to_date = $('input[name="to_date"]').val();
+                $.ajax({
+                    url:"{{route('get-statistics-by-date')}}",
+                    method:"POST",
+                    data:{
+                        from_date:from_date,
+                        to_date:to_date,
+                        _token:_token
+                    },
+                    success:function(data){
+                        chart.setData(data);
+                    }   
+                });
+            });
+        });
     </script>
 </body>
 

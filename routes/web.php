@@ -13,6 +13,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\WareHouseController;
 use App\Http\Controllers\StoreController;
@@ -37,7 +38,7 @@ use Illuminate\Support\Facades\Auth;
 //-------------------------------------------- Backend --------------------------------------------
  //Ajax
 Route::post('select-category','App\Http\Controllers\ProductController@select_category');
-Route::post('select-pruodct-type','App\Http\Controllers\ProductController@select_product_type');
+Route::post('select-product-type','App\Http\Controllers\ProductController@select_product_type');
 Route::post('select-product','App\Http\Controllers\ProductController@select_product');
 Route::post('select-gallery','App\Http\Controllers\GalleryController@select_gallery');
 Route::post('update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');
@@ -55,7 +56,9 @@ Auth::routes();
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
 
     //Dashboard
-    Route::get('/dashboard',[AccountController::class,'dashboard']);
+    Route::get('/dashboard',[DashBoardController::class,'index']);
+    Route::post('/get-statistics-in-month',[DashBoardController::class,'get_statistics_in_month'])->name('get-statistics-in-month');
+    Route::post('/get-statistics-by-date',[DashBoardController::class,'get_statistics_by_date'])->name('get-statistics-by-date');
 
     //Category
     Route::prefix('category')->group(function(){
