@@ -22,9 +22,9 @@
                 <div class="category-product-inner">
                     @foreach ($getAllListCategoryType as $key => $categoryType)
                         @if ($categoryType->category_id == $category->category_id)
-                            <a class="item" href="{{ asset(URL::to('/collections/' . $categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
-                                <div class="category-product-item">
-                                    <img class="category-product-item-img" src="{{ asset('uploads/productType/' . $categoryType->productType->product_type_img) }}">
+                            <a class="category-product-item" href="{{ asset(URL::to('/collections/' . $categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                <div class="category-product-content">
+                                    <img class="category-product-content-img" src="{{ asset('uploads/productType/' . $categoryType->productType->product_type_img) }}">
                                     <p class="lead">
                                         {{ $categoryType->productType->product_type_name }}
                                     </p>
@@ -33,8 +33,12 @@
                         @endif
                     @endforeach
                 </div>
-                <button class="btn btn-primary leftLst"><</button>
-                <button class="btn btn-primary rightLst">></button>
+                <button class=" leftLst">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class=" rightLst">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </div>

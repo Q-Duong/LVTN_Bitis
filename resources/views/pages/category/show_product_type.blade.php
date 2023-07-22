@@ -1,5 +1,9 @@
 @extends('layout')
 @section('content')
+@php
+    $category_slug = Route::current()->parameters()['category_slug'];
+    $product_type_slug = Route::current()->parameters()['product_type_slug'];
+@endphp
     <section>
         <div class="container">
             <div class="row">
@@ -17,21 +21,29 @@
         </div>
     </section>
     <div class="container">
-        <div class="category_product">
-            @foreach ($getAllListCategoryType as $key => $categoryType)
-                @if ($categoryType->category_id == $category->category_id)
-                    <a
-                        href="{{ asset(URL::to('/collections/' . $categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
-                        <div class="category_product_item">
-                            <img width="100%"
-                                src="{{ asset('uploads/productType/' . $categoryType->productType->product_type_img) }}">
-                            <p>
-                                {{ $categoryType->productType->product_type_name }}
-                            </p>
-                        </div>
-                    </a>
-                @endif
-            @endforeach
+        <div class="row">
+            <div class="category-product" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+                <div class="category-product-inner">
+                    @foreach ($getAllListCategoryType as $key => $categoryType)
+                        @if ($categoryType->category_id == $category->category_id)
+                            <a class="category-product-item" href="{{ asset(URL::to('/collections/' . $categoryType->category->category_slug . '/' . $categoryType->productType->product_type_slug)) }}">
+                                <div class="category-product-content {{$category_slug .'/'. $product_type_slug == $category->category_slug . '/' . $categoryType->productType->product_type_slug ? 'active-category' : ''}}">
+                                    <img class="category-product-content-img" src="{{ asset('uploads/productType/' . $categoryType->productType->product_type_img) }}">
+                                    <p class="lead">
+                                        {{ $categoryType->productType->product_type_name }}
+                                    </p>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
+                <button class=" leftLst">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class=" rightLst">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
     </div>
     <!-- Breadcrumb Section End -->
