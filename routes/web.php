@@ -251,7 +251,7 @@ Route::get('blogs/{category_post_slug}', 'App\Http\Controllers\CategoryPostContr
 //Product
 Route::get('products/{product_slug}', 'App\Http\Controllers\ProductController@show_product_details');
 Route::post('get-ware-house-id', 'App\Http\Controllers\ProductController@get_ware_house_id');
-
+Route::post('check-quantity-cart', 'App\Http\Controllers\ProductController@check_quantity_cart');
 
 //Post 
 Route::get('blog/{post_slug}', 'App\Http\Controllers\PostController@show_post');
@@ -298,7 +298,5 @@ Route::get('/handcash', 'App\Http\Controllers\CheckoutController@handcash');
 Route::get('/query-transaction', 'App\Http\Controllers\CheckoutController@query_transaction');
 
 //Search
-Route::post('/search-autocomplete', 'App\Http\Controllers\HomeController@search_autocomplete');
-Route::post('/search', 'App\Http\Controllers\HomeController@search');
-
-// Route::post('/dispacth','App\Http\Controllers\HomeController@dispacth');
+Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
+Route::post('/search','App\Http\Controllers\HomeController@search');

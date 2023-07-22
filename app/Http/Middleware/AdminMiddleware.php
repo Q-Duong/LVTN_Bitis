@@ -22,9 +22,10 @@ class AdminMiddleware
                 return $next($request);
             }else{
                 Auth::logout();
-                return Redirect()->route('login');
+                return Redirect()->route('member/login');
             }
         }else{
+            dd(1);
             return Redirect()->route('login');
         }
     }

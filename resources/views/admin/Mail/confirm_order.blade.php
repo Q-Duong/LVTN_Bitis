@@ -21,14 +21,14 @@
 
 
                 <div class="col-md-6" style="text-align: center;color: #222;font-weight: bold;font-size: 30px">
-                    <h3 style="margin: 0">CÔNG TY BÁN HÀNG APPLE STORE</h3>
+                    <h3 style="margin: 0">BITI'S VIỆT NAM</h3>
                     <h4 style="margin: 10px 0">XÁC NHẬN ĐƠN ĐẶT HÀNG</h4>
                 </div>
 
                 <div class="col-md-6 logo">
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Chào bạn 
                         <strong style="color: #0071e3; text-decoration: none; font-weight: 400;">
-                            {{$shipping_array['shipping_first_name']}} {{$shipping_array['shipping_last_name']}}
+                            {{$order -> shipping_first_name}} {{$shipping_array['shipping_last_name']}}
                         </strong>
                         , chúng tôi đã xác nhận bạn đã đặt hàng ở công ty chúng tôi gồm những thông tin như sau:
                     </p>

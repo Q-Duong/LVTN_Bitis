@@ -199,11 +199,9 @@
             var receiver_address = $('input[name=receiver_address]').val();
             var receiver_note = $('.shipping_notes').val();
             var order_code = JSON.parse(localStorage.getItem('sessionId')) || [];
-
             $('.error').addClass('hidden');
             $(".send_checkout_information").attr("disabled", true);
             $("#loading").show();
-
             $.ajax({
                 url: "{{ url('/save-checkout-information') }}",
                 method: 'POST',
@@ -234,7 +232,6 @@
                     }
                 },
                 complete: () => $(".send_checkout_information").removeAttr("disabled")
-
             });
         });
 
@@ -242,6 +239,7 @@
             var _token = $('input[name="_token"]').val();
             var order_code = $('input[name=order_code]').val();
             var payment_method = $('input[name=payment_method]:checked').val();
+            $(".complete-payment").attr("disabled", true);
             $.ajax({
                 url: "{{ url('/payment-method') }}",
                 method: 'POST',
@@ -252,10 +250,12 @@
                 },
                 success: function(data) {
                     if(data.type == 'cash'){
+                        $(".complete-payment").removeAttr("disabled")
                         localStorage.removeItem('cart');
                         localStorage.removeItem('sessionId');
                         window.location.assign("../"+ data.url);
                     }else{
+                        $(".complete-payment").removeAttr("disabled")
                         localStorage.removeItem('cart');
                         localStorage.removeItem('sessionId');
                         location.replace(data.url);

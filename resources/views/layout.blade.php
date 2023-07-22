@@ -355,11 +355,36 @@
         </div>
     </div>
     <!--End Login Popup -->
-    @if (session('success'))
-        <div class="notifications-popup notifications-active">
-            <div class="notifications-content">
-                <i class="fas fa-solid fa-check notifications-check"></i>
+    <!-- Noti Popup -->
+    <div class="notifications-popup-success">
+        <div class="notifications-content">
+            <div class="notifications-icon">
+            </div>
+            <div class="notifications-message">
+                <span class="message-title">Thông báo !</span>
+                <span class="message-text"></span>
+            </div>
+        </div>
+        <i class="fas fa-times notifications-close"></i>
+    </div>
+    <div class="notifications-popup-error">
+        <div class="notifications-content">
+            <div class="notifications-icon">
+            </div>
+            <div class="notifications-message">
+                <span class="message-title">Thông báo !</span>
+                <span class="message-text"></span>
+            </div>
+        </div>
+        <i class="fas fa-times notifications-close"></i>
+    </div>
 
+    @if (session('success'))
+        <div class="notifications-popup-success active">
+            <div class="notifications-content">
+                <div class="notifications-icon">
+                    <i class="fas fa-solid fa-check notifications-success"></i>
+                </div>
                 <div class="notifications-message">
                     <span class="message-title">Thông báo !</span>
                     <span class="message-text">{!! session('success') !!}</span>
@@ -367,7 +392,21 @@
             </div>
             <i class="fas fa-times notifications-close"></i>
         </div>
+    @elseif(session('error'))
+        <div class="notifications-popup-error active">
+            <div class="notifications-content">
+                <div class="notifications-icon">
+                    <i class="fas fa-times notifications-error"></i>
+                </div>
+                <div class="notifications-message">
+                    <span class="message-title">Thông báo !</span>
+                    <span class="message-text">{!! session('error') !!}</span>
+                </div>
+            </div>
+            <i class="fas fa-times notifications-close"></i>
+        </div>
     @endif
+    <!--End Noti Popup -->
 
     <!-- scrollUp -->
     <a id="button"></a>
@@ -400,28 +439,38 @@
 
     <script type="text/javascript">
         function successMsg(msg) {
-            $(".notifications-popup").addClass('notifications-active');
+            $(".notifications-popup-success").addClass('active');
+            $('.notifications-icon').html('<i class="fas fa-solid fa-check notifications-success"></i>')
             $(".message-text").text(msg);
             setTimeout(function() {
-                $('.notifications-popup').removeClass('notifications-active');
+                $('.notifications-popup-success').removeClass('active');
             }, 5000);
             $('.notifications-close').click(function() {
-                $('.notifications-popup').removeClass('notifications-active');
+                $('.notifications-popup-success').removeClass('active');
             });
         }
 
+        function errorMsg(msg) {
+            $(".notifications-popup-error").addClass('active');
+            $('.notifications-icon').html('<i class="fas fa-times notifications-error"></i>')
+            $(".message-text").text(msg);
+            setTimeout(function() {
+                $('.notifications-popup-error').removeClass('active');
+            }, 5000);
+            $('.notifications-close').click(function() {
+                $('.notifications-popup-error').removeClass('active');
+            });
+        }
         $(document).ready(function() {
             setTimeout(function() {
-                $('.notifications-popup').removeClass('notifications-active');
+                $('.notifications-popup-success').removeClass('active');
+            }, 5000);
+            setTimeout(function() {
+                $('.notifications-popup-error').removeClass('active');
             }, 5000);
         });
-        $('.notifications-close').click(function() {
-            $('.notifications-popup').removeClass('notifications-active');
-        });
         var check = '{{ Auth::check() }}';
-    </script>
 
-    <script type="text/javascript">
         $('#keywords').keyup(function() {
             var query = $(this).val();
 
@@ -449,21 +498,6 @@
         $(document).on('click', '.li_search_ajax', function() {
             $('#keywords').val($(this).text());
             $('#search_ajax').fadeOut();
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            setTimeout(function() {
-                $('.alert-success').fadeOut('fast');
-            }, 3000);
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('.logout').click(function(){
-            localStorage.removeItem('cart');
-            localStorage.removeItem('sessionId');
         });
 
         check_first();
@@ -589,7 +623,7 @@
                 var total = 0;
                 var cart_length = 0;
                 var length = data.length;
-                data.reverse();//đảo mảng
+                data.reverse(); //đảo mảng
                 for (i = 0; i < data.length; i++) {
                     subtotal = data[i].price * data[i].quantity;
                     total += subtotal;
@@ -684,21 +718,37 @@
             // location.replace('http://127.0.0.1:8000/cart')
         })
         $(document).on('change', '.cart_quantity', function() {
+            var _token = $('input[name="_token"]').val();
             var quantity = $(this).val();
             var id = $(this).data('id');
-            var Items = JSON.parse(localStorage.getItem('cart')) || [];
-            var matches = Items.find(item => item.id == id);
-            if (matches) {
-                matches.quantity = parseInt(quantity);
-                //alert('Đã cập nhật số lượng.');
-                
-            }
-            localStorage.setItem('cart', JSON.stringify(Items));
-            $('#cart').html('');
-            view_cart();
+            $.ajax({
+                url: "{{ url('/check-quantity-cart') }}",
+                method: "POST",
+                data: {
+                    ware_house_quantity: quantity,
+                    ware_house_id: id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if (data.success == true) {
+                        var Items = JSON.parse(localStorage.getItem('cart')) || [];
+                        var matches = Items.find(item => item.id == id);
+                        if (matches) {
+                            matches.quantity = parseInt(quantity);
+                        }
+                        localStorage.setItem('cart', JSON.stringify(Items));
+                        $('#cart').html('');
+                        view_cart();
+                    } else {
+                        $('#cart').html('');
+                        view_cart();
+                        errorMsg('Số lượng đặt đã vượt quá số lượng trong kho');
+                    }
+                }
+            })
+
         });
-    </script>
-    <script type="text/javascript">
+
         $(document).ready(function() {
             $('#imageGallery').lightSlider({
                 gallery: true,
@@ -753,6 +803,7 @@
             var _token = $('input[name="_token"]').val();
             var Items = JSON.parse(localStorage.getItem('cart')) || [];
             var sessionId = JSON.parse(localStorage.getItem('sessionId')) || [];
+            console.log(Items);
             $.ajax({
                 url: "{{ url('/checkout') }}",
                 method: 'POST',
@@ -764,9 +815,9 @@
                 success: function(data) {
                     if (data.route == 'checkout') {
                         pushSessionId(data.order_code);
-                        window.location.href = "checkout/" + data.order_code;
+                        window.location.href = data.route + "/" + data.order_code;
                     } else {
-                        window.location.href = "payment/" + data.order_code;
+                        window.location.href = data.route + "/" + data.order_code;
                     }
                 }
             });
@@ -784,11 +835,15 @@
                     _token: _token
                 },
                 success: function(data) {
-                    if (data.route == 'checkout') {
-                        pushSessionId(data.order_code);
-                        window.location.href = "checkout/" + data.order_code;
+                    if (data.role == 0) {
+                        window.location.href = data.route;
                     } else {
-                        window.location.href = "payment/" + data.order_code;
+                        if (data.route == 'checkout') {
+                            pushSessionId(data.order_code);
+                            window.location.href = "checkout/" + data.order_code;
+                        } else {
+                            window.location.href = "payment/" + data.order_code;
+                        }
                     }
                 }
             });
@@ -818,7 +873,7 @@
                     _token: _token,
                     color_id: color_id,
                     size_id: size_id,
-                    price_data:price_data,
+                    price_data: price_data,
                     category_id: category_id,
                 },
                 success: function(data) {
@@ -843,26 +898,18 @@
         $("#amount").val(new Intl.NumberFormat('vi-VN').format($(".price_filter").slider("values", 0)) + "₫" +
             " - " + new Intl.NumberFormat('vi-VN').format($(".price_filter").slider("values", 1)) + "₫");
 
-        function successMsg(msg) {
-            $(".alert-success").css('display', 'block');
-            $(".alert-success").text(msg);
-            setTimeout(function() {
-                $('.alert-success').fadeOut('fast');
-            }, 3000);
-        }
-
         //Delivery
-        $('.delivery-a').on('click', function() {
-            $('.popup-form').fadeIn(400);
+        $('.button-delivery').on('click', function() {
+            $('.popup-model-delivery').fadeIn(300);
         });
 
-        $('.close-a').on('click', function() {
-            $('.popup-form').fadeOut(400);
+        $('.close-model').on('click', function() {
+            $('.popup-model-delivery').fadeOut(300);
 
         });
 
-        $('.overlay').on('click', function() {
-            $('.popup-form').fadeOut(400, function() {
+        $('.overlay-model-review').on('click', function() {
+            $('.popup-model-delivery').fadeOut(300, function() {
 
             });
         });

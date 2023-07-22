@@ -24,15 +24,6 @@
                 @csrf
                 <div class="row">
                     <div class="col-lg-5 col-md-5">
-                        @if (session()->has('success'))
-                            <div class="alert alert-success">
-                                {!! session()->get('success') !!}
-                            </div>
-                        @elseif(session()->has('error'))
-                            <div class="alert alert-danger">
-                                {!! session()->get('error') !!}
-                            </div>
-                        @endif
                         <h4 class="checkout__title">Đăng nhập</h4>
                         <div class="checkout__input">
                             <p>Tên đăng nhập <span>*</span></p>

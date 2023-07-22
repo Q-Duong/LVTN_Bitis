@@ -20,7 +20,6 @@
 
 <section class="spad">
     <div class="container">
-
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="account-sidebar">
@@ -138,7 +137,7 @@
             <div class="col-lg-8 col-md-6 centered ">
                 <h4 class="delivery-header">Địa chỉ giao hàng đã lưu</h4>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 centered ">
+                    <div class="col-lg-12 col-md-12 centered ">
                         <section class="delivery">
                             <div class="row col-md-12 item">
                                 <div class="col-md-6">
@@ -152,17 +151,18 @@
                 </div>
                 <div class="checkout__input">
                     <button type="button" name="update_information"
-                        class="site-btn update-account-information delivery-a"><i class="fa fa-cog"></i>
+                        class="site-btn update-account-information button-delivery"><i class="fa fa-cog"></i>
                         Thêm địa chỉ
                     </button>
                 </div>
             </div>
-            <div class="popup-form">
-                <div class="dialog">
-                    <p class="close-a">X</p>
-                    <div class="col-lg-12 col-md-12">
-                        <h6 class="checkout__title">Thêm thông tin giao hàng</h6>
-                        <div class="over"></div>
+            <div class="popup-model-delivery">
+                <div class="overlay-model-review"></div>
+                <div class="model-delivery-content">
+                    <div class="model-delivery-close">
+                        <p class="model-review-tile">Thêm địa chỉ giao hàng</p>
+                        <p class="close-model"><i class="fas fa-times"></i>
+                        </p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">

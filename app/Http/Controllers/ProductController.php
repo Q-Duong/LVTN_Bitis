@@ -216,6 +216,16 @@ class ProductController extends Controller
             return response()->json(array('message' => 'Đã bán hết', 'status' => '400'));
         }
     }
+    function check_quantity_cart(Request $request){
+        $data = $request->all();
+        $warehouse=WareHouse::find($data['ware_house_id']);
+        if($warehouse->ware_house_quantity>=$data['ware_house_quantity']){
+            return response()->json(array('success' => true));
+        }
+        else{
+            return response()->json(array('success'=> false));
+        }
+    }
     function filter(Request $request)
     {
         $data = $request->all();
