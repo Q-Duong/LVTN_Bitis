@@ -6565,4 +6565,15 @@ progress::-webkit-progress-bar {
   }
   /* End popup notifications */
 
-
+.cart-item{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.cart-item-img{
+	width: 40%;
+}
+.cart-item-img img{
+	width: 100px;
+	height: 100px;
+}

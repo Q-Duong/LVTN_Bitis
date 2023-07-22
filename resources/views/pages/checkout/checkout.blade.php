@@ -35,27 +35,25 @@
                             </tr>
                         </thead>
                         <tbody id="cart">
-
+                            <tr>
+                                <td class="product__cart__item">
+                                    <a >
+                                        <div class="product__cart__item__pic">
+                                            <img  width="90" alt="">
+                                        </div>
+                                        <div class="product__cart__item__text">
+                                            <h6>name</h6>
+                                            <h6>Màu :  || Size: </h6>
+                                            <h5>₫</h5>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
                 </div>
 
-            </div>
-
-            <div class="col-lg-4">
-                <div class="cart__discount">
-                </div>
-                <div class="cart__total">
-                    <h6>THÔNG TIN ĐƠN HÀNG</h6>
-                    <ul>
-                        <li>Tạm tính <span id="subtotal"></span></li>
-                        <li>Vận chuyển <span>MIỄN PHÍ</span></li>
-                        <li class="cart__total__border__top">Tổng Tiền <span id="total"></span></li>
-                        <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -174,19 +172,43 @@
                                     <div class="alert-error error hidden receiver_address"><i class="fa fa-exclamation-circle"></i> <span class="receiver_address_message"></span></div>
                                 </div>
                             </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="checkout__order">
+                                    <div class="checkout__order__products">
+                                        <p>Ghi chú đơn hàng</p>
+                                        <textarea name="receiver_note" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn (Không bắt buộc)"
+                                            rows="10" cols="42" style="resize: none;">{{ $order ->receiver ->receiver_note }}</textarea>
+                                    </div>
+                                    <button type="button" name="send_order " class="site-btn send_checkout_information"><i
+                                            class="fas fa-share-square"></i> Tiến đến phương thức thanh toán</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="col-lg-5 col-md-6">
-                        <div class="checkout__order">
-                            <div class="checkout__order__products">
-                                <p>Ghi chú đơn hàng<span style="color:#e53637;">*</span></p>
-                                <textarea name="receiver_note" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn (Không bắt buộc)"
-                                    rows="10" cols="42" style="resize: none;">{{ $order ->receiver ->receiver_note }}</textarea>
-                            </div>
-                            <button type="button" name="send_order " class="site-btn send_checkout_information"><i
-                                    class="fas fa-share-square"></i> Tiến đến phương thức thanh toán</button>
+                        <h6 class="checkout__title">THÔNG TIN ĐƠN HÀNG</h6>
+                        <div class="cart__total">
+                            <ul>
+                                <li>Tạm tính <span>{{number_format($order -> order_total, 0, ',', '.')}}₫</span></li>
+                                <li>Vận chuyển <span>MIỄN PHÍ</span></li>
+                                <li class="cart__total__border__top">Tổng Tiền <span>{{number_format($order -> order_total, 0, ',', '.')}}₫</span></li>
+                                <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span>
+                                </li>
+                            </ul>
                         </div>
+                        @foreach ($getAllOrderDetail as $key => $order_detail )
+                            <div class="cart-item">
+                                <div class="cart-item-img">
+                                    <img class="" src="{{ URL::to('uploads/product/' . $order_detail -> wareHouse -> product -> product_image) }}" alt="{{$order_detail -> wareHouse -> product -> product_slug}}">
+                                </div>
+                                <div class="cart-item-content">
+                                    <h6>{{$order_detail -> wareHouse -> product -> product_name}}</h6>
+                                    <h6>SL : {{$order_detail -> order_detail_quantity}}</h6>
+                                    <h6>Màu :  || Size: </h6>
+                                    <h5>{{number_format($order_detail -> wareHouse -> product -> product_price, 0, ',', '.')}}₫</h5>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </form>

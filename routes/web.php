@@ -295,3 +295,5 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 //Search
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
+
+Route::get('test-momo','App\Http\Controllers\CheckoutController@momotest');
