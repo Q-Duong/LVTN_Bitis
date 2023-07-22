@@ -54,9 +54,6 @@
                         <a href="{{ URL::to('member/orders') }}">
                             <li><i class="fa fa-cog"></i> Đơn hàng</li>
                         </a>
-                        <a href="{{ URL::to('/member/settings') }}">
-                            <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
-                        </a>
                         <a href="{{ URL::to('/member/logout') }}" class="logout">
                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                         </a>
@@ -133,9 +130,6 @@
                                         </a>
                                         <a href="{{ URL::to('member/orders') }}" class="member-orders">
                                             <li><i class="fa fa-cog"></i> Đơn hàng</li>
-                                        </a>
-                                        <a href="{{ URL::to('/member/settings') }}" class="member-settings">
-                                            <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                                         </a>
                                         <a href="{{ URL::to('/member/logout') }}" class="logout">
                                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
@@ -380,7 +374,7 @@
     </div>
 
     @if (session('success'))
-        <div class="notifications-popup-success active">
+        <div class="notifications-popup-success notifications-active">
             <div class="notifications-content">
                 <div class="notifications-icon">
                     <i class="fas fa-solid fa-check notifications-success"></i>
@@ -393,7 +387,7 @@
             <i class="fas fa-times notifications-close"></i>
         </div>
     @elseif(session('error'))
-        <div class="notifications-popup-error active">
+        <div class="notifications-popup-error notifications-active">
             <div class="notifications-content">
                 <div class="notifications-icon">
                     <i class="fas fa-times notifications-error"></i>
@@ -439,34 +433,34 @@
 
     <script type="text/javascript">
         function successMsg(msg) {
-            $(".notifications-popup-success").addClass('active');
+            $(".notifications-popup-success").addClass('notifications-active');
             $('.notifications-icon').html('<i class="fas fa-solid fa-check notifications-success"></i>')
             $(".message-text").text(msg);
             setTimeout(function() {
-                $('.notifications-popup-success').removeClass('active');
+                $('.notifications-popup-success').removeClass('notifications-active');
             }, 5000);
             $('.notifications-close').click(function() {
-                $('.notifications-popup-success').removeClass('active');
+                $('.notifications-popup-success').removeClass('notifications-active');
             });
         }
 
         function errorMsg(msg) {
-            $(".notifications-popup-error").addClass('active');
+            $(".notifications-popup-error").addClass('notifications-active');
             $('.notifications-icon').html('<i class="fas fa-times notifications-error"></i>')
             $(".message-text").text(msg);
             setTimeout(function() {
-                $('.notifications-popup-error').removeClass('active');
+                $('.notifications-popup-error').removeClass('notifications-active');
             }, 5000);
             $('.notifications-close').click(function() {
-                $('.notifications-popup-error').removeClass('active');
+                $('.notifications-popup-error').removeClass('notifications-active');
             });
         }
         $(document).ready(function() {
             setTimeout(function() {
-                $('.notifications-popup-success').removeClass('active');
+                $('.notifications-popup-success').removeClass('notifications-active');
             }, 5000);
             setTimeout(function() {
-                $('.notifications-popup-error').removeClass('active');
+                $('.notifications-popup-error').removeClass('notifications-active');
             }, 5000);
         });
         var check = '{{ Auth::check() }}';
@@ -975,7 +969,112 @@
         $('.logout').click(function() {
             localStorage.removeItem('cart');
             localStorage.removeItem('sessionId');
-        })
+        });
+
+
+        $(document).ready(function () {
+            var itemsMainDiv = ('.category-product');
+            var itemsDiv = ('.category-product-inner');
+            var itemWidth = "";
+
+            $('.leftLst, .rightLst').click(function () {
+                var condition = $(this).hasClass("leftLst");
+                if (condition)
+                    click(0, this);
+                else
+                    click(1, this)
+            });
+
+            ResCarouselSize();
+            $(window).resize(function () {
+                ResCarouselSize();
+            });
+
+            //this function define the size of the items
+            function ResCarouselSize() {
+                var incno = 0;
+                var dataItems = ("data-items");
+                var itemClass = ('.category-product-item');
+                var id = 0;
+                var btnParentSb = '';
+                var itemsSplit = '';
+                var sampwidth = $(itemsMainDiv).width();
+                var bodyWidth = $('body').width();
+                $(itemsDiv).each(function () {
+                    id = id + 1;
+                    var itemNumbers = $(this).find(itemClass).length;
+                    btnParentSb = $(this).parent().attr(dataItems);
+                    itemsSplit = btnParentSb.split(',');
+                    $(this).parent().attr("id", "category-product" + id);
+                    
+                    if (bodyWidth >= 1200) {
+                        incno = itemsSplit[3];
+                        itemWidth = sampwidth / incno;
+                    }
+                    else if (bodyWidth >= 992) {
+                        incno = itemsSplit[2];
+                        itemWidth = sampwidth / incno;
+                    }else if (bodyWidth >= 768) {
+                        incno = itemsSplit[2];
+                        itemWidth = sampwidth / incno;
+                    }else {
+                        incno = itemsSplit[1];
+                        itemWidth = sampwidth / incno;
+                    }
+                    
+                    $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+                    $(this).find(itemClass).each(function () {
+                        $(this).outerWidth(itemWidth);
+                    });
+                    if(itemNumbers > 6){
+                        $(".leftLst").addClass("hidden");
+                        $(".rightLst").removeClass("hidden");
+                    }else{
+                        $(".leftLst").addClass("hidden");
+                        $(".rightLst").addClass("hidden");
+                    }
+                });
+            }
+
+
+            //this function used to move the items
+            function ResCarousel(e, el, s) {
+                var leftBtn = ('.leftLst');
+                var rightBtn = ('.rightLst');
+                var translateXval = '';
+                var divStyle = $(el + ' ' + itemsDiv).css('transform');
+                var values = divStyle.match(/-?[\d\.]+/g);
+                var xds = Math.abs(values[4]);
+                if (e == 0) {
+                    translateXval = parseInt(xds) - parseInt(itemWidth * s);
+                    $(el + ' ' + rightBtn).removeClass("hidden");
+
+                    if (translateXval <= itemWidth / 2) {
+                        translateXval = 0;
+                        $(el + ' ' + leftBtn).addClass("hidden");
+                    }
+                }
+                else if (e == 1) {
+                    var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+                    translateXval = parseInt(xds) + parseInt(itemWidth * s);
+                    $(el + ' ' + leftBtn).removeClass("hidden");
+
+                    if (translateXval >= itemsCondition - itemWidth / 2) {
+                        translateXval = itemsCondition;
+                        $(el + ' ' + rightBtn).addClass("hidden");
+                    }
+                }
+                $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+            }
+
+            //It is used to get some elements from btn
+            function click(ell, ee) {
+                var Parent = "#" + $(ee).parent().attr("id");
+                var slide = $(Parent).attr("data-slide");
+                ResCarousel(ell, Parent, slide);
+            }
+
+        });
     </script>
 </body>
 

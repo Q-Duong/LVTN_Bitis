@@ -13,6 +13,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\WareHouseController;
 use App\Http\Controllers\StoreController;
@@ -57,6 +58,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     //Dashboard
     Route::get('/dashboard', [AccountController::class, 'dashboard']);
+    Route::post('/get-statistics-in-month',[DashBoardController::class,'get_statistics_in_month'])->name('get-statistics-in-month');
+    Route::post('/get-statistics-by-date',[DashBoardController::class,'get_statistics_by_date'])->name('get-statistics-by-date');
     //Login
     Route::get('/profile', [AccountController::class, 'admin_profile']);
     Route::get('/settings', [AccountController::class, 'admin_settings']);
@@ -300,3 +303,5 @@ Route::get('/query-transaction', 'App\Http\Controllers\CheckoutController@query_
 //Search
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
+
+Route::get('test-momo','App\Http\Controllers\CheckoutController@momotest');

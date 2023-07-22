@@ -1093,6 +1093,52 @@
             });
         });
         //End Import Order Detail
+
+        $(document).ready(function(){
+            chartInMonth();
+            var chart = new Morris.Bar({
+                element: 'chart',
+                barColors: ['#eb6f6f', '#926383', '#111111'],
+                parseTime: false,
+                hideHover: 'auto',
+                stacked: true,
+                axes: true,
+                grid: true,
+                xkey: 'period',
+                ykeys: ['price','sales','quantity'],
+                labels: ['Doanh số','Số đơn','Số lượng hàng'],
+                resize: true
+            });
+            function chartInMonth(){
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{route('get-statistics-in-month')}}",
+                    method:"POST",
+                    data:{_token:_token},
+                    success:function(data){
+                        chart.setData(data);
+                    }   
+                });
+            }
+
+            $('.filter').click(function(){
+                var _token = $('input[name="_token"]').val();
+                var from_date = $('input[name="from_date"]').val();
+                var to_date = $('input[name="to_date"]').val();
+                $.ajax({
+                    url:"{{route('get-statistics-by-date')}}",
+                    method:"POST",
+                    data:{
+                        from_date:from_date,
+                        to_date:to_date,
+                        _token:_token
+                    },
+                    success:function(data){
+                        chart.setData(data);
+                    }   
+                });
+            });
+        });
     </script>
 </body>
 

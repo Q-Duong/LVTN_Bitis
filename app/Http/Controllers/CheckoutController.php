@@ -107,16 +107,15 @@ class CheckoutController extends Controller
     }
     public function checkout_step_1($order_code)
     {
-        $code = $order_code;
         $order = Order::where('order_code', $order_code)->first();
-        $order_detail = OrderDetail::where('order_id', $order->order_id)->first();
+        $getAllOrderDetail = OrderDetail::where('order_id', $order->order_id)->get();
         $city = City::orderby('city_name', 'ASC')->get();
         if ($order->receiver->city_id != null) {
             $district = District::where('city_id', $order->receiver->city_id)->orderby('district_name', 'ASC')->get();
             $ward = Ward::where('district_id', $order->receiver->district_id)->orderby('ward_name', 'ASC')->get();
-            return view('pages.checkout.checkout')->with(compact('code', 'order', 'order_detail', 'city', 'district', 'ward'));
+            return view('pages.checkout.checkout')->with(compact('order', 'getAllOrderDetail', 'city', 'district', 'ward'));
         }
-        return view('pages.checkout.checkout')->with(compact('code', 'city', 'order', 'order_detail'));
+        return view('pages.checkout.checkout')->with(compact('city', 'order', 'getAllOrderDetail'));
     }
     public function select_address(Request $request)
     {
@@ -186,11 +185,11 @@ class CheckoutController extends Controller
             $order = Order::where('order_code', $data['order_code'])->first();
             $order->order_status = 1;
             $order->save();
-            $order_detail = OrderDetail::where('order_id', $order->order_id)->get();
-            Mail::send('pages.mail.mail_order', array('order' => $order, 'order_detail' => $order_detail), function ($message) use ($order) {
-                $message->to($order->receiver->receiver_email)->subject('Thông báo đơn hàng');
-                $message->from($order->receiver->receiver_email, 'Bitis');
-            });
+            $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+            // Mail::send('pages.mail.mail_order',array('order'=>$order,'order_detail'=>$order_detail),function($message) use ($order){
+            //     $message->to($order -> receiver -> receiver_email)->subject('Thông báo đơn hàng');
+            //     $message->from($order -> receiver -> receiver_email,'Bitis');
+            // });
             return response()->json(array('url' => 'handcash', 'type' => 'cash'));
         } else {
             $order = Order::where('order_code', $data['order_code'])->first();
@@ -235,31 +234,33 @@ class CheckoutController extends Controller
     }
     public function momo($order)
     {
-        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
         $partnerCode = 'MOMOBKUN20180529';
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua MoMo";
         $amount = (string) $order->order_total;
         $orderId = $order->order_code;
-        $returnUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
-        $notifyurl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
+        $redirectUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
+        $ipnUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
 
         $extraData = "merchantName=MoMo Partner";
         $requestId = time() . "";
-        $requestType = "captureMoMoWallet";
-        $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&returnUrl=" . $returnUrl . "&notifyUrl=" . $notifyurl . "&extraData=" . $extraData;
+        $requestType = "captureWallet";
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
         $signature = hash_hmac("sha256", $rawHash, $secretKey);
 
-        $data = array(
+        $data =  array(
             'partnerCode' => $partnerCode,
+            "storeId" => "MomoTestStore",
             'accessKey' => $accessKey,
             'requestId' => $requestId,
             'amount' => $amount,
             'orderId' => $orderId,
             'orderInfo' => $orderInfo,
-            'returnUrl' => $returnUrl,
-            'notifyUrl' => $notifyurl,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
             'extraData' => $extraData,
             'requestType' => $requestType,
             'signature' => $signature
@@ -268,6 +269,50 @@ class CheckoutController extends Controller
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);
         // decode json
+        return $jsonResult['payUrl'];
+    }
+
+    public function momotest()
+    {
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $orderInfo = "Thanh toán qua MoMo";
+        $amount = "10000";
+        $orderId = time() . "";
+        $redirectUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
+        $ipnUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
+
+        $extraData = "merchantName=MoMo Partner";
+        $requestId = time() . "";
+        $requestType = "captureWallet";
+        // $rawHash = "partnerCode=" . $partnerCode . "&accessKey=" . $accessKey . "&requestId=" . $requestId . "&amount=" . $amount . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&redirectUrl=" . $redirectUrl . "&ipnUrl=" . $ipnUrl . "&extraData=" . $extraData;
+        // $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
+        $data = array(
+            'partnerCode' => $partnerCode,
+            "storeId" => "MomoTestStore",
+            'accessKey' => $accessKey,
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature
+        );
+
+        $result = $this->execPostRequest($endpoint, json_encode($data));
+        $jsonResult = json_decode($result, true);
+        // decode json
+        dd($jsonResult);
         return $jsonResult['payUrl'];
     }
 
