@@ -29,7 +29,6 @@ class PostController extends Controller
         $post->post_title=$data['post_title'];
         $post->post_slug=$data['post_slug'];
         $post->post_content=$data['post_content'];
-        $post->post_status=$data['post_status'];
         $post->category_post_id = $data['category_post_id'];
         $name=Post::where('post_title',$data['post_title'])->exists();
         if($name){
@@ -58,7 +57,6 @@ class PostController extends Controller
         $post->post_title=$data['post_title'];
         $post->post_slug=$data['post_slug'];
         $post->post_content=$data['post_content'];
-        $post->post_status=$data['post_status'];
         $post->category_post_id = $data['category_post_id'];
         $get_image = request('post_image');
         if($get_image){
@@ -96,15 +94,15 @@ class PostController extends Controller
                 'category_post_id' => 'required',
                 'post_title' => 'required',
                 'post_content' => 'required',
-                'post_status' => 'required',
                 'post_image' => 'image',
+                'post_slug'=>'required'
             ],
             [
                 'category_post_id.required' => 'Vui lòng chọn danh mục cần thêm',
                 'post_title.required' => 'Vui lòng nhập thông tin',
                 'post_content.required' => 'Vui lòng nhập thông tin',
-                'post_status.required' => 'Vui lòng nhập thông tin',
                 'post_image.image' => 'Vui lòng chọn file hình',
+                'post_slug.required' => 'Vui lòng nhập tên'
             ]
         );
     }
@@ -116,13 +114,13 @@ class PostController extends Controller
                 'category_post_id' => 'required',
                 'post_title' => 'required',
                 'post_content' => 'required',
-                'post_status' => 'required',
+                'post_slug'=>'required'
             ],
             [
                 'category_post_id.required' => 'Vui lòng chọn danh mục cần thêm',
                 'post_title.required' => 'Vui lòng nhập thông tin',
                 'post_content.required' => 'Vui lòng nhập thông tin',
-                'post_status.required' => 'Vui lòng nhập thông tin',
+                'post_slug.required' => 'Vui lòng nhập tên'
             ]
         );
     }

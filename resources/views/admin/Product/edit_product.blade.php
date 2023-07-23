@@ -39,11 +39,11 @@
                                     @endforeach
                                 </select>
                             </div>
+                            
                             <div class="form-group {{ $errors->has('product_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên sản phẩm</label>
                                 <input type="text" value="{{ $edit_value->product_name }}" name="product_name"
-                                    class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validation="required"
-                                    data-validation-error-msg="Vui lòng điền thông tin" >
+                                    class="form-control" id="slug" onkeyup="ChangeToSlug();">
                                 {!! $errors->first(
                                     'product_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -52,8 +52,7 @@
                             <div class="form-group {{ $errors->has('product_slug') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Slug</label>
                                 <input type="text" readonly value="{{ $edit_value->product_slug }}" name="product_slug"
-                                    class="form-control" id="convert_slug" data-validation="required"
-                                    data-validation-error-msg="Vui lòng điền thông tin">
+                                    class="form-control" id="convert_slug" >
                                 {!! $errors->first(
                                     'product_slug',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -63,8 +62,7 @@
                             <div class="form-group {{ $errors->has('product_image') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
                                 <input type="file" value="{{ $edit_value->product_image }}" name="product_image"
-                                    class="form-control" id="file" data-validation="required"
-                                    data-validation-error-msg="Vui lòng thêm hình ảnh">
+                                    class="form-control" id="file" >
                                 {!! $errors->first(
                                     'product_image',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -73,8 +71,7 @@
                             <div class="form-group {{ $errors->has('product_price') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Giá sản phẩm</label>
                                 <input type="text" value="{{ $edit_value->product_price }}" name="product_price"
-                                    class="form-control " data-validation="number"
-                                    data-validation-error-msg="Vui lòng điền thông tin(Phải là số và lớn hơn 0)">
+                                    class="form-control ">
                                 {!! $errors->first(
                                     'product_price',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',

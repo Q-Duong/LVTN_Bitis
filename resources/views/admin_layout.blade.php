@@ -182,21 +182,6 @@
                                         @csrf
                                     </form>
                                 </li>
-                                {{-- <li>
-                                    <a href="{{ URL::to('/admin/settings') }}" class="member-settings">
-                                        <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL::to('/admin/logout') }}" class="logout">
-                                        <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
-                                    </a>
-                                </li> --}}
-
-
-                                {{-- <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li> --}}
                             </ul>
                         </li>
                     @endif
@@ -389,6 +374,27 @@
                                     <a href="{{ URL::to('/admin/color/list') }}"
                                         class="{{ $route->uri == 'admin/color/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý màu
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/discount/add' || $route->uri == 'admin/discount/list' ? 'active' : '' }}">
+                                <i class="fas fa-palette"></i>
+                                <span>Quản lý khuyến mãi</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/admin/discount/add') }}"
+                                        class="{{ $route->uri == 'admin/color/add' ? 'active' : '' }}">
+                                        <i class="fa fa-plus"></i> Thêm khuyến mãi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/admin/discount/list') }}"
+                                        class="{{ $route->uri == 'admin/color/list' ? 'active' : '' }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý khuyến mãi
                                     </a>
                                 </li>
                             </ul>
@@ -845,12 +851,6 @@
             document.getElementById('convert_slug').value = slug;
         }
 
-        $(document).ready(function() {
-            setTimeout(function() {
-                $('.alert-success').fadeOut('fast');
-            }, 3000);
-        });
-
         function myFunction(e) {
             var checkBox = document.getElementById("size"+e);
             var block = document.getElementById("block"+e);
@@ -919,27 +919,24 @@
         $('.overlay-model-review').on('click', function() {
             $('.popup-model-review').fadeOut(300);
         });
-        $('#keywords').keyup(function() {
-            var query = $(this).val();
-
-            if (query != '') {
-                var _token = $('input[name="_token"]').val();
-
-                $.ajax({
-                    url: "{{ url('/search-product-admin') }}",
-                    method: "POST",
-                    data: {
-                        query: query,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('.resultBox').html(data.output);
-                    }
-                });
-
-            }
+        // Function for Product
+        $(document).on('change', '.change_category', function() {
+            var category_id = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ url('/change-category') }}",
+                method: 'POST',
+                data: {
+                    category_id: category_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('.change_product_type').html(data.getAllListProductType);
+                }
+            });
         });
 
+        // Function for WareHouse,Order,ImportOrder
         $(document).on('change', '.choose_category', function() {
             var category_id = $(this).val();
             var _token = $('input[name="_token"]').val();

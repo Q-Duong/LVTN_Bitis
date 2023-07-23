@@ -54,16 +54,16 @@
                                             
                     </div>
                     <div class="product__item__text">
-                                        <div class="rating">
+                                        <!-- <div class="rating">
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
-                                        </div>
+                                        </div> -->
                                         <h6>{{ $product->product_name }}</h6>
                                         <h5>{{ number_format($product->product_price, 0, ',', '.') }}₫</h5>
-                                        <div class="product__color__select">
+                                        <!-- <div class="product__color__select">
                                             <label for="pc-1">
                                                 <input type="radio" id="pc-1">
                                             </label>
@@ -73,7 +73,7 @@
                                             <label class="grey" for="pc-3">
                                                 <input type="radio" id="pc-3">
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </div>
                 </a>
             </div>

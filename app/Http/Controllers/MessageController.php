@@ -9,7 +9,7 @@ class MessageController extends Controller
 {
     function save_message(Request $request){
         $data = $request->all();
-        //dd($data);
+
         $mess=new Message();
         $mess->message_name=$data['message_name'];
         $mess->message_email=$data['message_email'];

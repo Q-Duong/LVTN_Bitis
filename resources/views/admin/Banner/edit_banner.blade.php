@@ -18,8 +18,7 @@
                             <div class="form-group {{ $errors->has('banner_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên Banner</label>
                                 <input type="text" name="banner_name" class="form-control" id="exampleInputEmail1"
-                                    value="{{ $edit_value->banner_name }}" placeholder="Tên banner"
-                                    data-validation="required" data-validation-error-msg="Vui lòng điền thông tin">
+                                    value="{{ $edit_value->banner_name }}" placeholder="Tên banner">
                                 {!! $errors->first(
                                     'banner_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',

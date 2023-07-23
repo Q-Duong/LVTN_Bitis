@@ -2,7 +2,7 @@
 @section('content')
 @section('title', ' - ')
 
-<section class="shop-details">
+<section class="shop-details" >
     <div class="product__details__pic">
         <div class="container">
             <div class="row">

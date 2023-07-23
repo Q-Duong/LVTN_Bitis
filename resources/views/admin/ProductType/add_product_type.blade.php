@@ -20,7 +20,7 @@
                         <div class="form-group {{ $errors->has('product_type_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên loại sản phẩm</label>
                             <input type="text" name="product_type_name" value="{{old('product_type_name')}}" class="form-control" id="slug"
-                                placeholder="Enter email" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                                placeholder="Enter email" onkeyup="ChangeToSlug();">
                                 {!! $errors->first(
                                     'product_type_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -28,11 +28,11 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug sản phẩm</label>
-                            <input type="text" readonly name="product_type_slug" value="{{old('product_type_slug')}}" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" readonly name="product_type_slug" value="{{old('product_type_slug')}}" class="form-control" id="convert_slug">
                         </div>
                         <div class="form-group {{ $errors->has('product_type_img') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh loại sản phẩm</label>
-                            <input type="file" name="product_type_img"  class="form-control" placeholder="Tên danh mục" data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="file" name="product_type_img"  class="form-control" placeholder="Tên danh mục">
                             {!! $errors->first(
                                 'product_type_img',
                                 '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
