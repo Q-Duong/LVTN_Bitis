@@ -23,7 +23,7 @@ class ProductController extends Controller
     }
     function list_product()
     {
-        $getAllListProduct = Product::orderBy('product_id', 'DESC')->get();
+        $getAllListProduct = Product::orderBy('product_id', 'DESC')->paginate(15);
         return view('admin.Product.list_product')->with(compact('getAllListProduct'));
     }
     function edit_product($product_id)
@@ -244,7 +244,6 @@ class ProductController extends Controller
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
                 ->orderBy('ware_house.product_id', 'ASC')
                 ->get();
-                dd($filter);
             if (count($filter) > 0) {
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
@@ -300,8 +299,8 @@ class ProductController extends Controller
                 ->whereIn('ware_house.color_id', $color_array)
                 ->whereIn('ware_house.size_id', $size_array)
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
+                ->orderBy('ware_house.product_id', 'ASC')   
                 ->get();
-                dd($filter);
             if (count($filter) > 0) {
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();

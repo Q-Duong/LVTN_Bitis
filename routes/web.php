@@ -57,7 +57,7 @@ Auth::routes();
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     //Dashboard
-    Route::get('/dashboard', [AccountController::class, 'dashboard']);
+    Route::get('/dashboard', [DashBoardController::class, 'index']);
     Route::post('/get-statistics-in-month',[DashBoardController::class,'get_statistics_in_month'])->name('get-statistics-in-month');
     Route::post('/get-statistics-by-date',[DashBoardController::class,'get_statistics_by_date'])->name('get-statistics-by-date');
     //Login

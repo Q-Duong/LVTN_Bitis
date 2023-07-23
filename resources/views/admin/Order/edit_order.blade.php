@@ -152,8 +152,8 @@
                             <tr>
                                 <td colspan="2">
                                     <strong>Trạng thái thanh toán:</strong>
-                                    <select class="form-control" name="order_is_paid" {{ $order -> order_status == 3 || $order -> order_status == 4 ? 'disabled' : '' }}>
-                                        <option {{$order->order_is_paid == 0 ? 'selected' : ''}} value="0">Chưa thanh toán</option>
+                                    <select class="form-control" name="order_is_paid" {{ $order ->order_status == 3 || $order ->order_status == 4 ? 'disabled' : '' }}>
+                                        <option {{$order->order_is_paid == 0 ? 'selected' : 'disabled'}} value="0">Chưa thanh toán</option>
                                         <option {{$order->order_is_paid == 1 ? 'selected' : ''}} value="1">Đã thanh toán</option>
                                     </select>
                                 </td>

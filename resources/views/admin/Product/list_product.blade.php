@@ -61,9 +61,12 @@
                                 </td>
                             </tr>
                         @endforeach
+                        
                     </tbody>
                 </table>
             </div>
+            
         </div>
+        <div class="pagi">{{$getAllListProduct->links('pagination::bootstrap-4')}}</div>
     </div>
 @endsection

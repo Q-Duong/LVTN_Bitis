@@ -99,9 +99,12 @@ class LoginController extends Controller
             ->join('users', 'users.id', '=', 'order.user_id')
             ->join('ware_house', 'ware_house.ware_house_id', '=', 'order_detail.ware_house_id')
             ->join('product', 'product.product_id', '=', 'ware_house.product_id')
+             ->select(['order_code', 'order_total', 'order_detail_quantity', 'product_image', 'product_name', 'product_price', 'order_status',])
             ->where('order.user_id', Auth::user()->id)
             ->orderBy('order.created_at', 'DESC')
-            ->get(['order_code', 'order_total', 'order_detail_quantity', 'product_image', 'product_name', 'product_price', 'order_status',]);
+            ->paginate(5);
+            // dd($getAllOrder);
+            // ->get(['order_code', 'order_total', 'order_detail_quantity', 'product_image', 'product_name', 'product_price', 'order_status',]);
         return view('pages.login.account_orders')->with(compact('getAllOrder'));
     }
 

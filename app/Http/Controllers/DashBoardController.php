@@ -16,7 +16,8 @@ class DashBoardController extends Controller
         $product_count = Product::get()->count();
         $post_count= Post::get()->count();
         $order_count = Order::get()->count();
-        $app_customer = User::where('role',1)->get()->count();
+        $app_customer = User::where('role',2)->get()->count();
+        // dd($product_count);
         return view('admin.dashboard')->with(compact('product_count','post_count','order_count','app_customer'));
     }
     function get_statistics_in_month(){
@@ -31,6 +32,7 @@ class DashBoardController extends Controller
                 'quantity' => $val->total_quantity
             );
         }
+        dd($chart_data);
         $data = $chart_data;
         return response($data); 
     }

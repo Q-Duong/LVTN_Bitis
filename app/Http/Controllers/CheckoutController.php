@@ -186,21 +186,22 @@ class CheckoutController extends Controller
             $order->order_status = 1;
             $order->save();
             $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
-            // Mail::send('pages.mail.mail_order',array('order'=>$order,'order_detail'=>$order_detail),function($message) use ($order){
-            //     $message->to($order -> receiver -> receiver_email)->subject('Thông báo đơn hàng');
-            //     $message->from($order -> receiver -> receiver_email,'Bitis');
-            // });
+            Mail::send('pages.mail.mail_order',array('order'=>$order,'order_detail'=>$order_detail),function($message) use ($order){
+                $message->to($order -> receiver -> receiver_email)->subject('Thông báo đơn hàng');
+                $message->from('tminhan398@gmail.com','Bitis');
+            });
             return response()->json(array('url' => 'handcash', 'type' => 'cash'));
         } else {
             $order = Order::where('order_code', $data['order_code'])->first();
             $order->order_status = 1;
             $order->order_payment_type = 1;
+            $order->order_is_paid = 1;
             $order->save();
             $order_detail = OrderDetail::where('order_id', $order->order_id)->get();
-            // Mail::send('pages.mail.mail_order', array('order' => $order, 'order_detail' => $order_detail), function ($message) use ($order) {
-            //     $message->to($order->receiver->receiver_email)->subject('Thông báo đơn hàng');
-            //     $message->from($order->receiver->receiver_email, 'Bitis');
-            // });
+            Mail::send('pages.mail.mail_order', array('order' => $order, 'order_detail' => $order_detail), function ($message) use ($order) {
+                $message->to($order->receiver->receiver_email)->subject('Thông báo đơn hàng');
+                $message->from('tminhan398@gmail.com', 'Bitis');
+            });
             $url = $this->momo($order);
             return response()->json(array('url' => $url, 'type' => 'momo'));
         }
@@ -243,7 +244,6 @@ class CheckoutController extends Controller
         $orderId = $order->order_code;
         $redirectUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
         $ipnUrl = "https://b5fa-42-115-103-118.ap.ngrok.io/handcash";
-
         $extraData = "merchantName=MoMo Partner";
         $requestId = time() . "";
         $requestType = "captureWallet";
