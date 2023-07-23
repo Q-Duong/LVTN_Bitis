@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Mail;
 use App\Models\City;
 use App\Models\Delivery;
 use App\Models\District;
@@ -13,6 +12,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\WareHouse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,66 +73,71 @@ class CheckoutController extends Controller
     }
     public function member_checkout(Request $request)
     {
-        
-        if (empty($request->sessionId)) {
-            $order_total = 0;
-            $delivery = Delivery::where('user_id', Auth::id())->first();
-            if ($delivery != null) {
-                $receiver = new Receiver();
-                $receiver->receiver_first_name = $delivery->delivery_first_name;
-                $receiver->receiver_last_name = $delivery->delivery_last_name;
-                $receiver->receiver_phone = $delivery->delivery_phone;
-                $receiver->receiver_email = $delivery->delivery_email;
-                $receiver->receiver_address = $delivery->delivery_address;
-                $receiver->city_id = $delivery->city_id;
-                $receiver->district_id = $delivery->district_id;
-                $receiver->ward_id = $delivery->ward_id;
-                $receiver->save();
+        if(Auth::user()->role != 0){
+            if (empty($request->sessionId)) {
+                $order_total = 0;
+                $delivery = Delivery::where('user_id', Auth::id())->first();
+                if ($delivery != null) {
+                    $receiver = new Receiver();
+                    $receiver->receiver_first_name = $delivery->delivery_first_name;
+                    $receiver->receiver_last_name = $delivery->delivery_last_name;
+                    $receiver->receiver_phone = $delivery->delivery_phone;
+                    $receiver->receiver_email = $delivery->delivery_email;
+                    $receiver->receiver_address = $delivery->delivery_address;
+                    $receiver->city_id = $delivery->city_id;
+                    $receiver->district_id = $delivery->district_id;
+                    $receiver->ward_id = $delivery->ward_id;
+                    $receiver->save();
+                } else {
+                    $receiver = new Receiver();
+                    $receiver->receiver_first_name = Auth::user()->profile->profile_firstname;
+                    $receiver->receiver_last_name = Auth::user()->profile->profile_lastname;
+                    $receiver->receiver_phone = Auth::user()->profile->profile_phone;
+                    $receiver->receiver_email = Auth::user()->profile->profile_email;
+                    $receiver->save();
+                }
+                $order_code = substr(md5(microtime()), rand(0, 26), 20);
+                $order = new Order();
+                $order->order_code = $order_code;
+                $order->order_status = 0;
+                $order->order_is_paid = 0;
+                $order->order_payment_type = 0;
+                $order->user_id = Auth::id();
+                $order->receiver_id = $receiver->receiver_id;
+                $order->save();
+    
+                foreach ($request->cart as $key => $cart) {
+                    $order_detail = new OrderDetail();
+                    $ware_house = WareHouse::find($cart['id']);
+                    $order_total += $ware_house->product->product_price * $cart['quantity'];
+                    $order_detail->order_id = $order->order_id;
+                    $order_detail->order_detail_quantity = $cart['quantity'];
+                    $order_detail->ware_house_id = $cart['id'];
+                    $order_detail->save();
+                }
+    
+                $order->order_total = $order_total;
+                $order->save();
+    
+                return response()->json(array('order_code' => $order_code, 'route' => 'checkout'));
             } else {
-                $receiver = new Receiver();
-                $receiver->receiver_first_name = Auth::user()->profile->profile_firstname;
-                $receiver->receiver_last_name = Auth::user()->profile->profile_lastname;
-                $receiver->receiver_phone = Auth::user()->profile->profile_phone;
-                $receiver->receiver_email = Auth::user()->profile->profile_email;
-                $receiver->save();
+                $order = Order::where('order_code', $request->sessionId['sessionId'])->first();
+                if (
+                    $order->receiver->city_id == null ||
+                    $order->receiver->district_id == null ||
+                    $order->receiver->ward_id == null ||
+                    $order->receiver->receiver_address == null
+                ) {
+                    return response()->json(array('order_code' => $request->sessionId['sessionId'], 'route' => 'checkout'));
+                } else {
+                    return response()->json(array('order_code' => $request->sessionId['sessionId'], 'route' => 'payment'));
+                }
             }
-            $order_code = substr(md5(microtime()), rand(0, 26), 20);
-            $order = new Order();
-            $order->order_code = $order_code;
-            $order->order_status = 0;
-            $order->order_is_paid = 0;
-            $order->order_payment_type = 0;
-            $order->user_id = Auth::id();
-            $order->receiver_id = $receiver->receiver_id;
-            $order->save();
-
-            foreach ($request->cart as $key => $cart) {
-                $order_detail = new OrderDetail();
-                $ware_house = WareHouse::find($cart['id']);
-                $order_total += $ware_house->product->product_price * $cart['quantity'];
-                $order_detail->order_id = $order->order_id;
-                $order_detail->order_detail_quantity = $cart['quantity'];
-                $order_detail->ware_house_id = $cart['id'];
-                $order_detail->save();
-            }
-
-            $order->order_total = $order_total;
-            $order->save();
-
-            return response()->json(array('order_code' => $order_code, 'route' => 'checkout'));
-        } else {
-            $order = Order::where('order_code', $request->sessionId['sessionId'])->first();
-            if (
-                $order->receiver->city_id == null ||
-                $order->receiver->district_id == null ||
-                $order->receiver->ward_id == null ||
-                $order->receiver->receiver_address == null
-            ) {
-                return response()->json(array('order_code' => $request->sessionId['sessionId'], 'route' => 'checkout'));
-            } else {
-                return response()->json(array('order_code' => $request->sessionId['sessionId'], 'route' => 'payment'));
-            }
+        }else{
+            Auth::logout();
+            return response()->json(array('role' => 0, 'route' => 'member/login'));
         }
+        
     }
     public function checkout_step_1($order_code)
     {
@@ -216,14 +221,23 @@ class CheckoutController extends Controller
             $order = Order::where('order_code', $data['order_code'])->first();
             $order->order_status = 1;
             $order->save();
+            $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+            Mail::send('pages.mail.mail_order',array('order'=>$order,'order_detail'=>$order_detail),function($message) use ($order){
+                $message->to($order -> receiver -> receiver_email)->subject('Thông báo đơn hàng');
+                $message->from($order -> receiver -> receiver_email,'Bitis');
+            });
             return response()->json(array('url' => 'handcash', 'type' => 'cash'));
         } else {
             $order = Order::where('order_code', $data['order_code'])->first();
             $order->order_status = 1;
+            $order->order_payment_type = 1;
+            $order -> save();
+            $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+            Mail::send('pages.mail.mail_order',array('order'=>$order,'order_detail'=>$order_detail),function($message) use ($order){
+                $message->to($order -> receiver -> receiver_email)->subject('Thông báo đơn hàng');
+                $message->from($order -> receiver -> receiver_email,'Bitis');
+            });
             $url =  $this->momo($order);
-            // $order -> order_status = 1;
-            // $order -> save();
-
             return response()->json(array('url' => $url, 'type' => 'momo'));
         }
     }

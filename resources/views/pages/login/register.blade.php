@@ -26,12 +26,6 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-lg-6 col-md-6 centered">
-
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
                         <div class="row">
                             <div class="col-lg-6 col-md-6 centered">
                                 <div

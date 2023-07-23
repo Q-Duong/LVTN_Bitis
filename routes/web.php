@@ -48,7 +48,7 @@ Route::post('/checkout','App\Http\Controllers\CheckoutController@checkout');
 Route::post('member/checkout','App\Http\Controllers\CheckoutController@member_checkout');
 Route::post('filter','App\Http\Controllers\ProductController@filter');
 Route::post('admin/logout',[AccountController::class,'admin_logout']);
-// Route::get('login', [ 'as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@showLoginForm']);
+// Route::get('login','App\Http\Controllers\Auth\LoginController@showLoginForm')->middleware(['isAdmin'])->name('login');
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 // Route::get('/home',[AccountController::class,'home']);
 Route::get('/403',function(){return view('403');})->name('403');
@@ -254,7 +254,8 @@ Route::get('blogs/{category_post_slug}','App\Http\Controllers\CategoryPostContro
 Route::get('products/{product_slug}','App\Http\Controllers\ProductController@show_product_details');
 Route::post('get-ware-house-id','App\Http\Controllers\ProductController@get_ware_house_id');
 
-
+//Discount
+Route::get('collection/{discount_slug}','App\Http\Controllers\DiscountController@show_product_discount');
 //Post 
 Route::get('blog/{post_slug}','App\Http\Controllers\PostController@show_post');
 
@@ -290,6 +291,7 @@ Route::get('/cart','App\Http\Controllers\CartController@cart');
 Route::post('/add-cart-ajax','App\Http\Controllers\CartController@add_cart_ajax');
 Route::get('/del-product/{session_id}','App\Http\Controllers\CartController@delete_product');
 Route::get('/count-cart-products','App\Http\Controllers\CartController@count_cart_products');
+Route::post('/cart-quantity','App\Http\Controllers\CartController@cart_quantity');
 
 //Checkout
 Route::post('/select-address','App\Http\Controllers\CheckoutController@select_address');
@@ -304,3 +306,5 @@ Route::get('/query-transaction','App\Http\Controllers\CheckoutController@query_t
 Route::post('/search-autocomplete','App\Http\Controllers\HomeController@search_autocomplete');
 Route::post('/search','App\Http\Controllers\HomeController@search');
 
+Route::post('/save-delivery-addresses','App\Http\Controllers\LoginController@save_delivery_addresses');
+Route::post('/update-delivery-addresses/{delivery_id}','App\Http\Controllers\LoginController@update_delivery_addresses');

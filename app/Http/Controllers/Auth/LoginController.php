@@ -37,10 +37,10 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('isAdmin')->except('logout');
+    // }
     function showLoginForm(){
         return view('admin_login');
     }
@@ -48,8 +48,6 @@ class LoginController extends Controller
          $data=$request->all();
         if(Auth::attempt(['email' => $data['account_username'],'password' => $data['account_password']
         ])){
-            // $user = User::where('email',$data['account_username'])->first();
-            // Auth::login($user);
             return Redirect::to('admin/dashboard');
         }else{
             return Redirect::to('login')->with('error','Tài khoản hoặc mật khẩu không đúng');

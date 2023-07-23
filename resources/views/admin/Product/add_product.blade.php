@@ -43,16 +43,7 @@
                             <input type="text" readonly name="product_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_slug') }}">
                                 {!! $errors->first('product_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
-                         <div class="form-group {{ $errors->has('discount_id') ? 'has-error' : ''}}" >
-                            <label for="exampleInputPassword1">Mã khuyến mãi</label>
-                            <select name="discount_id"  class="form-control m-bot15">
-                                <option>--Chọn Mã khuyến mãi--</option>
-                                @foreach($getDiscount as $key =>$dis)
-                                <option value="{{$dis->discount_id}}">{{$dis->discount_name}}</option>
-                                @endforeach
-                            </select>
-                            {!! $errors->first('discount_id', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
-                        </div>
+                         
 
                         <div class="form-group {{ $errors->has('product_image') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>

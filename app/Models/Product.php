@@ -8,7 +8,7 @@ class Product extends Model
 {
     public $timestamps = true; //set time to false
     protected $fillable = [
-    	'product_name','product_price','product_tag', 'product_description','product_type_id','category_id','product_slug','product_image','discount_id'
+    	'product_name','product_price','product_tag', 'product_description','product_type_id','category_id','product_slug','product_image'
     ];
     protected $primaryKey = 'product_id';
  	protected $table = 'product';
@@ -24,9 +24,6 @@ class Product extends Model
     }
     public function rating(){
         return $this->hasMany('App\Models\Rating');
-    }
-    public function discount(){
-        return $this->belongsTo('App\Models\Discount','discount_id');
     }
 
     // public function comment(){

@@ -242,6 +242,7 @@
             var _token = $('input[name="_token"]').val();
             var order_code = $('input[name=order_code]').val();
             var payment_method = $('input[name=payment_method]:checked').val();
+            $(".complete-payment").attr("disabled", true);
             $.ajax({
                 url: "{{ url('/payment-method') }}",
                 method: 'POST',
@@ -252,10 +253,12 @@
                 },
                 success: function(data) {
                     if(data.type == 'cash'){
+                        $(".complete-payment").removeAttr("disabled")
                         localStorage.removeItem('cart');
                         localStorage.removeItem('sessionId');
                         window.location.assign("../"+ data.url);
                     }else{
+                        $(".complete-payment").removeAttr("disabled")
                         localStorage.removeItem('cart');
                         localStorage.removeItem('sessionId');
                         location.replace(data.url);

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Receiver;
+use App\Models\Delivery;
+use App\Models\District;
+use App\Models\Ward;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,9 +31,8 @@ class LoginController extends Controller
         if (Auth::attempt([
             'email' => $data['email'],
             'password' => $data['password'],
+            'role' => 1,
         ])) {
-            // $profile = User::where('email', $data['email'])->first();
-            // Auth::login($profile);
             return Redirect::to('/');
         } else {
             return Redirect::to('member/login')->with('error', 'Tài khoản hoặc mật khẩu không đúng');
@@ -88,9 +91,51 @@ class LoginController extends Controller
 
     public function delivery_addresses()
     {
-        return view('pages.login.account_delivery_address');
+        $city = City::orderBy('city_name','asc')->get();
+        if(!empty(Auth::user()->delivery->delivery_id)){
+            
+            $district = District::where('city_id',Auth::user()->delivery->city_id)->get();
+            $ward = Ward::where('district_id',Auth::user()->delivery->district_id)->get();
+            return view('pages.login.account_delivery_address')->with(compact('city','district','ward'));
+        }
+        return view('pages.login.account_delivery_address')->with(compact('city'));
     }
+    public function save_delivery_addresses(Request $request){
+        $this->checkDeliveryAddress($request);
+        $data = $request->all();
+        
+        $deli = new Delivery();
+        $deli->delivery_first_name = $data['receiver_first_name'];
+        $deli->delivery_last_name = $data['receiver_last_name'];
+        $deli->delivery_phone = $data['receiver_phone'];
+        $deli->delivery_email = $data['receiver_email'];
+        $deli->delivery_address =$data['receiver_address'];
+        $deli->city_id = $data['city_id'];
+        $deli->district_id = $data['district_id'];
+        $deli->ward_id = $data['ward_id'];
+        $deli->user_id = Auth::id();
 
+        $deli->save();
+        return Redirect()->back()->with('success','Thêm địa chỉ thành công');
+    }
+    public function update_delivery_addresses(Request $request,$delivery_id){
+        $this->checkUpdateDeliveryAddress($request);
+        $data = $request->all();
+
+        $deli = Delivery::find($delivery_id);
+        $deli->delivery_first_name = $data['receiver_first_name'];
+        $deli->delivery_last_name = $data['receiver_last_name'];
+        $deli->delivery_phone = $data['receiver_phone'];
+        $deli->delivery_email = $data['receiver_email'];
+        $deli->delivery_address =$data['receiver_address'];
+        $deli->city_id = $data['city_id'];
+        $deli->district_id = $data['district_id'];
+        $deli->ward_id = $data['ward_id'];
+        $deli->user_id = Auth::id();
+
+        $deli->save();
+        return Redirect()->back()->with('success','Cập nhật địa chỉ thành công');
+    }
     public function orders()
     {
         $getAllOrder = Order::join('order_detail', 'order_detail.order_id', '=', 'order.order_id')
@@ -165,4 +210,57 @@ class LoginController extends Controller
             ]
         );
     }
+    public function checkDeliveryAddress(Request $request){
+        $this->validate(
+            $request,
+            [
+                'receiver_first_name'=>'required',
+                'receiver_last_name'=>'required',
+                'receiver_email'=>'required|email',
+                'receiver_phone'=>'required',
+                'city_id'=>'required',
+                'district_id'=>'required',
+                'ward_id'=>'required',
+                'receiver_address'=>'required'
+            ],
+            [
+                'receiver_first_name.required'=>'Vui lòng điền thông tin',
+                'receiver_last_name.required'=>'Vui lòng điền thông tin',
+                'receiver_email.required'=>'Vui lòng điền email',
+                'receiver_email.email'=>'Vui lòng điền theo định dạng',
+                'receiver_phone.required'=>'Vui lòng điền số điện thoại',
+                'city_id.required'=>'Vui lòng chọn thành phố',
+                'district_id.required'=>'Vui lòng chọn quận/huyện',
+                'ward_id.required'=>'Vui lòng chọn phường/xã',
+                'receiver_address.required'=>'Vui lòng điền địa chỉ'
+            ]
+        );
+    }
+    public function checkUpdateDeliveryAddress(Request $request){
+        $this->validate(
+            $request,
+            [
+                'receiver_first_name'=>'required',
+                'receiver_last_name'=>'required',
+                'receiver_email'=>'required|email',
+                'receiver_phone'=>'required',
+                'city_id'=>'required',
+                'district_id'=>'required',
+                'ward_id'=>'required',
+                'receiver_address'=>'required'
+            ],
+            [
+                'receiver_first_name.required'=>'Vui lòng điền thông tin',
+                'receiver_last_name.required'=>'Vui lòng điền thông tin',
+                'receiver_email.required'=>'Vui lòng điền email',
+                'receiver_email.email'=>'Vui lòng điền theo định dạng',
+                'receiver_phone.required'=>'Vui lòng điền số điện thoại',
+                'city_id.required'=>'Vui lòng chọn thành phố',
+                'district_id.required'=>'Vui lòng chọn quận/huyện',
+                'ward_id.required'=>'Vui lòng chọn phường/xã',
+                'receiver_address.required'=>'Vui lòng điền địa chỉ'
+            ]
+        );
+    }
+
 }

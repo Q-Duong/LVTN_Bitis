@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\Gallery;
 use App\Models\Rating;
 use App\Models\WareHouse;
-use App\Models\Discount;
+
 use File;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -20,8 +20,8 @@ class ProductController extends Controller
     function add_product()
     {
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
-        $getDiscount = Discount::orderBy('discount_id','asc')->get();
-        return view('admin.Product.add_product')->with(compact('getAllCategory','getDiscount'));
+        
+        return view('admin.Product.add_product')->with(compact('getAllCategory'));
     }
     function list_product()
     {
@@ -33,8 +33,8 @@ class ProductController extends Controller
         $edit_value = Product::find($product_id);
         $getAllProductType = CategoryType::where('category_id', $edit_value->category_id)->get();
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
-        $getDiscount = Discount::orderBy('discount_id','asc')->get();
-        return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory','getDiscount'));
+        
+        return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory'));
     }
     public function select_category(Request $request)
     {
@@ -52,24 +52,9 @@ class ProductController extends Controller
             $getAllListProductType .= '<option value="">--Chọn Danh Mục--</option>';
         }
 
-        $select_product = Product::where('category_id', $data['category_id'])->where('product_type_id', $select_product_type[0]->product_type_id)->orderBy('product_id', 'ASC')->get();
-        $select_warehouse = WareHouse::where('product_id', $select_product[0]->product_id)->orderBy('ware_house_id', 'asc')->get();
-        //dd($select_warehouse );
-        if ($select_product->count() > 0) {
-            foreach ($select_product as $key => $product) {
-                $getAllListProduct .= '<option value="' . $product->product_id . '">' . $product->product_name . '</option>';
-            }
-            $product_price = $select_product[0]->product_price;
-        } else {
-            $getAllListProduct .= '<option value="">--Chọn Sản Phẩm--</option>';
-        }
-        if ($select_warehouse->count() > 0) {
-            foreach ($select_warehouse as $key => $warehouse) {
-                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Size:' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Color:' . $warehouse->size->size_attribute . '</option>';
-            }
-        } else {
-            $getAllListWareHouse .= '<option value="">--Chọn Kho Hàng--</option>';
-        }
+        $select_product = 1;
+        $select_warehouse =1;
+        
         return response()->json(array('getAllListProductType' => $getAllListProductType, 'getAllListProduct' => $getAllListProduct, 'getAllListWareHouse' => $getAllListWareHouse, 'product_price' => $product_price));
     }
     public function select_product_type(Request $request)
@@ -124,7 +109,6 @@ class ProductController extends Controller
         $product->product_description = $data['product_description'];
         $product->product_type_id = $data['product_type_id'];
         $product->category_id = $data['category_id'];
-        $product->discount_id = $data['discount_id'];
         $product->product_slug = $data['product_slug'];
         $check = Product::where('product_name', $data['product_name'])->where('product_type_id', $data['product_type_id'])->where('category_id', $data['category_id'])->exists();
         if ($check) {
@@ -162,7 +146,6 @@ class ProductController extends Controller
         $product->product_type_id = $data['product_type_id'];
         $product->category_id = $data['category_id'];
         $product->product_slug = $data['product_slug'];
-        $product->discount_id=$data['discount_id'];
         $get_image = request('product_image');
         if ($get_image) {
             $path = public_path('uploads/product/');
@@ -320,7 +303,6 @@ class ProductController extends Controller
                 'product_slug' => 'required',
                 'product_image' => 'required|image',
                 'product_price' => 'required|numeric',
-                'discount_id'=>'required'
             ],
             [
                 'category_id.required' => 'Vui lòng chọn danh mục cần thêm',
@@ -331,7 +313,6 @@ class ProductController extends Controller
                 'product_name.required' => 'Vui lòng nhập thông tin',
                 'product_price.required' => 'Vui lòng nhập thông tin',
                 'product_price.numeric' => 'Vui lòng nhập số',
-                'discount_id.required'=>'Vui lòng chọn mã khuyến mãi'
             ]
         );
     }
@@ -345,7 +326,6 @@ class ProductController extends Controller
                 'product_name' => 'required',
                 'product_slug' => 'required',
                 'product_price' => 'required|numeric',
-                'discount_id'=>'required'
             ],
             [
                 'category_id.required' => 'Vui lòng chọn danh mục cần thêm',
@@ -354,7 +334,6 @@ class ProductController extends Controller
                 'product_name.required' => 'Vui lòng nhập thông tin',
                 'product_price.required' => 'Vui lòng nhập thông tin',
                 'product_price.numeric' => 'Vui lòng nhập số',
-                'discount_id.required'=>'Vui lòng chọn mã khuyến mãi'
             ]
         );
     }
