@@ -26,26 +26,26 @@
                         <div class="form-group {{ $errors->has('post_title') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên bài viết</label>
                             <input type="text" name="post_title" class="form-control" placeholder="Điền tên bài viết"
-                                id="slug" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('post_title') }}">
+                                id="slug" onkeyup="ChangeToSlug();" value="{{ old('post_title') }}">
                                 {!! $errors->first('post_title', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('post_slug') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Slug</label>
                             <input type="text" readonly name="post_slug" class="form-control" placeholder="Điền slug bài viết"
-                                id="convert_slug" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('post_slug') }}">
+                                id="convert_slug" value="{{ old('post_slug') }}">
                                 {!! $errors->first('post_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('post_content') ? 'has-error' : ''}}">
                             <label for="exampleInputPassword1">Nội dung bài viết</label>
                             <textarea name="post_content" style="resize:none" class="form-control" id="ckeditor2"
-                                placeholder="Điền nội dung bài viết" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin">
+                                placeholder="Điền nội dung bài viết">
                                 {{ old('post_content') }}
                             </textarea>
                             {!! $errors->first('post_content', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('post_image') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh bài viết</label>
-                            <input type="file" name="post_image" class="form-control" data-validation="required" data-validation-error-msg="Vui lòng thêm hình ảnh" value="{{ old('post_image') }}">
+                            <input type="file" name="post_image" class="form-control" value="{{ old('post_image') }}">
                             {!! $errors->first('post_image', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         

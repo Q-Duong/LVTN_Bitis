@@ -19,48 +19,6 @@
 </section>
 <!-- Breadcrumb Section End -->
 
-<!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="shopping__cart__table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Tạm tính</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="cart">
-
-                        </tbody>
-                    </table>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-4">
-                <div class="cart__discount">
-                </div>
-                <div class="cart__total">
-                    <h6>THÔNG TIN ĐƠN HÀNG</h6>
-                    <ul>
-                        <li>Tạm tính <span id="subtotal"></span></li>
-                        <li>Vận chuyển <span>MIỄN PHÍ</span></li>
-                        <li class="cart__total__border__top">Tổng Tiền <span id="total"></span></li>
-                        <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Checkout Section Begin -->
 <section class="checkout spad">
     <div class="container">
         <div class="checkout__form">
@@ -92,7 +50,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-7">
+                            <div class="col-lg-8">
                                 <div class="checkout__input">
                                     <p>Email<span>*</span></p>
                                     <input type="email" name="receiver_email"
@@ -101,7 +59,7 @@
                                     <div class="alert-error error hidden receiver_email"><i class="fa fa-exclamation-circle"></i> <span class="receiver_email_message"></span></div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
                                 <div class="checkout__input">
                                     <p>Số điện thoại<span>*</span></p>
                                     <input type="text" name="receiver_phone" placeholder="Điền số điện thoại"
@@ -174,18 +132,43 @@
                                     <div class="alert-error error hidden receiver_address"><i class="fa fa-exclamation-circle"></i> <span class="receiver_address_message"></span></div>
                                 </div>
                             </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="checkout__order">
+                                    <div class="checkout__order__products">
+                                        <p>Ghi chú đơn hàng</p>
+                                        <textarea name="receiver_note" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn (Không bắt buộc)"
+                                            rows="5" >{{ $order ->receiver ->receiver_note }}</textarea>
+                                    </div>
+                                    <button type="button" name="send_order " class="site-btn send_checkout_information"><i
+                                            class="fas fa-share-square"></i> Tiến đến phương thức thanh toán</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="col-lg-5 col-md-6">
-                        <div class="checkout__order">
-                            <div class="checkout__order__products">
-                                <p>Ghi chú đơn hàng<span style="color:#e53637;">*</span></p>
-                                <textarea name="receiver_note" class="shipping_notes" placeholder="Ghi chú đơn hàng của bạn (Không bắt buộc)"
-                                    rows="10" cols="42" style="resize: none;">{{ $order ->receiver ->receiver_note }}</textarea>
-                            </div>
-                            <button type="button" name="send_order " class="site-btn send_checkout_information"><i
-                                    class="fas fa-share-square"></i> Tiến đến phương thức thanh toán</button>
+                        <h6 class="checkout__title">THÔNG TIN ĐƠN HÀNG</h6>
+                        <div class="cart__total">
+                            <ul>
+                                <li>Tạm tính <span>{{number_format($order -> order_total, 0, ',', '.')}}₫</span></li>
+                                <li>Vận chuyển <span>MIỄN PHÍ</span></li>
+                                <li class="cart__total__border__top">Tổng Tiền <span>{{number_format($order -> order_total, 0, ',', '.')}}₫</span></li>
+                                <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span>
+                                </li>
+                            </ul>
+                        
+                            @foreach ($getAllOrderDetail as $key => $order_detail )
+                                <div class="cart-item">
+                                    <div class="cart-item-img">
+                                        <img class="" src="{{ URL::to('uploads/product/' . $order_detail -> wareHouse -> product -> product_image) }}" alt="{{$order_detail -> wareHouse -> product -> product_slug}}">
+                                    </div>
+                                    <div class="cart-item-content">
+                                        <p class="cart-item-content-title">{{$order_detail -> wareHouse -> product -> product_name}}</p>
+                                        <p class="cart-item-content-quantity">Số lượng : {{$order_detail -> order_detail_quantity}}</p>
+                                        <p class="cart-item-content-attribute">Màu : {{$order_detail -> wareHouse -> color -> color_name}} {{$order_detail -> wareHouse -> size -> size_attribute == 0 ? '' : '|| Size:' . $order_detail -> wareHouse -> size -> size_attribute}} </p>
+                                        <p class="cart-item-content-price">{{number_format($order_detail -> wareHouse -> product -> product_price, 0, ',', '.')}}₫</p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

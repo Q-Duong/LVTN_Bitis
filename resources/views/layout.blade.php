@@ -54,9 +54,6 @@
                         <a href="{{ URL::to('member/orders') }}">
                             <li><i class="fa fa-cog"></i> Đơn hàng</li>
                         </a>
-                        <a href="{{ URL::to('/member/settings') }}">
-                            <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
-                        </a>
                         <a href="{{ URL::to('/member/logout') }}" class="logout">
                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
                         </a>
@@ -133,9 +130,6 @@
                                         </a>
                                         <a href="{{ URL::to('member/orders') }}" class="member-orders">
                                             <li><i class="fa fa-cog"></i> Đơn hàng</li>
-                                        </a>
-                                        <a href="{{ URL::to('/member/settings') }}" class="member-settings">
-                                            <li><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</li>
                                         </a>
                                         <a href="{{ URL::to('/member/logout') }}" class="logout">
                                             <li><i class="fas fa-sign-out-alt"></i> Đăng xuất</li>
@@ -380,7 +374,7 @@
     </div>
 
     @if (session('success'))
-        <div class="notifications-popup-success active">
+        <div class="notifications-popup-success notifications-active">
             <div class="notifications-content">
                 <div class="notifications-icon">
                     <i class="fas fa-solid fa-check notifications-success"></i>
@@ -393,7 +387,7 @@
             <i class="fas fa-times notifications-close"></i>
         </div>
     @elseif(session('error'))
-        <div class="notifications-popup-error active">
+        <div class="notifications-popup-error notifications-active">
             <div class="notifications-content">
                 <div class="notifications-icon">
                     <i class="fas fa-times notifications-error"></i>
@@ -438,38 +432,39 @@
     {{-- <script src="{{ asset('frontend/js/jquery-validation.js') }}"></script> --}}
 
     <script type="text/javascript">
-         function successMsg(msg) {
-            $(".notifications-popup-success").addClass('active');
+        function successMsg(msg) {
+            $(".notifications-popup-success").addClass('notifications-active');
             $('.notifications-icon').html('<i class="fas fa-solid fa-check notifications-success"></i>')
             $(".message-text").text(msg);
             setTimeout(function() {
-                $('.notifications-popup-success').removeClass('active');
+                $('.notifications-popup-success').removeClass('notifications-active');
             }, 5000);
             $('.notifications-close').click(function() {
-                $('.notifications-popup-success').removeClass('active');
+                $('.notifications-popup-success').removeClass('notifications-active');
             });
         }
+
         function errorMsg(msg) {
-            $(".notifications-popup-error").addClass('active');
+            $(".notifications-popup-error").addClass('notifications-active');
             $('.notifications-icon').html('<i class="fas fa-times notifications-error"></i>')
             $(".message-text").text(msg);
             setTimeout(function() {
-                $('.notifications-popup-error').removeClass('active');
+                $('.notifications-popup-error').removeClass('notifications-active');
             }, 5000);
             $('.notifications-close').click(function() {
-                $('.notifications-popup-error').removeClass('active');
+                $('.notifications-popup-error').removeClass('notifications-active');
             });
         }
         $(document).ready(function() {
             setTimeout(function() {
-                $('.notifications-popup-success').removeClass('active');
+                $('.notifications-popup-success').removeClass('notifications-active');
             }, 5000);
             setTimeout(function() {
-                $('.notifications-popup-error').removeClass('active');
+                $('.notifications-popup-error').removeClass('notifications-active');
             }, 5000);
         });
         var check = '{{ Auth::check() }}';
-    
+
         $('#keywords').keyup(function() {
             var query = $(this).val();
 
@@ -509,10 +504,8 @@
             var size_id = $('.size input').first().val();
             $('.color').first().addClass("active");
             $('.color_id').first().prop("checked", true);
-            $('.product_color_id').val(color_id);
             $('.size').first().addClass("active");
             $('.size_id').first().prop("checked", true);
-            $('.product_size_id').val(size_id);
             $.ajax({
                 url: "{{ url('/get-ware-house-id') }}",
                 method: "POST",
@@ -625,7 +618,7 @@
                 var total = 0;
                 var cart_length = 0;
                 var length = data.length;
-                data.reverse();
+                data.reverse(); //đảo mảng
                 for (i = 0; i < data.length; i++) {
                     subtotal = data[i].price * data[i].quantity;
                     total += subtotal;
@@ -663,7 +656,7 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-
+            console.log(data_cart);
             dataObj = {};
             $(data_cart).each(function(i, field) {
                 dataObj[field.name] = field.value;
@@ -720,38 +713,37 @@
             // location.replace('http://127.0.0.1:8000/cart')
         })
         $(document).on('change', '.cart_quantity', function() {
+            var _token = $('input[name="_token"]').val();
             var quantity = $(this).val();
             var id = $(this).data('id');
-            var _token = $('input[name="_token"]').val();
             $.ajax({
-                    url: "{{ url('/cart-quantity') }}",
-                    method: 'POST',
-                    data: {
-                            id:id,
-                            quantity:quantity,                        
-                            _token: _token,
-                    },
-                    success: function(data) {
-                       if(data.success){
+                url: "{{ url('/check-quantity-cart') }}",
+                method: "POST",
+                data: {
+                    ware_house_quantity: quantity,
+                    ware_house_id: id,
+                    _token: _token
+                },
+                success: function(data) {
+                    if (data.success == true) {
                         var Items = JSON.parse(localStorage.getItem('cart')) || [];
                         var matches = Items.find(item => item.id == id);
                         if (matches) {
                             matches.quantity = parseInt(quantity);
-                            //alert('Đã cập nhật số lượng.');
                         }
                         localStorage.setItem('cart', JSON.stringify(Items));
-                        successMsg('Cập nhật thành công')
                         $('#cart').html('');
                         view_cart();
-                       }else{
-                        errorMsg('Cập nhật số lượng không thành công')
+                    } else {
                         $('#cart').html('');
                         view_cart();
-                       }                     
+                        errorMsg('Số lượng đặt đã vượt quá số lượng trong kho');
                     }
-                });
+                }
+            })
+
         });
-    
+
         $(document).ready(function() {
             $('#imageGallery').lightSlider({
                 gallery: true,
@@ -806,6 +798,7 @@
             var _token = $('input[name="_token"]').val();
             var Items = JSON.parse(localStorage.getItem('cart')) || [];
             var sessionId = JSON.parse(localStorage.getItem('sessionId')) || [];
+            console.log(Items);
             $.ajax({
                 url: "{{ url('/checkout') }}",
                 method: 'POST',
@@ -817,9 +810,9 @@
                 success: function(data) {
                     if (data.route == 'checkout') {
                         pushSessionId(data.order_code);
-                        window.location.href = "checkout/" + data.order_code;
+                        window.location.href = data.route + "/" + data.order_code;
                     } else {
-                        window.location.href = "payment/" + data.order_code;
+                        window.location.href = data.route + "/" + data.order_code;
                     }
                 }
             });
@@ -837,9 +830,9 @@
                     _token: _token
                 },
                 success: function(data) {
-                    if(data.role == 0){
+                    if (data.role == 0) {
                         window.location.href = data.route;
-                    }else{
+                    } else {
                         if (data.route == 'checkout') {
                             pushSessionId(data.order_code);
                             window.location.href = "checkout/" + data.order_code;
@@ -875,7 +868,7 @@
                     _token: _token,
                     color_id: color_id,
                     size_id: size_id,
-                    price_data:price_data,
+                    price_data: price_data,
                     category_id: category_id,
                 },
                 success: function(data) {
@@ -977,7 +970,112 @@
         $('.logout').click(function() {
             localStorage.removeItem('cart');
             localStorage.removeItem('sessionId');
-        })
+        });
+
+
+        $(document).ready(function () {
+            var itemsMainDiv = ('.category-product');
+            var itemsDiv = ('.category-product-inner');
+            var itemWidth = "";
+
+            $('.leftLst, .rightLst').click(function () {
+                var condition = $(this).hasClass("leftLst");
+                if (condition)
+                    click(0, this);
+                else
+                    click(1, this)
+            });
+
+            ResCarouselSize();
+            $(window).resize(function () {
+                ResCarouselSize();
+            });
+
+            //this function define the size of the items
+            function ResCarouselSize() {
+                var incno = 0;
+                var dataItems = ("data-items");
+                var itemClass = ('.category-product-item');
+                var id = 0;
+                var btnParentSb = '';
+                var itemsSplit = '';
+                var sampwidth = $(itemsMainDiv).width();
+                var bodyWidth = $('body').width();
+                $(itemsDiv).each(function () {
+                    id = id + 1;
+                    var itemNumbers = $(this).find(itemClass).length;
+                    btnParentSb = $(this).parent().attr(dataItems);
+                    itemsSplit = btnParentSb.split(',');
+                    $(this).parent().attr("id", "category-product" + id);
+                    
+                    if (bodyWidth >= 1200) {
+                        incno = itemsSplit[3];
+                        itemWidth = sampwidth / incno;
+                    }
+                    else if (bodyWidth >= 992) {
+                        incno = itemsSplit[2];
+                        itemWidth = sampwidth / incno;
+                    }else if (bodyWidth >= 768) {
+                        incno = itemsSplit[2];
+                        itemWidth = sampwidth / incno;
+                    }else {
+                        incno = itemsSplit[1];
+                        itemWidth = sampwidth / incno;
+                    }
+                    
+                    $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+                    $(this).find(itemClass).each(function () {
+                        $(this).outerWidth(itemWidth);
+                    });
+                    if(itemNumbers > 6){
+                        $(".leftLst").addClass("hidden");
+                        $(".rightLst").removeClass("hidden");
+                    }else{
+                        $(".leftLst").addClass("hidden");
+                        $(".rightLst").addClass("hidden");
+                    }
+                });
+            }
+
+
+            //this function used to move the items
+            function ResCarousel(e, el, s) {
+                var leftBtn = ('.leftLst');
+                var rightBtn = ('.rightLst');
+                var translateXval = '';
+                var divStyle = $(el + ' ' + itemsDiv).css('transform');
+                var values = divStyle.match(/-?[\d\.]+/g);
+                var xds = Math.abs(values[4]);
+                if (e == 0) {
+                    translateXval = parseInt(xds) - parseInt(itemWidth * s);
+                    $(el + ' ' + rightBtn).removeClass("hidden");
+
+                    if (translateXval <= itemWidth / 2) {
+                        translateXval = 0;
+                        $(el + ' ' + leftBtn).addClass("hidden");
+                    }
+                }
+                else if (e == 1) {
+                    var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+                    translateXval = parseInt(xds) + parseInt(itemWidth * s);
+                    $(el + ' ' + leftBtn).removeClass("hidden");
+
+                    if (translateXval >= itemsCondition - itemWidth / 2) {
+                        translateXval = itemsCondition;
+                        $(el + ' ' + rightBtn).addClass("hidden");
+                    }
+                }
+                $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+            }
+
+            //It is used to get some elements from btn
+            function click(ell, ee) {
+                var Parent = "#" + $(ee).parent().attr("id");
+                var slide = $(Parent).attr("data-slide");
+                ResCarousel(ell, Parent, slide);
+            }
+
+        });
     </script>
 </body>
 

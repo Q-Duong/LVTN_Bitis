@@ -17,22 +17,22 @@
                             method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Danh mục sản phẩm: <span class="content">{{$wareHouse -> product -> category -> category_name}}</span></label>
+                                <label for="exampleInputPassword1">Danh mục sản phẩm: <span class="content">{{$wareHouse ->product ->category ->category_name}}</span></label>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Loại sản phẩm: <span class="content">{{$wareHouse -> product -> productType -> product_type_name	}}</span></label>
+                                <label for="exampleInputPassword1">Loại sản phẩm: <span class="content">{{$wareHouse ->product ->productType ->product_type_name}}</span></label>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Tên sản phẩm: <span class="content">{{$wareHouse -> product -> product_name	}}</span></label>
+                                <label for="exampleInputPassword1">Tên sản phẩm: <span class="content">{{$wareHouse ->product ->product_name}}</span></label>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Màu sản phẩm: <span class="content">{{$wareHouse -> color -> color_name}}</span></label>
+                                <label for="exampleInputPassword1">Màu sản phẩm: <span class="content">{{$wareHouse ->color ->color_name}}</span></label>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Size sản phẩm: <span class="content">{{$wareHouse -> size -> size_attribute == 0 ? 'Không có size' : $wareHouse -> size -> size_attribute}}</span></label>
+                                <label for="exampleInputPassword1">Size sản phẩm: <span class="content">{{$wareHouse ->size ->size_attribute == 0 ? 'Không có size' : $wareHouse ->size ->size_attribute}}</span></label>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">SL sản phẩm: <input type="text" class="form-control" name="ware_house_quantity" placeholder="Số điện thoại" value="{{$wareHouse -> ware_house_quantity}}"></label>
+                                <label for="exampleInputPassword1">SL sản phẩm: <input type="number" min="0" class="form-control" name="ware_house_quantity" placeholder="Số điện thoại" value="{{$wareHouse ->ware_house_quantity}}"></label>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Tình trạng</label>

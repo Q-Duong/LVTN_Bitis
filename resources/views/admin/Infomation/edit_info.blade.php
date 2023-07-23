@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Bản đồ</label>
-                            <input type="text" value="{{$edit_value->info_map}}" name="info_map" class="form-control"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" value="{{$edit_value->info_map}}" name="info_map" class="form-control">
                         </div>
 
                         <button type="submit" name="update_info" class="btn btn-info">Cập nhật liên hệ</button>

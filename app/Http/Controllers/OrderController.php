@@ -7,7 +7,9 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Models\OrderDetail;
 use App\Models\Receiver;
+use App\Models\Statistics;
 use App\Models\WareHouse;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
@@ -168,12 +170,41 @@ class OrderController extends Controller
             }
         }
         
+        $order_date =Carbon::now('Asia/Ho_Chi_Minh')->toDateString();	
+		$statistic = Statistics::where('order_date',$order_date)->get();
+		
+		if($statistic){
+			$statistic_count = $statistic->count();	
+		}else{
+			$statistic_count = 0;
+		}	
+		if($order->order_status == 3 ){
+            $total_quantity = 0;
+            $order_detail = OrderDetail::where('order_id',$order->order_id)->get();
+                foreach ($order_detail as $key => $orderDetails) { 
+                    $total_quantity += $orderDetails -> order_detail_quantity;
+                }
+			if($statistic_count>0){
+				$statistic_update = Statistics::where('order_date',$order_date)->first();
+				$statistic_update->total_price += $order->order_total;
+				$statistic_update->total_quantity += $total_quantity;
+				$statistic_update->total_sale = $statistic_update->total_sale + 1;
+				$statistic_update->save();
+			}else{
+				$statistic_new = new Statistics();
+				$statistic_new->order_date = $order_date;
+				$statistic_new->total_price = $order->order_total;
+				$statistic_new->total_quantity =  $total_quantity;
+				$statistic_new->total_sale = 1;
+				$statistic_new->save();
+			}
+		}
+        
         return Redirect()->back()->with('success','Cập nhật thành công');
     }
     function delete_order($order_code){
         $order=Order::where('order_code',$order_code)->first();
         $receiver=Receiver::find($order->receiver_id);
-        // dd($receiver);
         $receiver->delete();
         return redirect()->back()->with('success','Xóa thành công');
     }

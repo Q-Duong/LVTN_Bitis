@@ -26,13 +26,13 @@
                         </div>
                         <div class="form-group {{ $errors->has('post_title') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên bài viết</label>
-                            <input type="text" name="post_title" class="form-control" placeholder="Điền tên bài viết" id="slug" onkeyup="ChangeToSlug();" value="{{$edit_value->post_title}}" ddata-validation="required" data-validation-error-msg="Vui lòng điền thông tin">
+                            <input type="text" name="post_title" class="form-control" placeholder="Điền tên bài viết" id="slug" onkeyup="ChangeToSlug();" value="{{$edit_value->post_title}}">
                             {!! $errors->first('post_title', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('post_slug') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Slug</label>
                             <input type="text" readonly name="post_slug" class="form-control" placeholder="Điền tên danh mục"
-                                id="convert_slug" value="{{$edit_value->post_slug}}" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin">
+                                id="convert_slug" value="{{$edit_value->post_slug}}">
                                 {!! $errors->first('post_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group">

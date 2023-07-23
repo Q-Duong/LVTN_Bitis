@@ -16,7 +16,7 @@ class UserController extends Controller
     }
     function list_user()
     {
-        $getAllListUser = User::orderBy('id', 'ASC')->where('role', 1)->get();
+        $getAllListUser = User::orderBy('id', 'ASC')->where('role', 2)->get();
         return view('admin.User.list_user')->with(compact('getAllListUser'));
     }
     function edit_user($user_id)

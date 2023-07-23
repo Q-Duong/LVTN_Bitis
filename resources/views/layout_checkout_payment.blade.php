@@ -199,11 +199,9 @@
             var receiver_address = $('input[name=receiver_address]').val();
             var receiver_note = $('.shipping_notes').val();
             var order_code = JSON.parse(localStorage.getItem('sessionId')) || [];
-
             $('.error').addClass('hidden');
             $(".send_checkout_information").attr("disabled", true);
             $("#loading").show();
-
             $.ajax({
                 url: "{{ url('/save-checkout-information') }}",
                 method: 'POST',
@@ -234,7 +232,6 @@
                     }
                 },
                 complete: () => $(".send_checkout_information").removeAttr("disabled")
-
             });
         });
 

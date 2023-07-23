@@ -375,7 +375,7 @@
         </div>
         <div class="row">
             @foreach ($relate as $key => $lienquan)
-                <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-6"> 
                     <a class="heart" type="button" id="{{ $lienquan->product_id }}"
                         onclick="add_wistlist(this.id);">
                         <i class="far fa-heart"></i>

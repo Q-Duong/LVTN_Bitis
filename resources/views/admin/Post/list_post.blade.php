@@ -16,7 +16,7 @@
                         <th>Hình bài viết</th>
                         <!-- <th style="table-layout: fixed;">Tóm tắt bài viết</th>
                         <th style="table-layout: fixed;">Nội dung bài viết</th> -->
-                        <th style="width:60px;">Quản lý</th>
+                        <th style="width:100px;">Quản lý</th>
                     </tr>
                 </thead>
                 <tbody>
