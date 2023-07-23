@@ -17,7 +17,7 @@
                         @csrf
                         <div class="form-group {{ $errors->has('category_id') ? 'has-error' : ''}}" >
                             <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                            <select name="category_id" data-id_category="0"  class="form-control m-bot15 choose_category">
+                            <select name="category_id" class="form-control m-bot15 change_category">
                                 <option value="">--Chọn Danh Mục--</option>
                                 @foreach($getAllCategory as $key =>$category)
                                 <option value="{{$category->category_id}}">{{$category->category_name}}</option>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('product_type_id') ? 'has-error' : ''}}">
                             <label for="exampleInputPassword1">Loại sản phẩm</label>
-                            <select name="product_type_id" data-id_type="0" class="form-control m-bot15 choose_product_type">
+                            <select name="product_type_id" class="form-control m-bot15 change_product_type">
                                 <option value="">--Chọn Loại Sản Phẩm--</option>
                             </select>
                             {!! $errors->first('product_type_id', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
@@ -35,7 +35,7 @@
                         
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>
-                            <input type="text" name="product_name" class="form-control" id="slug" onkeyup="ChangeToSlug();" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_name') }}">
+                            <input type="text" name="product_name" class="form-control" id="slug" onkeyup="ChangeToSlug();" value="{{ old('product_name') }}">
                                 {!! $errors->first('product_name', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('product_slug') ? 'has-error' : ''}}">

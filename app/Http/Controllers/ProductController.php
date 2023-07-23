@@ -11,7 +11,6 @@ use App\Models\Rating;
 use App\Models\WareHouse;
 use File;
 use Illuminate\Support\Facades\Redirect;
-use DB;
 
 
 class ProductController extends Controller
@@ -33,6 +32,21 @@ class ProductController extends Controller
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
         return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory'));
     }
+    public function change_category(Request $request)
+    {
+        $data = $request->all();
+        $getAllListProductType = '';
+        
+        $select_product_type = CategoryType::where('category_id', $data['category_id'])->get();
+        if ($select_product_type->count() > 0) {
+            foreach ($select_product_type as $key => $product_type) {
+                $getAllListProductType .= '<option value="' . $product_type->product_type_id . '">' . $product_type->productType->product_type_name . '</option>';
+            }
+        } else {
+            $getAllListProductType .= '<option value="">--Chọn Danh Mục--</option>';
+        }
+        return response()->json(array('getAllListProductType' => $getAllListProductType));
+    }
     public function select_category(Request $request)
     {
         $data = $request->all();
@@ -51,7 +65,6 @@ class ProductController extends Controller
 
         $select_product = Product::where('category_id', $data['category_id'])->where('product_type_id', $select_product_type[0]->product_type_id)->orderBy('product_id', 'ASC')->get();
         $select_warehouse = WareHouse::where('product_id', $select_product[0]->product_id)->orderBy('ware_house_id', 'asc')->get();
-        //dd($select_warehouse );
         if ($select_product->count() > 0) {
             foreach ($select_product as $key => $product) {
                 $getAllListProduct .= '<option value="' . $product->product_id . '">' . $product->product_name . '</option>';
@@ -236,15 +249,13 @@ class ProductController extends Controller
             foreach ($data['color_id'] as $key => $color) {
                 $color_array[] = $color . ',';
             }
-            $filter = DB::table('ware_house')
-                ->join('product', 'product.product_id', '=', 'ware_house.product_id')
+            $filter = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
                 ->join('category', 'product.category_id', '=', 'category.category_id')
                 ->where('category.category_id', '=', $data['category_id'])
                 ->whereIn('ware_house.color_id', $color_array)
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
                 ->orderBy('ware_house.product_id', 'ASC')
                 ->get();
-                dd($filter);
             if (count($filter) > 0) {
                 $filter_unique = $filter->unique('product_id');
                 $html = view('pages.category.show_category_render')->with(compact('filter_unique'))->render();
@@ -256,8 +267,7 @@ class ProductController extends Controller
             foreach ($data['size_id'] as $key => $size) {
                 $size_array[] = $size . ',';
             }
-            $filter = DB::table('ware_house')
-                ->join('product', 'product.product_id', '=', 'ware_house.product_id')
+            $filter = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
                 ->join('category', 'category.category_id', '=', 'product.category_id')
                 ->where('product.category_id', $data['category_id'])
                 ->whereIn('size_id', $size_array)
@@ -271,8 +281,7 @@ class ProductController extends Controller
                 $html = view('pages.category.show_empty_render')->render();
             }
         } else if (empty($data['size_id']) && empty($data['color_id'])) {
-            $filter = DB::table('ware_house')
-                ->join('product', 'product.product_id', '=', 'ware_house.product_id')
+            $filter = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
                 ->join('category', 'category.category_id', '=', 'product.category_id')
                 ->where('product.category_id', $data['category_id'])
                 ->whereBetween('product.product_price', [(int) $min, (int) $max])
@@ -293,8 +302,7 @@ class ProductController extends Controller
             foreach ($data['color_id'] as $key => $color) {
                 $color_array[] = $color . ',';
             }
-            $filter = DB::table('ware_house')
-                ->join('product', 'product.product_id', '=', 'ware_house.product_id')
+            $filter = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
                 ->join('category', 'category.category_id', '=', 'product.category_id')
                 ->where('category.category_id', $data['category_id'])
                 ->whereIn('ware_house.color_id', $color_array)
