@@ -12,89 +12,20 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ route('save-import-order') }}" method="post">
+                        <form role="form" action="{{ route('save-import-order-id') }}" method="post">
                             @csrf
                             <input type="hidden" name="import_order_id" value="{{ $import_order->import_order_id }}">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nhân viên nhập hàng</label>
-                                <input type="text" name="user_id" class="form-control"
+                                <input type="text" class="form-control"
                                     value="{{ $import_order->user->profile->profile_firstname }} {{ $import_order->user->profile->profile_lastname }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tổng tiền đơn hàng</label>
                                 <input type="text" value="" name="import_order_total" class="form-control">
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="exampleInputPassword1">Tìm kiếm sản phẩm</label>
-                                
-                            </div>
-                            <div class="searchInput active">
-                                <input type="text" id="keywords" name="keywords_submit" placeholder="Saisir une adresse..">
-                                <div class="resultBox">
-                                </div>
-                                <div class="icon"><i class="fas fa-search"></i></div>
-                            </div> --}}
-
-                            <!-- Review Popup -->
-                            <div class="popup-model-review">
-                                <div class="overlay-model-review"></div>
-                                <div class="model-review-content">
-                                    <div class="model-review-close">
-                                        <p class="model-review-tile">Đánh giá sản phẩm</p>
-                                        <p class="close-model"><i class="fas fa-times"></i></p>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="form-group section-category">
-                                            <label>Danh mục sản phẩm</label>
-                                            <select name="category_id" class="form-control m-bot15 choose_category">
-                                                <option value="">--Chọn Danh Mục--</option>
-                                                @foreach ($getAllCategory as $key => $category)
-                                                    <option value="{{ $category->category_id }}">
-                                                        {{ $category->category_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Loại sản phẩm</label>
-                                            <select name="product_type_id" class="form-control m-bot15 choose_product_type">
-                                                <option value="">--Chọn Loại Sản Phẩm--</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Sản phẩm</label>
-                                            <select name="product_id" class="form-control m-bot15 choose_product">
-                                                <option value="">--Chọn Sản Phẩm--</option>
-                                            </select>
-                                        </div>
-                                        <form id="import-order-detail">
-                                            <div class="form-group">
-                                                <label>Kho hàng</label>
-                                                <select name="ware_house_id"
-                                                    class="form-control m-bot15 choose_ware_house ware_house_id">
-                                                    <option value="">--Chọn Sản Phẩm Trong Kho--</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Số lượng</label>
-                                                <input type="number" value="1" min="1"
-                                                    name="import_order_detail_quantity" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Đơn giá</label>
-                                                <input type="text" name="import_order_detail_price" class="form-control">
-                                            </div>
-                                            <button type="button" name="send-rating"
-                                                class="btn btn-info send-import-order-detail">
-                                                Thêm chi tiết sản phẩm
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--End Review Popup -->
-                            <button type="button" name="add_product" class="btn btn-info ">Lưu chi
+                            <button type="submit" name="add_product" class="btn btn-info ">Lưu chi
                                 tiết đơn nhập</button>
-
                         </form>
                     </div>
                 </div>
@@ -112,6 +43,63 @@
                 <div class="panel-body list-order-detail">
                 </div>
             </section>
+            <!-- Review Popup -->
+            <div class="popup-model-review">
+                <div class="overlay-model-review"></div>
+                <div class="model-review-content">
+                    <div class="model-review-close">
+                        <p class="model-review-tile">Đánh giá sản phẩm</p>
+                        <p class="close-model"><i class="fas fa-times"></i></p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group section-category">
+                            <label>Danh mục sản phẩm</label>
+                            <select name="category_id" class="form-control m-bot15 choose_category">
+                                <option value="">--Chọn Danh Mục--</option>
+                                @foreach ($getAllCategory as $key => $category)
+                                    <option value="{{ $category->category_id }}">
+                                        {{ $category->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Loại sản phẩm</label>
+                            <select name="product_type_id" class="form-control m-bot15 choose_product_type">
+                                <option value="">--Chọn Loại Sản Phẩm--</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Sản phẩm</label>
+                            <select name="product_id" class="form-control m-bot15 choose_product">
+                                <option value="">--Chọn Sản Phẩm--</option>
+                            </select>
+                        </div>
+                        <form id="import-order-detail">
+                            <div class="form-group">
+                                <label>Kho hàng</label>
+                                <select name="ware_house_id"
+                                    class="form-control m-bot15 choose_ware_house ware_house_id">
+                                    <option value="">--Chọn Sản Phẩm Trong Kho--</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Số lượng</label>
+                                <input type="number" value="1" min="1"
+                                    name="import_order_detail_quantity" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Đơn giá</label>
+                                <input type="text" name="import_order_detail_price" class="form-control">
+                            </div>
+                            <button type="button" name="send-rating"
+                                class="btn btn-info send-import-order-detail">
+                                Thêm chi tiết sản phẩm
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--End Review Popup -->
         </div>
     </div>
 @endsection

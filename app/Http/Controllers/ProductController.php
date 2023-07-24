@@ -8,6 +8,7 @@ use App\Models\CategoryType;
 use App\Models\Product;
 use App\Models\Gallery;
 use App\Models\Rating;
+use App\Models\Discount;
 use App\Models\WareHouse;
 
 use File;
@@ -19,8 +20,8 @@ class ProductController extends Controller
     function add_product()
     {
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
-        
-        return view('admin.Product.add_product')->with(compact('getAllCategory'));
+        $getDiscount = Discount::orderBy('discount_id','asc')->get();
+        return view('admin.Product.add_product')->with(compact('getAllCategory','getDiscount'));
     }
     function list_product()
     {
@@ -32,8 +33,9 @@ class ProductController extends Controller
         $edit_value = Product::find($product_id);
         $getAllProductType = CategoryType::where('category_id', $edit_value->category_id)->get();
         $getAllCategory = Category::orderBy('category_id', 'asc')->get();
+        $getDiscount = Discount::orderBy('discount_id','asc')->get();
         
-        return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory'));
+        return view('admin.Product.edit_product')->with(compact('edit_value', 'getAllProductType', 'getAllCategory','getDiscount'));
     }
     public function change_category(Request $request)
     {
@@ -129,7 +131,6 @@ class ProductController extends Controller
     {
         $this->checkProductAdmin($request);
         $data = $request->all();
-
         $product = new Product();
         $product->product_name = $data['product_name'];
         $product->product_price = $data['product_price'];
@@ -138,6 +139,7 @@ class ProductController extends Controller
         $product->product_type_id = $data['product_type_id'];
         $product->category_id = $data['category_id'];
         $product->product_slug = $data['product_slug'];
+        $product->discount_id = $data['discount_id']; 
         $check = Product::where('product_name', $data['product_name'])->where('product_type_id', $data['product_type_id'])->where('category_id', $data['category_id'])->exists();
         if ($check) {
             return Redirect()->back()->with('error', 'Tên sản phẩm đã tồn tại,vui lòng nhập lại')->withInput();
@@ -174,6 +176,7 @@ class ProductController extends Controller
         $product->product_type_id = $data['product_type_id'];
         $product->category_id = $data['category_id'];
         $product->product_slug = $data['product_slug'];
+        $product->discount_id = $data['discount_id'];     
         $get_image = request('product_image');
         if ($get_image) {
             $path = public_path('uploads/product/');

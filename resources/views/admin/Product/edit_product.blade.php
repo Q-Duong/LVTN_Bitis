@@ -39,6 +39,19 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Khuyến mãi</label>
+                                <select name="discount_id" class="form-control m-bot15">
+                                    <option value="0" {{$edit_value->discount_id == 0 ? 'selected':''}}>Trống</option>
+                                    @foreach ($getDiscount as $key => $discount)
+                                        <option
+                                            {{ $edit_value->discount_id == $discount->discount_id ? 'selected' : '' }}
+                                            value="{{ $discount->discount_id }}">
+                                            {{ $discount->discount_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             
                             <div class="form-group {{ $errors->has('product_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên sản phẩm</label>

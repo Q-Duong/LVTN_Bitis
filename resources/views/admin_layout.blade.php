@@ -1004,8 +1004,6 @@
         });
 
         //Order Detail
-        load_order_detail()
-
         function load_order_detail() {
             var order_id = $('input[name="order_id"]').val();
             var _token = $('input[name="_token"]').val();
@@ -1049,8 +1047,6 @@
         //End Order Detail
 
         //Import Order Detail
-        load_import_order_detail()
-
         function load_import_order_detail() {
             var import_order_id = $('input[name="import_order_id"]').val();
             var _token = $('input[name="_token"]').val();
@@ -1084,7 +1080,8 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        load_import_order_detail()
+                        load_import_order_detail();
+
                     }
                 }
             });
