@@ -93,7 +93,6 @@ class LoginController extends Controller
     {
         $city = City::orderBy('city_name','asc')->get();
         if(!empty(Auth::user()->delivery->delivery_id)){
-            
             $district = District::where('city_id',Auth::user()->delivery->city_id)->get();
             $ward = Ward::where('district_id',Auth::user()->delivery->district_id)->get();
             return view('pages.login.account_delivery_address')->with(compact('city','district','ward'));
