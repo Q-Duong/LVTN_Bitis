@@ -766,8 +766,7 @@
                 var action = $(this).attr('id');
                 var select_id = $(this).val();
                 var _token = $('input[name="_token"]').val();
-                var result = '';
-
+                var result = ''
                 if (action == 'city') {
                     result = 'district';
                 } else {
