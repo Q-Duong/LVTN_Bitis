@@ -149,9 +149,9 @@
                         <h6 class="checkout__title">THÔNG TIN ĐƠN HÀNG</h6>
                         <div class="cart__total">
                             <ul>
-                                <li>Tạm tính <span>{{number_format($order -> order_total, 0, ',', '.')}}₫</span></li>
+                                <li>Tạm tính <span>{{number_format($order ->order_total, 0, ',', '.')}}₫</span></li>
                                 <li>Vận chuyển <span>MIỄN PHÍ</span></li>
-                                <li class="cart__total__border__top">Tổng Tiền <span>{{number_format($order -> order_total, 0, ',', '.')}}₫</span></li>
+                                <li class="cart__total__border__top">Tổng Tiền <span>{{number_format($order ->order_total, 0, ',', '.')}}₫</span></li>
                                 <li class="cart__total__border__bottom"><span class="tax-section">Bao gồm thuế GTGT 10%</span>
                                 </li>
                             </ul>
@@ -159,13 +159,13 @@
                             @foreach ($getAllOrderDetail as $key => $order_detail )
                                 <div class="cart-item">
                                     <div class="cart-item-img">
-                                        <img class="" src="{{ URL::to('uploads/product/' . $order_detail -> wareHouse -> product -> product_image) }}" alt="{{$order_detail -> wareHouse -> product -> product_slug}}">
+                                        <img src="{{ URL::to('uploads/product/' . $order_detail -> wareHouse -> product -> product_image) }}" alt="{{$order_detail -> wareHouse -> product -> product_slug}}">
                                     </div>
                                     <div class="cart-item-content">
-                                        <p class="cart-item-content-title">{{$order_detail -> wareHouse -> product -> product_name}}</p>
-                                        <p class="cart-item-content-quantity">Số lượng : {{$order_detail -> order_detail_quantity}}</p>
-                                        <p class="cart-item-content-attribute">Màu : {{$order_detail -> wareHouse -> color -> color_name}} {{$order_detail -> wareHouse -> size -> size_attribute == 0 ? '' : '|| Size:' . $order_detail -> wareHouse -> size -> size_attribute}} </p>
-                                        <p class="cart-item-content-price">{{number_format($order_detail -> wareHouse -> product -> product_price, 0, ',', '.')}}₫</p>
+                                        <p class="cart-item-content-title">{{$order_detail ->wareHouse ->product ->product_name}}</p>
+                                        <p class="cart-item-content-quantity">Số lượng : {{$order_detail ->order_detail_quantity}}</p>
+                                        <p class="cart-item-content-attribute">Màu : {{$order_detail ->wareHouse ->color ->color_name}} {{$order_detail ->wareHouse ->size ->size_attribute == 0 ? '' : '|| Size:' . $order_detail ->wareHouse ->size ->size_attribute}} </p>
+                                        <p class="cart-item-content-price">{{number_format($order_detail ->wareHouse ->product ->product_price, 0, ',', '.')}}₫</p>
                                     </div>
                                 </div>
                             @endforeach

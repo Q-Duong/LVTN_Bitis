@@ -40,7 +40,10 @@
                     </div>
                     <div class="account-setting">
                         <div class="account-setting-title">Chỉnh sửa</div>
-                        <div class="account-setting-option">
+                        @php
+                            $route = Route::current();
+                        @endphp
+                        <div class="account-setting-option {{ $route->uri == 'member/profile' ? 'active' : '' }}">
                             <a href="{{ URL::to('/member/profile') }}">
                                 <span class="account-setting-option-icon">
                                     <svg aria-hidden="true" focusable="false" viewBox="0 0 48 48" role="img"
@@ -70,7 +73,7 @@
                                 <span class="account-setting-option-title">Cập nhật thông tin tài khoản</span>
                             </a>
                         </div>
-                        <div class="account-setting-option">
+                        <div class="account-setting-option ">
                             <a href="{{ URL::to('/member/orders') }}">
                                 <span class="account-setting-option-icon">
                                     <svg aria-hidden="true" focusable="false" viewBox="0 0 48 48" role="img"
@@ -96,36 +99,6 @@
                                     </svg>
                                 </span>
                                 <span class="account-setting-option-title">Địa chỉ giao hàng</span>
-                            </a>
-                        </div>
-                        <div class="account-setting-option">
-                            <a href="#">
-                                <span class="account-setting-option-icon">
-                                    <svg aria-hidden="true" focusable="false" viewBox="0 0 48 48" role="img"
-                                        width="25px" height="25px" fill="none">
-                                        <path stroke="currentColor" stroke-width="3"
-                                            d="M39.135 12.201L27.177 24.16a4.503 4.503 0 01-6.364 0l-11.1-11.098c-.944-.944-.276-2.562 1.062-2.562h25.226c2.484 0 4.5 2.016 4.5 4.5v18a4.5 4.5 0 01-4.5 4.5h-24a4.5 4.5 0 01-4.5-4.5V18">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <span class="account-setting-option-title">Tùy chọn giao tiếp</span>
-                            </a>
-                        </div>
-                        <div class="account-setting-option">
-                            <a href="#">
-                                <span class="account-setting-option-icon">
-                                    <svg aria-hidden="true" focusable="false" viewBox="0 0 48 48" role="img"
-                                        width="25px" height="25px" fill="none">
-                                        <path stroke="currentColor" stroke-width="3"
-                                            d="M4.5 42v-6a7.5 7.5 0 017.5-7.5h12a7.5 7.5 0 017.5 7.5v6"></path>
-                                        <path stroke="currentColor" stroke-width="3"
-                                            d="M25.5 15a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" clip-rule="evenodd">
-                                        </path>
-                                        <path stroke="currentColor" stroke-width="3"
-                                            d="M45.91 18.334l-9.546 9.546-5.304-5.302"></path>
-                                    </svg>
-                                </span>
-                                <span class="account-setting-option-title">Sự riêng tư</span>
                             </a>
                         </div>
                     </div>
