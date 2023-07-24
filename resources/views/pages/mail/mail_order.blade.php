@@ -28,7 +28,7 @@
                 <div class="col-md-6 logo">
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Chào bạn 
                         <strong style="color: #0071e3; text-decoration: none; font-weight: 400;">
-                            {{$order -> receiver -> receiver_first_name}} {{$order -> receiver -> receiver_last_name}}.
+                            {{$order ->receiver ->receiver_first_name}} {{$order ->receiver ->receiver_last_name}}.
                         </strong>
                     </p>
                 </div>
@@ -38,7 +38,7 @@
                     <h4 style="color: #222; text-transform: uppercase; margin-top: 35px;">Thông tin đơn hàng</h4>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;"><strong>Mã đơn hàng :</strong>
                         <span style="color:#0071e3">
-                            {{$order -> order_code}}
+                            {{$order ->order_code}}
                         </span>
                     </p>
                     
@@ -46,29 +46,29 @@
 
                     <h4 style="color: #222; text-transform: uppercase; margin-top: 35px;">Thông tin người nhận</h4>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Email :
-                        <span style="color:#0071e3">{{$order -> receiver -> receiver_email}}</span>
+                        <span style="color:#0071e3">{{$order ->receiver ->receiver_email}}</span>
                     </p>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Họ và tên khách hàng :
-                        <span style="color:#0071e3">{{$order -> receiver -> receiver_first_name}} {{$order -> receiver -> receiver_last_name}}.</span>
+                        <span style="color:#0071e3">{{$order ->receiver ->receiver_first_name}} {{$order ->receiver ->receiver_last_name}}.</span>
                     </p>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Địa chỉ nhận hàng :
                         <span style="color:#0071e3">
-                            {{ $order -> receiver -> receiver_address }},
-                            {{ $order -> receiver -> ward -> ward_name }},
-                            {{ $order -> receiver -> district -> district_name }},
-                            {{ $order -> receiver -> city -> city_name }}</span>
+                            {{ $order ->receiver ->receiver_address }},
+                            {{ $order ->receiver ->ward ->ward_name }},
+                            {{ $order ->receiver ->district ->district_name }},
+                            {{ $order ->receiver ->city ->city_name }}</span>
                     </p>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Số điện thoại :
-                        <span style="color:#0071e3">{{$order -> receiver -> receiver_phone}}</span>
+                        <span style="color:#0071e3">{{$order ->receiver ->receiver_phone}}</span>
                     </p>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Ghi chú đơn hàng :
                         <span style="color:#0071e3">
-                            {{$order -> receiver -> receiver_note == '' ? 'Không có thông tin' : $order -> receiver -> receiver_note}}
+                            {{$order ->receiver ->receiver_note == '' ? 'Không có thông tin' : $order ->receiver ->receiver_note}}
                         </span>
                     </p>
                     <p style="color: #rgb(102,102,102);text-transform: uppercase;">Hình thức thanh toán :
                         <span style="text-transform: none;color: #0071e3">
-                            {{$order -> order_payment_type == 0 ? 'Thanh toán khi nhận hàng' : 'MoMo'}}
+                            {{$order ->order_payment_type == 0 ? 'Thanh toán khi nhận hàng' : 'MoMo'}}
                         </span>
                     </p>
                     <h4 style="color: #222;text-transform: uppercase; margin-top: 35px;">Sản phẩm đã đặt</h4>
@@ -86,12 +86,12 @@
 
                                 @foreach($order_detail as $order_del)
                                 @php
-                                $sub_total = $order_del -> wareHouse -> product -> product_price * $order_del -> order_detail_quantity;
+                                $sub_total = $order_del ->wareHouse ->product ->product_price * $order_del ->order_detail_quantity;
                                 @endphp
                                 <tr>
-                                    <td>{{$order_del -> wareHouse -> product -> product_name}}</td>
-                                    <td>{{number_format($order_del -> wareHouse -> product -> product_price,0,',','.')}}₫</td>
-                                    <td>{{$order_del -> order_detail_quantity}}</td>
+                                    <td>{{$order_del ->wareHouse ->product ->product_name}}</td>
+                                    <td>{{number_format($order_del ->wareHouse ->product ->product_price,0,',','.')}}₫</td>
+                                    <td>{{$order_del ->order_detail_quantity}}</td>
                                     <td>{{number_format($sub_total,0,',','.')}}₫</td>
                                 </tr>
                                 @endforeach
@@ -111,7 +111,7 @@
                                         Tổng tiền hàng:
                                     </td>
                                     <td colspan="1" align="left">
-                                        {{number_format($order -> order_total,0,',','.')}}₫
+                                        {{number_format($order ->order_total,0,',','.')}}₫
                                     </td>
                                 </tr>
                             </tbody>

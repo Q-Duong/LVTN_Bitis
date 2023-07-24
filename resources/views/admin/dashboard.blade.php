@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="market-updates">
         <div class="col-md-3 market-update-gd">
-            <a href="{{URL::to('/list-customer')}}">
+            <a href="{{URL::to('/admin/user/list')}}">
                 <div class="market-update-block clr-block-1">
                     <div class="col-md-4 market-update-right">
                         <i class="fa fa-users"></i>
@@ -18,7 +18,7 @@
             </a>
         </div>
         <div class="col-md-3 market-update-gd">
-            <a href="{{URL::to('/all-product')}}">
+            <a href="{{URL::to('/admin/product/list')}}">
                 <div class="market-update-block clr-block-3">
                     <div class="col-md-4 market-update-right">
                         <i class="fa fa-usd"></i>
@@ -33,7 +33,7 @@
             </a>
         </div>
         <div class="col-md-3 market-update-gd">
-            <a href="{{URL::to('/manage-order')}}">
+            <a href="{{URL::to('/admin/order/list')}}">
                 <div class="market-update-block clr-block-4">
                     <div class="col-md-4 market-update-right">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -48,7 +48,7 @@
             </a>
         </div>
         <div class="col-md-3 market-update-gd">
-            <a href="{{URL::to('/list-post')}}">
+            <a href="{{URL::to('/admin/post/list')}}">
                 <div class="market-update-block clr-block-2">
                     <div class="col-md-4 market-update-right">
                         <i class="fab fa-blogger-b"></i>

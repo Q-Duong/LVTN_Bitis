@@ -779,7 +779,6 @@
                 var select_id = $(this).val();
                 var _token = $('input[name="_token"]').val();
                 var result = '';
-
                 if (action == 'city') {
                     result = 'district';
                 } else {
@@ -859,6 +858,7 @@
             var _token = $('input[name=_token]').val();
             var category_id = $('.category_id').val();
             var color_id = [];
+            // console.log(category_id);
             var size_id = [];
             var price_data = {};
             var min = $('#min-price').val();
