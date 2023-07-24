@@ -32,6 +32,15 @@
                             </select>
                             {!! $errors->first('product_type_id', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Khuyến mãi</label>
+                            <select name="discount_id" class="form-control m-bot15">
+                                <option value="0">Trống</option>
+                                @foreach($getDiscount as $key =>$discount)
+                                <option value="{{$discount->discount_id}}">{{$discount->discount_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         
                         <div class="form-group {{ $errors->has('product_name') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>
