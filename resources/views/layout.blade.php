@@ -186,6 +186,18 @@
                                         </ul>
                                     </li>
                                 @endforeach
+                                <li class="nav-item"><a href="{{ asset(URL::to('/collections/discount')) }}">Khuyến mãi</a>
+                                    <ul class="dropdown">
+                                        @foreach ($getAllListCategoryPost as $key => $discount)
+                                            <li>
+                                                <a
+                                                    href="{{ asset(URL::to('/collections/discount/' . $discount -> discount_slug)) }}">
+                                                    {{ $discount->discount_name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                                 <li class="nav-item"><a>Tin tức</a>
                                     <ul class="dropdown">
                                         @foreach ($getAllListCategoryPost as $key => $categoryPost)

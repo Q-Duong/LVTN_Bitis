@@ -173,8 +173,9 @@ class CheckoutController extends Controller
         ) {
             return Redirect::to('checkout/' . $order_code);
         } else {
+            $getAllOrderDetail = OrderDetail::where('order_id', $order->order_id)->get();
             $code = $order_code;
-            return view('pages.checkout.payment')->with(compact('code'));
+            return view('pages.checkout.payment')->with(compact('order','code','getAllOrderDetail'));
         }
     }
     public function payment_method(Request $request)

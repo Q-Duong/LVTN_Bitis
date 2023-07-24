@@ -159,7 +159,7 @@
                             @foreach ($getAllOrderDetail as $key => $order_detail )
                                 <div class="cart-item">
                                     <div class="cart-item-img">
-                                        <img class="" src="{{ URL::to('uploads/product/' . $order_detail -> wareHouse -> product -> product_image) }}" alt="{{$order_detail -> wareHouse -> product -> product_slug}}">
+                                        <img src="{{ URL::to('uploads/product/' . $order_detail -> wareHouse -> product -> product_image) }}" alt="{{$order_detail -> wareHouse -> product -> product_slug}}">
                                     </div>
                                     <div class="cart-item-content">
                                         <p class="cart-item-content-title">{{$order_detail -> wareHouse -> product -> product_name}}</p>

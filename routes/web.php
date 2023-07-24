@@ -245,10 +245,10 @@ Route::get('/wistlist', 'App\Http\Controllers\HomeController@wistlist');
 
 //Category
 Route::get('collections/{category_slug}', 'App\Http\Controllers\CategoryController@show_category_details');
-
+Route::get('collections/discount', 'App\Http\Controllers\CategoryController@show_category_discount');
 //ProductType
 Route::get('collections/{category_slug}/{product_type_slug}', 'App\Http\Controllers\ProductTypeController@show_product_type_details');
-
+Route::get('collections/discount/{discount_slug}', 'App\Http\Controllers\CategoryController@show_discount_details');
 //CategoryPost
 Route::get('blogs/{category_post_slug}', 'App\Http\Controllers\CategoryPostController@show_category_post');
 
