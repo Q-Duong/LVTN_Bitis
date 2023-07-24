@@ -380,6 +380,27 @@
                         </li>
                         <li class="sub-menu">
                             <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/discount/add' || $route->uri == 'admin/discount/list' ? 'active' : '' }}">
+                                <i class="fas fa-palette"></i>
+                                <span>Quản lý khuyến mãi</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/admin/discount/add') }}"
+                                        class="{{ $route->uri == 'admin/color/add' ? 'active' : '' }}">
+                                        <i class="fa fa-plus"></i> Thêm khuyến mãi
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/admin/discount/list') }}"
+                                        class="{{ $route->uri == 'admin/color/list' ? 'active' : '' }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý khuyến mãi
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/user/add' || $route->uri == 'admin/user/list' ? 'active' : '' }}">
                                 <i class="fa fa-users"></i>
                                 <span>Danh sách khách hàng</span>

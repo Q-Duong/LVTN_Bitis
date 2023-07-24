@@ -40,18 +40,19 @@
                         </div>
                         <div class="form-group {{ $errors->has('product_slug') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Slug</label>
-                            <input type="text" readonly name="product_slug" class="form-control" id="convert_slug" data-validation="required" data-validation-error-msg="Vui lòng điền thông tin" value="{{ old('product_slug') }}">
+                            <input type="text" readonly name="product_slug" class="form-control" id="convert_slug" value="{{ old('product_slug') }}">
                                 {!! $errors->first('product_slug', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
+                         
 
                         <div class="form-group {{ $errors->has('product_image') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
-                            <input type="file" name="product_image" class="form-control" id="file" data-validation="required" data-validation-error-msg="Vui lòng thêm hình ảnh" value="{{ old('product_image') }}">
+                            <input type="file" name="product_image" class="form-control" id="file" value="{{ old('product_image') }}">
                             {!! $errors->first('product_image', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
                         <div class="form-group {{ $errors->has('product_price') ? 'has-error' : ''}}">
                             <label for="exampleInputEmail1">Giá sản phẩm</label>
-                            <input type="text" name="product_price" class="form-control " data-validation="number" data-validation-error-msg="Vui lòng điền thông tin(Phải là số và lớn hơn 0)" value="{{ old('product_price') }}">
+                            <input type="text" name="product_price" class="form-control " value="{{ old('product_price') }}">
                                 {!! $errors->first('product_price', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                         </div>
 

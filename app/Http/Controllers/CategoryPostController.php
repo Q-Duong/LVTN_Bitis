@@ -63,7 +63,7 @@ class CategoryPostController extends Controller
     // }
     public function show_category_post($category_post_slug){
         $category_post_id=CategoryPost::where('category_post_slug',$category_post_slug)->first();
-        $post = Post::where('category_post_id',$category_post_id->category_post_id)->where('post_status',1)->get();
+        $post = Post::where('category_post_id',$category_post_id->category_post_id)->get();
         return view('pages.blog.category_blog')->with(compact('post'));
     }
     public function checkCategoryPost(Request $request)
@@ -71,11 +71,13 @@ class CategoryPostController extends Controller
         $this->validate(
             $request,
             [
-                'category_post_name' => 'required|unique:category_post,category_post_name'
+                'category_post_name' => 'required|unique:category_post,category_post_name',
+                'category_post_slug' =>'required'
             ],
             [
                 'category_post_name.required' => 'Vui lòng nhập thông tin',
-                'category_post_name.unique' => 'Danh mục đã tồn tại vui lòng nhập lại'
+                'category_post_name.unique' => 'Danh mục đã tồn tại vui lòng nhập lại',
+                'category_post_slug.required'=>'Vui lòng nhập lại tên'
             ]
         );
     }
@@ -84,10 +86,12 @@ class CategoryPostController extends Controller
         $this->validate(
             $request,
             [
-                'category_post_name' => 'required'
+                'category_post_name' => 'required',
+                'category_post_slug' =>'required'
             ],
             [
-                'category_post_name.required' => 'Vui lòng nhập thông tin'
+                'category_post_name.required' => 'Vui lòng nhập thông tin',
+                'category_post_slug.required'=>'Vui lòng nhập lại tên'
             ]
         );
     }

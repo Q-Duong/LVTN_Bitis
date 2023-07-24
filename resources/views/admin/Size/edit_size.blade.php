@@ -19,8 +19,7 @@
                             <div class="form-group {{ $errors->has('size_attribute') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Size</label>
                                 <input type="text" value="{{ $edit_value->size_attribute }}" name="size_attribute"
-                                    class="form-control " data-validation="number"
-                                    data-validation-error-msg="Vui lòng điền thông tin(Phải là số và lớn hơn 0)">
+                                    class="form-control " >
                                 {!! $errors->first(
                                     'size_attribute',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',

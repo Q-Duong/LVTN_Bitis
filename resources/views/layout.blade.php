@@ -492,7 +492,8 @@
                     },
                     success: function(data) {
                         $('#search_ajax').fadeIn();
-                        $('#search_ajax').html(data);
+                        $('#search_ajax').html(data.html);
+                        
                     }
                 });
 
@@ -501,7 +502,7 @@
             }
         });
 
-        $(document).on('click', '.li_search_ajax', function() {
+        $(document).on('click','.li_search_ajax', function() {
             $('#keywords').val($(this).text());
             $('#search_ajax').fadeOut();
         });

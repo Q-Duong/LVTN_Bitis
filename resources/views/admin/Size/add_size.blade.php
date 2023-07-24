@@ -18,8 +18,7 @@
                             @csrf
                             <div class="form-group {{ $errors->has('size_attribute') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Size</label>
-                                <input type="text" name="size_attribute" class="form-control " data-validation="number"
-                                    data-validation-error-msg="Vui lòng điền thông tin(Phải là số và lớn hơn 0)"
+                                <input type="text" name="size_attribute" class="form-control"
                                     value="{{ old('size_attribute') }}">
                                 {!! $errors->first(
                                     'size_attribute',

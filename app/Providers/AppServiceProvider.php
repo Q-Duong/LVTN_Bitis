@@ -8,6 +8,7 @@ use App\Models\CategoryType;
 use App\Models\CategoryPost;
 
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -22,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
             $getAllListCategory=Category::orderBy('category_id','ASC')->get();
             $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
             $getAllListCategoryPost=CategoryPost::orderBy('category_post_id','ASC')->get();
+           
             $view->with(compact('getAllListCategory','getAllListCategoryType','getAllListCategoryPost'));
         });
     }

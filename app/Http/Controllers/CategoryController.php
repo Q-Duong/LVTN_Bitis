@@ -101,10 +101,12 @@ class CategoryController extends Controller
         $this->validate(
             $request,
             [
-                'category_name' => 'required'
+                'category_name' => 'required',
+                'category_slug'=>'required'
             ],
             [
-                'category_name.required' => 'Vui lòng nhập thông tin'
+                'category_name.required' => 'Vui lòng nhập thông tin',
+                'category_slug.required'=>'Vui lòng nhập lại tên'
             ]
         );
     }

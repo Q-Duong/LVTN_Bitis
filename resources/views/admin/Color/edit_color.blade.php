@@ -16,17 +16,20 @@
                     <form role="form" action="{{URL::to('/admin/color/update/'.$edit_value->color_id)}}"
                         method="post" >
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group {{ $errors->has('color_name') ? 'has-error' : '' }}">
                             <label for="exampleInputEmail1">Tên màu</label>
-                            <input type="text" value="{{$edit_value->color_name}}" name="color_name" class="form-control"  onkeyup="ChangeToSlug();"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="text" value="{{$edit_value->color_name}}" name="color_name" class="form-control"  onkeyup="ChangeToSlug();">
+                             {!! $errors->first(
+                                    'color_name',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Màu</label>
-                            <input type="color" readonly value="{{$edit_value->color_value}}" name="color_value" class="form-control"  data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                            <input type="color" readonly value="{{$edit_value->color_value}}" name="color_value" class="form-control">
                         </div>
 
-                        <button type="submit" name="update_color" class="btn btn-info">Cập nhật danh
-                            mục</button>
+                        <button type="submit" name="update_color" class="btn btn-info">Cập nhật màu</button>
                     </form>
                 </div>
             </div>

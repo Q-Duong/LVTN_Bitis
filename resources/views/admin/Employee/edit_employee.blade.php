@@ -41,30 +41,26 @@
                                 <label for="exampleInputEmail1">Họ và tên lót nhân viên</label>
                                 <input type="text" name="profile_firstname"
                                     value="{{ $edit_value->profile->profile_firstname }}" class="form-control"
-                                    placeholder="" data-validation="required"
-                                    data-validation-error-msg="Vui Lòng điền thông tin">
+                                    placeholder="">
                                 {!! $errors->first('profile_firstname', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('profile_lastname') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên nhân viên</label>
                                 <input type="text" name="profile_lastname"
-                                    value="{{ $edit_value->profile->profile_lastname }}" class="form-control" placeholder=""
-                                    data-validation="required" data-validation-error-msg="Vui Lòng điền thông tin">
+                                    value="{{ $edit_value->profile->profile_lastname }}" class="form-control" placeholder="">
                                 {!! $errors->first('profile_lastname', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('profile_email') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Email nhân viên</label>
                                 <input type="text" name="profile_email" value="{{ $edit_value->profile->profile_email }}"
-                                    class="form-control" placeholder="Enter email" data-validation="required"
-                                    data-validation-error-msg="Vui Lòng điền thông tin">
+                                    class="form-control" placeholder="Enter email" >
                                 {!! $errors->first('profile_email', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                             </div>
                             <div class="form-group {{ $errors->has('profile_phone') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Số điện thoại</label>
                                 <input type="text" name="profile_phone"
                                     value="{{ $edit_value->profile->profile_phone }}" class="form-control"
-                                    placeholder="Số điện thoại" data-validation="required"
-                                    data-validation-error-msg="Vui Lòng điền thông tin">
+                                    placeholder="Số điện thoại">
                                 {!! $errors->first('profile_phone', '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>') !!}
                             </div>
 

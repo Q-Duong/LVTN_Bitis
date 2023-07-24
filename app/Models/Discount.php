@@ -8,8 +8,12 @@ class Discount extends Model
 {
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'discount_percent', 'discount_image'
+    	'discount_name','discount_slug', 'discount_image'
     ];
     protected $primaryKey = 'discount_id';
- 	protected $table = 'discount ';
+ 	protected $table = 'discount';
+
+    public function product(){
+        return $this->hasOne('App\Models\Product');
+    }
 }

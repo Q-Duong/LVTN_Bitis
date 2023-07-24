@@ -136,39 +136,41 @@
             </div>
             <div class="col-lg-8 col-md-6 centered ">
                 <h4 class="delivery-header">Địa chỉ giao hàng đã lưu</h4>
+                @if(!empty(Auth::user()->delivery->delivery_id))
                 <div class="row">
                     <div class="col-lg-12 col-md-12 centered ">
                         <section class="delivery">
                             <div class="row col-md-12 item">
                                 <div class="col-md-6">
-                                    <p class="delivery-name">Dương</p>
-                                    <p class="delivery-address">66,cổ cò, Thành phố Hồ Chí Minh</p>
+                                    <p class="delivery-name">Tên khách hàng: {{Auth::user()->delivery->delivery_last_name}}</p>
+                                    <p class="delivery-address">Địa chỉ: {{Auth::user()->delivery->delivery_address}}.{{Auth::user()->delivery->ward->ward_name}}.{{Auth::user()->delivery->district->district_name}}.{{Auth::user()->delivery->city->city_name}}</p>
                                     <p><a href="'+url+'">Xem sản phẩm</a></p>
                                 </div>
                             </div>
                         </section>
                     </div>
-                </div>
-                <div class="checkout__input">
-                    <button type="button" name="update_information"
+                </div>   
+                <div class="checkout__input">  
+                    <button type="button" name="save_information"
                         class="site-btn update-account-information button-delivery"><i class="fa fa-cog"></i>
-                        Thêm địa chỉ
+                        Cập nhật địa chỉ
                     </button>
-                </div>
-            </div>
-            <div class="popup-model-delivery">
+                </div>  
+                <div class="popup-model-delivery">
                 <div class="overlay-model-review"></div>
                 <div class="model-delivery-content">
                     <div class="model-delivery-close">
-                        <p class="model-review-tile">Thêm địa chỉ giao hàng</p>
+                        <p class="model-review-tile">Cập nhật địa chỉ giao hàng</p>
                         <p class="close-model"><i class="fas fa-times"></i>
                         </p>
                     </div>
+                    <form action="{{URL::to('/update-delivery-addresses/'.Auth::user()->delivery->delivery_id)}}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="checkout__input {{ $errors->has('receiver_first_name') ? 'has-error' : '' }}">
                                 <p>Họ và tên lót<span>*</span></p>
-                                <input type="text" name="receiver_first_name" placeholder="Điền họ và tên">
+                                <input type="text" name="receiver_first_name" placeholder="Điền họ và tên" value="{{Auth::user()->delivery->delivery_first_name}}">
                                 {!! $errors->first(
                                     'receiver_first_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -178,7 +180,7 @@
                         <div class="col-lg-6">
                             <div class="checkout__input {{ $errors->has('receiver_last_name') ? 'has-error' : '' }}">
                                 <p>Tên<span>*</span></p>
-                                <input type="text" name="receiver_last_name" placeholder="Điền họ và tên">
+                                <input type="text" name="receiver_last_name" placeholder="Điền họ và tên" value="{{Auth::user()->delivery->delivery_last_name}}">
                                 {!! $errors->first(
                                     'receiver_last_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -190,7 +192,7 @@
                         <div class="col-lg-8">
                             <div class="checkout__input {{ $errors->has('receiver_email') ? 'has-error' : '' }}">
                                 <p>Email<span>*</span></p>
-                                <input type="email" name="receiver_email" placeholder="Điền Email">
+                                <input type="email" name="receiver_email" placeholder="Điền Email" value="{{Auth::user()->delivery->delivery_email}}">
                                 {!! $errors->first(
                                     'receiver_email',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -200,7 +202,7 @@
                         <div class="col-lg-4">
                             <div class="checkout__input {{ $errors->has('receiver_phone') ? 'has-error' : '' }}">
                                 <p>Số điện thoại<span>*</span></p>
-                                <input type="text" name="receiver_phone" placeholder="Điền SĐT">
+                                <input type="text" name="receiver_phone" placeholder="Điền SĐT" value="{{Auth::user()->delivery->delivery_phone}}">
                                 {!! $errors->first(
                                     'receiver_phone',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -210,39 +212,182 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-lg-6 {{ $errors->has('city_id') ? 'has-error' : '' }}">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Chọn tỉnh / thành phố<span
+                                        style="color:#e53637;">*</span></label>
+                                <select name="city_id" id="city"
+                                    class="form-control input-sm m-bot15 choose_address city ">
+                                    @foreach($city as $key => $city)
+                                    <option value="{{$city->city_id}}" {{Auth::user()->delivery->city_id == $city->city_id ? 'selected' :''}}>{{$city->city_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {!! $errors->first(
+                                    'city_id',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                        </div>
+                        <div class="col-lg-6 {{ $errors->has('district_id') ? 'has-error' : '' }}">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Chọn quận / huyện<span
+                                        style="color:#e53637;">*</span></label>
+                                <select name="district_id" id="district"
+                                    class="form-control input-sm m-bot15 district choose_address">
+                                    @foreach($district as $key => $district)
+                                    <option value="{{$district->district_id}}" {{Auth::user()->delivery->district_id == $district->district_id ? 'selected':'' }}>{{$district->district_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {!! $errors->first(
+                                    'district_id',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 {{ $errors->has('ward_id') ? 'has-error' : '' }}">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Chọn phường / xã<span
+                                        style="color:#e53637;">*</span></label>
+                                <select name="ward_id" id="ward" class="form-control input-sm m-bot15 ward">
+                                    @foreach($ward as $key => $ward)
+                                    <option value="{{$ward->ward_id}}" {{Auth::user()->delivery->ward_id == $ward->ward_id ? 'selected':'' }}>{{$ward->ward_name}}</option>
+                                    @endforeach    
+                                </select>
+                            </div>
+                            {!! $errors->first(
+                                    'ward_id',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                        </div>
                         <div class="col-lg-6">
+                            <div class="checkout__input {{ $errors->has('receiver_address') ? 'has-error' : '' }}">
+                                <p>Địa chỉ<span>*</span></p>
+                                <input type="text" name="receiver_address" placeholder="Địa chỉ" value="{{Auth::user()->delivery->delivery_address}}">
+                                {!! $errors->first(
+                                    'receiver_address',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout__input">
+                        <button type="submit" name="update_information"
+                            class="site-btn update-account-information"><i class="fa fa-cog"></i>
+                            Lưu</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            @else 
+                <div class="checkout__input">      
+                    <button type="button" name="update_information"
+                        class="site-btn update-account-information button-delivery"><i class="fa fa-cog"></i>
+                        Thêm địa chỉ
+                    </button>
+                </div>
+                <div class="popup-model-delivery">
+                <div class="overlay-model-review"></div>
+                <div class="model-delivery-content">
+                    <div class="model-delivery-close">
+                        <p class="model-review-tile">Thêm địa chỉ giao hàng</p>
+                        <p class="close-model"><i class="fas fa-times"></i>
+                        </p>
+                    </div>
+                    <form action="{{URL::to('/save-delivery-addresses')}}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="checkout__input {{ $errors->has('receiver_first_name') ? 'has-error' : '' }}">
+                                <p>Họ và tên lót<span>*</span></p>
+                                <input type="text" name="receiver_first_name" placeholder="Điền họ và tên" value="{{Auth::user()->profile->profile_firstname}}">
+                                {!! $errors->first(
+                                    'receiver_first_name',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="checkout__input {{ $errors->has('receiver_last_name') ? 'has-error' : '' }}">
+                                <p>Tên<span>*</span></p>
+                                <input type="text" name="receiver_last_name" placeholder="Điền họ và tên" value="{{Auth::user()->profile->profile_lastname}}">
+                                {!! $errors->first(
+                                    'receiver_last_name',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="checkout__input {{ $errors->has('receiver_email') ? 'has-error' : '' }}">
+                                <p>Email<span>*</span></p>
+                                <input type="email" name="receiver_email" placeholder="Điền Email" value="{{Auth::user()->profile->profile_email}}">
+                                {!! $errors->first(
+                                    'receiver_email',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="checkout__input {{ $errors->has('receiver_phone') ? 'has-error' : '' }}">
+                                <p>Số điện thoại<span>*</span></p>
+                                <input type="text" name="receiver_phone" placeholder="Điền SĐT" value="{{Auth::user()->profile->profile_phone}}">
+                                {!! $errors->first(
+                                    'receiver_phone',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 {{ $errors->has('city_id') ? 'has-error' : '' }}">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Chọn tỉnh / thành phố<span
                                         style="color:#e53637;">*</span></label>
                                 <select name="city_id" id="city"
                                     class="form-control input-sm m-bot15 choose_address city">
-                                    <option value="0" selected>--Chọn tỉnh / thành phố--</option>
-
+                                    <option value="" selected>--Chọn tỉnh / thành phố--</option>
+                                    @foreach($city as $key => $city)
+                                    <option value="{{$city->city_id}}">{{$city->city_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
+                            {!! $errors->first(
+                                    'city_id',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 {{ $errors->has('district_id') ? 'has-error' : '' }}">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Chọn quận / huyện<span
                                         style="color:#e53637;">*</span></label>
                                 <select name="district_id" id="district"
                                     class="form-control input-sm m-bot15 district choose_address">
                                     <option value="">--Chọn quận / huyện--</option>
-
                                 </select>
                             </div>
+                             {!! $errors->first(
+                                    'district_id',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 {{ $errors->has('ward_id') ? 'has-error' : '' }}">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Chọn phường / xã<span
                                         style="color:#e53637;">*</span></label>
                                 <select name="ward_id" id="ward" class="form-control input-sm m-bot15 ward">
                                     <option value="">--Chọn phường / xã--</option>
-
                                 </select>
                             </div>
+                            {!! $errors->first(
+                                    'ward_id',
+                                    '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                                ) !!}
                         </div>
                         <div class="col-lg-6">
                             <div class="checkout__input {{ $errors->has('receiver_address') ? 'has-error' : '' }}">
@@ -256,12 +401,14 @@
                         </div>
                     </div>
                     <div class="checkout__input">
-                        <button type="button" name="update_information"
+                        <button type="submit" name="update_information"
                             class="site-btn update-account-information"><i class="fa fa-cog"></i>
                             Lưu</button>
                     </div>
+                    </form>
                 </div>
             </div>
+                @endif         
         </div>
     </div>
 </section>
