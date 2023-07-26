@@ -18,7 +18,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                                <select name="category_id" data-id_category="0" class="form-control m-bot15 choose_category">
+                                <select name="category_id"  class="form-control m-bot15 change_category">
                                     @foreach ($getAllCategory as $key => $category)
                                         <option {{ $edit_value->category_id == $category->category_id ? 'selected' : '' }}
                                             value="{{ $category->category_id }}">
@@ -29,12 +29,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Loại sản phẩm</label>
-                                <select name="product_type_id" data-id_type="0" class="form-control m-bot15 choose_product_type">
+                                <select name="product_type_id" class="form-control m-bot15 change_product_type">
                                     @foreach ($getAllProductType as $key => $product_type)
                                         <option
                                             {{ $edit_value->product_type_id == $product_type->product_type_id ? 'selected' : '' }}
                                             value="{{ $product_type->productType->product_type_id }}">
                                             {{ $product_type->productType->product_type_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Khuyến mãi</label>
+                                <select name="discount_id" class="form-control m-bot15">
+                                    <option value="0" {{$edit_value->discount_id == 0 ? 'selected':''}}>Trống</option>
+                                    @foreach ($getDiscount as $key => $discount)
+                                        <option
+                                            {{ $edit_value->discount_id == $discount->discount_id ? 'selected' : '' }}
+                                            value="{{ $discount->discount_id }}">
+                                            {{ $discount->discount_name }}
                                         </option>
                                     @endforeach
                                 </select>

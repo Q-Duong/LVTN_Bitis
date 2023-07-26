@@ -147,8 +147,6 @@ class LoginController extends Controller
             ->where('order.user_id', Auth::user()->id)
             ->orderBy('order.created_at', 'DESC')
             ->paginate(5);
-            // dd($getAllOrder);
-            // ->get(['order_code', 'order_total', 'order_detail_quantity', 'product_image', 'product_name', 'product_price', 'order_status',]);
         return view('pages.login.account_orders')->with(compact('getAllOrder'));
     }
 
