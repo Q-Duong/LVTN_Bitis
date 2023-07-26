@@ -53,7 +53,7 @@
                                     <div class="col-lg-3 col-md-12 centered">
                                         <section>
                                             <input type="radio" name="color_id" value="{{$color ->color_id}}" id="id{{$key}}" checked class="accent">
-                                            <label for="id{{$key}}" style="color: {{$color ->color_value}};" class="accent-l">{{$color ->color_name}}</label>
+                                            <label for="id{{$key}}" class="accent-l">{{$color ->color_name}}</label>
                                         </section>
                                     </div>
                                 @endforeach

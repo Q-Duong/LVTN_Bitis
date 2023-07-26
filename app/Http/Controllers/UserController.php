@@ -41,7 +41,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
-        $user->role = 1;
+        $user->role = 2;
         $user->name = 'Member';
         $user->profile_id = $profile->profile_id;
         $user->save();

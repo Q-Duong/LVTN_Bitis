@@ -20,8 +20,12 @@ class CategoryTypeController extends Controller
         $category_type=new CategoryType();
         $category_type->category_id=$data['category_id'] ;
         $category_type->product_type_id=$data['product_type_id'];
+        $check = CategoryType::where('category_id',$data['category_id'])->where('product_type_id',$data['product_type_id'])->exists();
+        if($check){
+            return Redirect()->back()->with('error', 'Loại danh mục sản phẩm đã tồn tại, vui lòng kiểm tra lại')->withInput();
+        }
         $category_type->save();
-        return Redirect()->back()->with('success','Thêm thành công');
+        return Redirect()->back()->with('success','Thêm loại danh mục sản phẩm thành công');
     }
     function edit_category_type($category_type_id){
         $edit_value=CategoryType::find($category_type_id);
@@ -36,15 +40,19 @@ class CategoryTypeController extends Controller
     function delete_category_type($category_type_id){
         $category_type=CategoryType::find($category_type_id);
         $category_type->delete();
-        return Redirect()->back()->with('success','Xóa danh mục sản phẩm thành công');
+        return Redirect()->back()->with('success','Xóa loại danh mục sản phẩm thành công');
     }
     function update_category_type(Request $request,$category_type_id){
         $data=$request->all();
         $category_type=CategoryType::find($category_type_id);
         $category_type->category_id=$data['category_id'];
         $category_type->product_type_id=$data['product_type_id'];
+        $check = CategoryType::where('category_id',$data['category_id'])->where('product_type_id',$data['product_type_id'])->exists();
+        if($check){
+            return Redirect()->back()->with('error', 'Loại danh mục sản phẩm đã tồn tại, vui lòng kiểm tra lại')->withInput();
+        }
         $category_type->save();
-        return Redirect::to('admin/category-type/list')->with('success','Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('admin/category-type/list')->with('success','Cập nhật loại danh mục sản phẩm thành công');
     }
 }
  

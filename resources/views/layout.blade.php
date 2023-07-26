@@ -668,13 +668,12 @@
             var image = $('.product_image').attr('src');
             var slug = $('.product_slug').attr('href');
             var data_cart = $('#data_cart').serializeArray();
-            console.log(data_cart);
             dataObj = {};
             $(data_cart).each(function(i, field) {
                 dataObj[field.name] = field.value;
             });
             var newItem = {
-                'id': dataObj.ware_house_id,
+                'id': dataObj.cart_ware_house_id,
                 'url': slug,
                 'image': image,
                 'name': dataObj.product_name,

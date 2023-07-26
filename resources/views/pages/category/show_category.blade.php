@@ -234,19 +234,6 @@
                                         </div>
                                         <h6>{{ $product->product_name }}</h6>
                                         <h5>{{ number_format($product->product_price, 0, ',', '.') }}₫</h5>
-                                        <div class="product__color__select">
-                                            @foreach ($getAllListProductCategory->unique('color_id') as $key => $attr)
-                                                @if ($attr->product_id == $product->product_id)
-                                                    @foreach ($getAllListProductCategory->unique('color_id') as $key => $a)
-                                                        @if ($a->color_id == $attr->color_id)
-                                                            <label style="background-color:{{ $attr->color_value }};">
-                                                                <input type="radio">
-                                                            </label>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            @endforeach
-                                        </div>
                                     </div>
                                 </div>
                             </div>

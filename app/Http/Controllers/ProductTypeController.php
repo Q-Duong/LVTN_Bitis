@@ -49,7 +49,7 @@ class ProductTypeController extends Controller
     {
         $productType = ProductType::find($product_type_id);
         $productType->delete();
-        return Redirect()->back()->with('success', 'Xóa danh mục sản phẩm thành công');
+        return Redirect()->back()->with('success', 'Xóa loại sản sản phẩm thành công');
     }
     function update_product_type(Request $request, $product_type_id)
     {
