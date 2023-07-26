@@ -12,18 +12,21 @@ use Carbon\Carbon;
 
 class DashBoardController extends Controller
 {
-    function index(){
+    function index()
+    {
         $product_count = Product::get()->count();
-        $post_count= Post::get()->count();
+        $post_count = Post::get()->count();
         $order_count = Order::get()->count();
-        $app_customer = User::where('role',2)->get()->count();
-        return view('admin.dashboard')->with(compact('product_count','post_count','order_count','app_customer'));
+        $app_customer = User::where('role', 2)->get()->count();
+        // dd($product_count);
+        return view('admin.dashboard')->with(compact('product_count', 'post_count', 'order_count', 'app_customer'));
     }
-    function get_statistics_in_month(){
+    function get_statistics_in_month()
+    {
         $firstThisMonth = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        $getStatistics = Statistics::whereBetween('order_date',[$firstThisMonth,$now])->orderBy('order_date','ASC')->get();
-        foreach($getStatistics as $key => $val){
+        $getStatistics = Statistics::whereBetween('order_date', [$firstThisMonth, $now])->orderBy('order_date', 'ASC')->get();
+        foreach ($getStatistics as $key => $val) {
             $chart_data[] = array(
                 'period' => $val->order_date,
                 'price' => $val->total_price,
@@ -32,23 +35,28 @@ class DashBoardController extends Controller
             );
         }
         $data = $chart_data;
-        return response($data); 
+        return response($data);
     }
-    function get_statistics_by_date(Request $request){
+    function get_statistics_by_date(Request $request)
+    {
         $data = $request->all();
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
-        $getStatistics = Statistics::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
-        foreach($getStatistics as $key => $val){
-            $chart_data[] = array(
-                'period' => $val->order_date,
-                'price' => $val->total_price,
-                'sales' => $val->total_sale,
-                'quantity' => $val->total_quantity
-            );
+        $getStatistics = Statistics::whereBetween('order_date', [$from_date, $to_date])->orderBy('order_date', 'ASC')->get();
+        
+        if (count($getStatistics) > 0) {
+            foreach ($getStatistics as $key => $val) {
+                $chart_data[] = array(
+                    'period' => $val->order_date,
+                    'price' => $val->total_price,
+                    'sales' => $val->total_sale,
+                    'quantity' => $val->total_quantity
+                );
+            }
+            $data = $chart_data;
+            return response()->json(array(['success'=>true,'data'=>$data]));
+        } else {
+            return response()->json(array(['success'=>false]));
         }
-        $data = $chart_data;
-        return response($data); 
     }
 }
- 

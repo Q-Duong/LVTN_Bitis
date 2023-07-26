@@ -39,8 +39,8 @@
                             </div>
                             <div class="form-group {{ $errors->has('order_total') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tổng tiền</label>
-                                <input type="text" class="form-control order_total_format" value="{{ $order -> order_total }}">
-                                <input type="hidden" name="order_total" class="form-control order_total" value="{{ $order -> order_total }}">
+                                <input type="text" class="form-control order_total_format" value="{{ $order ->order_total }}">
+                                <input type="hidden" name="order_total" class="form-control order_total" value="{{ $order ->order_total }}">
                                 {!! $errors->first(
                                     'order_total',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -60,7 +60,7 @@
                         <div class="position-center">
                             <div class="form-group {{ $errors->has('receiver_first_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Họ</label>
-                                <input type="text" name="receiver_first_name" class="form-control" value="{{ $order -> receiver -> receiver_first_name }}">
+                                <input type="text" name="receiver_first_name" class="form-control" value="{{ $order ->receiver ->receiver_first_name }}">
                                 {!! $errors->first(
                                     'receiver_first_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -68,7 +68,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('receiver_last_name') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Tên</label>
-                                <input type="text" name="receiver_last_name" class="form-control" value="{{ $order -> receiver -> receiver_last_name }}">
+                                <input type="text" name="receiver_last_name" class="form-control" value="{{ $order ->receiver ->receiver_last_name }}">
                                 {!! $errors->first(
                                     'receiver_last_name',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -76,7 +76,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('receiver_phone') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Số điện thoại</label>
-                                <input type="text" name="receiver_phone" class="form-control" value="{{ $order -> receiver -> receiver_phone }}">
+                                <input type="text" name="receiver_phone" class="form-control" value="{{ $order ->receiver ->receiver_phone }}">
                                 {!! $errors->first(
                                     'receiver_phone',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -84,7 +84,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('receiver_email') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Email</label>
-                                <input type="text" name="receiver_email" class="form-control" value="{{ $order -> receiver -> receiver_email }}">
+                                <input type="text" name="receiver_email" class="form-control" value="{{ $order ->receiver ->receiver_email }}">
                                 {!! $errors->first(
                                     'receiver_email',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
@@ -92,7 +92,7 @@
                             </div>
                             <div class="form-group {{ $errors->has('receiver_note') ? 'has-error' : '' }}">
                                 <label for="exampleInputEmail1">Ghi chú</label>
-                                <input type="text" name="receiver_note" class="form-control" value="{{ $order -> receiver -> receiver_note }}">
+                                <input type="text" name="receiver_note" class="form-control" value="{{ $order ->receiver ->receiver_note }}">
                                 {!! $errors->first(
                                     'receiver_note',
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
