@@ -3,7 +3,7 @@
     <div class="table-agile-info">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Liệt kê sản phẩm
+                Liệt kê phiếu nhập hàng
             </div>
             <div class="table-responsive">
 
@@ -20,16 +20,16 @@
                     <tbody>
                         @foreach ($getAllListImport as $key => $import_order)
                             <tr>
-                                <td>{{ $import_order -> import_order_id }}</td>
-                                <td>{{ $import_order -> user -> profile -> profile_firstname }} {{ $import_order -> user -> profile -> profile_lastname }}</td>
-                                <td>{{ number_format($import_order -> import_order_total, 0, ',', '.') }}₫</td>
-                                <td>{{ $import_order -> created_at }}</td>
+                                <td>{{ $import_order ->import_order_id }}</td>
+                                <td>{{ $import_order ->user ->profile ->profile_firstname }} {{ $import_order ->user ->profile ->profile_lastname }}</td>
+                                <td>{{ number_format($import_order ->import_order_total, 0, ',', '.') }}₫</td>
+                                <td>{{ $import_order ->created_at }}</td>
                                 <td>
-                                    <a href="{{ route('edit-import-order', $import_order -> import_order_id) }}" class="active style-edit"
+                                    <a href="{{ route('edit-import-order', $import_order ->import_order_id) }}" class="active style-edit"
                                         ui-toggle-class=""><i class="fa fa-pencil-square-o text-success text-active"></i>
                                     </a>
-                                    <a onclick="return confirm('Bạn có chắc muốn xóa sản phẩm?')"
-                                        href="{{ route('delete-import-order', $import_order -> import_order_id) }}"
+                                    <a onclick="return confirm('Bạn có chắc muốn xóa phiếu nhập?')"
+                                        href="{{ route('delete-import-order', $import_order ->import_order_id) }}"
                                         class="active style-edit" ui-toggle-class="">
                                         <i class="fa fa-times text-danger text"></i>
                                     </a>

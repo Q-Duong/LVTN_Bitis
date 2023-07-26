@@ -17,7 +17,8 @@ class UserController extends Controller
     function list_user()
     {
         $getAllListUser = User::orderBy('id', 'ASC')->where('role', 2)->get();
-        return view('admin.User.list_user')->with(compact('getAllListUser'));
+        $nam=User::join('profile','profile.profile_id','users.profile_id')->where('sex',0)->where('role',2)->get();
+        return view('admin.User.list_user')->with(compact('getAllListUser','nam'));
     }
     function edit_user($user_id)
     {
@@ -41,7 +42,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
-        $user->role = 1;
+        $user->role = 2;
         $user->name = 'Member';
         $user->profile_id = $profile->profile_id;
         $user->save();

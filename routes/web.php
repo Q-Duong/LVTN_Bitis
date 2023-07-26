@@ -67,7 +67,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/settings', [AccountController::class, 'admin_settings']);
     Route::post('/infoupdate', [AccountController::class, 'info_update']);
     //Category
-    Route::prefix('category')->group(function () {
+    Route::prefix('category')->middleware('permission')->group(function () {
         Route::get('/add', [CategoryController::class, 'add_category']);
         Route::post('/save', [CategoryController::class, 'save_category']);
         Route::get('/list', [CategoryController::class, 'list_category']);
@@ -77,7 +77,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     });
 
     //CategoryType
-    Route::prefix('category-type')->group(function () {
+    Route::prefix('category-type')->middleware('permission')->group(function () {
         Route::get('/add', [CategoryTypeController::class, 'add_category_type']);
         Route::post('/save', [CategoryTypeController::class, 'save_category_type']);
         Route::get('/list', [CategoryTypeController::class, 'list_category_type']);
@@ -86,7 +86,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/delete/{category_type_id}', [CategoryTypeController::class, 'delete_category_type']);
     });
     //Product
-    Route::prefix('product')->group(function () {
+    Route::prefix('product')->middleware('permission')->group(function () {
         Route::get('/add', [ProductController::class, 'add_product']);
         Route::post('/save', [ProductController::class, 'save_product']);
         Route::get('/list', [ProductController::class, 'list_Product']);
@@ -95,7 +95,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/delete/{product_id}', [ProductController::class, 'delete_product']);
     });
     //ProductType
-    Route::prefix('product-type')->group(function () {
+    Route::prefix('product-type')->middleware('permission')->group(function () {
         Route::get('/add', [ProductTypeController::class, 'add_product_type']);
         Route::post('/save', [ProductTypeController::class, 'save_product_type']);
         Route::get('/list', [ProductTypeController::class, 'list_product_type']);
@@ -113,7 +113,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/update/{banner_id}', [BannerController::class, 'update_banner']);
     });
     //Gallery
-    Route::prefix('gallery')->group(function () {
+    Route::prefix('gallery')->middleware('permission')->group(function () {
         Route::get('add/{product_id}', [GalleryController::class, 'add_gallery']);
         Route::post('insert/{product_id}', [GalleryController::class, 'insert_gallery']);
     });
@@ -127,7 +127,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/delete/{user_id}', [UserController::class, 'delete_user']);
     });
     //Employee
-    Route::prefix('employee')->group(function () {
+    Route::prefix('employee')->middleware('permission')->group(function () {
         Route::get('/add', [EmployeeController::class, 'add_employee']);
         Route::post('/save', [EmployeeController::class, 'save_employee']);
         Route::get('/list', [EmployeeController::class, 'list_employee']);
@@ -154,7 +154,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/delete/{category_post_id}', [CategoryPostController::class, 'delete_category_post']);
     });
     //Color
-    Route::prefix('color')->group(function () {
+    Route::prefix('color')->middleware('permission')->group(function () {
         Route::get('/add', [ColorController::class, 'add_color']);
         Route::post('/save', [ColorController::class, 'save_color']);
         Route::get('/list', [ColorController::class, 'list_color']);
@@ -163,7 +163,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/delete/{color_id}', [ColorController::class, 'delete_color']);
     });
     //Size
-    Route::prefix('size')->group(function () {
+    Route::prefix('size')->middleware('permission')->group(function () {
         Route::get('/add', [SizeController::class, 'add_size']);
         Route::post('/save', [SizeController::class, 'save_size']);
         Route::get('/list', [SizeController::class, 'list_size']);
@@ -180,15 +180,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/save', [WareHouseController::class, 'save_ware_house']);
         Route::post('/update/{ware_house_id}', [WareHouseController::class, 'update_ware_house']);
     });
-    //Store
-    Route::prefix('store')->group(function () {
-        Route::get('/add', [StoreController::class, 'add_store']);
-        Route::get('/list', [StoreController::class, 'list_store']);
-        Route::get('/edit/{store_id}', [StoreController::class, 'edit_store']);
-        Route::get('/delete/{store_id}', [StoreController::class, 'delete_store']);
-        Route::post('/save', [StoreController::class, 'save_store']);
-        Route::post('/update/{store_id}', [StoreController::class, 'update_store']);
-    });
     //Contact
     Route::prefix('contact')->group(function () {
         Route::get('/edit/{info_id}', [InfomationController::class, 'edit_info']);
@@ -204,6 +195,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/add', [ImportOrderController::class, 'add_import_order']);
         Route::post('/save', [ImportOrderController::class, 'save_import_order'])->name('save-import-order');
         Route::get('/add/{import_order_id}', [ImportOrderController::class, 'add_import_order_detail']);
+        Route::get('/update-total/{import_order_id}', [ImportOrderController::class, 'add_import_order_detail']);
+        Route::post('/delete/import-order-detail', [ImportOrderController::class, 'delete_import_order_detail'])->name('delete-import-order-detail');
+        Route::post('/update/import-order-detail', [ImportOrderController::class, 'update_import_order_detail'])->name('update-import-order-detail');
         Route::post('/save-import-order-detail', [ImportOrderController::class, 'save_import_order_detail'])->name('save-import-order-detail');
         Route::post('/load-import-order-detail', [ImportOrderController::class, 'load_import_order_detail'])->name('load-import-order-detail');
         Route::get('/list', [ImportOrderController::class, 'list_import_order'])->name('list-import-order');
@@ -235,7 +229,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('update-order-detail-quantity', [OrderController::class, 'update_order_detail_quantity'])->name('update-order-detail-quantity');
     });
     //Discount
-    Route::prefix('discount')->group(function(){ 
+    Route::prefix('discount')->middleware('permission')->group(function(){ 
         Route::get('/add',[DiscountController::class,'add_discount']);
         Route::post('/save',[DiscountController::class,'save_discount']);
         Route::get('/list',[DiscountController::class,'list_discount']);
@@ -288,7 +282,7 @@ Route::prefix('member')->group(function () {
     });
 });
 
-
+//Rating
 Route::post('member/send-comment', 'App\Http\Controllers\CommentController@send_comment');
 Route::post('add-rating', 'App\Http\Controllers\CommentController@add_rating');
 //Contact
