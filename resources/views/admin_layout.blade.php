@@ -1120,13 +1120,8 @@
                 },
                 success: function(data) {
                     if (data.success) {
-<<<<<<< HEAD
                         load_import_order_detail()
                         $('.popup-model-review').fadeOut(300);
-=======
-                        load_import_order_detail();
-
->>>>>>> 50813f198e28a160360e1b8e3a876e4dfca895ff
                     }
                 }
             });
