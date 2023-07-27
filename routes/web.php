@@ -216,14 +216,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/save', [OrderController::class, 'save_order']);
         Route::get('/add/{order_id}', [OrderController::class, 'add_order_detail'])->name('add-order');
         Route::post('/save-order-detail', [OrderController::class, 'save_order_detail'])->name('save-order-detail');
+        Route::post('/delete/order-detail', [OrderController::class, 'delete_order_detail'])->name('delete-order-detail');
         Route::post('/load-order-detail', [OrderController::class, 'load_order_detail'])->name('load-order-detail');
         Route::post('/save-order/{order_id}', [OrderController::class, 'save_order_admin'])->name('save-order-admin');
         Route::post('/delete/order-detail', [OrderController::class, 'delete_order_detail'])->name('delete-order-detail');
         Route::get('/list', [OrderController::class, 'list_order'])->name('list-order');
         Route::get('/edit/{order_code}', [OrderController::class, 'edit_order']);
-
-
-
         Route::post('update/{order_code}', [OrderController::class, 'update_order']);
         Route::get('/delete/{order_id}', [OrderController::class, 'delete_order']);
         Route::post('update-order-detail-quantity', [OrderController::class, 'update_order_detail_quantity'])->name('update-order-detail-quantity');
@@ -244,16 +242,17 @@ Route::post('/search-product-admin', [ImportOrderController::class, 'search_prod
 
 //-------------------------------------------- Frontend --------------------------------------------
 //Home
-Route::get('', 'App\Http\Controllers\HomeController@index');
+Route::get('','App\Http\Controllers\HomeController@index');
 Route::get('/wistlist', 'App\Http\Controllers\HomeController@wistlist');
 
 //Category
-Route::get('collections/discount', 'App\Http\Controllers\DiscountController@show_category_discount');
+Route::get('collections/discount','App\Http\Controllers\DiscountController@show_category_discount');
 Route::get('collections/{category_slug}', 'App\Http\Controllers\CategoryController@show_category_details');
 
 //ProductType
+Route::get('collections/discount/{discount_slug}', 'App\Http\Controllers\DiscountController@show_discount_details');
 Route::get('collections/{category_slug}/{product_type_slug}', 'App\Http\Controllers\ProductTypeController@show_product_type_details');
-Route::get('collections/discount/{discount_slug}', 'App\Http\Controllers\CategoryController@show_discount_details');
+
 //CategoryPost
 Route::get('blogs/{category_post_slug}', 'App\Http\Controllers\CategoryPostController@show_category_post');
 

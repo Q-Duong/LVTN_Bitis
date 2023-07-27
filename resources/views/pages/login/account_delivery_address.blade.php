@@ -212,7 +212,7 @@
                                 </select>
                             </div>
                             {!! $errors->first(
-                                    'district_id',
+                                    'district_id',  
                                     '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
                                 ) !!}
                         </div>

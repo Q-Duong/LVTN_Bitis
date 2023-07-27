@@ -17,8 +17,12 @@
                         method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Tên loại sản phẩm</label>
+                            <label for="exampleInputEmail1 {{ $errors->has('product_type_name') ? 'has-error' : ''}}">Tên loại sản phẩm</label>
                             <input type="text" value="{{$edit_value->product_type_name}}" name="product_type_name" class="form-control" id="slug" onkeyup="ChangeToSlug();" >
+                             {!! $errors->first(
+                                'product_type_name',
+                                '<div class="alert-error"><i class="fa fa-exclamation-circle"></i> :message</div>',
+                            ) !!}
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Slug loại sản phẩm</label>

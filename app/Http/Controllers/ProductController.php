@@ -105,7 +105,7 @@ class ProductController extends Controller
         $select_warehouse = WareHouse::where('product_id', $select_product[0]->product_id)->orderBy('ware_house_id', 'asc')->get();
         if ($select_warehouse->count() > 0) {
             foreach ($select_warehouse as $key => $warehouse) {
-                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Size:&nbsp;' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Color:&nbsp;' . $warehouse->size->size_attribute . '</option>';
+                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Size:&nbsp;' . $warehouse->size->size_attribute . '&nbsp; - &nbsp;' . 'Color:&nbsp;' . $warehouse->color->color_name . '</option>';
             }
         } else {
             $getAllListWareHouse .= '<option value="">--Chọn Kho Hàng--</option>';
@@ -162,7 +162,7 @@ class ProductController extends Controller
         $gallery->product_id = $product->product_id;
         $gallery->save();
 
-        return Redirect::to('admin/ware-house/add')->with('success', 'Them sản phẩm thành công');
+        return Redirect()->back()->with('success', 'Them sản phẩm thành công');
     }
     function update_product(Request $request, $product_id)
     {
@@ -239,7 +239,9 @@ class ProductController extends Controller
     }
     function check_quantity_cart(Request $request){
         $data = $request->all();
+        
         $warehouse=WareHouse::find($data['ware_house_id']);
+       
         if($warehouse->ware_house_quantity>=$data['ware_house_quantity']){
             return response()->json(array('success' => true));
         }

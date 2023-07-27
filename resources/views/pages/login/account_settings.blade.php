@@ -109,7 +109,6 @@
             </div>
             <div class="col-lg-8 col-md-6 centered ">
                 <h6 class="checkout__title">Cập nhật thông tin tài khoản</h6>
-                <div class="alert alert-success" style="display:none"></div>
                 <form action="{{ URL::to('member/update-profile') }}" method="POST">
                     @csrf
                     <div class="checkout__input">

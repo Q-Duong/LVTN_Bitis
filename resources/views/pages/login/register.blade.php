@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="checkout__input  {{ $errors->has('profile_phone') ? 'has-error' : '' }}">
-                            <p>Số điện thoại<span>*</span></p>
+                            <p>Số điện thoại<span class="a">*</span></p>
                             <input type="text" name="profile_phone" placeholder="Điền số điện thoại"
                                 value="{{ old('profile_phone') }}">
                             {!! $errors->first(
@@ -60,12 +60,22 @@
                                 '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',
                             ) !!}
                         </div>
-                        <div class="checkout__input {{ $errors->has('sex') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('sex') ? 'has-error' : '' }}">
                             <p>Giới tính<span>*</span></p>
-                            <label for="nam" class="accent-l">Nam</label>
-                            <input type="radio" name="sex" value="0" id="nam" checked class="accent">
-                            <label for="nu" class="accent-l">Nữ</label>
-                            <input type="radio" name="sex" value="1" id="nu" class="accent">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-6">
+                                    <section>
+                                        <input type="radio" name="sex" value="0" id="Male" class="accent" checked {{ old('sex') == '' ? 'checked' : '' }}>
+                                        <label for="Male" class="accent-l">Nam</label>
+                                    </section>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-6">
+                                    <section>
+                                        <input type="radio" name="sex" value="1" id="Female" class="accent" {{ old('sex') == 'Có' ? 'checked' : '' }}>
+                                        <label for="Female" class="accent-l">Nữ</label>
+                                    </section>
+                                </div>
+                            </div>
                             {!! $errors->first(
                                 'sex',
                                 '<div class="alert-error"><i class="fas fa-exclamation-circle"></i> :message</div>',

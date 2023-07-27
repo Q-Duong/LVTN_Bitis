@@ -43,13 +43,13 @@ class ProductTypeController extends Controller
             $productType->product_type_img = $new_image;
         }
         $productType->save();
-        return Redirect()->back()->with('success', 'Thêm thành công');
+        return Redirect()->back()->with('success', 'Thêm loại sản phẩm thành công');
     }
     function delete_product_type($product_type_id)
     {
         $productType = ProductType::find($product_type_id);
         $productType->delete();
-        return Redirect()->back()->with('success', 'Xóa danh mục sản phẩm thành công');
+        return Redirect()->back()->with('success', 'Xóa loại sản sản phẩm thành công');
     }
     function update_product_type(Request $request, $product_type_id)
     {
@@ -71,7 +71,7 @@ class ProductTypeController extends Controller
             $productType->product_type_img = $new_image;
         }
         $productType->save();
-        return Redirect::to('admin/product-type/list')->with('success', 'Cập nhật danh mục sản phẩm thành công');
+        return Redirect::to('admin/product-type/list')->with('success', 'Cập nhật loại sản phẩm thành công');
     }
 
     // Customer Frontend

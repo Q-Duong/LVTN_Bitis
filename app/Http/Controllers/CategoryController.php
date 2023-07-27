@@ -68,18 +68,7 @@ class CategoryController extends Controller
         $getAllSize = Size::get();
         $getAllColor = Color::get();
         $getAllListProductCategory = Product::where('category_id', $category->category_id)->orderBy('product_id', 'ASC')->get();
-        $attribute = WareHouse::join('product', 'product.product_id', '=', 'ware_house.product_id')
-            ->join('category', 'product.category_id', '=', 'category.category_id')
-            ->join('color', 'ware_house.color_id', '=', 'color.color_id')
-            ->where('category.category_id', '=', $category->category_id)
-            ->orderBy('ware_house.product_id', 'ASC')
-            ->get();
-        // foreach($getAllListProductCategory as $key => $product){
-        //     $attribute[]=WareHouse::where('product_id',$product->product_id)->get();
-        // }
-        // $attribute=WareHouse::where('product_id',$product->product_id)->get();
-        //dd($attribute);
-        return view('pages.category.show_category')->with(compact('getAllListProductCategory', 'category', 'getAllSize', 'getAllColor', 'attribute'));
+        return view('pages.category.show_category')->with(compact('getAllListProductCategory', 'category', 'getAllSize', 'getAllColor'));
     }
     public function checkCategory(Request $request)
     {

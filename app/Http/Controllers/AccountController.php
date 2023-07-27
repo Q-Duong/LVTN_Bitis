@@ -26,10 +26,8 @@ class AccountController extends Controller
    }
    function info_update(Request $request){
         $data=$request->all();
-        // dd($data);
         $profile= Profile::find(Auth::user()->profile_id);
         $user=User::find(Auth::id());
-        // dd($user);
         $profile->profile_firstname=$data['profile_firstname'];
         $profile->profile_lastname=$data['profile_lastname'];
         $profile->profile_phone=$data['profile_phone'];

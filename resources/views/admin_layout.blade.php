@@ -1081,6 +1081,22 @@
                 }
             });
         }
+        function deleteOrderDetail(e) {
+            var order_detail_id = e;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('delete-order-detail') }}",
+                method: "POST",
+                data: {
+                    order_detail_id: order_detail_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_order_detail();
+                }
+            });
+        };
         $('.save-order-detail').click(function() {
             var _token = $('input[name="_token"]').val();
             var order_id = $('input[name="order_id"]').val();
@@ -1126,6 +1142,42 @@
                 }
             });
         }
+        function deleteImportOrderDetail(event) {
+            var import_order_detail = event;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('delete-import-order-detail') }}",
+                method: "POST",
+                data: {
+                    import_order_detail: import_order_detail,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_import_order_detail();
+                }
+            });
+        };
+        function updateImportOrderDetail(event) {
+            var import_order_detail = event;
+            var import_order_detail_quantity=$('.import_order_detail_quantity_'+event).val();
+            var import_order_detail_price=$('.import_order_detail_price_'+event).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('update-import-order-detail') }}",
+                method: "POST",
+                data: {
+                    import_order_detail: import_order_detail,
+                    import_order_detail_quantity: import_order_detail_quantity,
+                    import_order_detail_price: import_order_detail_price,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_import_order_detail();
+                }
+            });
+        };
         $('.send-import-order-detail').click(function() {
             var _token = $('input[name="_token"]').val();
             var import_order_id = $('input[name="import_order_id"]').val();
@@ -1146,8 +1198,9 @@
                 },
                 success: function(data) {
                     if (data.success) {
-                        load_import_order_detail()
+                        load_import_order_detail();
                         $('.popup-model-review').fadeOut(300);
+                        successMsg('Thêm chi tiết đơn nhập thành công');
                     }
                 }
             });
@@ -1196,11 +1249,11 @@
                         to_date: to_date,
                         _token: _token
                     },
-                    success: function(data) {
-                        if (data.success == true) {
+                    success:function(data){
+                        if(data.success){
                             chart.setData(data.data);
-                        } else {
-                            $('#chart').html('<br><h1>Không có dữ liệu</h1>')
+                        }
+                        else{
                             errorMsg('Không có dữ liệu');
                         }
                     }

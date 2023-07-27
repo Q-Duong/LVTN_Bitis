@@ -36,18 +36,6 @@
                     <div class="product__details__text">
                         <h3>{{ $product->product_name }}</h3>
                         <span>Danh mục:</span> {{ $product->category->category_name }}
-                        <div class="rating ">
-                            <div class="row d-flex ">
-                                {{-- <ul class="list-inline">
-                                    @for ($count = 1; $count <= 5; $count++) @php if($count<=$rating){
-                                        $color='color:#ffcc00;' ; } else { $color='color:#ccc;' ; } @endphp <li
-                                        title="star_rating" data-product_id="{{$value->product_id}}"
-                                        data-rating="{{$rating}}" class="rating"
-                                        style="cursor:pointer; {{$color}} font-size:30px;">&#9733;</li>
-                                        @endfor
-                                </ul> --}}
-                            </div>
-                        </div>
                         <h5>{{ number_format($product->product_price, 0, ',', '.') . '₫' }}</h5>
 
                         <span><i class="fas fa-truck"></i> Giao hàng:</span>

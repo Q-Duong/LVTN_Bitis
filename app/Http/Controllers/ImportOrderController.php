@@ -50,7 +50,6 @@ class ImportOrderController extends Controller
     function save_import_order_detail(Request $request)
     {
         $data = $request->all();
-        // dd($data);
         $import_order_detail = new ImportOrderDetail();
         $import_order_detail->import_order_detail_price = $data['import_order_detail_price'];
         $import_order_detail->import_order_detail_quantity = $data['import_order_detail_quantity'];
@@ -69,9 +68,7 @@ class ImportOrderController extends Controller
     function update_import_order_detail(Request $request)
     {
         $data = $request->all();
-        // dd($data);
         $import_order_detail_price_format = str_replace('.', '', $data['import_order_detail_price']);
-        // dd($import_order_detail_price_format);
         $import_order_detail = ImportOrderDetail::find($data['import_order_detail']);
         $import_order_detail->import_order_detail_quantity = $data['import_order_detail_quantity'];
         $import_order_detail->import_order_detail_price = $import_order_detail_price_format;
@@ -105,17 +102,16 @@ class ImportOrderController extends Controller
     function update_import_order(Request $request, $import_order_id)
     {
         $data = $request->all();
-        // dd($data);
         $import_order = ImportOrder::find($data['import_order_id']);
         $import_order->import_order_total = $data['import_order_total'];
         $import_order->user_id=Auth::id();
         $import_order->save();
-        $getAllImportOrderDetail = ImportOrderDetail::where('import_order_id', $import_order->import_order_id)->get();
-        foreach ($getAllImportOrderDetail as $key => $import_order_detail) {
-            $ware_house = WareHouse::find($import_order_detail->ware_house_id);
-            $ware_house->ware_house_quantity += $import_order_detail->import_order_detail_quantity;
-            $ware_house->save();
-        }
+        // $getAllImportOrderDetail = ImportOrderDetail::where('import_order_id', $import_order->import_order_id)->get();
+        // foreach ($getAllImportOrderDetail as $key => $import_order_detail) {
+        //     $ware_house = WareHouse::find($import_order_detail->ware_house_id);
+        //     $ware_house->ware_house_quantity += $import_order_detail->import_order_detail_quantity;
+        //     $ware_house->save();
+        // }
         return Redirect::to('admin/import-order/list/')->with('success', 'Cập nhật phiếu nhập thành công');
     }
     function delete_import_order($import_order_id)

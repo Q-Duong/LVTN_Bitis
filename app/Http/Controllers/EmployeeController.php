@@ -17,7 +17,6 @@ class EmployeeController extends Controller
     {
         $this->checkEmployee($request);
         $data = $request->all();
-        // dd($data);
         $profile = new Profile();
         $profile->profile_firstname = $data['profile_firstname'];
         $profile->profile_lastname = $data['profile_lastname'];

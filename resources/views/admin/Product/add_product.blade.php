@@ -35,7 +35,6 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Khuyến mãi</label>
                             <select name="discount_id" class="form-control m-bot15">
-                                <option value="0">Trống</option>
                                 @foreach($getDiscount as $key =>$discount)
                                 <option value="{{$discount->discount_id}}">{{$discount->discount_name}}</option>
                                 @endforeach

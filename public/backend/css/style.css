@@ -3659,6 +3659,7 @@ table.table.table-bordered.table-dark tr th {
 }
 .section-sub-total{
     width: 30%;
+    margin-right: 50px;
     display: flex !important;
     align-items: center !important;
 }
