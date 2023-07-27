@@ -12,7 +12,7 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ route('save-import-order-id') }}" method="post">
+                        <form role="form" action="{{ route('save-import-order') }}" method="post">
                             @csrf
                             <input type="hidden" name="status" value="1">
                             <input type="hidden" name="import_order_id" value="{{ $import_order->import_order_id }}">

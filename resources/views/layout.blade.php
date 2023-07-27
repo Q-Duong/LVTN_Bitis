@@ -450,7 +450,7 @@
             $(".message-text").text(msg);
             setTimeout(function() {
                 $('.notifications-popup-success').removeClass('notifications-active');
-            }, 5000);
+            }, 3000);
             $('.notifications-close').click(function() {
                 $('.notifications-popup-success').removeClass('notifications-active');
             });
@@ -462,7 +462,7 @@
             $(".message-text").text(msg);
             setTimeout(function() {
                 $('.notifications-popup-error').removeClass('notifications-active');
-            }, 5000);
+            }, 3000);
             $('.notifications-close').click(function() {
                 $('.notifications-popup-error').removeClass('notifications-active');
             });
@@ -470,10 +470,10 @@
         $(document).ready(function() {
             setTimeout(function() {
                 $('.notifications-popup-success').removeClass('notifications-active');
-            }, 5000);
+            }, 3000);
             setTimeout(function() {
                 $('.notifications-popup-error').removeClass('notifications-active');
-            }, 5000);
+            }, 3000);
         });
         var check = '{{ Auth::check() }}';
 
@@ -502,10 +502,6 @@
             }
         });
 
-        $(document).on('click','.li_search_ajax', function() {
-            $('#keywords').val($(this).text());
-            $('#search_ajax').fadeOut();
-        });
 
         check_first();
 
