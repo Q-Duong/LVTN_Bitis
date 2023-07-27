@@ -52,7 +52,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <p>Nam:{{count($nam)}}</p>
         </div>
     </div>
 </div>

@@ -673,7 +673,7 @@
                 dataObj[field.name] = field.value;
             });
             var newItem = {
-                'id': dataObj.cart_ware_house_id,
+                'id': dataObj.ware_house_id,
                 'url': slug,
                 'image': image,
                 'name': dataObj.product_name,
@@ -745,6 +745,7 @@
                         localStorage.setItem('cart', JSON.stringify(Items));
                         $('#cart').html('');
                         view_cart();
+                        successMsg('Cập nhật số lượng thành công')
                     } else {
                         $('#cart').html('');
                         view_cart();

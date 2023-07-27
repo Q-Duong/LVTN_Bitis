@@ -239,7 +239,9 @@ class ProductController extends Controller
     }
     function check_quantity_cart(Request $request){
         $data = $request->all();
+        
         $warehouse=WareHouse::find($data['ware_house_id']);
+       
         if($warehouse->ware_house_quantity>=$data['ware_house_quantity']){
             return response()->json(array('success' => true));
         }
