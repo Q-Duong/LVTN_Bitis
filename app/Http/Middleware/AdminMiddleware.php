@@ -25,7 +25,6 @@ class AdminMiddleware
                 return Redirect()->route('member/login');
             }
         }else{
-            dd(1);
             return Redirect()->route('login');
         }
     }
