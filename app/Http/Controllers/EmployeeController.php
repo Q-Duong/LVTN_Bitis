@@ -17,7 +17,6 @@ class EmployeeController extends Controller
     {
         $this->checkEmployee($request);
         $data = $request->all();
-        // dd($data);
         $profile = new Profile();
         $profile->profile_firstname = $data['profile_firstname'];
         $profile->profile_lastname = $data['profile_lastname'];
@@ -30,7 +29,7 @@ class EmployeeController extends Controller
         $user = new User();
         $user->email = $data['email'];
         $user->password = bcrypt($data['password']);
-        $user->role = 0;
+        $user->role = 1;
         $user->name = 'Employee';
         $user->profile_id = $profile->profile_id;
         $user->save();

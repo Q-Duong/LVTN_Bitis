@@ -318,7 +318,7 @@
                         <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/import-order/add' || $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-file-alt"></i>
                                 <span>Quản lý nhập hàng </span>
                             </a>
                             <ul class="sub">
@@ -332,6 +332,27 @@
                                     <a href="{{ URL::to('/admin/import-order/list') }}"
                                         class="{{ $route->uri == 'admin/import-order/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý đơn nhập
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;"
+                                class="{{ $route->uri == 'admin/order/add' || $route->uri == 'admin/order/list' ? 'active' : '' }}">
+                                <i class="fas fa-wallet"></i>
+                                <span>Danh sách đơn hàng</span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="{{ URL::to('/admin/order/add') }}"
+                                        class="{{ $route->uri == 'admin/order/add' ? 'active' : '' }}">
+                                        <i class="fa fa-plus"></i> Thêm đơn hàng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ URL::to('/admin/order/list') }}"
+                                        class="{{ $route->uri == 'admin/order/list' ? 'active' : '' }}">
+                                        <i class="fas fa-list-ol"></i> Quản lý đơn hàng
                                     </a>
                                 </li>
                             </ul>
@@ -381,19 +402,19 @@
                         <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/discount/add' || $route->uri == 'admin/discount/list' ? 'active' : '' }}">
-                                <i class="fas fa-palette"></i>
+                                <i class="fas fa-tag"></i>
                                 <span>Quản lý khuyến mãi</span>
                             </a>
                             <ul class="sub">
                                 <li>
                                     <a href="{{ URL::to('/admin/discount/add') }}"
-                                        class="{{ $route->uri == 'admin/color/add' ? 'active' : '' }}">
+                                        class="{{ $route->uri == 'admin/discount/add' ? 'active' : '' }}">
                                         <i class="fa fa-plus"></i> Thêm khuyến mãi
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ URL::to('/admin/discount/list') }}"
-                                        class="{{ $route->uri == 'admin/color/list' ? 'active' : '' }}">
+                                        class="{{ $route->uri == 'admin/discount/list' ? 'active' : '' }}">
                                         <i class="fas fa-list-ol"></i> Quản lý khuyến mãi
                                     </a>
                                 </li>
@@ -442,27 +463,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sub-menu">
-                            <a href="javascript:;"
-                                class="{{ $route->uri == 'admin/order/add' || $route->uri == 'admin/order/list' ? 'active' : '' }}">
-                                <i class="fa fa-users"></i>
-                                <span>Danh sách đơn hàng</span>
-                            </a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{ URL::to('/admin/order/add') }}"
-                                        class="{{ $route->uri == 'admin/order/add' ? 'active' : '' }}">
-                                        <i class="fas fa-user-plus"></i> Thêm đơn hàng
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ URL::to('/admin/order/list') }}"
-                                        class="{{ $route->uri == 'admin/order/list' ? 'active' : '' }}">
-                                        <i class="fas fa-list-ol"></i> Quản lý đơn hàng
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        
                         <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/category-post/add' || $route->uri == 'admin/category-post/list' ? 'active' : '' }}">
@@ -529,7 +530,7 @@
                         <li class="sub-menu">
                             <a href="{{ URL::to('/admin/contact/edit/1') }}"
                                 class="{{ $route->uri == 'admin/contact/edit/1' ? 'active' : '' }}">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-phone"></i>
                                 <span>Liên hệ</span>
                             </a>
                         </li>
@@ -722,9 +723,7 @@
                 } else if (files.size > 2000000) {
                     error += '<p>File ảnh không được lớn hơn 2MB</p>';
                 }
-
                 if (error == '') {
-
                 } else {
                     $('#file').val('');
                     $('#error_gallery').html('<span class="text-danger">' + error + '</span>');
@@ -906,8 +905,7 @@
                 }
             });
         };
-
-
+        
         $('.add-import-order-detail-btn').on('click', function() {
             $('.popup-model-review').fadeIn(300);
         });
@@ -1004,6 +1002,7 @@
         });
 
         //Order Detail
+        load_order_detail();
         function load_order_detail() {
             var order_id = $('input[name="order_id"]').val();
             var _token = $('input[name="_token"]').val();
@@ -1021,6 +1020,22 @@
                 }
             });
         }
+        function deleteOrderDetail(e) {
+            var order_detail_id = e;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('delete-order-detail') }}",
+                method: "POST",
+                data: {
+                    order_detail_id: order_detail_id,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_order_detail();
+                }
+            });
+        };
         $('.save-order-detail').click(function() {
             var _token = $('input[name="_token"]').val();
             var order_id = $('input[name="order_id"]').val();
@@ -1047,6 +1062,7 @@
         //End Order Detail
 
         //Import Order Detail
+        load_import_order_detail()
         function load_import_order_detail() {
             var import_order_id = $('input[name="import_order_id"]').val();
             var _token = $('input[name="_token"]').val();
@@ -1059,15 +1075,55 @@
                 },
                 success: function(data) {
                     $('.list-order-detail').html(data.html);
+                    $('.import_order_total').val(data.import_order);
+                    $('.import_order_total_edit').val(data.import_order);
                 }
             });
         }
+        function deleteImportOrderDetail(event) {
+            var import_order_detail = event;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('delete-import-order-detail') }}",
+                method: "POST",
+                data: {
+                    import_order_detail: import_order_detail,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_import_order_detail();
+                }
+            });
+        };
+        function updateImportOrderDetail(event) {
+            var import_order_detail = event;
+            var import_order_detail_quantity=$('.import_order_detail_quantity_'+event).val();
+            var import_order_detail_price=$('.import_order_detail_price_'+event).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('update-import-order-detail') }}",
+                method: "POST",
+                data: {
+                    import_order_detail: import_order_detail,
+                    import_order_detail_quantity: import_order_detail_quantity,
+                    import_order_detail_price: import_order_detail_price,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_import_order_detail();
+                }
+            });
+        };
         $('.send-import-order-detail').click(function() {
             var _token = $('input[name="_token"]').val();
             var import_order_id = $('input[name="import_order_id"]').val();
             var ware_house_id = $('.ware_house_id option:selected').val();
-            var import_order_detail_quantity = $('input[name="import_order_detail_quantity"]').val();
-            var import_order_detail_price = $('input[name="import_order_detail_price"]').val();
+            var import_order_detail_quantity = $('.import_order_detail_quantity').val();
+            var import_order_detail_price = $('.import_order_detail_price').val();
+
+            console.log(import_order_detail_price);
             $.ajax({
                 url: "{{ route('save-import-order-detail') }}",
                 method: 'POST',
@@ -1081,7 +1137,8 @@
                 success: function(data) {
                     if (data.success) {
                         load_import_order_detail();
-
+                        $('.popup-model-review').fadeOut(300);
+                        successMsg('Thêm chi tiết đơn nhập thành công');
                     }
                 }
             });
@@ -1128,7 +1185,13 @@
                         _token:_token
                     },
                     success:function(data){
-                        chart.setData(data);
+                        if(data.success==true){
+                            chart.setData(data.data);
+                        }
+                        else{
+                            $('#chart').html('<br><h1>Không có dữ liệu</h1>')
+                            errorMsg('Không có dữ liệu');
+                        }
                     }   
                 });
             });

@@ -12,20 +12,31 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{ route('save-import-order-id') }}" method="post">
+                        <form role="form" action="{{ route('save-import-order') }}" method="post">
                             @csrf
+                            <input type="hidden" name="status" value="1">
                             <input type="hidden" name="import_order_id" value="{{ $import_order->import_order_id }}">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Nhân viên nhập hàng</label>
-                                <input type="text" class="form-control"
-                                    value="{{ $import_order->user->profile->profile_firstname }} {{ $import_order->user->profile->profile_lastname }}">
+                                <input type="text" name="user_id" class="form-control"
+                                    value="{{ Auth::user()->profile->profile_firstname }} {{ Auth::user()->profile->profile_lastname }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tổng tiền đơn hàng</label>
-                                <input type="text" value="" name="import_order_total" class="form-control">
+                                <input type="text" readonly value="{{$import_order->import_order_total}}" name="import_order_total" class="form-control import_order_total">
                             </div>
-                            <button type="submit" name="add_product" class="btn btn-info ">Lưu chi
-                                tiết đơn nhập</button>
+                            {{-- <div class="form-group">
+                                <label for="exampleInputPassword1">Tìm kiếm sản phẩm</label>
+                                
+                            </div>
+                            <div class="searchInput active">
+                                <input type="text" id="keywords" name="keywords_submit" placeholder="Saisir une adresse..">
+                                <div class="resultBox">
+                                </div>
+                                <div class="icon"><i class="fas fa-search"></i></div>
+                            </div> --}}
+
+                            <button type="submit" name="update_import_order" class="btn btn-info ">Lưu chi tiết đơn nhập</button>
                         </form>
                     </div>
                 </div>
@@ -48,7 +59,7 @@
                 <div class="overlay-model-review"></div>
                 <div class="model-review-content">
                     <div class="model-review-close">
-                        <p class="model-review-tile">Đánh giá sản phẩm</p>
+                        <p class="model-review-tile">Sản phẩm trong kho</p>
                         <p class="close-model"><i class="fas fa-times"></i></p>
                     </div>
                     <div class="panel-body">
@@ -85,11 +96,11 @@
                             <div class="form-group">
                                 <label>Số lượng</label>
                                 <input type="number" value="1" min="1"
-                                    name="import_order_detail_quantity" class="form-control">
+                                    name="import_order_detail_quantity" class="form-control import_order_detail_quantity">
                             </div>
                             <div class="form-group">
                                 <label>Đơn giá</label>
-                                <input type="text" name="import_order_detail_price" class="form-control">
+                                <input type="text" name="import_order_detail_price" class="form-control import_order_detail_price">
                             </div>
                             <button type="button" name="send-rating"
                                 class="btn btn-info send-import-order-detail">

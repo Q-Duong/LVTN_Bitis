@@ -118,7 +118,7 @@
                                     <input type="hidden" name="ware_house_id" value="{{$ord -> ware_house_id}}">
                                     <input type="hidden" name="order_id" value="{{$order -> order_id}}">
                                     {{-- <input type="hidden" name="order_detail_id" value="{{$ord -> order_detail_id}}"> --}}
-                                    <select name="order_detail_quantity" class="form-control order_quantity" onchange="orderDetailQuantityFunction({{$ord -> order_detail_id}})" {{ $order -> order_status != 0 && $order -> order_status != 1 ? 'disabled' : '' }}>
+                                    <select name="order_detail_quantity" class="form-control order_quantity" onchange="orderDetailQuantityFunction({{$ord ->order_detail_id}})" {{ $order ->order_status != 0 && $order ->order_status != 1 ? 'disabled' : '' }}>
                                         @for ($i = 1; $i <= 10; $i++)
                                             <option {{ $ord -> order_detail_quantity == $i ? 'selected' : '' }} value="{{ $i }}">
                                                 {{ $i }}
