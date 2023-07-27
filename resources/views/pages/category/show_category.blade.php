@@ -168,18 +168,6 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="shop__product__option">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__left">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <div class="shop__product__option__right">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row product">
                         @foreach ($getAllListProductCategory as $key => $product)
                             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">

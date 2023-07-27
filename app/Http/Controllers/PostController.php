@@ -73,15 +73,6 @@ class PostController extends Controller
 
     //Customer Frontend
 
-    // public function show_category_details($category_slug){
-    //     $getAllListCategory=Category::orderBy('category_id','ASC')->get();
-    //     $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-    //     $category = Category::where('category_slug',$category_slug)->first();
-    //     $getAllListProductCategory = Product::where('category_id',$category->category_id)->orderBy('product_id','ASC')->get();
-
-    //     return view('pages.category.show_category')->with(compact('getAllListCategory','getAllListCategoryType','getAllListProductCategory','category'));
-    // }
-
     public function show_post($post_slug){
         $post=Post::where('post_slug',$post_slug)->first();
         return view('pages.blog.blog_details')->with(compact('post'));

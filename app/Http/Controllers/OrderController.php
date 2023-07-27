@@ -55,6 +55,13 @@ class OrderController extends Controller
         $order_detail -> save();
         return response()->json(array('success' => true,'message' => 'Thêm chi tiết đơn hàng thành công'));
     }
+    function delete_order_detail(Request $request)
+    {
+        $data = $request->all();
+        $order_detail = OrderDetail::find($data['order_detail_id']);
+        $order_detail->delete();
+        return response()->json(array('success' => true, 'message' => 'Xóa chi tiết đơn hàng thành công'));
+    }
     function load_order_detail(Request $request){
         $data = $request->all();
         $order_total = 0;

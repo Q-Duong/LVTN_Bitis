@@ -145,7 +145,6 @@ class CheckoutController extends Controller
             return response()->json(array('errors' => true, 'validator' => $validator->errors()));
         }
         $data = $request->all();
-        // dd($data);
         $order = Order::find($data['order_id']);
         $receiver = Receiver::find($order->receiver_id);
         $receiver->receiver_first_name = $data['receiver_first_name'];

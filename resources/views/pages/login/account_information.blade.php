@@ -106,11 +106,6 @@
             </div>
             <div class="col-lg-8 col-md-6">
                 <h6 class="checkout__title">Thông tin tài khoản</h6>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {!! session('success') !!}
-                    </div>
-                @endif
                 <div class="checkout__input_avata">
                     <p>Ảnh đại diện<span>*</span></p>
                     <div class="avata">

@@ -58,13 +58,13 @@ class DiscountController extends Controller
         return Redirect()->back()->with('success','Xóa khuyến mãi thành công');
     }
     public function show_category_discount(){
-        $getAllProduct = Product::where('discount_id','<>',0)->orderBy('product_id','ASC')->get();
+        $getAllProduct = Product::where('discount_id','<>',1)->orderBy('product_id','ASC')->get();
         $getAllDiscount = Discount::orderBy('discount_id','ASC')->get();
         return view('pages.discount.show_discount')->with(compact('getAllProduct','getAllDiscount'));
     }
     public function show_discount_details($discount_slug)
     {
-        $getAllDiscount = Discount::orderBy('discount_id','ASC')->get();
+        $getAllDiscount = Discount::where('discount_id','<>',1)->orderBy('discount_id','ASC')->get();
         $discount = Discount::where('discount_slug', $discount_slug)->first();
         $getAllListProductDiscount = Product::where('discount_id', $discount->discount_id)->orderBy('product_id', 'ASC')->get();
 

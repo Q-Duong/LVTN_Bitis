@@ -18,7 +18,6 @@ class DashBoardController extends Controller
         $post_count = Post::get()->count();
         $order_count = Order::get()->count();
         $app_customer = User::where('role', 2)->get()->count();
-        // dd($product_count);
         return view('admin.dashboard')->with(compact('product_count', 'post_count', 'order_count', 'app_customer'));
     }
     function get_statistics_in_month()
@@ -43,7 +42,6 @@ class DashBoardController extends Controller
         $from_date = $data['from_date'];
         $to_date = $data['to_date'];
         $getStatistics = Statistics::whereBetween('order_date', [$from_date, $to_date])->orderBy('order_date', 'ASC')->get();
-        
         if (count($getStatistics) > 0) {
             foreach ($getStatistics as $key => $val) {
                 $chart_data[] = array(
@@ -54,9 +52,9 @@ class DashBoardController extends Controller
                 );
             }
             $data = $chart_data;
-            return response()->json(array(['success'=>true,'data'=>$data]));
+            return response()->json(array('success'=>true,'data'=>$data));
         } else {
-            return response()->json(array(['success'=>false]));
+            return response()->json(array('success'=>false));
         }
     }
 }

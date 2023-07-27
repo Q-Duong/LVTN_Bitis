@@ -22,7 +22,6 @@ class BannerController extends Controller
     function save_banner(Request $request){
         $this->checkBannerAdmin($request);
         $data=$request->all();
-        //dd($data);
         $banner=new Banner();
         $banner->banner_name=$data['banner_name'];
         $get_image = request('banner_image');
@@ -42,7 +41,6 @@ class BannerController extends Controller
     function update_banner(Request $request,$banner_id){
         $this->checkBannerUpdateAdmin($request);
         $data=$request->all();
-        // dd($data);
         $banner=Banner::find($banner_id);
         $banner->banner_name=$data['banner_name'];
         $get_image=request('banner_image');

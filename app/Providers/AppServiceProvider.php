@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
             
             $getAllListCategory=Category::orderBy('category_id','ASC')->get();
             $getAllListCategoryType=CategoryType::orderBy('category_type_id','ASC')->get();
-            $getAllListDiscount=Discount::orderBy('discount_id','ASC')->get();
+            $getAllListDiscount=Discount::where('discount_id','<>',1)->orderBy('discount_id','ASC')->get();
             $getAllListCategoryPost=CategoryPost::orderBy('category_post_id','ASC')->get();
            
             $view->with(compact('getAllListCategory','getAllListCategoryType','getAllListDiscount','getAllListCategoryPost'));

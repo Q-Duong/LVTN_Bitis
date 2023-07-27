@@ -40,13 +40,9 @@ class HomeController extends Controller
     }
     public function search_autocomplete(Request $request)
     {
-
         $data = $request->all();
-
-        if ($data['query']) {
-
+        if (!empty($data['query'])) {
             $product = Product::where('product_name', 'LIKE', '%' . $data['query'] . '%')->inRandomOrder('product_id')->limit(10)->get();
-
             $output = '
         <ul  class="dropdown-menu">
             <li class="li_search_ajax">Gợi ý tìm kiếm</li>'
