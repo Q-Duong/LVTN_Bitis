@@ -117,7 +117,6 @@
                                 <div class="col-md-6">
                                     <p class="delivery-name">Tên khách hàng: {{Auth::user()->delivery->delivery_last_name}}</p>
                                     <p class="delivery-address">Địa chỉ: {{Auth::user()->delivery->delivery_address}}.{{Auth::user()->delivery->ward->ward_name}}.{{Auth::user()->delivery->district->district_name}}.{{Auth::user()->delivery->city->city_name}}</p>
-                                    <p><a href="'+url+'">Xem sản phẩm</a></p>
                                 </div>
                             </div>
                         </section>

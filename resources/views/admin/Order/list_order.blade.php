@@ -13,6 +13,7 @@
                             <th>Thứ tự</th>
                             <th>Order Code</th>
                             <th>Ngày đặt hàng</th>
+                            <th>Ngày cập nhật</th>
                             <th>Trạng thái</th>
                             <th>Xem đơn hàng</th>
                         </tr>
@@ -23,6 +24,7 @@
                                 <td>{{ $ord->order_id }}</td>
                                 <td>{{ $ord->order_code }}</td>
                                 <td>{{ $ord->created_at }}</td>
+                                <td>{{ $ord->updated_at}}</td>
                                 <td>
                                     @if ($ord->order_status == 0)
                                         <span style="color: #c500e3;">Chưa hoàn thành đơn hàng</span>

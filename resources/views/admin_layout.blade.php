@@ -166,7 +166,7 @@
                             </a>
                             <ul class="dropdown-menu extended logout">
                                 <li>
-                                    
+
                                     <a href="{{ URL::to('/admin/profile') }}" class="member-profile">
                                         <i class="fas fa-address-card"></i> Thông tin tài khoản
                                     </a>
@@ -463,7 +463,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="sub-menu">
                             <a href="javascript:;"
                                 class="{{ $route->uri == 'admin/category-post/add' || $route->uri == 'admin/category-post/list' ? 'active' : '' }}">
@@ -644,6 +644,7 @@
                 $('.notifications-popup-success').removeClass('active');
             });
         }
+
         function errorMsg(msg) {
             $(".notifications-popup-error").addClass('active');
             $('.notifications-icon').html('<i class="fas fa-times notifications-error"></i>')
@@ -723,8 +724,7 @@
                 } else if (files.size > 2000000) {
                     error += '<p>File ảnh không được lớn hơn 2MB</p>';
                 }
-                if (error == '') {
-                } else {
+                if (error == '') {} else {
                     $('#file').val('');
                     $('#error_gallery').html('<span class="text-danger">' + error + '</span>');
                     return false;
@@ -851,9 +851,9 @@
         }
 
         function myFunction(e) {
-            var checkBox = document.getElementById("size"+e);
-            var block = document.getElementById("block"+e);
-            var input = document.getElementById("quantity"+e);
+            var checkBox = document.getElementById("size" + e);
+            var block = document.getElementById("block" + e);
+            var input = document.getElementById("quantity" + e);
 
             if (checkBox.checked == true) {
                 block.style.display = "block";
@@ -864,7 +864,7 @@
             }
         }
 
-        
+
         $(document).on('keyup change', '.order_detail_quantity', function() {
             var order_detail_quantity = $(this).val();
             var product_price = $('.product_price').val();
@@ -905,6 +905,7 @@
                 }
             });
         };
+        //ImportOrderDetail
         function deleteImportOrderDetail(event) {
             var import_order_detail = event;
             var _token = $('input[name="_token"]').val();
@@ -924,8 +925,8 @@
 
         function updateImportOrderDetail(event) {
             var import_order_detail = event;
-            var import_order_detail_quantity=$('.import_order_detail_quantity_'+event).val();
-            var import_order_detail_price=$('.import_order_detail_price_'+event).val();
+            var import_order_detail_quantity = $('.import_order_detail_quantity_' + event).val();
+            var import_order_detail_price = $('.import_order_detail_price_' + event).val();
             var _token = $('input[name="_token"]').val();
             $.ajax({
                 url: "{{ route('update-import-order-detail') }}",
@@ -939,6 +940,23 @@
                 success: function(data) {
                     successMsg(data.message);
                     load_import_order_detail();
+                }
+            });
+        };
+        //OrderDetail
+        function deleteOrderDetail(event) {
+            var order_detail = event;
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('delete-order-detail') }}",
+                method: "POST",
+                data: {
+                    order_detail: order_detail,
+                    _token: _token
+                },
+                success: function(data) {
+                    successMsg(data.message);
+                    load_order_detail();
                 }
             });
         };
@@ -985,8 +1003,10 @@
                     $('.choose_product_type').html(data.getAllListProductType);
                     $('.choose_product').html(data.getAllListProduct);
                     $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) + "₫");
-                    $('.sub_total').val(new Intl.NumberFormat('vi-VN').format(data.product_price) + "₫");
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                        "₫");
+                    $('.sub_total').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                    "₫");
                     // total = order_detail_quantity * data.product_price;
                     // $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
                     // $('.total-format').val(total);
@@ -1008,8 +1028,10 @@
                 success: function(data) {
                     $('.choose_product').html(data.getAllListProduct);
                     $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) + "₫");
-                    $('.sub_total').val(new Intl.NumberFormat('vi-VN').format(data.product_price) + "₫");
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                        "₫");
+                    $('.sub_total').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                    "₫");
                     // total = order_detail_quantity * data.product_price;
                     // $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
                     // $('.total-format').val(total);
@@ -1028,8 +1050,10 @@
                 },
                 success: function(data) {
                     $('.choose_ware_house').html(data.getAllListWareHouse);
-                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) + "₫");
-                    $('.sub_total').val(new Intl.NumberFormat('vi-VN').format(data.product_price) + "₫");
+                    $('.product_price').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                        "₫");
+                    $('.sub_total').val(new Intl.NumberFormat('vi-VN').format(data.product_price) +
+                    "₫");
                     // total = order_detail_quantity * data.product_price;
                     // $('.total').val(new Intl.NumberFormat('vi-VN').format(total) + "₫");
                     // $('.total-format').val(total);
@@ -1039,6 +1063,7 @@
 
         //Order Detail
         load_order_detail()
+
         function load_order_detail() {
             var order_id = $('input[name="order_id"]').val();
             var _token = $('input[name="_token"]').val();
@@ -1083,6 +1108,7 @@
 
         //Import Order Detail
         load_import_order_detail()
+
         function load_import_order_detail() {
             var import_order_id = $('input[name="import_order_id"]').val();
             var _token = $('input[name="_token"]').val();
@@ -1128,7 +1154,7 @@
         });
         //End Import Order Detail
 
-        $(document).ready(function(){
+        $(document).ready(function() {
             chartInMonth();
             var chart = new Morris.Bar({
                 element: 'chart',
@@ -1139,43 +1165,45 @@
                 axes: true,
                 grid: true,
                 xkey: 'period',
-                ykeys: ['price','sales','quantity'],
-                labels: ['Doanh số','Số đơn','Số lượng hàng'],
+                ykeys: ['price', 'sales', 'quantity'],
+                labels: ['Doanh số', 'Số đơn', 'Số lượng hàng'],
                 resize: true
             });
-            function chartInMonth(){
+
+            function chartInMonth() {
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
-                    url:"{{route('get-statistics-in-month')}}",
-                    method:"POST",
-                    data:{_token:_token},
-                    success:function(data){
+                    url: "{{ route('get-statistics-in-month') }}",
+                    method: "POST",
+                    data: {
+                        _token: _token
+                    },
+                    success: function(data) {
                         chart.setData(data);
-                    }   
+                    }
                 });
             }
 
-            $('.filter').click(function(){
+            $('.filter').click(function() {
                 var _token = $('input[name="_token"]').val();
                 var from_date = $('input[name="from_date"]').val();
                 var to_date = $('input[name="to_date"]').val();
                 $.ajax({
-                    url:"{{route('get-statistics-by-date')}}",
-                    method:"POST",
-                    data:{
-                        from_date:from_date,
-                        to_date:to_date,
-                        _token:_token
+                    url: "{{ route('get-statistics-by-date') }}",
+                    method: "POST",
+                    data: {
+                        from_date: from_date,
+                        to_date: to_date,
+                        _token: _token
                     },
-                    success:function(data){
-                        if(data.success==true){
+                    success: function(data) {
+                        if (data.success == true) {
                             chart.setData(data.data);
-                        }
-                        else{
+                        } else {
                             $('#chart').html('<br><h1>Không có dữ liệu</h1>')
                             errorMsg('Không có dữ liệu');
                         }
-                    }   
+                    }
                 });
             });
         });

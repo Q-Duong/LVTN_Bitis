@@ -36,12 +36,16 @@
             <div class="section-price">
                 <strong>Giá tiền:</strong><input type="text" name="import_order_detail_price"
                     class="form-control"
-                    value="{{ number_format($order_detail -> wareHouse -> product -> product_price, 0, ',', '.') }}">
+                    value="{{ number_format($order_detail ->wareHouse ->product ->product_price, 0, ',', '.') }}">
             </div>
             <div class="section-sub-total">
                 <strong>Tạm tính:</strong><input type="text" name="sub_total_import_order_detail"
                     class="form-control"
-                    value="{{ number_format($order_detail -> order_detail_quantity * $order_detail -> wareHouse -> product -> product_price, 0, ',', '.') }}">
+                    value="{{ number_format($order_detail ->order_detail_quantity * $order_detail ->wareHouse ->product ->product_price, 0, ',', '.') }}">
+            </div>
+            <div class="section-delete">
+                <button type="button" onclick="deleteOrderDetail({{ $order_detail->order_detail_id }})"
+                    class="btn btn-info ">X</button>
             </div>
         </div>
     </div>

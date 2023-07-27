@@ -19,7 +19,8 @@ class OrderController extends Controller
         return view('admin.Order.add_order');
     }
     function save_order(Request $request)
-    {
+    {   
+        $this->checkReceiverAdmin($request);
         $data = $request->all();
         $receiver = new Receiver();
         $receiver->receiver_first_name = $data['receiver_first_name'];
@@ -208,5 +209,35 @@ class OrderController extends Controller
         $receiver->delete();
         return redirect()->back()->with('success','Xóa thành công');
     }
+    function delete_order_detail(Request $request){
+        $data=$request->all();
+        $order_detail=OrderDetail::find($data['order_detail']);
+        $order_detail->delete();
+        return response()->json(array('message'=>'Xóa chi tiết đơn hàng thành công'));  
+    }
     //Validate
+
+    public function checkReceiverAdmin(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'receiver_first_name' => 'required|string',
+                'receiver_last_name' => 'required|string',
+                'receiver_phone' => 'required|numeric|digits_between:10,10',
+                'receiver_email' => 'required|email',
+            ],
+            [
+                'receiver_first_name.required' => 'Không được để trống trường này',
+                'receiver_last_name.required' => 'Không được để trống trường này',
+                'receiver_phone.required' => 'Không được để trống trường này',
+                'receiver_email.required' => 'Không được để trống trường này',
+                'receiver_first_name.string' => 'Vui lòng nhập chữ',
+                'receiver_last_name.string' => 'Vui lòng nhập chữ',
+                'receiver_phone.numeric' => 'Vui lòng nhập số',
+                'receiver_phone.digits_between' => 'Vui lòng kiểm tra lại thông tin',
+                'receiver_email.email' => 'Vui lòng kiểm tra lại thông tin',
+            ]
+        );
+    }
 }
