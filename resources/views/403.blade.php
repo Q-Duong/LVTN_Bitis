@@ -1,12 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Bạn không đủ quyền để truy cập</h2>
-</body>
-</html>
+@extends('layout')
+@section('content')
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="category_product_title">
+                        <p><i class="fas fa-phone-laptop"></i> Sản phẩm mới</p>
+                            
+                    </div>
+                    <div class="test">
+                            <div class="test1">
+                                <p class="text">a</p>
+                            </div>
+                            <div class="test1">
+                                <p>a</p>
+                            </div>
+                            <div class="test1">
+                                <p>a</p>
+                            </div>
+                            <div class="test1">
+                                <p>a</p>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+@endsection

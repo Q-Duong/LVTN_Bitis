@@ -186,12 +186,13 @@
                                         </ul>
                                     </li>
                                 @endforeach
-                                <li class="nav-item"><a href="{{ asset(URL::to('/collections/discount')) }}">Khuyến mãi</a>
+                                <li class="nav-item"><a href="{{ asset(URL::to('/collections/discount')) }}">Khuyến
+                                        mãi</a>
                                     <ul class="dropdown">
                                         @foreach ($getAllListDiscount as $key => $discount)
                                             <li>
                                                 <a
-                                                    href="{{ asset(URL::to('/collections/discount/' . $discount -> discount_slug)) }}">
+                                                    href="{{ asset(URL::to('/collections/discount/' . $discount->discount_slug)) }}">
                                                     {{ $discount->discount_name }}
                                                 </a>
                                             </li>
@@ -479,30 +480,23 @@
 
         $('#keywords').keyup(function() {
             var query = $(this).val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ url('/search-autocomplete') }}",
+                method: "POST",
+                data: {
+                    query: query,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('#search_ajax').fadeIn();
+                    $('#search_ajax').html(data.html);
 
-            if (query != '') {
-                var _token = $('input[name="_token"]').val();
-
-                $.ajax({
-                    url: "{{ url('/search-autocomplete') }}",
-                    method: "POST",
-                    data: {
-                        query: query,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('#search_ajax').fadeIn();
-                        $('#search_ajax').html(data.html);
-                        
-                    }
-                });
-
-            } else {
-                $('#search_ajax').fadeOut();
-            }
+                }
+            });
         });
 
-        $(document).on('click','.li_search_ajax', function() {
+        $(document).on('click', '.li_search_ajax', function() {
             $('#keywords').val($(this).text());
             $('#search_ajax').fadeOut();
         });
@@ -687,15 +681,14 @@
             var matches = Items.find(item => item.id === cart_ware_house_id);
             if (matches) {
                 matches.quantity = matches.quantity + 1;
-                alert('Đã thêm vào giỏ hàng.');
+                successMsg('Đã thêm vào giỏ hàng');
             } else {
                 Items.push(newItem);
-                alert('Đã thêm vào giỏ hàng.');
+                successMsg('Đã thêm vào giỏ hàng');
             }
             localStorage.setItem('cart', JSON.stringify(Items));
             $('#cart').html('');
             view_cart();
-            // location.replace('http://127.0.0.1:8000/cart')
         }
 
         function remove_cart_item(position) {
@@ -985,12 +978,12 @@
         });
 
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var itemsMainDiv = ('.category-product');
             var itemsDiv = ('.category-product-inner');
             var itemWidth = "";
 
-            $('.leftLst, .rightLst').click(function () {
+            $('.leftLst, .rightLst').click(function() {
                 var condition = $(this).hasClass("leftLst");
                 if (condition)
                     click(0, this);
@@ -999,7 +992,7 @@
             });
 
             ResCarouselSize();
-            $(window).resize(function () {
+            $(window).resize(function() {
                 ResCarouselSize();
             });
 
@@ -1013,36 +1006,38 @@
                 var itemsSplit = '';
                 var sampwidth = $(itemsMainDiv).width();
                 var bodyWidth = $('body').width();
-                $(itemsDiv).each(function () {
+                $(itemsDiv).each(function() {
                     id = id + 1;
                     var itemNumbers = $(this).find(itemClass).length;
                     btnParentSb = $(this).parent().attr(dataItems);
                     itemsSplit = btnParentSb.split(',');
                     $(this).parent().attr("id", "category-product" + id);
-                    
+
                     if (bodyWidth >= 1200) {
                         incno = itemsSplit[3];
                         itemWidth = sampwidth / incno;
-                    }
-                    else if (bodyWidth >= 992) {
+                    } else if (bodyWidth >= 992) {
                         incno = itemsSplit[2];
                         itemWidth = sampwidth / incno;
-                    }else if (bodyWidth >= 768) {
+                    } else if (bodyWidth >= 768) {
                         incno = itemsSplit[2];
                         itemWidth = sampwidth / incno;
-                    }else {
+                    } else {
                         incno = itemsSplit[1];
                         itemWidth = sampwidth / incno;
                     }
-                    
-                    $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
-                    $(this).find(itemClass).each(function () {
+
+                    $(this).css({
+                        'transform': 'translateX(0px)',
+                        'width': itemWidth * itemNumbers
+                    });
+                    $(this).find(itemClass).each(function() {
                         $(this).outerWidth(itemWidth);
                     });
-                    if(itemNumbers > 6){
+                    if (itemNumbers > 6) {
                         $(".leftLst").addClass("hidden");
                         $(".rightLst").removeClass("hidden");
-                    }else{
+                    } else {
                         $(".leftLst").addClass("hidden");
                         $(".rightLst").addClass("hidden");
                     }
@@ -1066,8 +1061,7 @@
                         translateXval = 0;
                         $(el + ' ' + leftBtn).addClass("hidden");
                     }
-                }
-                else if (e == 1) {
+                } else if (e == 1) {
                     var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
                     translateXval = parseInt(xds) + parseInt(itemWidth * s);
                     $(el + ' ' + leftBtn).removeClass("hidden");

@@ -74,11 +74,6 @@ class CategoryController extends Controller
             ->where('category.category_id', '=', $category->category_id)
             ->orderBy('ware_house.product_id', 'ASC')
             ->get();
-        // foreach($getAllListProductCategory as $key => $product){
-        //     $attribute[]=WareHouse::where('product_id',$product->product_id)->get();
-        // }
-        // $attribute=WareHouse::where('product_id',$product->product_id)->get();
-        //dd($attribute);
         return view('pages.category.show_category')->with(compact('getAllListProductCategory', 'category', 'getAllSize', 'getAllColor', 'attribute'));
     }
     public function checkCategory(Request $request)
