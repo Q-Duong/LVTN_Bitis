@@ -131,7 +131,7 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="6">
+                            <td colspan="2">
                                 <strong>Tổng tiền:</strong> <span class="order_total"> {{ number_format($order -> order_total, 0, ',', '.') }}₫</span>
                             </td>
                         </tr>
@@ -186,13 +186,15 @@
                                     </select>
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="9">
-                                    <button type="submit" name="update_order" class="btn btn-info">
-                                        Cập nhật đơn hàng
-                                    </button>
-                                </td>
-                            </tr>
+                            @if ($order ->order_status != 3 && $order ->order_status != 4)
+                                <tr>
+                                    <td colspan="9">
+                                        <button type="submit" name="update_order" class="btn btn-info">
+                                            Cập nhật đơn hàng
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endif
                         </form>
                 </table>
             </div>

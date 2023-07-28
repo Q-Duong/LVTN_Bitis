@@ -211,7 +211,7 @@ class OrderController extends Controller
     }
     function delete_order_detail(Request $request){
         $data=$request->all();
-        $order_detail=OrderDetail::find($data['order_detail']);
+        $order_detail=OrderDetail::find($data['order_detail_id']);
         $order_detail->delete();
         return response()->json(array('message'=>'Xóa chi tiết đơn hàng thành công'));  
     }

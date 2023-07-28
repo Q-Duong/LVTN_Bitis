@@ -80,7 +80,7 @@ class ProductController extends Controller
         }
         if ($select_warehouse->count() > 0) {
             foreach ($select_warehouse as $key => $warehouse) {
-                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Size:' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Color:' . $warehouse->size->size_attribute . '</option>';
+                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Color: ' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Size: ' . $warehouse->size->size_attribute . '</option>';
             }
         } else {
             $getAllListWareHouse .= '<option value="">--Chọn Kho Hàng--</option>';
@@ -105,7 +105,7 @@ class ProductController extends Controller
         $select_warehouse = WareHouse::where('product_id', $select_product[0]->product_id)->orderBy('ware_house_id', 'asc')->get();
         if ($select_warehouse->count() > 0) {
             foreach ($select_warehouse as $key => $warehouse) {
-                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Size:&nbsp;' . $warehouse->size->size_attribute . '&nbsp; - &nbsp;' . 'Color:&nbsp;' . $warehouse->color->color_name . '</option>';
+                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Color: ' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Size: ' . $warehouse->size->size_attribute . '</option>';
             }
         } else {
             $getAllListWareHouse .= '<option value="">--Chọn Kho Hàng--</option>';
@@ -120,7 +120,7 @@ class ProductController extends Controller
         $select_warehouse = WareHouse::where('product_id', $data['product_id'])->orderBy('ware_house_id', 'asc')->get();
         if ($select_warehouse->count() > 0) {
             foreach ($select_warehouse as $key => $warehouse) {
-                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . $warehouse->color->color_name . '-' . $warehouse->size->size_attribute . '</option>';
+                $getAllListWareHouse .= '<option value="' . $warehouse->ware_house_id . '">' . 'Color: ' . $warehouse->color->color_name . '&nbsp; - &nbsp;' . 'Size: ' . $warehouse->size->size_attribute . '</option>';
             }
         } else {
             $getAllListWareHouse .= '<option value="">--Chọn Kho Hàng--</option>';

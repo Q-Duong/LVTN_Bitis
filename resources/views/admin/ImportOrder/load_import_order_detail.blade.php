@@ -46,7 +46,7 @@
             </div> &nbsp;
             <div class="section-delete">
                 <button type="button" onclick="deleteImportOrderDetail({{ $import_order_detail->import_order_detail_id }})"
-                    class="btn btn-info ">X</button>
+                    class="btn btn-danger ">X</button>
             </div>
             <div class="section-update">
                 <button type="button" onclick="updateImportOrderDetail({{ $import_order_detail->import_order_detail_id }})"

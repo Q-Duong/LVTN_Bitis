@@ -45,10 +45,6 @@
             </div>
             <div class="section-delete">
                 <button type="button" onclick="deleteOrderDetail({{ $order_detail->order_detail_id }})"
-                    class="btn btn-info ">X</button>
-            </div>
-            <div class="section-delete">
-                <button type="button" onclick="deleteOrderDetail({{ $order_detail->order_detail_id }})"
                     class="btn btn-danger ">X</button>
             </div>
         </div>
