@@ -905,61 +905,7 @@
                 }
             });
         };
-        //ImportOrderDetail
-        function deleteImportOrderDetail(event) {
-            var import_order_detail = event;
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{ route('delete-import-order-detail') }}",
-                method: "POST",
-                data: {
-                    import_order_detail: import_order_detail,
-                    _token: _token
-                },
-                success: function(data) {
-                    successMsg(data.message);
-                    load_import_order_detail();
-                }
-            });
-        };
 
-        function updateImportOrderDetail(event) {
-            var import_order_detail = event;
-            var import_order_detail_quantity = $('.import_order_detail_quantity_' + event).val();
-            var import_order_detail_price = $('.import_order_detail_price_' + event).val();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{ route('update-import-order-detail') }}",
-                method: "POST",
-                data: {
-                    import_order_detail: import_order_detail,
-                    import_order_detail_quantity: import_order_detail_quantity,
-                    import_order_detail_price: import_order_detail_price,
-                    _token: _token
-                },
-                success: function(data) {
-                    successMsg(data.message);
-                    load_import_order_detail();
-                }
-            });
-        };
-        //OrderDetail
-        function deleteOrderDetail(event) {
-            var order_detail = event;
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{ route('delete-order-detail') }}",
-                method: "POST",
-                data: {
-                    order_detail: order_detail,
-                    _token: _token
-                },
-                success: function(data) {
-                    successMsg(data.message);
-                    load_order_detail();
-                }
-            });
-        };
         $('.add-import-order-detail-btn').on('click', function() {
             $('.popup-model-review').fadeIn(300);
         });

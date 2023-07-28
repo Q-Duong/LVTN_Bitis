@@ -219,7 +219,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/delete/order-detail', [OrderController::class, 'delete_order_detail'])->name('delete-order-detail');
         Route::post('/load-order-detail', [OrderController::class, 'load_order_detail'])->name('load-order-detail');
         Route::post('/save-order/{order_id}', [OrderController::class, 'save_order_admin'])->name('save-order-admin');
-        Route::post('/delete/order-detail', [OrderController::class, 'delete_order_detail'])->name('delete-order-detail');
         Route::get('/list', [OrderController::class, 'list_order'])->name('list-order');
         Route::get('/edit/{order_code}', [OrderController::class, 'edit_order']);
         Route::post('update/{order_code}', [OrderController::class, 'update_order']);
